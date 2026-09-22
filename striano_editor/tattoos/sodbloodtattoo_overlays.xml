@@ -1,0 +1,346 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PedDecorationCollection>
+  <bRequiredForSync value="true" />
+  <presets>
+    <!--Horror-Blood-PNG-Clipart-Background_M-->
+    <Item>
+      <uvPos x="0.431000" y="0.414000" />
+      <scale x="0.171000" y="0.171000" />
+      <rotation value="1.000000" />
+      <nameHash>Horror-Blood-PNG-Clipart-Background_M</nameHash>
+      <txdHash>Horror-Blood-PNG-Clipart-Background</txdHash>
+      <txtHash>Horror-Blood-PNG-Clipart-Background</txtHash>
+      <zone>ZONE_HEAD</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+    <!--Horror-Blood-PNG-Clipart-Background_1_M-->
+    <Item>
+      <uvPos x="0.355000" y="0.572000" />
+      <scale x="0.101000" y="0.101000" />
+      <rotation value="-12.000000" />
+      <nameHash>Horror-Blood-PNG-Clipart-Background_1_M</nameHash>
+      <txdHash>Horror-Blood-PNG-Clipart-Background_1</txdHash>
+      <txtHash>Horror-Blood-PNG-Clipart-Background_1</txtHash>
+      <zone>ZONE_HEAD</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+    <!--Horror-Blood-PNG-Clipart-Background_2_M-->
+    <Item>
+      <uvPos x="0.562000" y="0.556000" />
+      <scale x="0.101000" y="0.101000" />
+      <rotation value="8.000000" />
+      <nameHash>Horror-Blood-PNG-Clipart-Background_2_M</nameHash>
+      <txdHash>Horror-Blood-PNG-Clipart-Background_2</txdHash>
+      <txtHash>Horror-Blood-PNG-Clipart-Background_2</txtHash>
+      <zone>ZONE_HEAD</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+    <!--Horror-Blood-PNG-Clipart-Background_3_M-->
+    <Item>
+      <uvPos x="0.441000" y="0.356000" />
+      <scale x="0.158000" y="0.158000" />
+      <rotation value="0.000000" />
+      <nameHash>Horror-Blood-PNG-Clipart-Background_3_M</nameHash>
+      <txdHash>Horror-Blood-PNG-Clipart-Background_3</txdHash>
+      <txtHash>Horror-Blood-PNG-Clipart-Background_3</txtHash>
+      <zone>ZONE_HEAD</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+    <!--sangue1_M-->
+    <Item>
+      <uvPos x="0.504000" y="0.669000" />
+      <scale x="0.337000" y="0.337000" />
+      <rotation value="-3.000000" />
+      <nameHash>sangue1_M</nameHash>
+      <txdHash>sangue1</txdHash>
+      <txtHash>sangue1</txtHash>
+      <zone>ZONE_HEAD</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+    <!--sangue3_M-->
+    <Item>
+      <uvPos x="0.532000" y="0.568000" />
+      <scale x="0.348000" y="0.348000" />
+      <rotation value="-3.000000" />
+      <nameHash>sangue3_M</nameHash>
+      <txdHash>sangue3</txdHash>
+      <txtHash>sangue3</txtHash>
+      <zone>ZONE_HEAD</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+    <!--sangue4_5_M-->
+    <Item>
+      <uvPos x="0.176000" y="0.530000" />
+      <scale x="0.233000" y="0.233000" />
+      <rotation value="5.000000" />
+      <nameHash>sangue4_5_M</nameHash>
+      <txdHash>sangue4_5</txdHash>
+      <txtHash>sangue4_5</txtHash>
+      <zone>ZONE_HEAD</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+    <!--sangue4_6_M-->
+    <Item>
+      <uvPos x="0.394000" y="0.657000" />
+      <scale x="0.233000" y="0.233000" />
+      <rotation value="5.000000" />
+      <nameHash>sangue4_6_M</nameHash>
+      <txdHash>sangue4_6</txdHash>
+      <txtHash>sangue4_6</txtHash>
+      <zone>ZONE_HEAD</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+    <!--sangue4_7_M-->
+    <Item>
+      <uvPos x="0.420000" y="0.374000" />
+      <scale x="0.236000" y="0.236000" />
+      <rotation value="-5.000000" />
+      <nameHash>sangue4_7_M</nameHash>
+      <txdHash>sangue4_7</txdHash>
+      <txtHash>sangue4_7</txtHash>
+      <zone>ZONE_HEAD</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+    <!--sangue4_8_M-->
+    <Item>
+      <uvPos x="0.614000" y="0.628000" />
+      <scale x="0.236000" y="0.236000" />
+      <rotation value="-5.000000" />
+      <nameHash>sangue4_8_M</nameHash>
+      <txdHash>sangue4_8</txdHash>
+      <txtHash>sangue4_8</txtHash>
+      <zone>ZONE_HEAD</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+    <!--sangue4_9_M-->
+    <Item>
+      <uvPos x="0.482000" y="0.651000" />
+      <scale x="0.236000" y="0.236000" />
+      <rotation value="-5.000000" />
+      <nameHash>sangue4_9_M</nameHash>
+      <txdHash>sangue4_9</txdHash>
+      <txtHash>sangue4_9</txtHash>
+      <zone>ZONE_HEAD</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+    <!--sangue2_M-->
+    <Item>
+      <uvPos x="0.562000" y="0.550000" />
+      <scale x="0.154000" y="0.154000" />
+      <rotation value="5.000000" />
+      <nameHash>sangue2_M</nameHash>
+      <txdHash>sangue2</txdHash>
+      <txtHash>sangue2</txtHash>
+      <zone>ZONE_HEAD</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+    <!--sangue5_M-->
+    <Item>
+      <uvPos x="0.509000" y="0.514000" />
+      <scale x="0.154000" y="0.154000" />
+      <rotation value="247.000000" />
+      <nameHash>sangue5_M</nameHash>
+      <txdHash>sangue5</txdHash>
+      <txtHash>sangue5</txtHash>
+      <zone>ZONE_HEAD</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+    <!--sangue5_1_M-->
+    <Item>
+      <uvPos x="0.685000" y="0.571000" />
+      <scale x="0.174000" y="0.174000" />
+      <rotation value="-360.000000" />
+      <nameHash>sangue5_1_M</nameHash>
+      <txdHash>sangue5_1</txdHash>
+      <txtHash>sangue5_1</txtHash>
+      <zone>ZONE_HEAD</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+    <!--sangue4_3_M-->
+    <Item>
+      <uvPos x="0.684000" y="0.503000" />
+      <scale x="0.342000" y="0.342000" />
+      <rotation value="5.000000" />
+      <nameHash>sangue4_3_M</nameHash>
+      <txdHash>sangue4_3</txdHash>
+      <txtHash>sangue4_3</txtHash>
+      <zone>ZONE_LEFT_LEG</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+    <!--sangue4_1_M-->
+    <Item>
+      <uvPos x="0.684000" y="0.557000" />
+      <scale x="0.317000" y="0.317000" />
+      <rotation value="5.000000" />
+      <nameHash>sangue4_1_M</nameHash>
+      <txdHash>sangue4_1</txdHash>
+      <txtHash>sangue4_1</txtHash>
+      <zone>ZONE_RIGHT_ARM</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+    <!--sangue4_2_M-->
+    <Item>
+      <uvPos x="0.684000" y="0.200000" />
+      <scale x="0.317000" y="0.317000" />
+      <rotation value="5.000000" />
+      <nameHash>sangue4_2_M</nameHash>
+      <txdHash>sangue4_2</txdHash>
+      <txtHash>sangue4_2</txtHash>
+      <zone>ZONE_RIGHT_ARM</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+    <!--sangue4_M-->
+    <Item>
+      <uvPos x="0.700000" y="0.503000" />
+      <scale x="0.227000" y="0.227000" />
+      <rotation value="5.000000" />
+      <nameHash>sangue4_M</nameHash>
+      <txdHash>sangue4</txdHash>
+      <txtHash>sangue4</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+    <!--sangue3_1_M-->
+    <Item>
+      <uvPos x="0.773000" y="0.405000" />
+      <scale x="0.348000" y="0.348000" />
+      <rotation value="5.000000" />
+      <nameHash>sangue3_1_M</nameHash>
+      <txdHash>sangue3_1</txdHash>
+      <txtHash>sangue3_1</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+    <!--sangue4_4_M-->
+    <Item>
+      <uvPos x="0.176000" y="0.530000" />
+      <scale x="0.233000" y="0.233000" />
+      <rotation value="5.000000" />
+      <nameHash>sangue4_4_M</nameHash>
+      <txdHash>sangue4_4</txdHash>
+      <txtHash>sangue4_4</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+  </presets>
+  <nameHash>sodbloodtattoo_overlays</nameHash>
+   <medalLocations content="vector2_array">
+    0.140000	0.070000
+    0.370000	0.070000
+    0.600000	0.070000
+    0.835000	0.070000
+    0.140000	0.150000
+    0.370000	0.150000
+    0.600000	0.150000
+    0.835000	0.150000
+    0.140000	0.230000
+    0.370000	0.230000
+    0.600000	0.230000
+    0.835000	0.230000
+    0.100000	0.700000
+    0.300000	0.700000
+    0.500000	0.700000
+    0.700000	0.700000
+  </medalLocations>
+  <medalScale x="0.240000" y="0.100000" />
+</PedDecorationCollection>

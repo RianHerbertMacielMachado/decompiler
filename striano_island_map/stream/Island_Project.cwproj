@@ -1,0 +1,42 @@
+<CodeWalkerProject>
+  <Name>New CodeWalker Project</Name>
+  <Version value="1" />
+  <YmapFilenames>
+    <Item>map1.ymap</Item>
+    <Item>cs5_2.ymap</Item>
+  </YmapFilenames>
+  <YtypFilenames>
+    <Item>ile.ytyp</Item>
+    <Item>..\..\sod_media\stream\[barriere]\kd_cc_barriers.ytyp</Item>
+    <Item>..\..\sod_media\stream\[dojo]\mp_dojo_legacy.ytyp</Item>
+    <Item>..\..\sod_media\stream\[capannone_vuoto]\[capannone vuoto]\mp_legacy.ytyp</Item>
+    <Item>..\..\sod_media\stream\[tenda militare]\tent.ytyp</Item>
+    <Item>striano_island.ytyp</Item>
+  </YtypFilenames>
+  <YbnFilenames />
+  <YndFilenames />
+  <YnvFilenames />
+  <TrainsFilenames />
+  <ScenarioFilenames />
+  <AudioRelFilenames />
+  <YdrFilenames>
+    <Item>animboxmain_phare.ydr</Item>
+    <Item>ile.ydr</Item>
+    <Item>lighthouse.ydr</Item>
+    <Item>ponton.ydr</Item>
+    <Item>..\..\sod_media\stream\[barriere]\prop_cc_norm__barrier.ydr</Item>
+    <Item>..\..\sod_media\stream\[barriere]\prop_cc_tall_barrier.ydr</Item>
+    <Item>..\..\sod_media\stream\[capannone_vuoto]\[capannone vuoto]\mp_capannone.ydr</Item>
+    <Item>..\..\sod_media\stream\[dojo]\mp_dojo_legacy.ydr</Item>
+    <Item>..\..\sod_media\stream\[dojo]\mp_scale_dojo_legacy.ydr</Item>
+    <Item>..\..\sod_media\stream\[tenda militare]\miltent.ydr</Item>
+    <Item>..\..\sod_media\stream\[torre]\gatto_tower_prop.ydr</Item>
+    <Item>striano_island1.ydr</Item>
+    <Item>striano_island2.ydr</Item>
+  </YdrFilenames>
+  <YddFilenames />
+  <YftFilenames />
+  <YtdFilenames>
+    <Item>striano_island.ytd</Item>
+  </YtdFilenames>
+</CodeWalkerProject>

@@ -1,0 +1,73 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+  <div id="app" class="hidden">
+    <div class="ui-window">
+      <div class="topbar">
+        <!-- <div class="title"><b>SONS of DECAY</b> <font size="1.7px">1.0.0</font></div> -->
+        <div class="actions">
+          <!-- <button id="btnClose" type="button">Close</button> -->
+        </div>
+      </div>
+
+      <div class="layout">
+        <!-- Sidebar categorie -->
+        <div class="sidebar" id="sidebar"></div>
+
+        <!-- Contenuto categoria -->
+        <div class="content" id="content">
+			
+			<div id="targetBar" class="target-bar hidden"></div>
+		
+			<div class="content" id="content">
+			  <div class="content-head">
+				<div class="search">
+				  <span class="search-icon">⌕</span>
+				  <input id="searchInput" class="search-input" type="text" placeholder="Search…" autocomplete="off" />
+				  <button id="searchClear" class="search-clear" title="Clear">×</button>
+				</div>
+			  </div>
+
+			  <div id="contentBody"></div>
+			</div>
+		
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <div id="cqInput" class="hidden">
+  <div class="cqinput-backdrop"></div>
+  <div class="cqinput-modal">
+    <div class="cqinput-title" id="cqInputTitle">Insert value</div>
+    <input id="cqInputField" class="cqinput-field" type="text" autocomplete="off" spellcheck="false" />
+    <div class="cqinput-actions">
+      <button id="cqInputCancel" class="cqinput-btn ghost">Cancel</button>
+      <button id="cqInputOk" class="cqinput-btn">OK</button>
+    </div>
+    <!-- <div class="cqinput-hint">Enter = OK • Esc = Cancel</div> -->
+  </div>
+</div>
+
+<div id="cqInfo" class="hidden">
+  <div class="cqinput-backdrop"></div>
+
+  <div class="cqinfo-modal">
+    <div class="cqinfo-head">
+      <div class="cqinfo-title" id="cqInfoTitle">Info</div>
+      <button id="cqInfoClose" class="cqinfo-x" type="button">×</button>
+    </div>
+
+    <div class="cqinfo-body" id="cqInfoBody"></div>
+  </div>
+</div>
+
+  <script src="app.js"></script>
+</body>
+</html>

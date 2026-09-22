@@ -1,0 +1,4361 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<PedDecorationCollection>
+  <bRequiredForSync value="true" />
+  <presets>
+  	<Item>
+      <uvPos x="0.720000" y="0.640000" />
+      <scale x="0.100000" y="0.100000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_Biker_Award_000_M</nameHash>
+      <txdHash>MP_Biker_Award_000</txdHash>
+      <txtHash>MP_Biker_Award_000</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_BADGE</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.720000" y="0.640000" />
+      <scale x="0.100000" y="0.100000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_Biker_Award_000_F</nameHash>
+      <txdHash>MP_Biker_Award_000</txdHash>
+      <txtHash>MP_Biker_Award_000</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_BADGE</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_FEMALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.720000" y="0.640000" />
+      <scale x="0.100000" y="0.100000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_Biker_Award_001_M</nameHash>
+      <txdHash>MP_Biker_Award_001</txdHash>
+      <txtHash>MP_Biker_Award_001</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_BADGE</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.720000" y="0.640000" />
+      <scale x="0.100000" y="0.100000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_Biker_Award_001_F</nameHash>
+      <txdHash>MP_Biker_Award_001</txdHash>
+      <txtHash>MP_Biker_Award_001</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_BADGE</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_FEMALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.500000" y="0.500000" />
+      <scale x="0.600000" y="0.500000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_Biker_Hair_000_M</nameHash>
+      <txdHash>MP_Biker_Hair_000</txdHash>
+      <txtHash>MP_Biker_Hair_000</txtHash>
+      <zone>ZONE_HEAD</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+      <usesTintColor value="true" />
+    </Item>
+	<Item>
+      <uvPos x="0.500000" y="0.500000" />
+      <scale x="0.600000" y="0.500000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_Biker_Hair_000_F</nameHash>
+      <txdHash>MP_Biker_Hair_000</txdHash>
+      <txtHash>MP_Biker_Hair_000</txtHash>
+      <zone>ZONE_HEAD</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_FEMALE</gender>
+      <award />
+      <awardLevel />
+      <usesTintColor value="true" />
+    </Item>
+	<Item>
+      <uvPos x="0.500000" y="0.500000" />
+      <scale x="0.600000" y="0.500000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_Biker_Hair_001_M</nameHash>
+      <txdHash>MP_Biker_Hair_001</txdHash>
+      <txtHash>MP_Biker_Hair_001</txtHash>
+      <zone>ZONE_HEAD</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+      <usesTintColor value="true" />
+    </Item>
+	<Item>
+      <uvPos x="0.500000" y="0.500000" />
+      <scale x="0.600000" y="0.500000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_Biker_Hair_001_F</nameHash>
+      <txdHash>MP_Biker_Hair_001</txdHash>
+      <txtHash>MP_Biker_Hair_001</txtHash>
+      <zone>ZONE_HEAD</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_FEMALE</gender>
+      <award />
+      <awardLevel />
+      <usesTintColor value="true" />
+    </Item>
+	<Item>
+      <uvPos x="0.500000" y="0.500000" />
+      <scale x="0.600000" y="0.500000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_Biker_Hair_002_M</nameHash>
+      <txdHash>MP_Biker_Hair_002</txdHash>
+      <txtHash>MP_Biker_Hair_002</txtHash>
+      <zone>ZONE_HEAD</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+      <usesTintColor value="true" />
+    </Item>
+	<Item>
+      <uvPos x="0.500000" y="0.500000" />
+      <scale x="0.600000" y="0.500000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_Biker_Hair_002_F</nameHash>
+      <txdHash>MP_Biker_Hair_002</txdHash>
+      <txtHash>MP_Biker_Hair_002</txtHash>
+      <zone>ZONE_HEAD</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_FEMALE</gender>
+      <award />
+      <awardLevel />
+      <usesTintColor value="true" />
+    </Item>
+	<Item>
+      <uvPos x="0.500000" y="0.500000" />
+      <scale x="0.600000" y="0.500000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_Biker_Hair_003_M</nameHash>
+      <txdHash>MP_Biker_Hair_003</txdHash>
+      <txtHash>MP_Biker_Hair_003</txtHash>
+      <zone>ZONE_HEAD</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+      <usesTintColor value="true" />
+    </Item>
+	<Item>
+      <uvPos x="0.500000" y="0.500000" />
+      <scale x="0.600000" y="0.500000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_Biker_Hair_003_F</nameHash>
+      <txdHash>MP_Biker_Hair_003</txdHash>
+      <txtHash>MP_Biker_Hair_003</txtHash>
+      <zone>ZONE_HEAD</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_FEMALE</gender>
+      <award />
+      <awardLevel />
+      <usesTintColor value="true" />
+    </Item>
+	<Item>
+      <uvPos x="0.500000" y="0.500000" />
+      <scale x="0.600000" y="0.500000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_Biker_Hair_004_M</nameHash>
+      <txdHash>MP_Biker_Hair_004</txdHash>
+      <txtHash>MP_Biker_Hair_004</txtHash>
+      <zone>ZONE_HEAD</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+      <usesTintColor value="true" />
+    </Item>
+	<Item>
+      <uvPos x="0.500000" y="0.500000" />
+      <scale x="0.600000" y="0.500000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_Biker_Hair_004_F</nameHash>
+      <txdHash>MP_Biker_Hair_004</txdHash>
+      <txtHash>MP_Biker_Hair_004</txtHash>
+      <zone>ZONE_HEAD</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_FEMALE</gender>
+      <award />
+      <awardLevel />
+      <usesTintColor value="true" />
+    </Item>
+	<Item>
+      <uvPos x="0.500000" y="0.500000" />
+      <scale x="0.600000" y="0.500000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_Biker_Hair_005_M</nameHash>
+      <txdHash>MP_Biker_Hair_005</txdHash>
+      <txtHash>MP_Biker_Hair_005</txtHash>
+      <zone>ZONE_HEAD</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+      <usesTintColor value="true" />
+    </Item>
+	<Item>
+      <uvPos x="0.500000" y="0.500000" />
+      <scale x="0.600000" y="0.500000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_Biker_Hair_005_F</nameHash>
+      <txdHash>MP_Biker_Hair_005</txdHash>
+      <txtHash>MP_Biker_Hair_005</txtHash>
+      <zone>ZONE_HEAD</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_FEMALE</gender>
+      <award />
+      <awardLevel />
+      <usesTintColor value="true" />
+    </Item>
+	<Item>
+      <uvPos x="0.500000" y="0.500000" />
+      <scale x="0.600000" y="0.500000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_Biker_Hair_006_M</nameHash>
+      <txdHash>MP_Biker_Hair_006</txdHash>
+      <txtHash>MP_Biker_Hair_006</txtHash>
+      <zone>ZONE_HEAD</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+      <usesTintColor value="true" />
+    </Item>
+	<Item>
+      <uvPos x="0.500000" y="0.500000" />
+      <scale x="0.600000" y="0.500000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_Biker_Hair_006_F</nameHash>
+      <txdHash>MP_Biker_Hair_006</txdHash>
+      <txtHash>MP_Biker_Hair_006</txtHash>
+      <zone>ZONE_HEAD</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_FEMALE</gender>
+      <award />
+      <awardLevel />
+      <usesTintColor value="true" />
+    </Item>
+	<Item>
+      <uvPos x="0.865000" y="0.770000" />
+      <scale x="0.055000" y="0.055000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_Biker_Rank_000_M</nameHash>
+      <txdHash>MP_Biker_Rank_000</txdHash>
+      <txtHash>MP_Biker_Rank_000</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_BADGE</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.865000" y="0.770000" />
+      <scale x="0.055000" y="0.055000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_Biker_Rank_000_F</nameHash>
+      <txdHash>MP_Biker_Rank_000</txdHash>
+      <txtHash>MP_Biker_Rank_000</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_BADGE</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_FEMALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.865000" y="0.770000" />
+      <scale x="0.055000" y="0.055000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_Biker_Rank_001_M</nameHash>
+      <txdHash>MP_Biker_Rank_001</txdHash>
+      <txtHash>MP_Biker_Rank_001</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_BADGE</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.865000" y="0.770000" />
+      <scale x="0.055000" y="0.055000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_Biker_Rank_001_F</nameHash>
+      <txdHash>MP_Biker_Rank_001</txdHash>
+      <txtHash>MP_Biker_Rank_001</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_BADGE</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_FEMALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.865000" y="0.770000" />
+      <scale x="0.055000" y="0.055000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_Biker_Rank_002_M</nameHash>
+      <txdHash>MP_Biker_Rank_002</txdHash>
+      <txtHash>MP_Biker_Rank_002</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_BADGE</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.865000" y="0.770000" />
+      <scale x="0.055000" y="0.055000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_Biker_Rank_002_F</nameHash>
+      <txdHash>MP_Biker_Rank_002</txdHash>
+      <txtHash>MP_Biker_Rank_002</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_BADGE</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_FEMALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.865000" y="0.770000" />
+      <scale x="0.055000" y="0.055000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_Biker_Rank_003_M</nameHash>
+      <txdHash>MP_Biker_Rank_003</txdHash>
+      <txtHash>MP_Biker_Rank_003</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_BADGE</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.865000" y="0.770000" />
+      <scale x="0.055000" y="0.055000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_Biker_Rank_003_F</nameHash>
+      <txdHash>MP_Biker_Rank_003</txdHash>
+      <txtHash>MP_Biker_Rank_003</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_BADGE</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_FEMALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.865000" y="0.770000" />
+      <scale x="0.055000" y="0.055000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_Biker_Rank_004_M</nameHash>
+      <txdHash>MP_Biker_Rank_004</txdHash>
+      <txtHash>MP_Biker_Rank_004</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_BADGE</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.865000" y="0.770000" />
+      <scale x="0.055000" y="0.055000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_Biker_Rank_004_F</nameHash>
+      <txdHash>MP_Biker_Rank_004</txdHash>
+      <txtHash>MP_Biker_Rank_004</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_BADGE</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_FEMALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.830000" y="0.810000" />
+      <scale x="0.055000" y="0.055000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_Biker_Rank_005_M</nameHash>
+      <txdHash>MP_Biker_Rank_005</txdHash>
+      <txtHash>MP_Biker_Rank_005</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_BADGE</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.830000" y="0.810000" />
+      <scale x="0.055000" y="0.055000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_Biker_Rank_005_F</nameHash>
+      <txdHash>MP_Biker_Rank_005</txdHash>
+      <txtHash>MP_Biker_Rank_005</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_BADGE</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_FEMALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.830000" y="0.810000" />
+      <scale x="0.055000" y="0.055000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_Biker_Rank_006_M</nameHash>
+      <txdHash>MP_Biker_Rank_006</txdHash>
+      <txtHash>MP_Biker_Rank_006</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_BADGE</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.830000" y="0.810000" />
+      <scale x="0.055000" y="0.055000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_Biker_Rank_006_F</nameHash>
+      <txdHash>MP_Biker_Rank_006</txdHash>
+      <txtHash>MP_Biker_Rank_006</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_BADGE</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_FEMALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.830000" y="0.810000" />
+      <scale x="0.055000" y="0.055000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_Biker_Rank_007_M</nameHash>
+      <txdHash>MP_Biker_Rank_007</txdHash>
+      <txtHash>MP_Biker_Rank_007</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_BADGE</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.830000" y="0.810000" />
+      <scale x="0.055000" y="0.055000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_Biker_Rank_007_F</nameHash>
+      <txdHash>MP_Biker_Rank_007</txdHash>
+      <txtHash>MP_Biker_Rank_007</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_BADGE</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_FEMALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.830000" y="0.810000" />
+      <scale x="0.055000" y="0.055000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_Biker_Rank_008_M</nameHash>
+      <txdHash>MP_Biker_Rank_008</txdHash>
+      <txtHash>MP_Biker_Rank_008</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_BADGE</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.830000" y="0.810000" />
+      <scale x="0.055000" y="0.055000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_Biker_Rank_008_F</nameHash>
+      <txdHash>MP_Biker_Rank_008</txdHash>
+      <txtHash>MP_Biker_Rank_008</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_BADGE</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_FEMALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.830000" y="0.810000" />
+      <scale x="0.055000" y="0.055000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_Biker_Rank_009_M</nameHash>
+      <txdHash>MP_Biker_Rank_009</txdHash>
+      <txtHash>MP_Biker_Rank_009</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_BADGE</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.830000" y="0.810000" />
+      <scale x="0.055000" y="0.055000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_Biker_Rank_009_F</nameHash>
+      <txdHash>MP_Biker_Rank_009</txdHash>
+      <txtHash>MP_Biker_Rank_009</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_BADGE</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_FEMALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.820000" y="0.685000" />
+      <scale x="0.055000" y="0.055000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_Biker_Rank_010_M</nameHash>
+      <txdHash>MP_Biker_Rank_010</txdHash>
+      <txtHash>MP_Biker_Rank_010</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_BADGE</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.820000" y="0.685000" />
+      <scale x="0.055000" y="0.055000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_Biker_Rank_010_F</nameHash>
+      <txdHash>MP_Biker_Rank_010</txdHash>
+      <txtHash>MP_Biker_Rank_010</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_BADGE</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_FEMALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.820000" y="0.685000" />
+      <scale x="0.055000" y="0.055000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_Biker_Rank_011_M</nameHash>
+      <txdHash>MP_Biker_Rank_011</txdHash>
+      <txtHash>MP_Biker_Rank_011</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_BADGE</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.820000" y="0.685000" />
+      <scale x="0.055000" y="0.055000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_Biker_Rank_011_F</nameHash>
+      <txdHash>MP_Biker_Rank_011</txdHash>
+      <txtHash>MP_Biker_Rank_011</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_BADGE</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_FEMALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.820000" y="0.685000" />
+      <scale x="0.055000" y="0.055000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_Biker_Rank_012_M</nameHash>
+      <txdHash>MP_Biker_Rank_012</txdHash>
+      <txtHash>MP_Biker_Rank_012</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_BADGE</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.820000" y="0.685000" />
+      <scale x="0.055000" y="0.055000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_Biker_Rank_012_F</nameHash>
+      <txdHash>MP_Biker_Rank_012</txdHash>
+      <txtHash>MP_Biker_Rank_012</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_BADGE</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_FEMALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.820000" y="0.685000" />
+      <scale x="0.055000" y="0.055000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_Biker_Rank_013_M</nameHash>
+      <txdHash>MP_Biker_Rank_013</txdHash>
+      <txtHash>MP_Biker_Rank_013</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_BADGE</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.820000" y="0.685000" />
+      <scale x="0.055000" y="0.055000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_Biker_Rank_013_F</nameHash>
+      <txdHash>MP_Biker_Rank_013</txdHash>
+      <txtHash>MP_Biker_Rank_013</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_BADGE</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_FEMALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.820000" y="0.685000" />
+      <scale x="0.055000" y="0.055000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_Biker_Rank_014_M</nameHash>
+      <txdHash>MP_Biker_Rank_014</txdHash>
+      <txtHash>MP_Biker_Rank_014</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_BADGE</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.820000" y="0.685000" />
+      <scale x="0.055000" y="0.055000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_Biker_Rank_014_F</nameHash>
+      <txdHash>MP_Biker_Rank_014</txdHash>
+      <txtHash>MP_Biker_Rank_014</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_BADGE</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_FEMALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.865000" y="0.770000" />
+      <scale x="0.055000" y="0.055000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_Biker_Rank_015_M</nameHash>
+      <txdHash>MP_Biker_Rank_015</txdHash>
+      <txtHash>MP_Biker_Rank_015</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_BADGE</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.865000" y="0.770000" />
+      <scale x="0.055000" y="0.055000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_Biker_Rank_015_F</nameHash>
+      <txdHash>MP_Biker_Rank_015</txdHash>
+      <txtHash>MP_Biker_Rank_015</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_BADGE</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_FEMALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.830000" y="0.810000" />
+      <scale x="0.055000" y="0.055000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_Biker_Rank_016_M</nameHash>
+      <txdHash>MP_Biker_Rank_016</txdHash>
+      <txtHash>MP_Biker_Rank_016</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_BADGE</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.830000" y="0.810000" />
+      <scale x="0.055000" y="0.055000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_Biker_Rank_016_F</nameHash>
+      <txdHash>MP_Biker_Rank_016</txdHash>
+      <txtHash>MP_Biker_Rank_016</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_BADGE</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_FEMALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.820000" y="0.685000" />
+      <scale x="0.055000" y="0.055000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_Biker_Rank_017_M</nameHash>
+      <txdHash>MP_Biker_Rank_017</txdHash>
+      <txtHash>MP_Biker_Rank_017</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_BADGE</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.820000" y="0.685000" />
+      <scale x="0.055000" y="0.055000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_Biker_Rank_017_F</nameHash>
+      <txdHash>MP_Biker_Rank_017</txdHash>
+      <txtHash>MP_Biker_Rank_017</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_BADGE</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_FEMALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.640000" y="0.620000" />
+      <scale x="0.120000" y="0.120000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_MP_Biker_Tat_000_M</nameHash>
+      <txdHash>MP_Biker_Tat_000</txdHash>
+      <txtHash>MP_Biker_Tat_000</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.640000" y="0.640000" />
+      <scale x="0.120000" y="0.110000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_MP_Biker_Tat_000_F</nameHash>
+      <txdHash>MP_Biker_Tat_000</txdHash>
+      <txtHash>MP_Biker_Tat_000</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_FEMALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.735000" y="0.600000" />
+      <scale x="0.160000" y="0.160000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_MP_Biker_Tat_001_M</nameHash>
+      <txdHash>MP_Biker_Tat_001</txdHash>
+      <txtHash>MP_Biker_Tat_001</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.735000" y="0.630000" />
+      <scale x="0.160000" y="0.160000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_MP_Biker_Tat_001_F</nameHash>
+      <txdHash>MP_Biker_Tat_001</txdHash>
+      <txtHash>MP_Biker_Tat_001</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_FEMALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.737000" y="0.640000" />
+      <scale x="0.140000" y="0.140000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_MP_Biker_Tat_002_M</nameHash>
+      <txdHash>MP_Biker_Tat_002</txdHash>
+      <txtHash>MP_Biker_Tat_002</txtHash>
+      <zone>ZONE_LEFT_LEG</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.727000" y="0.720000" />
+      <scale x="0.140000" y="0.160000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_MP_Biker_Tat_002_F</nameHash>
+      <txdHash>MP_Biker_Tat_002</txdHash>
+      <txtHash>MP_Biker_Tat_002</txtHash>
+      <zone>ZONE_LEFT_LEG</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_FEMALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.717000" y="0.330000" />
+      <scale x="0.140000" y="0.140000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_MP_Biker_Tat_003_M</nameHash>
+      <txdHash>MP_Biker_Tat_003</txdHash>
+      <txtHash>MP_Biker_Tat_003</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.717000" y="0.370000" />
+      <scale x="0.150000" y="0.120000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_MP_Biker_Tat_003_F</nameHash>
+      <txdHash>MP_Biker_Tat_003</txdHash>
+      <txtHash>MP_Biker_Tat_003</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_FEMALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.437000" y="0.500000" />
+      <scale x="0.400000" y="0.400000" />
+      <rotation value="18.360000" />
+      <nameHash>MP_MP_Biker_Tat_004_M</nameHash>
+      <txdHash>MP_Biker_Tat_004</txdHash>
+      <txtHash>MP_Biker_Tat_004</txtHash>
+      <zone>ZONE_RIGHT_LEG</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.437000" y="0.550000" />
+      <scale x="0.400000" y="0.430000" />
+      <rotation value="18.360000" />
+      <nameHash>MP_MP_Biker_Tat_004_F</nameHash>
+      <txdHash>MP_Biker_Tat_004</txdHash>
+      <txtHash>MP_Biker_Tat_004</txtHash>
+      <zone>ZONE_RIGHT_LEG</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_FEMALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.737000" y="0.600000" />
+      <scale x="0.140000" y="0.140000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_MP_Biker_Tat_005_M</nameHash>
+      <txdHash>MP_Biker_Tat_005</txdHash>
+      <txtHash>MP_Biker_Tat_005</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.740000" y="0.630000" />
+      <scale x="0.140000" y="0.110000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_MP_Biker_Tat_005_F</nameHash>
+      <txdHash>MP_Biker_Tat_005</txdHash>
+      <txtHash>MP_Biker_Tat_005</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_FEMALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="1.237000" y="0.240000" />
+      <scale x="0.160000" y="0.160000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_MP_Biker_Tat_006_M</nameHash>
+      <txdHash>MP_Biker_Tat_006</txdHash>
+      <txtHash>MP_Biker_Tat_006</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="1.237000" y="0.350000" />
+      <scale x="0.160000" y="0.120000" />
+      <rotation value="-1.800000" />
+      <nameHash>MP_MP_Biker_Tat_006_F</nameHash>
+      <txdHash>MP_Biker_Tat_006</txdHash>
+      <txtHash>MP_Biker_Tat_006</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_FEMALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.470000" y="0.750000" />
+      <scale x="0.120000" y="0.120000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_MP_Biker_Tat_007_M</nameHash>
+      <txdHash>MP_Biker_Tat_007</txdHash>
+      <txtHash>MP_Biker_Tat_007</txtHash>
+      <zone>ZONE_RIGHT_ARM</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.470000" y="0.750000" />
+      <scale x="0.120000" y="0.130000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_MP_Biker_Tat_007_F</nameHash>
+      <txdHash>MP_Biker_Tat_007</txdHash>
+      <txtHash>MP_Biker_Tat_007</txtHash>
+      <zone>ZONE_RIGHT_ARM</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_FEMALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="1.225000" y="0.630000" />
+      <scale x="0.180000" y="0.140000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_MP_Biker_Tat_008_M</nameHash>
+      <txdHash>MP_Biker_Tat_008</txdHash>
+      <txtHash>MP_Biker_Tat_008</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="1.225000" y="0.700000" />
+      <scale x="0.180000" y="0.130000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_MP_Biker_Tat_008_F</nameHash>
+      <txdHash>MP_Biker_Tat_008</txdHash>
+      <txtHash>MP_Biker_Tat_008</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_FEMALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.690000" y="0.570000" />
+      <scale x="0.090000" y="0.090000" />
+      <rotation value="36.360000" />
+      <nameHash>MP_MP_Biker_Tat_009_M</nameHash>
+      <txdHash>MP_Biker_Tat_009</txdHash>
+      <txtHash>MP_Biker_Tat_009</txtHash>
+      <zone>ZONE_HEAD</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.690000" y="0.570000" />
+      <scale x="0.090000" y="0.090000" />
+      <rotation value="36.360000" />
+      <nameHash>MP_MP_Biker_Tat_009_F</nameHash>
+      <txdHash>MP_Biker_Tat_009</txdHash>
+      <txtHash>MP_Biker_Tat_009</txtHash>
+      <zone>ZONE_HEAD</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_FEMALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.750000" y="0.300000" />
+      <scale x="0.140000" y="0.140000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_MP_Biker_Tat_010_M</nameHash>
+      <txdHash>MP_Biker_Tat_010</txdHash>
+      <txtHash>MP_Biker_Tat_010</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.750000" y="0.370000" />
+      <scale x="0.140000" y="0.110000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_MP_Biker_Tat_010_F</nameHash>
+      <txdHash>MP_Biker_Tat_010</txdHash>
+      <txtHash>MP_Biker_Tat_010</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_FEMALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.230000" y="0.540000" />
+      <scale x="0.250000" y="0.250000" />
+      <rotation value="3.000000" />
+      <nameHash>MP_MP_Biker_Tat_011_M</nameHash>
+      <txdHash>MP_Biker_Tat_011</txdHash>
+      <txtHash>MP_Biker_Tat_011</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.230000" y="0.560000" />
+      <scale x="0.250000" y="0.230000" />
+      <rotation value="3.000000" />
+      <nameHash>MP_MP_Biker_Tat_011_F</nameHash>
+      <txdHash>MP_Biker_Tat_011</txdHash>
+      <txtHash>MP_Biker_Tat_011</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_FEMALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.580000" y="0.440000" />
+      <scale x="0.120000" y="0.120000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_MP_Biker_Tat_012_M</nameHash>
+      <txdHash>MP_Biker_Tat_012</txdHash>
+      <txtHash>MP_Biker_Tat_012</txtHash>
+      <zone>ZONE_LEFT_ARM</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.580000" y="0.420000" />
+      <scale x="0.110000" y="0.120000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_MP_Biker_Tat_012_F</nameHash>
+      <txdHash>MP_Biker_Tat_012</txdHash>
+      <txtHash>MP_Biker_Tat_012</txtHash>
+      <zone>ZONE_LEFT_ARM</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_FEMALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.737000" y="0.620000" />
+      <scale x="0.130000" y="0.130000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_MP_Biker_Tat_013_M</nameHash>
+      <txdHash>MP_Biker_Tat_013</txdHash>
+      <txtHash>MP_Biker_Tat_013</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.737000" y="0.650000" />
+      <scale x="0.130000" y="0.100000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_MP_Biker_Tat_013_F</nameHash>
+      <txdHash>MP_Biker_Tat_013</txdHash>
+      <txtHash>MP_Biker_Tat_013</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_FEMALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.450000" y="0.795000" />
+      <scale x="0.170000" y="0.140000" />
+      <rotation value="41.000000" />
+      <nameHash>MP_MP_Biker_Tat_014_M</nameHash>
+      <txdHash>MP_Biker_Tat_014</txdHash>
+      <txtHash>MP_Biker_Tat_014</txtHash>
+      <zone>ZONE_RIGHT_ARM</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.455000" y="0.790000" />
+      <scale x="0.190000" y="0.150000" />
+      <rotation value="41.000000" />
+      <nameHash>MP_MP_Biker_Tat_014_F</nameHash>
+      <txdHash>MP_Biker_Tat_014</txdHash>
+      <txtHash>MP_Biker_Tat_014</txtHash>
+      <zone>ZONE_RIGHT_ARM</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_FEMALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.237000" y="0.340000" />
+      <scale x="0.140000" y="0.140000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_MP_Biker_Tat_015_M</nameHash>
+      <txdHash>MP_Biker_Tat_015</txdHash>
+      <txtHash>MP_Biker_Tat_015</txtHash>
+      <zone>ZONE_LEFT_LEG</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.237000" y="0.340000" />
+      <scale x="0.140000" y="0.140000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_MP_Biker_Tat_015_F</nameHash>
+      <txdHash>MP_Biker_Tat_015</txdHash>
+      <txtHash>MP_Biker_Tat_015</txtHash>
+      <zone>ZONE_LEFT_LEG</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_FEMALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.490000" y="0.800000" />
+      <scale x="0.100000" y="0.130000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_MP_Biker_Tat_016_M</nameHash>
+      <txdHash>MP_Biker_Tat_016</txdHash>
+      <txtHash>MP_Biker_Tat_016</txtHash>
+      <zone>ZONE_LEFT_ARM</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.490000" y="0.810000" />
+      <scale x="0.100000" y="0.150000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_MP_Biker_Tat_016_F</nameHash>
+      <txdHash>MP_Biker_Tat_016</txdHash>
+      <txtHash>MP_Biker_Tat_016</txtHash>
+      <zone>ZONE_LEFT_ARM</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_FEMALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.237000" y="0.540000" />
+      <scale x="0.290000" y="0.290000" />
+      <rotation value="34.560000" />
+      <nameHash>MP_MP_Biker_Tat_017_M</nameHash>
+      <txdHash>MP_Biker_Tat_017</txdHash>
+      <txtHash>MP_Biker_Tat_017</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.237000" y="0.620000" />
+      <scale x="0.290000" y="0.240000" />
+      <rotation value="34.560000" />
+      <nameHash>MP_MP_Biker_Tat_017_F</nameHash>
+      <txdHash>MP_Biker_Tat_017</txdHash>
+      <txtHash>MP_Biker_Tat_017</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_FEMALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.820000" y="0.610000" />
+      <scale x="0.100000" y="0.100000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_MP_Biker_Tat_018_M</nameHash>
+      <txdHash>MP_Biker_Tat_018</txdHash>
+      <txtHash>MP_Biker_Tat_018</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.820000" y="0.640000" />
+      <scale x="0.100000" y="0.080000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_MP_Biker_Tat_018_F</nameHash>
+      <txdHash>MP_Biker_Tat_018</txdHash>
+      <txtHash>MP_Biker_Tat_018</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_FEMALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.720000" y="0.640000" />
+      <scale x="0.155000" y="0.155000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_MP_Biker_Tat_019_M</nameHash>
+      <txdHash>MP_Biker_Tat_019</txdHash>
+      <txtHash>MP_Biker_Tat_019</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.730000" y="0.660000" />
+      <scale x="0.155000" y="0.120000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_MP_Biker_Tat_019_F</nameHash>
+      <txdHash>MP_Biker_Tat_019</txdHash>
+      <txtHash>MP_Biker_Tat_019</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_FEMALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.550000" y="0.800000" />
+      <scale x="0.160000" y="0.160000" />
+      <rotation value="12.600000" />
+      <nameHash>MP_MP_Biker_Tat_020_M</nameHash>
+      <txdHash>MP_Biker_Tat_020</txdHash>
+      <txtHash>MP_Biker_Tat_020</txtHash>
+      <zone>ZONE_LEFT_ARM</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.550000" y="0.820000" />
+      <scale x="0.160000" y="0.160000" />
+      <rotation value="12.600000" />
+      <nameHash>MP_MP_Biker_Tat_020_F</nameHash>
+      <txdHash>MP_Biker_Tat_020</txdHash>
+      <txtHash>MP_Biker_Tat_020</txtHash>
+      <zone>ZONE_LEFT_ARM</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_FEMALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.210000" y="0.580000" />
+      <scale x="0.240000" y="0.240000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_MP_Biker_Tat_021_M</nameHash>
+      <txdHash>MP_Biker_Tat_021</txdHash>
+      <txtHash>MP_Biker_Tat_021</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.220000" y="0.640000" />
+      <scale x="0.240000" y="0.200000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_MP_Biker_Tat_021_F</nameHash>
+      <txdHash>MP_Biker_Tat_021</txdHash>
+      <txtHash>MP_Biker_Tat_021</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_FEMALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.770000" y="0.340000" />
+      <scale x="0.140000" y="0.120000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_MP_Biker_Tat_022_M</nameHash>
+      <txdHash>MP_Biker_Tat_022</txdHash>
+      <txtHash>MP_Biker_Tat_022</txtHash>
+      <zone>ZONE_RIGHT_LEG</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.770000" y="0.340000" />
+      <scale x="0.140000" y="0.120000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_MP_Biker_Tat_022_F</nameHash>
+      <txdHash>MP_Biker_Tat_022</txdHash>
+      <txtHash>MP_Biker_Tat_022</txtHash>
+      <zone>ZONE_RIGHT_LEG</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_FEMALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.735000" y="0.620000" />
+      <scale x="0.200000" y="0.200000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_MP_Biker_Tat_023_M</nameHash>
+      <txdHash>MP_Biker_Tat_023</txdHash>
+      <txtHash>MP_Biker_Tat_023</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.740000" y="0.650000" />
+      <scale x="0.200000" y="0.190000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_MP_Biker_Tat_023_F</nameHash>
+      <txdHash>MP_Biker_Tat_023</txdHash>
+      <txtHash>MP_Biker_Tat_023</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_FEMALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.350000" y="0.700000" />
+      <scale x="0.155000" y="0.230000" />
+      <rotation value="10.080000" />
+      <nameHash>MP_MP_Biker_Tat_024_M</nameHash>
+      <txdHash>MP_Biker_Tat_024</txdHash>
+      <txtHash>MP_Biker_Tat_024</txtHash>
+      <zone>ZONE_LEFT_ARM</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.345000" y="0.680000" />
+      <scale x="0.220000" y="0.260000" />
+      <rotation value="18.720000" />
+      <nameHash>MP_MP_Biker_Tat_024_F</nameHash>
+      <txdHash>MP_Biker_Tat_024</txdHash>
+      <txtHash>MP_Biker_Tat_024</txtHash>
+      <zone>ZONE_LEFT_ARM</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_FEMALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.500000" y="0.780000" />
+      <scale x="0.140000" y="0.140000" />
+      <rotation value="4.680000" />
+      <nameHash>MP_MP_Biker_Tat_025_M</nameHash>
+      <txdHash>MP_Biker_Tat_025</txdHash>
+      <txtHash>MP_Biker_Tat_025</txtHash>
+      <zone>ZONE_LEFT_ARM</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.500000" y="0.780000" />
+      <scale x="0.140000" y="0.160000" />
+      <rotation value="4.680000" />
+      <nameHash>MP_MP_Biker_Tat_025_F</nameHash>
+      <txdHash>MP_Biker_Tat_025</txdHash>
+      <txtHash>MP_Biker_Tat_025</txtHash>
+      <zone>ZONE_LEFT_ARM</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_FEMALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.727000" y="0.630000" />
+      <scale x="0.200000" y="0.200000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_MP_Biker_Tat_026_M</nameHash>
+      <txdHash>MP_Biker_Tat_026</txdHash>
+      <txtHash>MP_Biker_Tat_026</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.737000" y="0.670000" />
+      <scale x="0.200000" y="0.200000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_MP_Biker_Tat_026_F</nameHash>
+      <txdHash>MP_Biker_Tat_026</txdHash>
+      <txtHash>MP_Biker_Tat_026</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_FEMALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.260000" y="0.330000" />
+      <scale x="0.140000" y="0.140000" />
+      <rotation value="101.520000" />
+      <nameHash>MP_MP_Biker_Tat_027_M</nameHash>
+      <txdHash>MP_Biker_Tat_027</txdHash>
+      <txtHash>MP_Biker_Tat_027</txtHash>
+      <zone>ZONE_LEFT_LEG</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.260000" y="0.330000" />
+      <scale x="0.140000" y="0.140000" />
+      <rotation value="101.520000" />
+      <nameHash>MP_MP_Biker_Tat_027_F</nameHash>
+      <txdHash>MP_Biker_Tat_027</txdHash>
+      <txtHash>MP_Biker_Tat_027</txtHash>
+      <zone>ZONE_LEFT_LEG</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_FEMALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.437000" y="0.700000" />
+      <scale x="0.140000" y="0.140000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_MP_Biker_Tat_028_M</nameHash>
+      <txdHash>MP_Biker_Tat_028</txdHash>
+      <txtHash>MP_Biker_Tat_028</txtHash>
+      <zone>ZONE_RIGHT_LEG</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.437000" y="0.700000" />
+      <scale x="0.140000" y="0.160000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_MP_Biker_Tat_028_F</nameHash>
+      <txdHash>MP_Biker_Tat_028</txdHash>
+      <txtHash>MP_Biker_Tat_028</txtHash>
+      <zone>ZONE_RIGHT_LEG</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_FEMALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.637000" y="0.600000" />
+      <scale x="0.100000" y="0.100000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_MP_Biker_Tat_029_M</nameHash>
+      <txdHash>MP_Biker_Tat_029</txdHash>
+      <txtHash>MP_Biker_Tat_029</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.640000" y="0.650000" />
+      <scale x="0.140000" y="0.100000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_MP_Biker_Tat_029_F</nameHash>
+      <txdHash>MP_Biker_Tat_029</txdHash>
+      <txtHash>MP_Biker_Tat_029</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_FEMALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.220000" y="0.650000" />
+      <scale x="0.180000" y="0.180000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_MP_Biker_Tat_030_M</nameHash>
+      <txdHash>MP_Biker_Tat_030</txdHash>
+      <txtHash>MP_Biker_Tat_030</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.220000" y="0.680000" />
+      <scale x="0.180000" y="0.180000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_MP_Biker_Tat_030_F</nameHash>
+      <txdHash>MP_Biker_Tat_030</txdHash>
+      <txtHash>MP_Biker_Tat_030</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_FEMALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.725000" y="0.300000" />
+      <scale x="0.140000" y="0.140000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_MP_Biker_Tat_031_M</nameHash>
+      <txdHash>MP_Biker_Tat_031</txdHash>
+      <txtHash>MP_Biker_Tat_031</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.725000" y="0.300000" />
+      <scale x="0.140000" y="0.110000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_MP_Biker_Tat_031_F</nameHash>
+      <txdHash>MP_Biker_Tat_031</txdHash>
+      <txtHash>MP_Biker_Tat_031</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_FEMALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.637000" y="0.600000" />
+      <scale x="0.100000" y="0.100000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_MP_Biker_Tat_032_M</nameHash>
+      <txdHash>MP_Biker_Tat_032</txdHash>
+      <txtHash>MP_Biker_Tat_032</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.650000" y="0.650000" />
+      <scale x="0.100000" y="0.100000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_MP_Biker_Tat_032_F</nameHash>
+      <txdHash>MP_Biker_Tat_032</txdHash>
+      <txtHash>MP_Biker_Tat_032</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_FEMALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.510000" y="0.895000" />
+      <scale x="0.045000" y="0.090000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_MP_Biker_Tat_033_M</nameHash>
+      <txdHash>MP_Biker_Tat_033</txdHash>
+      <txtHash>MP_Biker_Tat_033</txtHash>
+      <zone>ZONE_RIGHT_ARM</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.510000" y="0.895000" />
+      <scale x="0.045000" y="0.090000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_MP_Biker_Tat_033_F</nameHash>
+      <txdHash>MP_Biker_Tat_033</txdHash>
+      <txtHash>MP_Biker_Tat_033</txtHash>
+      <zone>ZONE_RIGHT_ARM</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_FEMALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.820000" y="0.600000" />
+      <scale x="0.120000" y="0.120000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_MP_Biker_Tat_034_M</nameHash>
+      <txdHash>MP_Biker_Tat_034</txdHash>
+      <txtHash>MP_Biker_Tat_034</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.815000" y="0.640000" />
+      <scale x="0.120000" y="0.100000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_MP_Biker_Tat_034_F</nameHash>
+      <txdHash>MP_Biker_Tat_034</txdHash>
+      <txtHash>MP_Biker_Tat_034</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_FEMALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.510000" y="0.910000" />
+      <scale x="0.060000" y="0.120000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_MP_Biker_Tat_035_M</nameHash>
+      <txdHash>MP_Biker_Tat_035</txdHash>
+      <txtHash>MP_Biker_Tat_035</txtHash>
+      <zone>ZONE_LEFT_ARM</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.510000" y="0.910000" />
+      <scale x="0.090000" y="0.110000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_MP_Biker_Tat_035_F</nameHash>
+      <txdHash>MP_Biker_Tat_035</txdHash>
+      <txtHash>MP_Biker_Tat_035</txtHash>
+      <zone>ZONE_LEFT_ARM</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_FEMALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.280000" y="0.320000" />
+      <scale x="0.180000" y="0.180000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_MP_Biker_Tat_036_M</nameHash>
+      <txdHash>MP_Biker_Tat_036</txdHash>
+      <txtHash>MP_Biker_Tat_036</txtHash>
+      <zone>ZONE_LEFT_LEG</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.230000" y="0.320000" />
+      <scale x="0.180000" y="0.180000" />
+      <rotation value="-4.680000" />
+      <nameHash>MP_MP_Biker_Tat_036_F</nameHash>
+      <txdHash>MP_Biker_Tat_036</txdHash>
+      <txtHash>MP_Biker_Tat_036</txtHash>
+      <zone>ZONE_LEFT_LEG</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_FEMALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.437000" y="0.700000" />
+      <scale x="0.210000" y="0.210000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_MP_Biker_Tat_037_M</nameHash>
+      <txdHash>MP_Biker_Tat_037</txdHash>
+      <txtHash>MP_Biker_Tat_037</txtHash>
+      <zone>ZONE_LEFT_LEG</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.437000" y="0.720000" />
+      <scale x="0.210000" y="0.210000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_MP_Biker_Tat_037_F</nameHash>
+      <txdHash>MP_Biker_Tat_037</txdHash>
+      <txtHash>MP_Biker_Tat_037</txtHash>
+      <zone>ZONE_LEFT_LEG</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_FEMALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.750000" y="0.330000" />
+      <scale x="0.160000" y="0.160000" />
+      <rotation value="19.000000" />
+      <nameHash>MP_MP_Biker_Tat_038_M</nameHash>
+      <txdHash>MP_Biker_Tat_038</txdHash>
+      <txtHash>MP_Biker_Tat_038</txtHash>
+      <zone>ZONE_HEAD</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.750000" y="0.330000" />
+      <scale x="0.160000" y="0.160000" />
+      <rotation value="19.000000" />
+      <nameHash>MP_MP_Biker_Tat_038_F</nameHash>
+      <txdHash>MP_Biker_Tat_038</txdHash>
+      <txtHash>MP_Biker_Tat_038</txtHash>
+      <zone>ZONE_HEAD</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_FEMALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.725000" y="0.310000" />
+      <scale x="0.170000" y="0.140000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_MP_Biker_Tat_039_M</nameHash>
+      <txdHash>MP_Biker_Tat_039</txdHash>
+      <txtHash>MP_Biker_Tat_039</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.725000" y="0.340000" />
+      <scale x="0.170000" y="0.100000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_MP_Biker_Tat_039_F</nameHash>
+      <txdHash>MP_Biker_Tat_039</txdHash>
+      <txtHash>MP_Biker_Tat_039</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_FEMALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.437000" y="0.720000" />
+      <scale x="0.170000" y="0.170000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_MP_Biker_Tat_040_M</nameHash>
+      <txdHash>MP_Biker_Tat_040</txdHash>
+      <txtHash>MP_Biker_Tat_040</txtHash>
+      <zone>ZONE_RIGHT_LEG</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.437000" y="0.720000" />
+      <scale x="0.170000" y="0.170000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_MP_Biker_Tat_040_F</nameHash>
+      <txdHash>MP_Biker_Tat_040</txdHash>
+      <txtHash>MP_Biker_Tat_040</txtHash>
+      <zone>ZONE_RIGHT_LEG</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_FEMALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.730000" y="0.600000" />
+      <scale x="0.140000" y="0.140000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_MP_Biker_Tat_041_M</nameHash>
+      <txdHash>MP_Biker_Tat_041</txdHash>
+      <txtHash>MP_Biker_Tat_041</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.735000" y="0.640000" />
+      <scale x="0.140000" y="0.110000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_MP_Biker_Tat_041_F</nameHash>
+      <txdHash>MP_Biker_Tat_041</txdHash>
+      <txtHash>MP_Biker_Tat_041</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_FEMALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="-0.278000" y="0.490000" />
+      <scale x="0.147000" y="0.180000" />
+       <rotation value="0.000000" />
+      <nameHash>MP_MP_Biker_Tat_042_M</nameHash>
+      <txdHash>MP_Biker_Tat_042</txdHash>
+      <txtHash>MP_Biker_Tat_042</txtHash>
+      <zone>ZONE_RIGHT_ARM</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.537000" y="0.460000" />
+      <scale x="0.170000" y="0.170000" />
+      <rotation value="-74.160000" />
+      <nameHash>MP_MP_Biker_Tat_042_F</nameHash>
+      <txdHash>MP_Biker_Tat_042</txdHash>
+      <txtHash>MP_Biker_Tat_042</txtHash>
+      <zone>ZONE_RIGHT_ARM</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_FEMALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.230000" y="0.270000" />
+      <scale x="0.120000" y="0.120000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_MP_Biker_Tat_043_M</nameHash>
+      <txdHash>MP_Biker_Tat_043</txdHash>
+      <txtHash>MP_Biker_Tat_043</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.230000" y="0.360000" />
+      <scale x="0.120000" y="0.080000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_MP_Biker_Tat_043_F</nameHash>
+      <txdHash>MP_Biker_Tat_043</txdHash>
+      <txtHash>MP_Biker_Tat_043</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_FEMALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.720000" y="0.730000" />
+      <scale x="0.180000" y="0.180000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_MP_Biker_Tat_044_M</nameHash>
+      <txdHash>MP_Biker_Tat_044</txdHash>
+      <txtHash>MP_Biker_Tat_044</txtHash>
+      <zone>ZONE_LEFT_LEG</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.720000" y="0.730000" />
+      <scale x="0.180000" y="0.180000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_MP_Biker_Tat_044_F</nameHash>
+      <txdHash>MP_Biker_Tat_044</txdHash>
+      <txtHash>MP_Biker_Tat_044</txtHash>
+      <zone>ZONE_LEFT_LEG</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_FEMALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.450000" y="0.750000" />
+      <scale x="0.140000" y="0.140000" />
+      <rotation value="15.480000" />
+      <nameHash>MP_MP_Biker_Tat_045_M</nameHash>
+      <txdHash>MP_Biker_Tat_045</txdHash>
+      <txtHash>MP_Biker_Tat_045</txtHash>
+      <zone>ZONE_LEFT_ARM</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.450000" y="0.750000" />
+      <scale x="0.140000" y="0.140000" />
+      <rotation value="15.480000" />
+      <nameHash>MP_MP_Biker_Tat_045_F</nameHash>
+      <txdHash>MP_Biker_Tat_045</txdHash>
+      <txtHash>MP_Biker_Tat_045</txtHash>
+      <zone>ZONE_LEFT_ARM</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_FEMALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.515000" y="0.900000" />
+      <scale x="0.060000" y="0.090000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_MP_Biker_Tat_046_M</nameHash>
+      <txdHash>MP_Biker_Tat_046</txdHash>
+      <txtHash>MP_Biker_Tat_046</txtHash>
+      <zone>ZONE_RIGHT_ARM</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.515000" y="0.900000" />
+      <scale x="0.060000" y="0.090000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_MP_Biker_Tat_046_F</nameHash>
+      <txdHash>MP_Biker_Tat_046</txdHash>
+      <txtHash>MP_Biker_Tat_046</txtHash>
+      <zone>ZONE_RIGHT_ARM</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_FEMALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.600000" y="0.600000" />
+      <scale x="0.270000" y="0.240000" />
+      <rotation value="-81.360000" />
+      <nameHash>MP_MP_Biker_Tat_047_M</nameHash>
+      <txdHash>MP_Biker_Tat_047</txdHash>
+      <txtHash>MP_Biker_Tat_047</txtHash>
+      <zone>ZONE_RIGHT_ARM</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.600000" y="0.600000" />
+      <scale x="0.270000" y="0.240000" />
+      <rotation value="-81.360000" />
+      <nameHash>MP_MP_Biker_Tat_047_F</nameHash>
+      <txdHash>MP_Biker_Tat_047</txdHash>
+      <txtHash>MP_Biker_Tat_047</txtHash>
+      <zone>ZONE_RIGHT_ARM</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_FEMALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.500000" y="0.330000" />
+      <scale x="0.160000" y="0.150000" />
+      <rotation value="-95.760000" />
+      <nameHash>MP_MP_Biker_Tat_048_M</nameHash>
+      <txdHash>MP_Biker_Tat_048</txdHash>
+      <txtHash>MP_Biker_Tat_048</txtHash>
+      <zone>ZONE_RIGHT_LEG</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.500000" y="0.330000" />
+      <scale x="0.160000" y="0.150000" />
+      <rotation value="-95.760000" />
+      <nameHash>MP_MP_Biker_Tat_048_F</nameHash>
+      <txdHash>MP_Biker_Tat_048</txdHash>
+      <txtHash>MP_Biker_Tat_048</txtHash>
+      <zone>ZONE_RIGHT_LEG</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_FEMALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.537000" y="0.740000" />
+      <scale x="0.140000" y="0.135000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_MP_Biker_Tat_049_M</nameHash>
+      <txdHash>MP_Biker_Tat_049</txdHash>
+      <txtHash>MP_Biker_Tat_049</txtHash>
+      <zone>ZONE_RIGHT_ARM</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.537000" y="0.740000" />
+      <scale x="0.140000" y="0.135000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_MP_Biker_Tat_049_F</nameHash>
+      <txdHash>MP_Biker_Tat_049</txdHash>
+      <txtHash>MP_Biker_Tat_049</txtHash>
+      <zone>ZONE_RIGHT_ARM</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_FEMALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.730000" y="0.620000" />
+      <scale x="0.170000" y="0.170000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_MP_Biker_Tat_050_M</nameHash>
+      <txdHash>MP_Biker_Tat_050</txdHash>
+      <txtHash>MP_Biker_Tat_050</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.745000" y="0.640000" />
+      <scale x="0.170000" y="0.130000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_MP_Biker_Tat_050_F</nameHash>
+      <txdHash>MP_Biker_Tat_050</txdHash>
+      <txtHash>MP_Biker_Tat_050</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_FEMALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.230000" y="0.350000" />
+      <scale x="0.150000" y="0.130000" />
+      <rotation value="-11.880000" />
+      <nameHash>MP_MP_Biker_Tat_051_M</nameHash>
+      <txdHash>MP_Biker_Tat_051</txdHash>
+      <txtHash>MP_Biker_Tat_051</txtHash>
+      <zone>ZONE_HEAD</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.230000" y="0.340000" />
+      <scale x="0.150000" y="0.130000" />
+      <rotation value="-11.880000" />
+      <nameHash>MP_MP_Biker_Tat_051_F</nameHash>
+      <txdHash>MP_Biker_Tat_051</txdHash>
+      <txtHash>MP_Biker_Tat_051</txtHash>
+      <zone>ZONE_HEAD</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_FEMALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.735000" y="0.310000" />
+      <scale x="0.150000" y="0.130000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_MP_Biker_Tat_052_M</nameHash>
+      <txdHash>MP_Biker_Tat_052</txdHash>
+      <txtHash>MP_Biker_Tat_052</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.735000" y="0.370000" />
+      <scale x="0.160000" y="0.110000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_MP_Biker_Tat_052_F</nameHash>
+      <txdHash>MP_Biker_Tat_052</txdHash>
+      <txtHash>MP_Biker_Tat_052</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_FEMALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.500000" y="0.460000" />
+      <scale x="0.150000" y="0.220000" />
+      <rotation value="90.000000" />
+      <nameHash>MP_MP_Biker_Tat_053_M</nameHash>
+      <txdHash>MP_Biker_Tat_053</txdHash>
+      <txtHash>MP_Biker_Tat_053</txtHash>
+      <zone>ZONE_LEFT_ARM</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.500000" y="0.420000" />
+      <scale x="0.150000" y="0.220000" />
+      <rotation value="90.000000" />
+      <nameHash>MP_MP_Biker_Tat_053_F</nameHash>
+      <txdHash>MP_Biker_Tat_053</txdHash>
+      <txtHash>MP_Biker_Tat_053</txtHash>
+      <zone>ZONE_LEFT_ARM</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_FEMALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.500000" y="0.800000" />
+      <scale x="0.160000" y="0.160000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_MP_Biker_Tat_054_M</nameHash>
+      <txdHash>MP_Biker_Tat_054</txdHash>
+      <txtHash>MP_Biker_Tat_054</txtHash>
+      <zone>ZONE_RIGHT_ARM</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.480000" y="0.790000" />
+      <scale x="0.160000" y="0.180000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_MP_Biker_Tat_054_F</nameHash>
+      <txdHash>MP_Biker_Tat_054</txdHash>
+      <txtHash>MP_Biker_Tat_054</txtHash>
+      <zone>ZONE_RIGHT_ARM</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_FEMALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.600000" y="0.790000" />
+      <scale x="0.160000" y="0.160000" />
+      <rotation value="27.000000" />
+      <nameHash>MP_MP_Biker_Tat_055_M</nameHash>
+      <txdHash>MP_Biker_Tat_055</txdHash>
+      <txtHash>MP_Biker_Tat_055</txtHash>
+      <zone>ZONE_LEFT_ARM</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.630000" y="0.770000" />
+      <scale x="0.150000" y="0.180000" />
+      <rotation value="27.000000" />
+      <nameHash>MP_MP_Biker_Tat_055_F</nameHash>
+      <txdHash>MP_Biker_Tat_055</txdHash>
+      <txtHash>MP_Biker_Tat_055</txtHash>
+      <zone>ZONE_LEFT_ARM</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_FEMALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.500000" y="0.680000" />
+      <scale x="0.200000" y="0.200000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_MP_Biker_Tat_056_M</nameHash>
+      <txdHash>MP_Biker_Tat_056</txdHash>
+      <txtHash>MP_Biker_Tat_056</txtHash>
+      <zone>ZONE_LEFT_LEG</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.500000" y="0.760000" />
+      <scale x="0.200000" y="0.230000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_MP_Biker_Tat_056_F</nameHash>
+      <txdHash>MP_Biker_Tat_056</txdHash>
+      <txtHash>MP_Biker_Tat_056</txtHash>
+      <zone>ZONE_LEFT_LEG</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_FEMALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.435000" y="0.490000" />
+      <scale x="0.300000" y="0.340000" />
+      <rotation value="-27.000000" />
+      <nameHash>MP_MP_Biker_Tat_057_M</nameHash>
+      <txdHash>MP_Biker_Tat_057</txdHash>
+      <txtHash>MP_Biker_Tat_057</txtHash>
+      <zone>ZONE_LEFT_LEG</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.435000" y="0.530000" />
+      <scale x="0.300000" y="0.370000" />
+      <rotation value="-27.000000" />
+      <nameHash>MP_MP_Biker_Tat_057_F</nameHash>
+      <txdHash>MP_Biker_Tat_057</txdHash>
+      <txtHash>MP_Biker_Tat_057</txtHash>
+      <zone>ZONE_LEFT_LEG</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_FEMALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.820000" y="0.600000" />
+      <scale x="0.120000" y="0.120000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_MP_Biker_Tat_058_M</nameHash>
+      <txdHash>MP_Biker_Tat_058</txdHash>
+      <txtHash>MP_Biker_Tat_058</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.830000" y="0.620000" />
+      <scale x="0.120000" y="0.100000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_MP_Biker_Tat_058_F</nameHash>
+      <txdHash>MP_Biker_Tat_058</txdHash>
+      <txtHash>MP_Biker_Tat_058</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_FEMALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.820000" y="0.600000" />
+      <scale x="0.120000" y="0.120000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_MP_Biker_Tat_059_M</nameHash>
+      <txdHash>MP_Biker_Tat_059</txdHash>
+      <txtHash>MP_Biker_Tat_059</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.830000" y="0.620000" />
+      <scale x="0.110000" y="0.090000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_MP_Biker_Tat_059_F</nameHash>
+      <txdHash>MP_Biker_Tat_059</txdHash>
+      <txtHash>MP_Biker_Tat_059</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_FEMALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.625000" y="0.600000" />
+      <scale x="0.110000" y="0.120000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_MP_Biker_Tat_060_M</nameHash>
+      <txdHash>MP_Biker_Tat_060</txdHash>
+      <txtHash>MP_Biker_Tat_060</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.640000" y="0.640000" />
+      <scale x="0.110000" y="0.090000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_MP_Biker_Tat_060_F</nameHash>
+      <txdHash>MP_Biker_Tat_060</txdHash>
+      <txtHash>MP_Biker_Tat_060</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_FEMALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.737000" y="0.640000" />
+      <scale x="0.140000" y="0.140000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_Biker_Tee_000_M</nameHash>
+      <txdHash>MP_Biker_Tee_000</txdHash>
+      <txtHash>MP_Biker_Tee_000</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_BADGE</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.727000" y="0.640000" />
+      <scale x="0.140000" y="0.140000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_Biker_Tee_000_F</nameHash>
+      <txdHash>MP_Biker_Tee_000</txdHash>
+      <txtHash>MP_Biker_Tee_000</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_BADGE</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_FEMALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.737000" y="0.640000" />
+      <scale x="0.140000" y="0.140000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_Biker_Tee_001_M</nameHash>
+      <txdHash>MP_Biker_Tee_001</txdHash>
+      <txtHash>MP_Biker_Tee_001</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_BADGE</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.727000" y="0.640000" />
+      <scale x="0.140000" y="0.140000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_Biker_Tee_001_F</nameHash>
+      <txdHash>MP_Biker_Tee_001</txdHash>
+      <txtHash>MP_Biker_Tee_001</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_BADGE</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_FEMALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.737000" y="0.640000" />
+      <scale x="0.140000" y="0.140000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_Biker_Tee_002_M</nameHash>
+      <txdHash>MP_Biker_Tee_002</txdHash>
+      <txtHash>MP_Biker_Tee_002</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_BADGE</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.727000" y="0.640000" />
+      <scale x="0.140000" y="0.140000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_Biker_Tee_002_F</nameHash>
+      <txdHash>MP_Biker_Tee_002</txdHash>
+      <txtHash>MP_Biker_Tee_002</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_BADGE</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_FEMALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.737000" y="0.640000" />
+      <scale x="0.140000" y="0.140000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_Biker_Tee_003_M</nameHash>
+      <txdHash>MP_Biker_Tee_003</txdHash>
+      <txtHash>MP_Biker_Tee_003</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_BADGE</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.727000" y="0.640000" />
+      <scale x="0.140000" y="0.140000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_Biker_Tee_003_F</nameHash>
+      <txdHash>MP_Biker_Tee_003</txdHash>
+      <txtHash>MP_Biker_Tee_003</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_BADGE</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_FEMALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.737000" y="0.640000" />
+      <scale x="0.140000" y="0.140000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_Biker_Tee_004_M</nameHash>
+      <txdHash>MP_Biker_Tee_004</txdHash>
+      <txtHash>MP_Biker_Tee_004</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_BADGE</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.727000" y="0.640000" />
+      <scale x="0.140000" y="0.140000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_Biker_Tee_004_F</nameHash>
+      <txdHash>MP_Biker_Tee_004</txdHash>
+      <txtHash>MP_Biker_Tee_004</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_BADGE</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_FEMALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.737000" y="0.640000" />
+      <scale x="0.140000" y="0.140000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_Biker_Tee_005_M</nameHash>
+      <txdHash>MP_Biker_Tee_005</txdHash>
+      <txtHash>MP_Biker_Tee_005</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_BADGE</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.727000" y="0.640000" />
+      <scale x="0.140000" y="0.140000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_Biker_Tee_005_F</nameHash>
+      <txdHash>MP_Biker_Tee_005</txdHash>
+      <txtHash>MP_Biker_Tee_005</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_BADGE</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_FEMALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.737000" y="0.640000" />
+      <scale x="0.140000" y="0.140000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_Biker_Tee_006_M</nameHash>
+      <txdHash>MP_Biker_Tee_006</txdHash>
+      <txtHash>MP_Biker_Tee_006</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_BADGE</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.727000" y="0.640000" />
+      <scale x="0.140000" y="0.140000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_Biker_Tee_006_F</nameHash>
+      <txdHash>MP_Biker_Tee_006</txdHash>
+      <txtHash>MP_Biker_Tee_006</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_BADGE</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_FEMALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.737000" y="0.640000" />
+      <scale x="0.140000" y="0.140000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_Biker_Tee_007_M</nameHash>
+      <txdHash>MP_Biker_Tee_007</txdHash>
+      <txtHash>MP_Biker_Tee_007</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_BADGE</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.727000" y="0.640000" />
+      <scale x="0.140000" y="0.140000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_Biker_Tee_007_F</nameHash>
+      <txdHash>MP_Biker_Tee_007</txdHash>
+      <txtHash>MP_Biker_Tee_007</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_BADGE</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_FEMALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.737000" y="0.640000" />
+      <scale x="0.140000" y="0.140000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_Biker_Tee_008_M</nameHash>
+      <txdHash>MP_Biker_Tee_008</txdHash>
+      <txtHash>MP_Biker_Tee_008</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_BADGE</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.727000" y="0.640000" />
+      <scale x="0.140000" y="0.140000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_Biker_Tee_008_F</nameHash>
+      <txdHash>MP_Biker_Tee_008</txdHash>
+      <txtHash>MP_Biker_Tee_008</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_BADGE</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_FEMALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.737000" y="0.640000" />
+      <scale x="0.140000" y="0.140000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_Biker_Tee_009_M</nameHash>
+      <txdHash>MP_Biker_Tee_009</txdHash>
+      <txtHash>MP_Biker_Tee_009</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_BADGE</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.727000" y="0.640000" />
+      <scale x="0.140000" y="0.140000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_Biker_Tee_009_F</nameHash>
+      <txdHash>MP_Biker_Tee_009</txdHash>
+      <txtHash>MP_Biker_Tee_009</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_BADGE</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_FEMALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.737000" y="0.640000" />
+      <scale x="0.140000" y="0.140000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_Biker_Tee_010_M</nameHash>
+      <txdHash>MP_Biker_Tee_010</txdHash>
+      <txtHash>MP_Biker_Tee_010</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_BADGE</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.727000" y="0.640000" />
+      <scale x="0.140000" y="0.140000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_Biker_Tee_010_F</nameHash>
+      <txdHash>MP_Biker_Tee_010</txdHash>
+      <txtHash>MP_Biker_Tee_010</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_BADGE</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_FEMALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.737000" y="0.640000" />
+      <scale x="0.140000" y="0.140000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_Biker_Tee_011_M</nameHash>
+      <txdHash>MP_Biker_Tee_011</txdHash>
+      <txtHash>MP_Biker_Tee_011</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_BADGE</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.727000" y="0.640000" />
+      <scale x="0.140000" y="0.140000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_Biker_Tee_011_F</nameHash>
+      <txdHash>MP_Biker_Tee_011</txdHash>
+      <txtHash>MP_Biker_Tee_011</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_BADGE</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_FEMALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.737000" y="0.640000" />
+      <scale x="0.140000" y="0.140000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_Biker_Tee_012_M</nameHash>
+      <txdHash>MP_Biker_Tee_012</txdHash>
+      <txtHash>MP_Biker_Tee_012</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_BADGE</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.727000" y="0.640000" />
+      <scale x="0.140000" y="0.140000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_Biker_Tee_012_F</nameHash>
+      <txdHash>MP_Biker_Tee_012</txdHash>
+      <txtHash>MP_Biker_Tee_012</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_BADGE</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_FEMALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.737000" y="0.640000" />
+      <scale x="0.140000" y="0.140000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_Biker_Tee_013_M</nameHash>
+      <txdHash>MP_Biker_Tee_013</txdHash>
+      <txtHash>MP_Biker_Tee_013</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_BADGE</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.727000" y="0.640000" />
+      <scale x="0.140000" y="0.140000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_Biker_Tee_013_F</nameHash>
+      <txdHash>MP_Biker_Tee_013</txdHash>
+      <txtHash>MP_Biker_Tee_013</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_BADGE</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_FEMALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.737000" y="0.640000" />
+      <scale x="0.140000" y="0.140000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_Biker_Tee_014_M</nameHash>
+      <txdHash>MP_Biker_Tee_014</txdHash>
+      <txtHash>MP_Biker_Tee_014</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_BADGE</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.727000" y="0.640000" />
+      <scale x="0.140000" y="0.140000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_Biker_Tee_014_F</nameHash>
+      <txdHash>MP_Biker_Tee_014</txdHash>
+      <txtHash>MP_Biker_Tee_014</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_BADGE</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_FEMALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.737000" y="0.640000" />
+      <scale x="0.140000" y="0.140000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_Biker_Tee_015_M</nameHash>
+      <txdHash>MP_Biker_Tee_015</txdHash>
+      <txtHash>MP_Biker_Tee_015</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_BADGE</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.727000" y="0.640000" />
+      <scale x="0.140000" y="0.140000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_Biker_Tee_015_F</nameHash>
+      <txdHash>MP_Biker_Tee_015</txdHash>
+      <txtHash>MP_Biker_Tee_015</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_BADGE</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_FEMALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.737000" y="0.640000" />
+      <scale x="0.140000" y="0.140000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_Biker_Tee_016_M</nameHash>
+      <txdHash>MP_Biker_Tee_016</txdHash>
+      <txtHash>MP_Biker_Tee_016</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_BADGE</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.727000" y="0.640000" />
+      <scale x="0.140000" y="0.140000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_Biker_Tee_016_F</nameHash>
+      <txdHash>MP_Biker_Tee_016</txdHash>
+      <txtHash>MP_Biker_Tee_016</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_BADGE</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_FEMALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.737000" y="0.640000" />
+      <scale x="0.140000" y="0.140000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_Biker_Tee_017_M</nameHash>
+      <txdHash>MP_Biker_Tee_017</txdHash>
+      <txtHash>MP_Biker_Tee_017</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_BADGE</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.727000" y="0.640000" />
+      <scale x="0.140000" y="0.140000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_Biker_Tee_017_F</nameHash>
+      <txdHash>MP_Biker_Tee_017</txdHash>
+      <txtHash>MP_Biker_Tee_017</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_BADGE</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_FEMALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.737000" y="0.640000" />
+      <scale x="0.140000" y="0.140000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_Biker_Tee_018_M</nameHash>
+      <txdHash>MP_Biker_Tee_018</txdHash>
+      <txtHash>MP_Biker_Tee_018</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_BADGE</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.727000" y="0.640000" />
+      <scale x="0.140000" y="0.140000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_Biker_Tee_018_F</nameHash>
+      <txdHash>MP_Biker_Tee_018</txdHash>
+      <txtHash>MP_Biker_Tee_018</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_BADGE</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_FEMALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.737000" y="0.640000" />
+      <scale x="0.140000" y="0.140000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_Biker_Tee_019_M</nameHash>
+      <txdHash>MP_Biker_Tee_019</txdHash>
+      <txtHash>MP_Biker_Tee_019</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_BADGE</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.727000" y="0.640000" />
+      <scale x="0.140000" y="0.140000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_Biker_Tee_019_F</nameHash>
+      <txdHash>MP_Biker_Tee_019</txdHash>
+      <txtHash>MP_Biker_Tee_019</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_BADGE</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_FEMALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.737000" y="0.640000" />
+      <scale x="0.140000" y="0.140000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_Biker_Tee_020_M</nameHash>
+      <txdHash>MP_Biker_Tee_020</txdHash>
+      <txtHash>MP_Biker_Tee_020</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_BADGE</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.727000" y="0.640000" />
+      <scale x="0.140000" y="0.140000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_Biker_Tee_020_F</nameHash>
+      <txdHash>MP_Biker_Tee_020</txdHash>
+      <txtHash>MP_Biker_Tee_020</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_BADGE</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_FEMALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.737000" y="0.640000" />
+      <scale x="0.140000" y="0.140000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_Biker_Tee_021_M</nameHash>
+      <txdHash>MP_Biker_Tee_021</txdHash>
+      <txtHash>MP_Biker_Tee_021</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_BADGE</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.727000" y="0.640000" />
+      <scale x="0.140000" y="0.140000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_Biker_Tee_021_F</nameHash>
+      <txdHash>MP_Biker_Tee_021</txdHash>
+      <txtHash>MP_Biker_Tee_021</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_BADGE</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_FEMALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.737000" y="0.640000" />
+      <scale x="0.140000" y="0.140000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_Biker_Tee_022_M</nameHash>
+      <txdHash>MP_Biker_Tee_022</txdHash>
+      <txtHash>MP_Biker_Tee_022</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_BADGE</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.727000" y="0.640000" />
+      <scale x="0.140000" y="0.140000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_Biker_Tee_022_F</nameHash>
+      <txdHash>MP_Biker_Tee_022</txdHash>
+      <txtHash>MP_Biker_Tee_022</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_BADGE</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_FEMALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.737000" y="0.640000" />
+      <scale x="0.140000" y="0.140000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_Biker_Tee_023_M</nameHash>
+      <txdHash>MP_Biker_Tee_023</txdHash>
+      <txtHash>MP_Biker_Tee_023</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_BADGE</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.727000" y="0.640000" />
+      <scale x="0.140000" y="0.140000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_Biker_Tee_023_F</nameHash>
+      <txdHash>MP_Biker_Tee_023</txdHash>
+      <txtHash>MP_Biker_Tee_023</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_BADGE</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_FEMALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.737000" y="0.640000" />
+      <scale x="0.140000" y="0.140000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_Biker_Tee_024_M</nameHash>
+      <txdHash>MP_Biker_Tee_024</txdHash>
+      <txtHash>MP_Biker_Tee_024</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_BADGE</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.727000" y="0.640000" />
+      <scale x="0.140000" y="0.140000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_Biker_Tee_024_F</nameHash>
+      <txdHash>MP_Biker_Tee_024</txdHash>
+      <txtHash>MP_Biker_Tee_024</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_BADGE</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_FEMALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.737000" y="0.640000" />
+      <scale x="0.140000" y="0.140000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_Biker_Tee_025_M</nameHash>
+      <txdHash>MP_Biker_Tee_025</txdHash>
+      <txtHash>MP_Biker_Tee_025</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_BADGE</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.727000" y="0.640000" />
+      <scale x="0.140000" y="0.140000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_Biker_Tee_025_F</nameHash>
+      <txdHash>MP_Biker_Tee_025</txdHash>
+      <txtHash>MP_Biker_Tee_025</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_BADGE</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_FEMALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.737000" y="0.640000" />
+      <scale x="0.140000" y="0.140000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_Biker_Tee_026_M</nameHash>
+      <txdHash>MP_Biker_Tee_026</txdHash>
+      <txtHash>MP_Biker_Tee_026</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_BADGE</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.727000" y="0.640000" />
+      <scale x="0.140000" y="0.140000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_Biker_Tee_026_F</nameHash>
+      <txdHash>MP_Biker_Tee_026</txdHash>
+      <txtHash>MP_Biker_Tee_026</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_BADGE</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_FEMALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.737000" y="0.640000" />
+      <scale x="0.140000" y="0.140000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_Biker_Tee_027_M</nameHash>
+      <txdHash>MP_Biker_Tee_027</txdHash>
+      <txtHash>MP_Biker_Tee_027</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_BADGE</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.727000" y="0.640000" />
+      <scale x="0.140000" y="0.140000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_Biker_Tee_027_F</nameHash>
+      <txdHash>MP_Biker_Tee_027</txdHash>
+      <txtHash>MP_Biker_Tee_027</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_BADGE</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_FEMALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.737000" y="0.640000" />
+      <scale x="0.140000" y="0.140000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_Biker_Tee_028_M</nameHash>
+      <txdHash>MP_Biker_Tee_028</txdHash>
+      <txtHash>MP_Biker_Tee_028</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_BADGE</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.727000" y="0.640000" />
+      <scale x="0.140000" y="0.140000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_Biker_Tee_028_F</nameHash>
+      <txdHash>MP_Biker_Tee_028</txdHash>
+      <txtHash>MP_Biker_Tee_028</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_BADGE</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_FEMALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.737000" y="0.640000" />
+      <scale x="0.140000" y="0.140000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_Biker_Tee_029_M</nameHash>
+      <txdHash>MP_Biker_Tee_029</txdHash>
+      <txtHash>MP_Biker_Tee_029</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_BADGE</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.727000" y="0.640000" />
+      <scale x="0.140000" y="0.140000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_Biker_Tee_029_F</nameHash>
+      <txdHash>MP_Biker_Tee_029</txdHash>
+      <txtHash>MP_Biker_Tee_029</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_BADGE</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_FEMALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.737000" y="0.640000" />
+      <scale x="0.140000" y="0.140000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_Biker_Tee_030_M</nameHash>
+      <txdHash>MP_Biker_Tee_030</txdHash>
+      <txtHash>MP_Biker_Tee_030</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_BADGE</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.727000" y="0.640000" />
+      <scale x="0.140000" y="0.140000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_Biker_Tee_030_F</nameHash>
+      <txdHash>MP_Biker_Tee_030</txdHash>
+      <txtHash>MP_Biker_Tee_030</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_BADGE</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_FEMALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.737000" y="0.640000" />
+      <scale x="0.140000" y="0.140000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_Biker_Tee_031_M</nameHash>
+      <txdHash>MP_Biker_Tee_031</txdHash>
+      <txtHash>MP_Biker_Tee_031</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_BADGE</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.727000" y="0.640000" />
+      <scale x="0.140000" y="0.140000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_Biker_Tee_031_F</nameHash>
+      <txdHash>MP_Biker_Tee_031</txdHash>
+      <txtHash>MP_Biker_Tee_031</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_BADGE</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_FEMALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.737000" y="0.640000" />
+      <scale x="0.140000" y="0.140000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_Biker_Tee_032_M</nameHash>
+      <txdHash>MP_Biker_Tee_032</txdHash>
+      <txtHash>MP_Biker_Tee_032</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_BADGE</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.727000" y="0.640000" />
+      <scale x="0.140000" y="0.140000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_Biker_Tee_032_F</nameHash>
+      <txdHash>MP_Biker_Tee_032</txdHash>
+      <txtHash>MP_Biker_Tee_032</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_BADGE</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_FEMALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.737000" y="0.640000" />
+      <scale x="0.140000" y="0.140000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_Biker_Tee_033_M</nameHash>
+      <txdHash>MP_Biker_Tee_033</txdHash>
+      <txtHash>MP_Biker_Tee_033</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_BADGE</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.727000" y="0.640000" />
+      <scale x="0.140000" y="0.140000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_Biker_Tee_033_F</nameHash>
+      <txdHash>MP_Biker_Tee_033</txdHash>
+      <txtHash>MP_Biker_Tee_033</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_BADGE</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_FEMALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.737000" y="0.640000" />
+      <scale x="0.140000" y="0.140000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_Biker_Tee_034_M</nameHash>
+      <txdHash>MP_Biker_Tee_034</txdHash>
+      <txtHash>MP_Biker_Tee_034</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_BADGE</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.727000" y="0.640000" />
+      <scale x="0.140000" y="0.140000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_Biker_Tee_034_F</nameHash>
+      <txdHash>MP_Biker_Tee_034</txdHash>
+      <txtHash>MP_Biker_Tee_034</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_BADGE</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_FEMALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.737000" y="0.640000" />
+      <scale x="0.140000" y="0.140000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_Biker_Tee_035_M</nameHash>
+      <txdHash>MP_Biker_Tee_035</txdHash>
+      <txtHash>MP_Biker_Tee_035</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_BADGE</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.727000" y="0.640000" />
+      <scale x="0.140000" y="0.140000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_Biker_Tee_035_F</nameHash>
+      <txdHash>MP_Biker_Tee_035</txdHash>
+      <txtHash>MP_Biker_Tee_035</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_BADGE</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_FEMALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.737000" y="0.640000" />
+      <scale x="0.140000" y="0.140000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_Biker_Tee_036_M</nameHash>
+      <txdHash>MP_Biker_Tee_036</txdHash>
+      <txtHash>MP_Biker_Tee_036</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_BADGE</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.727000" y="0.640000" />
+      <scale x="0.140000" y="0.140000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_Biker_Tee_036_F</nameHash>
+      <txdHash>MP_Biker_Tee_036</txdHash>
+      <txtHash>MP_Biker_Tee_036</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_BADGE</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_FEMALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.737000" y="0.640000" />
+      <scale x="0.140000" y="0.140000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_Biker_Tee_037_M</nameHash>
+      <txdHash>MP_Biker_Tee_037</txdHash>
+      <txtHash>MP_Biker_Tee_037</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_BADGE</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.727000" y="0.640000" />
+      <scale x="0.140000" y="0.140000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_Biker_Tee_037_F</nameHash>
+      <txdHash>MP_Biker_Tee_037</txdHash>
+      <txtHash>MP_Biker_Tee_037</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_BADGE</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_FEMALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.737000" y="0.640000" />
+      <scale x="0.140000" y="0.140000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_Biker_Tee_038_M</nameHash>
+      <txdHash>MP_Biker_Tee_038</txdHash>
+      <txtHash>MP_Biker_Tee_038</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_BADGE</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.727000" y="0.640000" />
+      <scale x="0.140000" y="0.140000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_Biker_Tee_038_F</nameHash>
+      <txdHash>MP_Biker_Tee_038</txdHash>
+      <txtHash>MP_Biker_Tee_038</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_BADGE</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_FEMALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.737000" y="0.640000" />
+      <scale x="0.140000" y="0.140000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_Biker_Tee_039_M</nameHash>
+      <txdHash>MP_Biker_Tee_039</txdHash>
+      <txtHash>MP_Biker_Tee_039</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_BADGE</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.727000" y="0.640000" />
+      <scale x="0.140000" y="0.140000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_Biker_Tee_039_F</nameHash>
+      <txdHash>MP_Biker_Tee_039</txdHash>
+      <txtHash>MP_Biker_Tee_039</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_BADGE</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_FEMALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.737000" y="0.640000" />
+      <scale x="0.140000" y="0.140000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_Biker_Tee_040_M</nameHash>
+      <txdHash>MP_Biker_Tee_040</txdHash>
+      <txtHash>MP_Biker_Tee_040</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_BADGE</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.727000" y="0.640000" />
+      <scale x="0.140000" y="0.140000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_Biker_Tee_040_F</nameHash>
+      <txdHash>MP_Biker_Tee_040</txdHash>
+      <txtHash>MP_Biker_Tee_040</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_BADGE</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_FEMALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.737000" y="0.640000" />
+      <scale x="0.140000" y="0.140000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_Biker_Tee_041_M</nameHash>
+      <txdHash>MP_Biker_Tee_041</txdHash>
+      <txtHash>MP_Biker_Tee_041</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_BADGE</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.727000" y="0.640000" />
+      <scale x="0.140000" y="0.140000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_Biker_Tee_041_F</nameHash>
+      <txdHash>MP_Biker_Tee_041</txdHash>
+      <txtHash>MP_Biker_Tee_041</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_BADGE</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_FEMALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.737000" y="0.640000" />
+      <scale x="0.140000" y="0.140000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_Biker_Tee_042_M</nameHash>
+      <txdHash>MP_Biker_Tee_042</txdHash>
+      <txtHash>MP_Biker_Tee_042</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_BADGE</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.727000" y="0.640000" />
+      <scale x="0.140000" y="0.140000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_Biker_Tee_042_F</nameHash>
+      <txdHash>MP_Biker_Tee_042</txdHash>
+      <txtHash>MP_Biker_Tee_042</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_BADGE</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_FEMALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.737000" y="0.640000" />
+      <scale x="0.140000" y="0.140000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_Biker_Tee_043_M</nameHash>
+      <txdHash>MP_Biker_Tee_043</txdHash>
+      <txtHash>MP_Biker_Tee_043</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_BADGE</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.727000" y="0.640000" />
+      <scale x="0.140000" y="0.140000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_Biker_Tee_043_F</nameHash>
+      <txdHash>MP_Biker_Tee_043</txdHash>
+      <txtHash>MP_Biker_Tee_043</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_BADGE</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_FEMALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.737000" y="0.640000" />
+      <scale x="0.140000" y="0.140000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_Biker_Tee_044_M</nameHash>
+      <txdHash>MP_Biker_Tee_044</txdHash>
+      <txtHash>MP_Biker_Tee_044</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_BADGE</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.727000" y="0.640000" />
+      <scale x="0.140000" y="0.140000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_Biker_Tee_044_F</nameHash>
+      <txdHash>MP_Biker_Tee_044</txdHash>
+      <txtHash>MP_Biker_Tee_044</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_BADGE</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_FEMALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.737000" y="0.640000" />
+      <scale x="0.140000" y="0.140000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_Biker_Tee_045_M</nameHash>
+      <txdHash>MP_Biker_Tee_045</txdHash>
+      <txtHash>MP_Biker_Tee_045</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_BADGE</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.727000" y="0.640000" />
+      <scale x="0.140000" y="0.140000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_Biker_Tee_045_F</nameHash>
+      <txdHash>MP_Biker_Tee_045</txdHash>
+      <txtHash>MP_Biker_Tee_045</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_BADGE</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_FEMALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.737000" y="0.640000" />
+      <scale x="0.140000" y="0.140000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_Biker_Tee_046_M</nameHash>
+      <txdHash>MP_Biker_Tee_046</txdHash>
+      <txtHash>MP_Biker_Tee_046</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_BADGE</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.727000" y="0.640000" />
+      <scale x="0.140000" y="0.140000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_Biker_Tee_046_F</nameHash>
+      <txdHash>MP_Biker_Tee_046</txdHash>
+      <txtHash>MP_Biker_Tee_046</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_BADGE</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_FEMALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.737000" y="0.640000" />
+      <scale x="0.140000" y="0.140000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_Biker_Tee_047_M</nameHash>
+      <txdHash>MP_Biker_Tee_047</txdHash>
+      <txtHash>MP_Biker_Tee_047</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_BADGE</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.727000" y="0.640000" />
+      <scale x="0.140000" y="0.140000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_Biker_Tee_047_F</nameHash>
+      <txdHash>MP_Biker_Tee_047</txdHash>
+      <txtHash>MP_Biker_Tee_047</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_BADGE</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_FEMALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.737000" y="0.640000" />
+      <scale x="0.140000" y="0.140000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_Biker_Tee_048_M</nameHash>
+      <txdHash>MP_Biker_Tee_048</txdHash>
+      <txtHash>MP_Biker_Tee_048</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_BADGE</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.727000" y="0.640000" />
+      <scale x="0.140000" y="0.140000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_Biker_Tee_048_F</nameHash>
+      <txdHash>MP_Biker_Tee_048</txdHash>
+      <txtHash>MP_Biker_Tee_048</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_BADGE</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_FEMALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.737000" y="0.640000" />
+      <scale x="0.140000" y="0.140000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_Biker_Tee_049_M</nameHash>
+      <txdHash>MP_Biker_Tee_049</txdHash>
+      <txtHash>MP_Biker_Tee_049</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_BADGE</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.727000" y="0.640000" />
+      <scale x="0.140000" y="0.140000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_Biker_Tee_049_F</nameHash>
+      <txdHash>MP_Biker_Tee_049</txdHash>
+      <txtHash>MP_Biker_Tee_049</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_BADGE</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_FEMALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.737000" y="0.640000" />
+      <scale x="0.140000" y="0.140000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_Biker_Tee_050_M</nameHash>
+      <txdHash>MP_Biker_Tee_050</txdHash>
+      <txtHash>MP_Biker_Tee_050</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_BADGE</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.727000" y="0.640000" />
+      <scale x="0.140000" y="0.140000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_Biker_Tee_050_F</nameHash>
+      <txdHash>MP_Biker_Tee_050</txdHash>
+      <txtHash>MP_Biker_Tee_050</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_BADGE</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_FEMALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.737000" y="0.640000" />
+      <scale x="0.140000" y="0.140000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_Biker_Tee_051_M</nameHash>
+      <txdHash>MP_Biker_Tee_051</txdHash>
+      <txtHash>MP_Biker_Tee_051</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_BADGE</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.727000" y="0.640000" />
+      <scale x="0.140000" y="0.140000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_Biker_Tee_051_F</nameHash>
+      <txdHash>MP_Biker_Tee_051</txdHash>
+      <txtHash>MP_Biker_Tee_051</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_BADGE</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_FEMALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.737000" y="0.640000" />
+      <scale x="0.140000" y="0.140000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_Biker_Tee_052_M</nameHash>
+      <txdHash>MP_Biker_Tee_052</txdHash>
+      <txtHash>MP_Biker_Tee_052</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_BADGE</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.727000" y="0.640000" />
+      <scale x="0.140000" y="0.140000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_Biker_Tee_052_F</nameHash>
+      <txdHash>MP_Biker_Tee_052</txdHash>
+      <txtHash>MP_Biker_Tee_052</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_BADGE</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_FEMALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.737000" y="0.640000" />
+      <scale x="0.140000" y="0.140000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_Biker_Tee_053_M</nameHash>
+      <txdHash>MP_Biker_Tee_053</txdHash>
+      <txtHash>MP_Biker_Tee_053</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_BADGE</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.727000" y="0.640000" />
+      <scale x="0.140000" y="0.140000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_Biker_Tee_053_F</nameHash>
+      <txdHash>MP_Biker_Tee_053</txdHash>
+      <txtHash>MP_Biker_Tee_053</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_BADGE</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_FEMALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.737000" y="0.640000" />
+      <scale x="0.140000" y="0.140000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_Biker_Tee_054_M</nameHash>
+      <txdHash>MP_Biker_Tee_054</txdHash>
+      <txtHash>MP_Biker_Tee_054</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_BADGE</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.727000" y="0.640000" />
+      <scale x="0.140000" y="0.140000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_Biker_Tee_054_F</nameHash>
+      <txdHash>MP_Biker_Tee_054</txdHash>
+      <txtHash>MP_Biker_Tee_054</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_BADGE</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_FEMALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.737000" y="0.640000" />
+      <scale x="0.140000" y="0.140000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_Biker_Tee_055_M</nameHash>
+      <txdHash>MP_Biker_Tee_055</txdHash>
+      <txtHash>MP_Biker_Tee_055</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_BADGE</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.727000" y="0.640000" />
+      <scale x="0.140000" y="0.140000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_Biker_Tee_055_F</nameHash>
+      <txdHash>MP_Biker_Tee_055</txdHash>
+      <txtHash>MP_Biker_Tee_055</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_BADGE</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_FEMALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+  </presets>
+  <nameHash>mpBiker_overlays</nameHash>
+  <medalLocations content="vector2_array">
+    0.140000	0.070000	
+    0.370000	0.070000	
+    0.600000	0.070000	
+    0.835000	0.070000	
+    0.140000	0.150000	
+    0.370000	0.150000	
+    0.600000	0.150000	
+    0.835000	0.150000	
+    0.140000	0.230000	
+    0.370000	0.230000	
+    0.600000	0.230000	
+    0.835000	0.230000	
+    0.100000	0.700000	
+    0.300000	0.700000	
+    0.500000	0.700000	
+    0.700000	0.700000	
+  </medalLocations>
+  <medalScale x="0.240000" y="0.100000" />
+</PedDecorationCollection>

@@ -1,0 +1,1527 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<PedDecorationCollection>
+  <bRequiredForSync value="true" />
+  <presets>
+	<Item>
+      <uvPos x="0.210000" y="0.310000" />
+      <scale x="0.130000" y="0.130000" />
+      <rotation value="30.000000" />
+      <nameHash>MP_MP_Stunt_Tat_000_M</nameHash>
+      <txdHash>MP_Stunt_Tat_000</txdHash>
+      <txtHash>MP_Stunt_Tat_000</txtHash>
+      <zone>ZONE_HEAD</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.470000" y="0.820000" />
+      <scale x="0.120000" y="0.140000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_MP_Stunt_tat_001_M</nameHash>
+      <txdHash>MP_Stunt_tat_001</txdHash>
+      <txtHash>MP_Stunt_tat_001</txtHash>
+      <zone>ZONE_LEFT_ARM</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.470000" y="0.250000" />
+      <scale x="0.085000" y="0.085000" />
+      <rotation value="-13.680000" />
+      <nameHash>MP_MP_Stunt_tat_002_M</nameHash>
+      <txdHash>MP_Stunt_tat_002</txdHash>
+      <txtHash>MP_Stunt_tat_002</txtHash>
+      <zone>ZONE_LEFT_ARM</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.237000" y="0.440000" />
+      <scale x="0.140000" y="0.140000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_MP_Stunt_tat_003_M</nameHash>
+      <txdHash>MP_Stunt_tat_003</txdHash>
+      <txtHash>MP_Stunt_tat_003</txtHash>
+      <zone>ZONE_RIGHT_ARM</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.700000" y="0.620000" />
+      <scale x="0.140000" y="0.140000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_MP_Stunt_tat_004_M</nameHash>
+      <txdHash>MP_Stunt_tat_004</txdHash>
+      <txtHash>MP_Stunt_tat_004</txtHash>
+      <zone>ZONE_HEAD</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.737000" y="0.340000" />
+      <scale x="0.140000" y="0.140000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_MP_Stunt_tat_005_M</nameHash>
+      <txdHash>MP_Stunt_tat_005</txdHash>
+      <txtHash>MP_Stunt_tat_005</txtHash>
+      <zone>ZONE_RIGHT_LEG</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.740000" y="0.340000" />
+      <scale x="0.160000" y="0.160000" />
+      <rotation value="-43.560000" />
+      <nameHash>MP_MP_Stunt_tat_006_M</nameHash>
+      <txdHash>MP_Stunt_tat_006</txdHash>
+      <txtHash>MP_Stunt_tat_006</txtHash>
+      <zone>ZONE_HEAD</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.730000" y="0.330000" />
+      <scale x="0.160000" y="0.160000" />
+      <rotation value="1.800000" />
+      <nameHash>MP_MP_Stunt_tat_007_M</nameHash>
+      <txdHash>MP_Stunt_tat_007</txdHash>
+      <txtHash>MP_Stunt_tat_007</txtHash>
+      <zone>ZONE_LEFT_LEG</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.500000" y="0.850000" />
+      <scale x="0.100000" y="0.100000" />
+      <rotation value="14.760000" />
+      <nameHash>MP_MP_Stunt_tat_008_M</nameHash>
+      <txdHash>MP_Stunt_tat_008</txdHash>
+      <txtHash>MP_Stunt_tat_008</txtHash>
+      <zone>ZONE_LEFT_ARM</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="1.520000" y="0.885000" />
+      <scale x="0.070000" y="0.090000" />
+      <rotation value="3.60000" />
+      <nameHash>MP_MP_Stunt_tat_009_M</nameHash>
+      <txdHash>MP_Stunt_tat_009</txdHash>
+      <txtHash>MP_Stunt_tat_009</txtHash>
+      <zone>ZONE_RIGHT_ARM</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.710000" y="0.740000" />
+      <scale x="0.110000" y="0.110000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_MP_Stunt_tat_010_M</nameHash>
+      <txdHash>MP_Stunt_tat_010</txdHash>
+      <txtHash>MP_Stunt_tat_010</txtHash>
+      <zone>ZONE_RIGHT_ARM</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="1.730000" y="0.570000" />
+      <scale x="0.165000" y="0.165000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_MP_Stunt_tat_011_M</nameHash>
+      <txdHash>MP_Stunt_tat_011</txdHash>
+      <txtHash>MP_Stunt_tat_011</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.470000" y="0.330000" />
+      <scale x="0.120000" y="0.160000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_MP_Stunt_tat_012_M</nameHash>
+      <txdHash>MP_Stunt_tat_012</txdHash>
+      <txtHash>MP_Stunt_tat_012</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="1.520000" y="0.690000" />
+      <scale x="0.120000" y="0.120000" />
+      <rotation value="-3.600000" />
+      <nameHash>MP_MP_Stunt_tat_013_M</nameHash>
+      <txdHash>MP_Stunt_tat_013</txdHash>
+      <txtHash>MP_Stunt_tat_013</txtHash>
+      <zone>ZONE_LEFT_LEG</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.735000" y="0.310000" />
+      <scale x="0.230000" y="0.170000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_MP_Stunt_tat_014_M</nameHash>
+      <txdHash>MP_Stunt_tat_014</txdHash>
+      <txtHash>MP_Stunt_tat_014</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.300000" y="0.700000" />
+      <scale x="0.100000" y="0.100000" />
+      <rotation value="3.600000" />
+      <nameHash>MP_MP_Stunt_tat_015_M</nameHash>
+      <txdHash>MP_Stunt_tat_015</txdHash>
+      <txtHash>MP_Stunt_tat_015</txtHash>
+      <zone>ZONE_RIGHT_LEG</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.640000" y="0.640000" />
+      <scale x="0.180000" y="0.180000" />
+      <rotation value="14.760000" />
+      <nameHash>MP_MP_Stunt_tat_016_M</nameHash>
+      <txdHash>MP_Stunt_tat_016</txdHash>
+      <txtHash>MP_Stunt_tat_016</txtHash>
+      <zone>ZONE_RIGHT_ARM</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.780000" y="0.380000" />
+      <scale x="0.100000" y="0.100000" />
+      <rotation value="9.360000" />
+      <nameHash>MP_MP_Stunt_tat_017_M</nameHash>
+      <txdHash>MP_Stunt_tat_017</txdHash>
+      <txtHash>MP_Stunt_tat_017</txtHash>
+      <zone>ZONE_HEAD</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.640000" y="0.610000" />
+      <scale x="0.120000" y="0.120000" />
+      <rotation value="1.800000" />
+      <nameHash>MP_MP_Stunt_tat_018_M</nameHash>
+      <txdHash>MP_Stunt_tat_018</txdHash>
+      <txtHash>MP_Stunt_tat_018</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.780000" y="0.600000" />
+      <scale x="0.150000" y="0.150000" />
+      <rotation value="16.560000" />
+      <nameHash>MP_MP_Stunt_tat_019_M</nameHash>
+      <txdHash>MP_Stunt_tat_019</txdHash>
+      <txtHash>MP_Stunt_tat_019</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="1.340000" y="0.340000" />
+      <scale x="0.180000" y="0.180000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_MP_Stunt_tat_020_M</nameHash>
+      <txdHash>MP_Stunt_tat_020</txdHash>
+      <txtHash>MP_Stunt_tat_020</txtHash>
+      <zone>ZONE_RIGHT_LEG</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.540000" y="0.530000" />
+      <scale x="0.360000" y="0.360000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_MP_Stunt_tat_021_M</nameHash>
+      <txdHash>MP_Stunt_tat_021</txdHash>
+      <txtHash>MP_Stunt_tat_021</txtHash>
+      <zone>ZONE_LEFT_LEG</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.560000" y="0.470000" />
+      <scale x="0.175000" y="0.175000" />
+      <rotation value="12.240000" />
+      <nameHash>MP_MP_Stunt_tat_022_M</nameHash>
+      <txdHash>MP_Stunt_tat_022</txdHash>
+      <txtHash>MP_Stunt_tat_022</txtHash>
+      <zone>ZONE_LEFT_ARM</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.440000" y="0.600000" />
+      <scale x="0.320000" y="0.320000" />
+      <rotation value="-1.800000" />
+      <nameHash>MP_MP_Stunt_tat_023_M</nameHash>
+      <txdHash>MP_Stunt_tat_023</txdHash>
+      <txtHash>MP_Stunt_tat_023</txtHash>
+      <zone>ZONE_LEFT_ARM</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.260000" y="0.370000" />
+      <scale x="-0.620000" y="0.460000" />
+      <rotation value="20.520000" />
+      <nameHash>MP_MP_Stunt_tat_024_M</nameHash>
+      <txdHash>MP_Stunt_tat_024</txdHash>
+      <txtHash>MP_Stunt_tat_024</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.540000" y="0.690000" />
+      <scale x="0.100000" y="0.100000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_MP_Stunt_tat_025_M</nameHash>
+      <txdHash>MP_Stunt_tat_025</txdHash>
+      <txtHash>MP_Stunt_tat_025</txtHash>
+      <zone>ZONE_RIGHT_LEG</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.225000" y="0.640000" />
+      <scale x="0.200000" y="0.200000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_MP_Stunt_tat_026_M</nameHash>
+      <txdHash>MP_Stunt_tat_026</txdHash>
+      <txtHash>MP_Stunt_tat_026</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.640000" y="0.630000" />
+      <scale x="0.130000" y="0.130000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_MP_Stunt_tat_027_M</nameHash>
+      <txdHash>MP_Stunt_tat_027</txdHash>
+      <txtHash>MP_Stunt_tat_027</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.260000" y="0.340000" />
+      <scale x="0.200000" y="0.200000" />
+      <rotation value="14.760000" />
+      <nameHash>MP_MP_Stunt_tat_028_M</nameHash>
+      <txdHash>MP_Stunt_tat_028</txdHash>
+      <txtHash>MP_Stunt_tat_028</txtHash>
+      <zone>ZONE_LEFT_LEG</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.230000" y="0.260000" />
+      <scale x="0.180000" y="0.230000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_MP_Stunt_tat_029_M</nameHash>
+      <txdHash>MP_Stunt_tat_029</txdHash>
+      <txtHash>MP_Stunt_tat_029</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.305000" y="0.630000" />
+      <scale x="0.150000" y="0.160000" />
+      <rotation value="-8.280000" />
+      <nameHash>MP_MP_Stunt_tat_030_M</nameHash>
+      <txdHash>MP_Stunt_tat_030</txdHash>
+      <txtHash>MP_Stunt_tat_030</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.240000" y="0.350000" />
+      <scale x="0.130000" y="0.130000" />
+      <rotation value="9.360000" />
+      <nameHash>MP_MP_Stunt_tat_031_M</nameHash>
+      <txdHash>MP_Stunt_tat_031</txdHash>
+      <txtHash>MP_Stunt_tat_031</txtHash>
+      <zone>ZONE_LEFT_LEG</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.750000" y="0.340000" />
+      <scale x="0.160000" y="0.160000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_MP_Stunt_tat_032_M</nameHash>
+      <txdHash>MP_Stunt_tat_032</txdHash>
+      <txtHash>MP_Stunt_tat_032</txtHash>
+      <zone>ZONE_RIGHT_LEG</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.820000" y="0.600000" />
+      <scale x="0.140000" y="0.140000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_MP_Stunt_tat_033_M</nameHash>
+      <txdHash>MP_Stunt_tat_033</txdHash>
+      <txtHash>MP_Stunt_tat_033</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.220000" y="0.500000" />
+      <scale x="0.350000" y="0.350000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_MP_Stunt_tat_034_M</nameHash>
+      <txdHash>MP_Stunt_tat_034</txdHash>
+      <txtHash>MP_Stunt_tat_034</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.580000" y="0.470000" />
+      <scale x="0.160000" y="0.160000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_MP_Stunt_tat_035_M</nameHash>
+      <txdHash>MP_Stunt_tat_035</txdHash>
+      <txtHash>MP_Stunt_tat_035</txtHash>
+      <zone>ZONE_LEFT_ARM</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.550000" y="0.230000" />
+      <scale x="0.130000" y="0.080000" />
+      <rotation value="20.000000" />
+      <nameHash>MP_MP_Stunt_tat_036_M</nameHash>
+      <txdHash>MP_Stunt_tat_036</txdHash>
+      <txtHash>MP_Stunt_tat_036</txtHash>
+      <zone>ZONE_RIGHT_ARM</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.140000" y="0.640000" />
+      <scale x="0.130000" y="0.130000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_MP_Stunt_tat_037_M</nameHash>
+      <txdHash>MP_Stunt_tat_037</txdHash>
+      <txtHash>MP_Stunt_tat_037</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.560000" y="0.450000" />
+      <scale x="0.140000" y="0.135000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_MP_Stunt_tat_038_M</nameHash>
+      <txdHash>MP_Stunt_tat_038</txdHash>
+      <txtHash>MP_Stunt_tat_038</txtHash>
+      <zone>ZONE_RIGHT_ARM</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.530000" y="0.900000" />
+      <scale x="0.070000" y="0.130000" />
+      <rotation value="2.000000" />
+      <nameHash>MP_MP_Stunt_tat_039_M</nameHash>
+      <txdHash>MP_Stunt_tat_039</txdHash>
+      <txtHash>MP_Stunt_tat_039</txtHash>
+      <zone>ZONE_LEFT_ARM</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.230000" y="0.640000" />
+      <scale x="0.200000" y="0.200000" />
+      <rotation value="1.800000" />
+      <nameHash>MP_MP_Stunt_tat_040_M</nameHash>
+      <txdHash>MP_Stunt_tat_040</txdHash>
+      <txtHash>MP_Stunt_tat_040</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.220000" y="0.580000" />
+      <scale x="0.190000" y="0.190000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_MP_Stunt_tat_041_M</nameHash>
+      <txdHash>MP_Stunt_tat_041</txdHash>
+      <txtHash>MP_Stunt_tat_041</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.800000" y="0.310000" />
+      <scale x="0.160000" y="0.160000" />
+      <rotation value="4.680000" />
+      <nameHash>MP_MP_Stunt_tat_042_M</nameHash>
+      <txdHash>MP_Stunt_tat_042</txdHash>
+      <txtHash>MP_Stunt_tat_042</txtHash>
+      <zone>ZONE_HEAD</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.540000" y="0.800000" />
+      <scale x="0.160000" y="0.160000" />
+      <rotation value="5.400000" />
+      <nameHash>MP_MP_Stunt_tat_043_M</nameHash>
+      <txdHash>MP_Stunt_tat_043</txdHash>
+      <txtHash>MP_Stunt_tat_043</txtHash>
+      <zone>ZONE_LEFT_ARM</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.730000" y="0.520000" />
+      <scale x="0.200000" y="0.200000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_MP_Stunt_tat_044_M</nameHash>
+      <txdHash>MP_Stunt_tat_044</txdHash>
+      <txtHash>MP_Stunt_tat_044</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.550000" y="0.500000" />
+      <scale x="0.330000" y="0.330000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_MP_Stunt_tat_045_M</nameHash>
+      <txdHash>MP_Stunt_tat_045</txdHash>
+      <txtHash>MP_Stunt_tat_045</txtHash>
+      <zone>ZONE_RIGHT_LEG</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.240000" y="0.620000" />
+      <scale x="0.220000" y="0.220000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_MP_Stunt_tat_046_M</nameHash>
+      <txdHash>MP_Stunt_tat_046</txdHash>
+      <txtHash>MP_Stunt_tat_046</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.780000" y="0.340000" />
+      <scale x="0.200000" y="0.200000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_MP_Stunt_tat_047_M</nameHash>
+      <txdHash>MP_Stunt_tat_047</txdHash>
+      <txtHash>MP_Stunt_tat_047</txtHash>
+      <zone>ZONE_RIGHT_LEG</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.230000" y="0.565000" />
+      <scale x="0.220000" y="0.240000" />
+      <rotation value="3.600000" />
+      <nameHash>MP_MP_Stunt_tat_048_M</nameHash>
+      <txdHash>MP_Stunt_tat_048</txdHash>
+      <txtHash>MP_Stunt_tat_048</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.380000" y="0.600000" />
+      <scale x="0.300000" y="0.300000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_MP_Stunt_tat_049_M</nameHash>
+      <txdHash>MP_Stunt_tat_049</txdHash>
+      <txtHash>MP_Stunt_tat_049</txtHash>
+      <zone>ZONE_RIGHT_ARM</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.210000" y="0.310000" />
+      <scale x="0.130000" y="0.130000" />
+      <rotation value="30.000000" />
+      <nameHash>MP_MP_Stunt_Tat_000_F</nameHash>
+      <txdHash>MP_Stunt_Tat_000</txdHash>
+      <txtHash>MP_Stunt_Tat_000</txtHash>
+      <zone>ZONE_HEAD</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_FEMALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.470000" y="0.820000" />
+      <scale x="0.120000" y="0.140000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_MP_Stunt_tat_001_F</nameHash>
+      <txdHash>MP_Stunt_tat_001</txdHash>
+      <txtHash>MP_Stunt_tat_001</txtHash>
+      <zone>ZONE_LEFT_ARM</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_FEMALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.450000" y="0.220000" />
+      <scale x="0.100000" y="0.080000" />
+      <rotation value="-13.680000" />
+      <nameHash>MP_MP_Stunt_tat_002_F</nameHash>
+      <txdHash>MP_Stunt_tat_002</txdHash>
+      <txtHash>MP_Stunt_tat_002</txtHash>
+      <zone>ZONE_LEFT_ARM</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_FEMALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.237000" y="0.420000" />
+      <scale x="0.140000" y="0.140000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_MP_Stunt_tat_003_F</nameHash>
+      <txdHash>MP_Stunt_tat_003</txdHash>
+      <txtHash>MP_Stunt_tat_003</txtHash>
+      <zone>ZONE_RIGHT_ARM</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_FEMALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.700000" y="0.620000" />
+      <scale x="0.140000" y="0.140000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_MP_Stunt_tat_004_F</nameHash>
+      <txdHash>MP_Stunt_tat_004</txdHash>
+      <txtHash>MP_Stunt_tat_004</txtHash>
+      <zone>ZONE_HEAD</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_FEMALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.788000" y="0.340000" />
+      <scale x="0.140000" y="0.140000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_MP_Stunt_tat_005_F</nameHash>
+      <txdHash>MP_Stunt_tat_005</txdHash>
+      <txtHash>MP_Stunt_tat_005</txtHash>
+      <zone>ZONE_RIGHT_LEG</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_FEMALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.740000" y="0.340000" />
+      <scale x="0.160000" y="0.160000" />
+      <rotation value="-43.560000" />
+      <nameHash>MP_MP_Stunt_tat_006_F</nameHash>
+      <txdHash>MP_Stunt_tat_006</txdHash>
+      <txtHash>MP_Stunt_tat_006</txtHash>
+      <zone>ZONE_HEAD</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_FEMALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.730000" y="0.330000" />
+      <scale x="0.160000" y="0.160000" />
+      <rotation value="1.800000" />
+      <nameHash>MP_MP_Stunt_tat_007_F</nameHash>
+      <txdHash>MP_Stunt_tat_007</txdHash>
+      <txtHash>MP_Stunt_tat_007</txtHash>
+      <zone>ZONE_LEFT_LEG</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_FEMALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.500000" y="0.850000" />
+      <scale x="0.100000" y="0.100000" />
+      <rotation value="14.760000" />
+      <nameHash>MP_MP_Stunt_tat_008_F</nameHash>
+      <txdHash>MP_Stunt_tat_008</txdHash>
+      <txtHash>MP_Stunt_tat_008</txtHash>
+      <zone>ZONE_LEFT_ARM</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_FEMALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="1.520000" y="0.885000" />
+      <scale x="0.090000" y="0.090000" />
+      <rotation value="3.60000" />
+      <nameHash>MP_MP_Stunt_tat_009_F</nameHash>
+      <txdHash>MP_Stunt_tat_009</txdHash>
+      <txtHash>MP_Stunt_tat_009</txtHash>
+      <zone>ZONE_RIGHT_ARM</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_FEMALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.710000" y="0.740000" />
+      <scale x="0.110000" y="0.110000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_MP_Stunt_tat_010_F</nameHash>
+      <txdHash>MP_Stunt_tat_010</txdHash>
+      <txtHash>MP_Stunt_tat_010</txtHash>
+      <zone>ZONE_RIGHT_ARM</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_FEMALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="1.745000" y="0.590000" />
+      <scale x="0.165000" y="0.165000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_MP_Stunt_tat_011_F</nameHash>
+      <txdHash>MP_Stunt_tat_011</txdHash>
+      <txtHash>MP_Stunt_tat_011</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_FEMALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.475000" y="0.410000" />
+      <scale x="0.130000" y="0.130000" />
+      <rotation value="12.000000" />
+      <nameHash>MP_MP_Stunt_tat_012_F</nameHash>
+      <txdHash>MP_Stunt_tat_012</txdHash>
+      <txtHash>MP_Stunt_tat_012</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_FEMALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="1.520000" y="0.690000" />
+      <scale x="0.120000" y="0.120000" />
+      <rotation value="-3.600000" />
+      <nameHash>MP_MP_Stunt_tat_013_F</nameHash>
+      <txdHash>MP_Stunt_tat_013</txdHash>
+      <txtHash>MP_Stunt_tat_013</txtHash>
+      <zone>ZONE_LEFT_LEG</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_FEMALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.735000" y="0.375000" />
+      <scale x="0.210000" y="0.130000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_MP_Stunt_tat_014_F</nameHash>
+      <txdHash>MP_Stunt_tat_014</txdHash>
+      <txtHash>MP_Stunt_tat_014</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_FEMALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.300000" y="0.700000" />
+      <scale x="0.100000" y="0.100000" />
+      <rotation value="3.600000" />
+      <nameHash>MP_MP_Stunt_tat_015_F</nameHash>
+      <txdHash>MP_Stunt_tat_015</txdHash>
+      <txtHash>MP_Stunt_tat_015</txtHash>
+      <zone>ZONE_RIGHT_LEG</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_FEMALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.640000" y="0.640000" />
+      <scale x="0.180000" y="0.180000" />
+      <rotation value="14.760000" />
+      <nameHash>MP_MP_Stunt_tat_016_F</nameHash>
+      <txdHash>MP_Stunt_tat_016</txdHash>
+      <txtHash>MP_Stunt_tat_016</txtHash>
+      <zone>ZONE_RIGHT_ARM</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_FEMALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.780000" y="0.340000" />
+      <scale x="0.130000" y="0.130000" />
+      <rotation value="9.360000" />
+      <nameHash>MP_MP_Stunt_tat_017_F</nameHash>
+      <txdHash>MP_Stunt_tat_017</txdHash>
+      <txtHash>MP_Stunt_tat_017</txtHash>
+      <zone>ZONE_HEAD</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_FEMALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.670000" y="0.670000" />
+      <scale x="0.100000" y="0.100000" />
+      <rotation value="1.800000" />
+      <nameHash>MP_MP_Stunt_tat_018_F</nameHash>
+      <txdHash>MP_Stunt_tat_018</txdHash>
+      <txtHash>MP_Stunt_tat_018</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_FEMALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.760000" y="0.610000" />
+      <scale x="0.140000" y="0.140000" />
+      <rotation value="16.560000" />
+      <nameHash>MP_MP_Stunt_tat_019_F</nameHash>
+      <txdHash>MP_Stunt_tat_019</txdHash>
+      <txtHash>MP_Stunt_tat_019</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_FEMALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="1.340000" y="0.340000" />
+      <scale x="0.180000" y="0.180000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_MP_Stunt_tat_020_F</nameHash>
+      <txdHash>MP_Stunt_tat_020</txdHash>
+      <txtHash>MP_Stunt_tat_020</txtHash>
+      <zone>ZONE_RIGHT_LEG</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_FEMALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.540000" y="0.500000" />
+      <scale x="0.360000" y="0.360000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_MP_Stunt_tat_021_F</nameHash>
+      <txdHash>MP_Stunt_tat_021</txdHash>
+      <txtHash>MP_Stunt_tat_021</txtHash>
+      <zone>ZONE_LEFT_LEG</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_FEMALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.470000" y="0.490000" />
+      <scale x="0.190000" y="0.190000" />
+      <rotation value="12.240000" />
+      <nameHash>MP_MP_Stunt_tat_022_F</nameHash>
+      <txdHash>MP_Stunt_tat_022</txdHash>
+      <txtHash>MP_Stunt_tat_022</txtHash>
+      <zone>ZONE_LEFT_ARM</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_FEMALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.440000" y="0.600000" />
+      <scale x="0.320000" y="0.320000" />
+      <rotation value="-1.800000" />
+      <nameHash>MP_MP_Stunt_tat_023_F</nameHash>
+      <txdHash>MP_Stunt_tat_023</txdHash>
+      <txtHash>MP_Stunt_tat_023</txtHash>
+      <zone>ZONE_LEFT_ARM</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_FEMALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.250000" y="0.510000" />
+      <scale x="-0.600000" y="0.330000" />
+      <rotation value="16.200000" />
+      <nameHash>MP_MP_Stunt_tat_024_F</nameHash>
+      <txdHash>MP_Stunt_tat_024</txdHash>
+      <txtHash>MP_Stunt_tat_024</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_FEMALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.540000" y="0.690000" />
+      <scale x="0.100000" y="0.100000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_MP_Stunt_tat_025_F</nameHash>
+      <txdHash>MP_Stunt_tat_025</txdHash>
+      <txtHash>MP_Stunt_tat_025</txtHash>
+      <zone>ZONE_RIGHT_LEG</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_FEMALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.235000" y="0.690000" />
+      <scale x="0.220000" y="0.160000" />
+      <rotation value="-8.280000" />
+      <nameHash>MP_MP_Stunt_tat_026_F</nameHash>
+      <txdHash>MP_Stunt_tat_026</txdHash>
+      <txtHash>MP_Stunt_tat_026</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_FEMALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.670000" y="0.660000" />
+      <scale x="0.110000" y="0.110000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_MP_Stunt_tat_027_F</nameHash>
+      <txdHash>MP_Stunt_tat_027</txdHash>
+      <txtHash>MP_Stunt_tat_027</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_FEMALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.260000" y="0.340000" />
+      <scale x="0.200000" y="0.200000" />
+      <rotation value="14.760000" />
+      <nameHash>MP_MP_Stunt_tat_028_F</nameHash>
+      <txdHash>MP_Stunt_tat_028</txdHash>
+      <txtHash>MP_Stunt_tat_028</txtHash>
+      <zone>ZONE_LEFT_LEG</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_FEMALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.220000" y="0.370000" />
+      <scale x="0.220000" y="0.180000" />
+      <rotation value="-3.000000" />
+      <nameHash>MP_MP_Stunt_tat_029_F</nameHash>
+      <txdHash>MP_Stunt_tat_029</txdHash>
+      <txtHash>MP_Stunt_tat_029</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_FEMALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.320000" y="0.690000" />
+      <scale x="0.180000" y="0.150000" />
+      <rotation value="-10.000000" />
+      <nameHash>MP_MP_Stunt_tat_030_F</nameHash>
+      <txdHash>MP_Stunt_tat_030</txdHash>
+      <txtHash>MP_Stunt_tat_030</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_FEMALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.240000" y="0.350000" />
+      <scale x="0.130000" y="0.130000" />
+      <rotation value="9.360000" />
+      <nameHash>MP_MP_Stunt_tat_031_F</nameHash>
+      <txdHash>MP_Stunt_tat_031</txdHash>
+      <txtHash>MP_Stunt_tat_031</txtHash>
+      <zone>ZONE_LEFT_LEG</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_FEMALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.750000" y="0.340000" />
+      <scale x="0.160000" y="0.160000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_MP_Stunt_tat_032_F</nameHash>
+      <txdHash>MP_Stunt_tat_032</txdHash>
+      <txtHash>MP_Stunt_tat_032</txtHash>
+      <zone>ZONE_RIGHT_LEG</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_FEMALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.805000" y="0.640000" />
+      <scale x="0.110000" y="0.110000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_MP_Stunt_tat_033_F</nameHash>
+      <txdHash>MP_Stunt_tat_033</txdHash>
+      <txtHash>MP_Stunt_tat_033</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_FEMALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.220000" y="0.580000" />
+      <scale x="0.280000" y="0.280000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_MP_Stunt_tat_034_F</nameHash>
+      <txdHash>MP_Stunt_tat_034</txdHash>
+      <txtHash>MP_Stunt_tat_034</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_FEMALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.580000" y="0.470000" />
+      <scale x="0.160000" y="0.160000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_MP_Stunt_tat_035_F</nameHash>
+      <txdHash>MP_Stunt_tat_035</txdHash>
+      <txtHash>MP_Stunt_tat_035</txtHash>
+      <zone>ZONE_LEFT_ARM</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_FEMALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.560000" y="0.180000" />
+      <scale x="0.130000" y="0.090000" />
+      <rotation value="20.000000" />
+      <nameHash>MP_MP_Stunt_tat_036_F</nameHash>
+      <txdHash>MP_Stunt_tat_036</txdHash>
+      <txtHash>MP_Stunt_tat_036</txtHash>
+      <zone>ZONE_RIGHT_ARM</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_FEMALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.140000" y="0.640000" />
+      <scale x="0.130000" y="0.130000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_MP_Stunt_tat_037_F</nameHash>
+      <txdHash>MP_Stunt_tat_037</txdHash>
+      <txtHash>MP_Stunt_tat_037</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_FEMALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.630000" y="0.415000" />
+      <scale x="0.150000" y="0.150000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_MP_Stunt_tat_038_F</nameHash>
+      <txdHash>MP_Stunt_tat_038</txdHash>
+      <txtHash>MP_Stunt_tat_038</txtHash>
+      <zone>ZONE_RIGHT_ARM</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_FEMALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.540000" y="0.900000" />
+      <scale x="0.100000" y="0.130000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_MP_Stunt_tat_039_F</nameHash>
+      <txdHash>MP_Stunt_tat_039</txdHash>
+      <txtHash>MP_Stunt_tat_039</txtHash>
+      <zone>ZONE_LEFT_ARM</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_FEMALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.230000" y="0.640000" />
+      <scale x="0.200000" y="0.200000" />
+      <rotation value="1.800000" />
+      <nameHash>MP_MP_Stunt_tat_040_F</nameHash>
+      <txdHash>MP_Stunt_tat_040</txdHash>
+      <txtHash>MP_Stunt_tat_040</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_FEMALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.230000" y="0.620000" />
+      <scale x="0.180000" y="0.180000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_MP_Stunt_tat_041_F</nameHash>
+      <txdHash>MP_Stunt_tat_041</txdHash>
+      <txtHash>MP_Stunt_tat_041</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_FEMALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.820000" y="0.340000" />
+      <scale x="0.140000" y="0.140000" />
+      <rotation value="6.480000" />
+      <nameHash>MP_MP_Stunt_tat_042_F</nameHash>
+      <txdHash>MP_Stunt_tat_042</txdHash>
+      <txtHash>MP_Stunt_tat_042</txtHash>
+      <zone>ZONE_HEAD</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_FEMALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.540000" y="0.800000" />
+      <scale x="0.160000" y="0.160000" />
+      <rotation value="5.400000" />
+      <nameHash>MP_MP_Stunt_tat_043_F</nameHash>
+      <txdHash>MP_Stunt_tat_043</txdHash>
+      <txtHash>MP_Stunt_tat_043</txtHash>
+      <zone>ZONE_LEFT_ARM</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_FEMALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.738000" y="0.58500" />
+      <scale x="0.100000" y="0.090000" />
+      <rotation value="-2.000000" />
+      <nameHash>MP_MP_Stunt_tat_044_F</nameHash>
+      <txdHash>MP_Stunt_tat_044</txdHash>
+      <txtHash>MP_Stunt_tat_044</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_FEMALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.550000" y="0.500000" />
+      <scale x="0.330000" y="0.330000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_MP_Stunt_tat_045_F</nameHash>
+      <txdHash>MP_Stunt_tat_045</txdHash>
+      <txtHash>MP_Stunt_tat_045</txtHash>
+      <zone>ZONE_RIGHT_LEG</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_FEMALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.240000" y="0.650000" />
+      <scale x="0.210000" y="0.210000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_MP_Stunt_tat_046_F</nameHash>
+      <txdHash>MP_Stunt_tat_046</txdHash>
+      <txtHash>MP_Stunt_tat_046</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_FEMALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.780000" y="0.340000" />
+      <scale x="0.200000" y="0.200000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_MP_Stunt_tat_047_F</nameHash>
+      <txdHash>MP_Stunt_tat_047</txdHash>
+      <txtHash>MP_Stunt_tat_047</txtHash>
+      <zone>ZONE_RIGHT_LEG</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_FEMALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.230000" y="0.625000" />
+      <scale x="0.220000" y="0.200000" />
+      <rotation value="1.000000" />
+      <nameHash>MP_MP_Stunt_tat_048_F</nameHash>
+      <txdHash>MP_Stunt_tat_048</txdHash>
+      <txtHash>MP_Stunt_tat_048</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_FEMALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.380000" y="0.600000" />
+      <scale x="0.300000" y="0.300000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_MP_Stunt_tat_049_F</nameHash>
+      <txdHash>MP_Stunt_tat_049</txdHash>
+      <txtHash>MP_Stunt_tat_049</txtHash>
+      <zone>ZONE_RIGHT_ARM</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_FEMALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+  </presets>
+  <nameHash>mpStunt_overlays</nameHash>
+  <medalLocations content="vector2_array">
+    0.140000	0.070000	
+    0.370000	0.070000	
+    0.600000	0.070000	
+    0.835000	0.070000	
+    0.140000	0.150000	
+    0.370000	0.150000	
+    0.600000	0.150000	
+    0.835000	0.150000	
+    0.140000	0.230000	
+    0.370000	0.230000	
+    0.600000	0.230000	
+    0.835000	0.230000	
+    0.100000	0.700000	
+    0.300000	0.700000	
+    0.500000	0.700000	
+    0.700000	0.700000	
+  </medalLocations>
+  <medalScale x="0.240000" y="0.100000" />
+</PedDecorationCollection>

@@ -1,0 +1,276 @@
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&display=swap');
+
+:root {
+  --bg: rgba(15, 15, 15, 0.92);
+  --item: rgba(0, 0, 0, 0.55);
+  --itemHover: rgba(255, 255, 255, 0.10);
+  --border: rgba(255,255,255,0.14);
+  --border2: rgba(255,255,255,0.08);
+  --text: #fff;
+  --muted: rgba(255,255,255,0.65);
+
+  /* 24px riga + 2px sopra/sotto = 28px per voce */
+  --menu-row-height: 24px;
+  --menu-row-gap: 4px;
+  --menu-row-step: 28px;
+}
+
+* {
+  box-sizing: border-box;
+  font-family: "Cinzel", serif;
+}
+
+html,
+body {
+  margin: 0;
+  width: 100%;
+  height: 100%;
+  background: transparent;
+  overflow: hidden;
+  user-select: none;
+}
+
+.menu-container {
+    position: fixed;
+    top: 55%;
+    left: 65%;
+    transform: translate(-50%, -50%);
+
+    min-width: 190px;
+    max-width: min(900px, calc(100vw - 40px));
+    width: 190px;
+
+    color: var(--text);
+    z-index: 1000;
+    background: linear-gradient(180deg, var(--bg), rgba(10,10,10,0.88));
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    box-shadow: 0 12px 28px rgba(0,0,0,0.55);
+    overflow: visible;
+
+    transition: opacity .12s ease, transform .12s ease;
+}
+
+.menu-container.hidden {
+  opacity: 0;
+  transform: translate(-50%, -50%) scale(0.98);
+  pointer-events: none;
+}
+
+.menu-container.visible {
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1);
+  pointer-events: all;
+}
+
+.menu-container.top-left { top: 20px; left: 20px; transform: none; }
+.menu-container.top-right { top: 20px; right: 20px; left: auto; transform: none; }
+.menu-container.bottom-left { bottom: 20px; left: 20px; top: auto; transform: none; }
+.menu-container.bottom-right { bottom: 20px; right: 20px; top: auto; left: auto; transform: none; }
+
+/*
+  560px / 28px = circa 20 voci visibili.
+  Prima erano circa 9: quindi ne vedi almeno 10 in più.
+*/
+.menu-items {
+  position: relative;
+  height: auto; /* gestita dinamicamente dal JavaScript */
+  min-height: 32px;
+  max-height: min(560px, 76vh);
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 0 5px;
+  overscroll-behavior: contain;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255,255,255,0.28) transparent;
+}
+
+.menu-items::-webkit-scrollbar { width: 6px; }
+.menu-items::-webkit-scrollbar-track { background: transparent; }
+.menu-items::-webkit-scrollbar-thumb {
+  background: rgba(255,255,255,0.28);
+  border-radius: 999px;
+}
+
+/* Altezza virtuale totale della lista */
+.menu-virtual-content {
+  position: relative;
+  width: 100%;
+  min-height: 100%;
+}
+
+/* Gli item renderizzati sono posizionati solo nella zona visibile */
+.menu-item {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: var(--menu-row-height);
+  padding: 0 7px;
+
+  display: flex;
+  align-items: center;
+
+  background: var(--item);
+  border: 1px solid var(--border);
+  border-radius: 5px;
+  overflow: hidden;
+  cursor: pointer;
+  contain: layout paint;
+}
+
+.menu-item:hover {
+  background: var(--itemHover);
+  border-color: rgba(255,255,255,0.28);
+}
+
+.menu-item:active {
+  filter: brightness(0.94);
+}
+
+.menu-item-label {
+  flex: 1 1 auto;
+  min-width: 0;
+  display: block;
+
+  font-size: 17px;
+  font-weight: 500;
+  line-height: 1;
+  color: var(--text);
+
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Indicatori fissi: non entrano dentro l'area scrollabile */
+.menu-more-indicator {
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: .2px;
+  color: rgba(255,255,255,1);
+  background: rgba(0,0,0,.38);
+  border-color: var(--border2);
+  pointer-events: none;
+}
+
+#menu-more-top {
+  border-bottom: 1px solid var(--border2);
+  border-radius: 11px 11px 0 0;
+}
+
+#menu-more-bottom {
+  border-top: 1px solid var(--border2);
+  border-radius: 0 0 11px 11px;
+}
+
+.menu-more-indicator.hidden {
+  display: none;
+}
+
+.menu-tooltip {
+  position: absolute;
+  top: 0;
+  left: calc(100% + 12px);
+  width: 280px;
+  min-height: 80px;
+  padding: 12px;
+  border-radius: 10px;
+  background: linear-gradient(180deg, rgba(18,18,18,0.97), rgba(8,8,8,0.95));
+  border: 1px solid rgba(255,255,255,0.12);
+  box-shadow: 0 12px 28px rgba(0,0,0,0.45);
+  pointer-events: none;
+  opacity: 0;
+  transform: translateX(-4px) scale(0.98);
+  transition: opacity .12s ease, transform .12s ease;
+  z-index: 99999;
+  white-space: normal;
+  word-break: break-word;
+}
+
+.menu-tooltip:not(.hidden) {
+  opacity: 1;
+  transform: translateX(0) scale(1);
+}
+
+.menu-tooltip.hidden {
+  opacity: 0;
+  transform: translateX(-4px) scale(0.98);
+}
+
+.menu-tooltip-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.menu-tooltip-icon {
+  width: 28px;
+  height: 28px;
+  border-radius: 7px;
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.10);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  color: white;
+  flex-shrink: 0;
+}
+
+.menu-tooltip-icon.hidden,
+.menu-tooltip-footer.hidden {
+  display: none;
+}
+
+.menu-tooltip-title {
+  font-size: 18px;
+  font-weight: 800;
+  color: white;
+  line-height: 1.2;
+}
+
+.menu-tooltip-description {
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 1.45;
+  color: rgba(255,255,255,0.88);
+  white-space: pre-wrap;
+}
+
+.menu-tooltip-footer {
+  margin-top: 10px;
+  padding-top: 8px;
+  border-top: 1px solid rgba(255,255,255,0.08);
+  font-size: 12px;
+  color: rgba(255,255,255,0.68);
+}
+
+.menu-tooltip.theme-red { border-color: rgba(255,90,90,.22); }
+.menu-tooltip.theme-green { border-color: rgba(90,255,140,.22); }
+.menu-tooltip.theme-gold { border-color: rgba(255,210,90,.22); }
+.menu-tooltip.theme-blue { border-color: rgba(90,170,255,.22); }
+
+@media (max-width: 768px) {
+  .menu-container {
+    min-width: 190px;
+    max-width: 420px;
+    width: 380px;
+  }
+
+  .menu-items {
+    max-height: min(476px, 68vh);
+  }
+
+  .menu-tooltip {
+    left: 0;
+    top: calc(100% + 10px);
+    width: 100%;
+  }
+}

@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Striano_Cards</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="noteContainer"></div>
+
+    <div id="panel">
+        <input placeholder="" class="form-control shadow-none" type="text" id="striano_cards_input">
+    </div>
+
+    <div class="rangeDisplay d-none">
+        <span id="rangeDisplay"></span>
+    </div>
+	
+	
+	
+	<div id="sign0">
+		<p id="message0"></p>
+	</div>
+	<div id="sign">
+		<p id="message"></p>
+	</div>
+	<div id="sign2">
+		<p id="message2"></p>
+	</div>
+	<div id="sign3">
+		<p id="message3"></p>
+	</div>
+	
+	<div id="sign4">
+		<p id="message4"></p>
+	</div>
+	<div id="sign5">
+		<p id="message5"></p>
+	</div>
+	
+	<div id="signTopMex">
+		<p id="messageTopMex"></p>
+	</div>
+	
+	
+	
+	<!-- STRIANO MISSIONS striano_missions -->
+	<div class="cont" id="container">
+		<div class="quest-alert" id="questAlert">
+		  <div class="quest-alert-title" id="questAlertTitle">Nuova quest</div>
+		  <div class="quest-alert-text" id="questAlertText">Hai una nuova quest disponibile.</div>
+		</div>
+  
+		<div class="top" id="top">
+		  <div class="left" id="timeId"></div>
+		  <div class="center" id="pocetId"></div>
+		  <div class="right" id="distId"></div>
+		</div>
+		<div>
+			<div class="txt">
+				<div class="head" id="titleId"></div>
+				<hr>
+				<div class="info" id="messageId"></div>
+			</div>
+
+			<div class="top">
+				<div class="left2" id="L"><</div>
+				<div class="center2" id="G">H (Accept)</div>
+				<div class="right2"id="R">></div>
+			</div>
+		</div>
+	</div>
+  
+  
+  
+  
+  
+  
+	<!-- Timer Display -->
+	<div id="timerDisplay" class="timer-display hidden">
+		<div class="timer-value">12:00</div>
+	</div>
+	
+	<!-- Mana Bar with Table Layout -->
+	<div id="manaBar" class="mana-bar hidden">
+		<table class="mana-table">
+			<tr>
+				<td class="mana-icon-cell">
+					<div class="mana-icon"></div>
+				</td>
+				<td class="mana-bar-cell">
+					<div class="mana-background">
+						<div id="manaBarFill" class="mana-fill"></div>
+						<div id="manaBarText" class="mana-text">100/100</div>
+					</div>
+				</td>
+				<td class="mana-spacer-cell">
+					<!-- Spacer per mantenere l'allineamento -->
+				</td>
+			</tr>
+		</table>
+	</div>
+
+	<!-- Health Bar with Table Layout -->
+	<div id="healthBar" class="health-bar hidden">
+		<table class="health-table">
+			<tr>
+				<td class="health-icon-cell">
+					<div class="health-icon"></div>
+				</td>
+				<td class="health-bar-cell">
+					<div class="health-background">
+						<div id="healthBarFill" class="health-fill"></div>
+						<div id="healthBarText" class="health-text">100</div>
+					</div>
+				</td>
+				<!--
+				<td class="eteris-icon-cell">
+					<div class="eteris-icon">
+						<div class="eteris-text">0</div>
+					</div>
+				</td>
+				-->
+			</tr>
+		</table>
+	</div>
+
+	<!-- Player Points Display with Table Layout -->
+	<div id="pointsDisplay" class="points-display hidden">
+		<table class="points-table">
+			<tr>
+				<td class="points-icon-cell">
+					<div class="points-slot">
+						<div class="dust-background"></div>
+						<div class="points-value">0</div>
+					</div>
+				</td>
+				<td class="kills-icon-cell">
+					<div class="kills-slot">
+						<div class="kills-background"></div>
+						<div class="kills-value">0</div>
+					</div>
+				</td>
+				<td class="death-icon-cell">
+					<div class="death-slot">
+						<div class="death-background"></div>
+						<div class="death-value">0</div>
+					</div>
+				</td>
+				<td class="kd-icon-cell">
+					<div class="kd-slot">
+						<div class="kd-background"></div>
+						<div class="kd-value">0</div>
+					</div>
+				</td>
+			</tr>
+		</table>
+	</div>
+	
+	
+
+    <script src="nui://game/ui/jquery.js"></script>
+    <script src="app.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,20 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<CMapTypes>
+  <archetypes>
+    <Item type="CBaseArchetypeDef">
+      <lodDist value="60" />
+      <flags value="32" />
+      <specialAttribute value="0" />
+      <bbMin x="-0.01843447" y="-0.9458776" z="-0.018154718" />
+      <bbMax x="0.01843447" y="0.9467212" z="0.018154409" />
+      <bsCentre x="0.0" y="0.00042179227" z="-1.5459955e-07" />
+      <bsRadius value="0.94665307" />
+      <hdTextureDist value="60" />
+      <name>wd_stf</name>
+      <textureDictionary>wd_stf</textureDictionary>
+      <assetType>ASSET_TYPE_DRAWABLE</assetType>
+      <assetName>wd_stf</assetName>
+    </Item>
+  </archetypes>
+  <name>wooden_staff</name>
+</CMapTypes>

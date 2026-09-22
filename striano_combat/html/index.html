@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<link rel="stylesheet" href="styles.css">
+	</head>
+	<body>
+		<div id="sign0">
+			<p id="message0"></p>
+		</div>
+		<div id="sign">
+			<p id="message"></p>
+		</div>
+		<div id="sign2">
+			<p id="message2"></p>
+		</div>
+		<div id="sign3">
+			<p id="message3"></p>
+		</div>
+		
+		<div id="sign4">
+			<p id="message4"></p>
+		</div>
+		<div id="sign5">
+			<p id="message5"></p>
+		</div>
+		
+		<div id="sign6">
+			<p id="message6"></p>
+		</div>
+		
+		<div id="sign7">
+			<p id="message7"></p>
+		</div>
+		
+		<div id="zone-container">
+			<div id="zone-title"></div>
+			<div id="zone-subtitle"> </div>
+		</div>
+		
+		
+		
+		
+		
+		
+
+		<div id="grimoire" class="hidden">
+			<button id="toggleFloatingSlots" class="toggle-btn" title="Toggle Right Menu">👁️</button>
+			<div class="spell-slots">
+				
+				<!-- 
+				<button id="toggleSound" class="toggle-btn sound-btn" title="Toggle Sound Effects">🔊</button>
+				<button id="resetSpells" class="toggle-btn reset-btn" title="Reset All Spells">🗑️</button>
+				-->
+				
+				<!-- Spell Slots 1 to 7 -->
+				<div class="spell-slot empty" data-slot="1" data-key="1">
+					<div class="slot-key">1</div>
+					<div class="slot-content">
+						<img class="spell-icon" style="display: none;" alt="" title="">
+						<div class="spell-name"></div>
+					</div>
+				</div>
+
+				<div class="spell-slot empty" data-slot="2" data-key="2">
+					<div class="slot-key">2</div>
+					<div class="slot-content">
+						<img class="spell-icon" style="display: none;" alt="" title="">
+						<div class="spell-name"></div>
+					</div>
+				</div>
+
+				<div class="spell-slot empty" data-slot="3" data-key="3">
+					<div class="slot-key">3</div>
+					<div class="slot-content">
+						<img class="spell-icon" style="display: none;" alt="" title="">
+						<div class="spell-name"></div>
+					</div>
+				</div>
+
+				<div class="spell-slot empty" data-slot="4" data-key="4">
+					<div class="slot-key">4</div>
+					<div class="slot-content">
+						<img class="spell-icon" style="display: none;" alt="" title="">
+						<div class="spell-name"></div>
+					</div>
+				</div>
+
+				<div class="spell-slot empty" data-slot="5" data-key="5">
+					<div class="slot-key">5</div>
+					<div class="slot-content">
+						<img class="spell-icon" style="display: none;" alt="" title="">
+						<div class="spell-name"></div>
+					</div>
+				</div>
+
+				<div class="spell-slot empty" data-slot="6" data-key="6">
+					<div class="slot-key">6</div>
+					<div class="slot-content">
+						<img class="spell-icon" style="display: none;" alt="" title="">
+						<div class="spell-name"></div>
+					</div>
+				</div>
+
+				<div class="spell-slot empty" data-slot="7" data-key="7">
+					<div class="slot-key">7</div>
+					<div class="slot-content">
+						<img class="spell-icon" style="display: none;" alt="" title="">
+						<div class="spell-name"></div>
+					</div>
+				</div>
+			</div>
+			
+			<div class="available-spells" id="availableSpells">
+				<!-- Available spells will be populated here -->
+			</div>
+		</div>
+		
+		<!-- Spell Tooltip -->
+		<div id="spellTooltip" class="hidden">
+			<div class="tooltip-name"></div>
+			<div class="tooltip-cost"></div>
+			<div class="tooltip-description"></div>
+			<div class="tooltip-cooldown"></div>
+		</div>
+		
+		<!-- Floating spell slots (right side) -->
+		<div id="floatingSlots" class="floating-slots">
+			<div class="floating-slot" data-slot="1" data-key="1">
+				<div class="slot-key">1</div>
+				<img class="spell-icon" style="display: none;" alt="" title="">
+			</div>
+			
+			<div class="floating-slot" data-slot="2" data-key="2">
+				<div class="slot-key">2</div>
+				<img class="spell-icon" style="display: none;" alt="" title="">
+			</div>
+			
+			<div class="floating-slot" data-slot="3" data-key="3">
+				<div class="slot-key">3</div>
+				<img class="spell-icon" style="display: none;" alt="" title="">
+			</div>
+			
+			<div class="floating-slot" data-slot="4" data-key="4">
+				<div class="slot-key">4</div>
+				<img class="spell-icon" style="display: none;" alt="" title="">
+			</div>
+			
+			<div class="floating-slot" data-slot="5" data-key="5">
+				<div class="slot-key">5</div>
+				<img class="spell-icon" style="display: none;" alt="" title="">
+			</div>
+			
+			<div class="floating-slot" data-slot="6" data-key="6">
+				<div class="slot-key">6</div>
+				<img class="spell-icon" style="display: none;" alt="" title="">
+			</div>
+			
+			<div class="floating-slot" data-slot="7" data-key="7">
+				<div class="slot-key">7</div>
+				<img class="spell-icon" style="display: none;" alt="" title="">
+			</div>
+		</div>
+		
+		
+		
+		
+		
+
+		<script src="zone.js"></script>
+
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+		<script src="script.js"></script>
+	</body>
+</html>

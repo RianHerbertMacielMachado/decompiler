@@ -1,0 +1,1425 @@
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&display=swap');
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	font-family: "Cinzel", serif;
+	font-weight: 400;
+    color: rgba(255, 255, 255, 1.0);
+    font-size: 1.3vh;
+    text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+}
+
+.div-wrap {
+  display: block;
+  margin-right: 70%;
+  padding: 1px;
+}
+
+body {
+  margin: 5.0vh;
+  background-color: transparent !important;  
+}
+
+.noteContainer {
+  height: 99%;
+  overflow: hidden;
+  position: relative;
+  max-width: 35%;
+  float: left;
+}
+
+.container-desc {
+  flex-flow: column;
+  flex-wrap: wrap;
+  position: relative;
+  padding: 0.05vh;
+  border-radius: .5vh;
+  margin-top: 0.1%;
+  font: caption;
+  font-weight: bold;
+  width: 20vw;
+  min-height: 1vh;
+  float: left;
+  color: black;
+  height: 90%;
+}
+
+.text {
+  display: flex;
+  height: 100%;
+  margin-left: 0.3vh;
+  margin-right: 0.3vh;
+  word-break: break-word;
+  font-size:1.0rem !important;
+}
+
+.rangeDisplay{
+  position:fixed;
+  top:50%;
+  left:2%;
+  width: fit-content;  
+  transform:translate(0, -50%);
+}
+
+#panel{
+  position:fixed;
+  top:85%;
+  left:3%;
+  width: 15%;
+  transform:translate(0, -50%);
+  background-color: rgba(255, 243, 230, 0.8); /* form di scrittura */  
+  font-size:1.4rem !important;
+  font-weight: bolder !important;
+  outline: none;
+  border:none;
+  border-radius:25px;
+}
+
+panel:focus {outline:0;box-shadow: none;}
+
+.form-control {
+  background-color: transparent !important;
+  color: black;  
+}
+
+.input-group {
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+.input-group-text {
+  background-color: transparent !important;
+  color: #FF006E !important;
+  border: none !important;
+  font-weight: bolder !important;
+}
+
+.form-control {
+  background-color: transparent !important;
+  border: none !important;
+  color: rgba(0,0,0.0.8) !important;
+  font-size:1.2rem !important;
+  font-weight: bolder !important;
+}
+
+.form-control:focus {
+  border-color: inherit;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+}
+
+input.form-control:focus {
+    outline-width: 0;
+}
+
+
+
+
+
+
+
+/* RAPID ACTIONS */
+#sign {
+	height: 100vh;
+    display: none;
+    justify-content: center;
+    align-items: center;
+	width: 450px;
+	height: 700px;
+	background-repeat: no-repeat;
+	white-space: pre-wrap;
+}
+#message { /* Quello important */
+	position: absolute;
+	/* text-align: center; */
+    font-size: 1.8rem;
+	color: white;
+	top: 30%;
+	left: 40%;
+	/* bring your own prefixes */
+	/* bring your own prefixes */
+	line-height: 0.9;
+	transform: translate(-50%, -50%);	
+	width: 30% !important;
+	max-width: 40em !important;
+	/* white-space: normal !important; */
+	white-space: pre-wrap;
+	overflow-wrap: break-word !important;
+}
+
+#sign0 {
+    display: none;
+	width: 450px;
+	height: 700px;
+	background-repeat: no-repeat;
+	white-space: pre-wrap;
+}
+#message0 {
+	position: absolute;
+	/* text-align: center; */
+    font-size: 1.3rem;
+	color: white;
+	top: 30%;
+	left: 40%;
+	/* bring your own prefixes */
+	/* bring your own prefixes */
+	transform: translate(-50%, -50%);	
+	width: 30% !important;
+	white-space: pre-wrap;
+	background: rgba(0, 0, 0, 0.35);
+	padding: 10px;
+	border-radius: 10px;
+}
+
+#sign2 {
+	height: 100vh;
+    display: none;
+    justify-content: center;
+    align-items: center;
+	width: 450px;
+	height: 100px;
+	background-repeat: no-repeat;
+	white-space: pre-wrap;
+}
+
+#message2 {
+	position: absolute;
+	text-align: center;
+    font-size: 1.45rem;
+	color: white;
+	top: 75%;
+	left: 50%;
+	/* bring your own prefixes */
+	transform: translate(-50%, -50%);
+	line-height: 0.85;
+	width: 30% !important;
+	max-width: 25em !important;
+	/* white-space: normal !important; */
+	white-space: pre-wrap;
+	overflow-wrap: break-word !important;
+
+	border-radius: 5px;
+	padding: 10px;
+}
+
+/* MENU LEGACY IN BASSO */
+
+/* MESSAGGIO SOPRA IL PRIMO */
+#sign4 {
+	height: 100vh;
+    display: none;
+    justify-content: center;
+    align-items: center;
+	width: 450px;
+	height: 100px;
+	background-repeat: no-repeat;
+}
+#message4 {
+	position: absolute;
+	/* text-align: center; */
+	white-space: pre;
+    font-size: 1.1rem;
+	color: rgba(255,255,255,0.7);
+	top: 89%;
+	left: 50%;
+	/* bring your own prefixes */
+	transform: translate(-50%, -50%);
+}
+
+/* MESSAGGIO CENTRALE */
+#sign3 {
+	height: 100vh;
+    display: none;
+    justify-content: center;
+    align-items: center;
+	width: 450px;
+	height: 100px;
+	background-repeat: no-repeat;
+}
+#message3 {
+	position: absolute;
+	/* text-align: center; */
+	white-space: pre;
+    font-size: 1.7rem;
+	color: white;
+	top: 92%;
+	left: 50%;
+	/* bring your own prefixes */
+	transform: translate(-50%, -50%);
+}
+
+/* MESSAGGIO SOTTO QUELLO CENTRALE, QUINDI IL TERZO! */
+#sign5 {
+	height: 100vh;
+    display: none;
+    justify-content: center;
+    align-items: center;
+	width: 450px;
+	height: 100px;
+	background-repeat: no-repeat;
+}
+#message5 {
+	position: absolute;
+	/* text-align: center; */
+	white-space: pre;
+    font-size: 1.1rem;
+	color: rgba(255,255,255,0.7);
+	top: 95%;
+	left: 50%;
+	/* bring your own prefixes */
+	transform: translate(-50%, -50%);
+}
+
+/*Messaggio fisso in alto! */
+#signTopMex {
+	height: 100vh;
+    display: none;
+    justify-content: center;
+    align-items: center;
+	width: 450px;
+	height: 100px;
+	background-repeat: no-repeat;
+}
+#messageTopMex {
+	position: absolute;
+	/* text-align: center; */
+	white-space: pre;
+    font-size: 1.2rem;
+	color: white;
+	top: 10%;
+	left: 50%;
+	/* bring your own prefixes */
+	transform: translate(-50%, -50%);
+	background: rgba(0, 0, 0, 0.35);
+	border-radius: 5px;
+	padding: 10px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+/* STRIANO MISSIONS striano_missions */
+.cont {
+    height: 19vh;
+    width: 16vw;
+    border-radius: 10px;
+    margin-top: 65vh;
+    margin-left: 70vw;
+    user-select: none;
+    display: none;
+    position: relative;
+}
+
+.top {
+    height: 2vh;
+    width: 100%;
+    background-color: #2C2C2C;
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    text-align: center;
+}
+
+.left {
+    flex: 1;
+    text-align: left;
+    padding-left: 10px;
+}
+
+.center {
+    flex: 1;
+    text-align: center;
+    white-space: nowrap;
+}
+
+.right {
+    flex: 1;
+    text-align: right;
+    padding-right: 10px;
+}
+
+.head {
+    text-align: center;
+    font-size: 1.8vh;
+}
+
+.txt {
+    height: 19vh;
+    width: 16vw;
+    background-color: #181818b9;
+}
+
+.info {
+    color: #fff;
+    font-size: 1.55vh;
+    text-align: left;
+	padding-left: 10px;
+    max-height: 14vh;
+    overflow-y: auto;
+}
+
+.info::-webkit-scrollbar {
+    width: 2px;
+}
+
+.info::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.info::-webkit-scrollbar-thumb {
+    background: rgba(255,255,255,0.35);
+    border-radius: 10px;
+}
+
+.info::-webkit-scrollbar-thumb:hover {
+    background: rgba(255,255,255,0.6);
+}
+
+.left2 {
+    flex: 1;
+    text-align: left;
+    padding-left: 10px;
+    background-color: #212023;
+    border: 3px solid #2C2C2C;
+}
+
+.center2 {
+    flex: 1;
+    text-align: center;
+    background-color: #212023;
+    border: 3px solid #2C2C2C;
+	white-space: nowrap;
+}
+
+.right2 {
+    flex: 1;
+    text-align: right;
+    padding-right: 10px;
+    background-color: #212023;
+    border: 3px solid #2C2C2C;
+}
+
+.settxt {
+    font-size: 3vh;
+    margin-top: 5px;
+}
+
+.settxt2 {
+    font-size: 2vh;
+    color: white;
+    margin-top: 3vh;
+    margin-left: 1vw;
+}
+
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 34px;
+}
+
+.switch input {
+    display: none;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #2d7e08;
+    transition: .4s;
+    border-radius: 34px;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 26px;
+    width: 26px;
+    left: 4px;
+    bottom: 4px;
+    background-color: #2D2D2D;
+    transition: .4s;
+    border-radius: 50%;
+}
+
+input:checked + .slider {
+    background-color: #8d1515;
+}
+
+input:checked + .slider:before {
+    transform: translateX(26px);
+}
+
+.setbtn {
+    background-color: #212023;
+    border: 3px solid #2C2C2C;
+    width: 80%;
+    margin-left: 10%;
+    text-align: center;
+    margin-top: 1vh;
+    height: 3vh;
+    font-size: 2.8vh;
+    color: rgb(204, 204, 204);
+}
+
+.setbtn:hover {
+    background-color: #2f2e31;
+    border: 3px solid #313131;
+    width: 80%;
+    margin-left: 10%;
+    text-align: center;
+    margin-top: 1vh;
+    height: 3vh;
+    font-size: 2.8vh;
+    color: rgb(255, 255, 255);
+}
+
+/* BOX NOTIFICA NUOVA QUEST */
+.quest-alert {
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translate(-50%, -1vh);
+    background-color: #181818;
+    min-width: 13vw;
+    max-width: 18vw;
+    border: 2px solid yellow;
+    display: none;
+    opacity: 0;
+    pointer-events: none;
+    z-index: 999;
+}
+
+.quest-alert-title {
+    color: yellow;
+    font-size: 1.3vh;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    text-align: center;
+}
+
+.quest-alert-text {
+    color: #ffffff;
+    font-size: 1.3vh;
+    text-align: center;
+    margin-top: 0.3vh;
+}
+
+.quest-alert.show {
+    display: block;
+    animation: questAlertIn 0.35s ease-out forwards;
+}
+
+.quest-alert.hide {
+    display: block;
+    animation: questAlertOut 0.25s ease-in forwards;
+}
+
+@keyframes questAlertIn {
+    from {
+        opacity: 0;
+        transform: translate(-50%, -3vh);
+    }
+    to {
+        opacity: 1;
+        transform: translate(-50%, -1vh);
+    }
+}
+
+@keyframes questAlertOut {
+    from {
+        opacity: 1;
+        transform: translate(-50%, -1vh);
+    }
+    to {
+        opacity: 0;
+        transform: translate(-50%, -3vh);
+    }
+}
+
+.hidden {
+    display: none !important;
+}
+
+/* Player Points Display */
+.points-display {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    z-index: 1000;
+    transition: all 0.3s ease;
+}
+
+.points-display.centered {
+    left: 50%;
+    transform: translateX(calc(-50% - 30px));
+}
+
+.points-display.right-aligned {
+    left: auto;
+    right: 20px;
+}
+
+.points-display:not(.centered):not(.right-aligned) {
+    left: 109px;
+}
+
+.points-display.hidden {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.points-slot,
+.kills-slot,
+.kd-slot,
+.death-slot,
+.eteris-slot {
+    position: relative;
+    width: 40px;
+    height: 40px;
+    background: rgba(0, 0, 0, 0.0);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    padding: 5px;
+}
+
+.points-slot:hover,
+.kills-slot:hover,
+.kd-slot:hover,
+.death-slot:hover,
+.eteris-slot:hover {
+    border-color: #606060;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.6);
+}
+
+.points-slot .dust-background,
+.kills-slot .kills-background,
+.kd-slot .kd-background,
+.death-slot .death-background,
+.eteris-slot .eteris-background {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 48px;
+    height: 48px;
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    z-index: 1;
+    opacity: 1.0;
+}
+
+.points-slot .dust-background {
+    background-image: url('images/dust.png');
+}
+
+.kills-slot .kills-background {
+    background-image: url('images/kills.png');
+}
+
+.kd-slot .kd-background {
+    background-image: url('images/kd.png');
+}
+
+.death-slot .death-background {
+    background-image: url('images/death.png');
+}
+
+.eteris-slot .eteris-background {
+    background-image: url('images/eteris.png');
+}
+
+.points-slot .points-value,
+.kills-slot .kills-value,
+.kd-slot .kd-value,
+.death-slot .death-value,
+.eteris-slot .eteris-value {
+    color: #e0e0e0;
+    font-size: 14px;
+    font-weight: bold;
+    text-align: center;
+    line-height: 1;
+    z-index: 2;
+    position: relative;
+    text-shadow: 0 0 0.5px #000000, 0 0 1px #000000, 0 0 2px #000000, 0 0 4px #000000, 0 0 6px #000000;
+}
+
+@keyframes pointsUpdate {
+    0% { transform: scale(1); }
+    25% { transform: scale(1.05); }
+    50% { transform: scale(1.1); }
+    75% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+
+@keyframes tilt-n-move-shaking {
+    0% { transform: translate(0, 0) rotate(0deg); }
+    25% { transform: translate(5px, 5px) rotate(5deg); }
+    50% { transform: translate(0, 0) rotate(0deg); }
+    75% { transform: translate(-5px, 5px) rotate(-5deg); }
+    100% { transform: translate(0, 0) rotate(0deg); }
+}
+
+@keyframes healthIconVibration {
+    0% { transform: translateY(-50%) scale(1) rotate(0deg); filter: brightness(1) hue-rotate(0deg); }
+    10% { transform: translateY(-50%) scale(1.2) rotate(3deg) translateX(-2px); filter: brightness(1.3) hue-rotate(10deg); }
+    20% { transform: translateY(-50%) scale(0.9) rotate(-2deg) translateX(3px); filter: brightness(0.8) hue-rotate(-5deg); }
+    30% { transform: translateY(-50%) scale(1.15) rotate(2deg) translateX(-1px); filter: brightness(1.2) hue-rotate(8deg); }
+    40% { transform: translateY(-50%) scale(0.95) rotate(-1deg) translateX(2px); filter: brightness(0.9) hue-rotate(-3deg); }
+    50% { transform: translateY(-50%) scale(1.1) rotate(1deg) translateX(-1px); filter: brightness(1.1) hue-rotate(5deg); }
+    60% { transform: translateY(-50%) scale(0.98) rotate(-0.5deg) translateX(1px); filter: brightness(0.95) hue-rotate(-2deg); }
+    70% { transform: translateY(-50%) scale(1.05) rotate(0.5deg) translateX(-0.5px); filter: brightness(1.05) hue-rotate(2deg); }
+    80% { transform: translateY(-50%) scale(0.99) rotate(-0.2deg) translateX(0.5px); filter: brightness(0.98) hue-rotate(-1deg); }
+    90% { transform: translateY(-50%) scale(1.02) rotate(0.2deg) translateX(-0.2px); filter: brightness(1.02) hue-rotate(1deg); }
+    100% { transform: translateY(-50%) scale(1) rotate(0deg) translateX(0px); filter: brightness(1) hue-rotate(0deg); }
+}
+
+@keyframes healthIconHealing {
+    0% { transform: translateY(-50%) scale(1) rotate(0deg); filter: brightness(1) hue-rotate(0deg) saturate(1); }
+    25% { transform: translateY(-50%) scale(1.3) rotate(5deg); filter: brightness(1.5) hue-rotate(20deg) saturate(1.5); }
+    50% { transform: translateY(-50%) scale(1.1) rotate(-3deg); filter: brightness(1.2) hue-rotate(-10deg) saturate(1.3); }
+    75% { transform: translateY(-50%) scale(1.25) rotate(2deg); filter: brightness(1.4) hue-rotate(15deg) saturate(1.4); }
+    100% { transform: translateY(-50%) scale(1) rotate(0deg); filter: brightness(1) hue-rotate(0deg) saturate(1); }
+}
+
+.points-slot.updating,
+.kills-slot.updating,
+.kd-slot.updating,
+.death-slot.updating,
+.eteris-slot.updating {
+    animation: pointsUpdate 0.3s ease, tilt-n-move-shaking 0.2s ease infinite;
+}
+
+.health-icon.updating {
+    animation: healthIconVibration 1.2s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+.health-icon.healing {
+    animation: healthIconHealing 1.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+/* Timer Display */
+.timer-display {
+    position: fixed;
+    bottom: 110px;
+    left: 20px;
+    z-index: 1000;
+    padding: 8px 12px;
+}
+
+.timer-display.centered {
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+}
+
+.timer-display.right-aligned {
+    left: auto;
+    right: 20px;
+    text-align: right;
+}
+
+.timer-display:not(.centered):not(.right-aligned) {
+    left: 25px;
+    text-align: left;
+    padding-right: 15px;
+}
+
+.timer-display.hidden {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.timer-value {
+    color: #e0e0e0;
+    font-size: 20px;
+    font-weight: bold;
+    text-align: center;
+    line-height: 1;
+    text-shadow: 0 0 3px #000000, 0 0 5px #000000, 0 0 7px #000000;
+}
+
+/* Mana Bar */
+.mana-bar {
+    position: fixed;
+    bottom: 95px;
+    left: 20px;
+    z-index: 1000;
+    transition: all 0.3s ease;
+}
+
+.mana-bar.centered {
+    left: 50%;
+    transform: translateX(calc(-50% + 30px));
+}
+
+.mana-bar.right-aligned {
+    left: auto;
+    right: 20px;
+}
+
+.mana-bar:not(.centered):not(.right-aligned) {
+    left: 79px;
+    padding-right: 15px;
+}
+
+.mana-bar.hidden {
+    opacity: 0;
+    pointer-events: none;
+}
+
+/* Health Bar */
+.health-bar {
+    position: fixed;
+    bottom: 70px;
+    left: 20px;
+    z-index: 1000;
+    transition: all 0.3s ease;
+}
+
+.health-bar.centered {
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.health-bar.right-aligned {
+    left: auto;
+    right: 20px;
+}
+
+.health-bar:not(.centered):not(.right-aligned) {
+    left: 79px;
+    padding-right: 15px;
+}
+
+.health-bar.hidden {
+    opacity: 0;
+    pointer-events: none;
+}
+
+/* Tables */
+.mana-table {
+    border-collapse: collapse;
+    width: auto;
+    transform: scale(0.9);
+    transform-origin: left center;
+}
+
+.health-table {
+    border-collapse: collapse;
+    width: auto;
+    transform: scale(1.1);
+    transform-origin: left center;
+}
+
+.points-table {
+    border-collapse: collapse;
+    width: auto;
+    transform: scale(1.1);
+    transform-origin: left center;
+}
+
+.points-icon-cell,
+.kills-icon-cell,
+.death-icon-cell,
+.kd-icon-cell {
+    width: 45px;
+    padding: 0;
+    vertical-align: middle;
+    text-align: center;
+}
+
+.mana-icon-cell {
+    width: 30px;
+    padding: 0;
+    vertical-align: middle;
+}
+
+.mana-bar-cell {
+    padding: 0;
+    vertical-align: middle;
+}
+
+.mana-spacer-cell {
+    width: 80px;
+    padding: 0;
+    vertical-align: middle;
+}
+
+.health-icon-cell {
+    width: 25px;
+    padding: 0;
+    vertical-align: middle;
+}
+
+.health-bar-cell {
+    padding: 0;
+    vertical-align: middle;
+}
+
+.eteris-icon-cell {
+    width: 80px;
+    padding: 0;
+    vertical-align: middle;
+}
+
+/* Icons */
+.mana-icon {
+    width: 24px;
+    height: 24px;
+    background-image: url('images/mana.png');
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    opacity: 1.0;
+    transition: all 0.2s ease;
+}
+
+.health-icon {
+    width: 21px;
+    height: 21px;
+    background-image: url('images/health.png');
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    opacity: 1.0;
+    transition: all 0.2s ease;
+}
+
+.eteris-icon {
+    width: 36px;
+    height: 36px;
+    background-image: url('images/eteris.png');
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    opacity: 1.0;
+    transition: all 0.2s ease;
+    position: relative;
+}
+
+.eteris-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: #e0e0e0;
+    font-size: 12px;
+    font-weight: bold;
+    text-align: center;
+    line-height: 1;
+    z-index: 2;
+    text-shadow: 0 0 0.5px #000000, 0 0 1px #000000, 0 0 2px #000000, 0 0 4px #000000, 0 0 6px #000000;
+}
+
+/* Mana */
+.mana-background {
+    position: relative;
+    width: 160px;
+    height: 14px;
+    background: rgba(0, 0, 0, 0.6);
+    border: 2px solid rgba(64, 64, 64, 0.6);
+    border-radius: 6px;
+    overflow: hidden;
+}
+
+.mana-fill {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    background: rgba(0, 100, 255, 0.6);
+    border-radius: 4px;
+    transition: width 0.3s ease;
+    width: 100%;
+}
+
+.mana-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: #ffffff;
+    font-size: 9px;
+    font-weight: bold;
+    text-shadow: 0 0 1px #000000, 0 0 2px #000000, 0 0 3px #000000, 0 0 4px #000000;
+    z-index: 3;
+    letter-spacing: 0.2px;
+    line-height: 1;
+    text-align: center;
+    width: 100%;
+    height: 100%;
+    display: table-cell;
+    vertical-align: middle;
+}
+
+/* Health */
+.health-background {
+    position: relative;
+    width: 180px;
+    height: 16px;
+    background: rgba(0, 0, 0, 0.6);
+    border: 2px solid rgba(64, 64, 64, 0.6);
+    border-radius: 7px;
+    overflow: hidden;
+}
+
+.health-fill {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    background: rgba(255, 0, 0, 0.4);
+    border-radius: 5px;
+    transition: width 0.3s ease;
+    width: 100%;
+    z-index: 2;
+}
+
+.health-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: #ffffff;
+    font-size: 10px;
+    font-weight: bold;
+    text-shadow: 0 0 1px #000000, 0 0 2px #000000, 0 0 3px #000000, 0 0 4px #000000;
+    z-index: 3;
+    letter-spacing: 0.2px;
+    line-height: 1;
+    text-align: center;
+    width: 100%;
+    height: 100%;
+    display: table-cell;
+    vertical-align: middle;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .timer-display {
+        bottom: 95px;
+        padding: 6px 10px;
+    }
+
+    .timer-display:not(.centered):not(.right-aligned) {
+        left: 15px;
+    }
+
+    .timer-display.centered {
+        left: 50%;
+        transform: translateX(-50%);
+    }
+
+    .timer-display.right-aligned {
+        left: auto;
+        right: 15px;
+    }
+
+    .timer-value {
+        font-size: 16px;
+    }
+
+    .mana-bar {
+        bottom: 80px;
+    }
+
+    .mana-bar:not(.centered):not(.right-aligned) {
+        left: 45px;
+    }
+
+    .mana-bar.centered {
+        left: 50%;
+        transform: translateX(calc(-50% + 30px));
+    }
+
+    .mana-bar.right-aligned {
+        left: auto;
+        right: 15px;
+    }
+
+    .mana-background {
+        width: 120px;
+        height: 12px;
+    }
+
+    .mana-text {
+        font-size: 10px;
+    }
+
+    .health-bar {
+        bottom: 60px;
+    }
+
+    .health-bar:not(.centered):not(.right-aligned) {
+        left: 45px;
+    }
+
+    .health-bar.centered {
+        left: 50%;
+        transform: translateX(-50%);
+    }
+
+    .health-bar.right-aligned {
+        left: auto;
+        right: 15px;
+    }
+
+    .health-background {
+        width: 120px;
+        height: 12px;
+    }
+
+    .health-text {
+        font-size: 12px;
+    }
+
+    .points-display {
+        bottom: 15px;
+    }
+
+    .points-display:not(.centered):not(.right-aligned) {
+        left: 89px;
+    }
+
+    .points-display.centered {
+        left: 50%;
+        transform: translateX(calc(-50% - 30px));
+    }
+
+    .points-display.right-aligned {
+        left: auto;
+        right: 15px;
+    }
+
+    .points-slot,
+    .kills-slot,
+    .kd-slot,
+    .death-slot,
+    .eteris-slot {
+        width: 35px;
+        height: 35px;
+    }
+
+    .points-slot .dust-background,
+    .kills-slot .kills-background,
+    .kd-slot .kd-background,
+    .death-slot .death-background,
+    .eteris-slot .eteris-background {
+        width: 24px;
+        height: 24px;
+    }
+
+    .points-slot .points-value,
+    .kills-slot .kills-value,
+    .kd-slot .kd-value,
+    .death-slot .death-value,
+    .eteris-slot .eteris-value {
+        font-size: 12px;
+    }
+
+    .eteris-text {
+        font-size: 10px;
+    }
+}
+
+@media (max-width: 480px) {
+    .timer-display {
+        bottom: 90px;
+        padding: 5px 8px;
+    }
+
+    .timer-display:not(.centered):not(.right-aligned) {
+        left: 10px;
+    }
+
+    .timer-display.centered {
+        left: 50%;
+        transform: translateX(-50%);
+    }
+
+    .timer-display.right-aligned {
+        left: auto;
+        right: 10px;
+    }
+
+    .timer-value {
+        font-size: 14px;
+    }
+
+    .mana-bar {
+        bottom: 75px;
+    }
+
+    .mana-bar:not(.centered):not(.right-aligned) {
+        left: 69px;
+    }
+
+    .mana-bar.centered {
+        left: 50%;
+        transform: translateX(calc(-50% + 30px));
+    }
+
+    .mana-bar.right-aligned {
+        left: auto;
+        right: 10px;
+    }
+
+    .mana-background {
+        width: 120px;
+        height: 10px;
+    }
+
+    .mana-icon {
+        width: 20px;
+        height: 20px;
+    }
+
+    .mana-icon-cell {
+        width: 25px;
+    }
+
+    .mana-spacer-cell {
+        width: 70px;
+    }
+
+    .mana-text {
+        font-size: 9px;
+    }
+
+    .health-bar {
+        bottom: 55px;
+    }
+
+    .health-bar:not(.centered):not(.right-aligned) {
+        left: 69px;
+    }
+
+    .health-bar.centered {
+        left: 50%;
+        transform: translateX(-50%);
+    }
+
+    .health-bar.right-aligned {
+        left: auto;
+        right: 10px;
+    }
+
+    .health-background {
+        width: 120px;
+        height: 12px;
+    }
+
+    .health-icon {
+        width: 18px;
+        height: 18px;
+    }
+
+    .eteris-icon {
+        width: 27px;
+        height: 27px;
+    }
+
+    .health-icon-cell {
+        width: 20px;
+    }
+
+    .eteris-icon-cell {
+        width: 70px;
+    }
+
+    .points-icon-cell,
+    .kills-icon-cell,
+    .death-icon-cell,
+    .kd-icon-cell {
+        width: 35px;
+    }
+
+    .health-text {
+        font-size: 10px;
+    }
+
+    .points-display {
+        bottom: 12px;
+    }
+
+    .points-display:not(.centered):not(.right-aligned) {
+        left: 70px;
+    }
+
+    .points-display.centered {
+        left: 50%;
+        transform: translateX(calc(-50% - 30px));
+    }
+
+    .points-display.right-aligned {
+        left: auto;
+        right: 10px;
+    }
+
+    .points-slot,
+    .kills-slot,
+    .kd-slot,
+    .death-slot,
+    .eteris-slot {
+        width: 30px;
+        height: 30px;
+    }
+}
+
+@media (min-width: 1200px) {
+    .timer-display {
+        bottom: 120px;
+        padding: 10px 15px;
+    }
+
+    .timer-display:not(.centered):not(.right-aligned) {
+        left: 25px;
+    }
+
+    .timer-display.centered {
+        left: 50%;
+        transform: translateX(-50%);
+    }
+
+    .timer-display.right-aligned {
+        left: auto;
+        right: 25px;
+    }
+
+    .timer-value {
+        font-size: 24px;
+    }
+
+    .mana-bar {
+        bottom: 105px;
+    }
+
+    .mana-bar:not(.centered):not(.right-aligned) {
+        left: 84px;
+    }
+
+    .mana-bar.centered {
+        left: 50%;
+        transform: translateX(calc(-50% + 30px));
+    }
+
+    .mana-bar.right-aligned {
+        left: auto;
+        right: 25px;
+    }
+
+    .mana-background {
+        width: 180px;
+        height: 16px;
+    }
+
+    .mana-icon {
+        width: 28px;
+        height: 28px;
+    }
+
+    .mana-icon-cell {
+        width: 35px;
+    }
+
+    .mana-spacer-cell {
+        width: 90px;
+    }
+
+    .mana-text {
+        font-size: 12px;
+    }
+
+    .health-bar {
+        bottom: 80px;
+    }
+
+    .health-bar:not(.centered):not(.right-aligned) {
+        left: 84px;
+    }
+
+    .health-bar.centered {
+        left: 50%;
+        transform: translateX(-50%);
+    }
+
+    .health-bar.right-aligned {
+        left: auto;
+        right: 25px;
+    }
+
+    .health-background {
+        width: 200px;
+        height: 18px;
+    }
+
+    .health-text {
+        font-size: 14px;
+    }
+
+    .health-icon {
+        width: 24px;
+        height: 24px;
+    }
+
+    .eteris-icon {
+        width: 37px;
+        height: 37px;
+    }
+
+    .eteris-text {
+        font-size: 14px;
+    }
+
+    .health-icon-cell {
+        width: 30px;
+    }
+
+    .eteris-icon-cell {
+        width: 90px;
+    }
+
+    .points-icon-cell,
+    .kills-icon-cell,
+    .death-icon-cell,
+    .kd-icon-cell {
+        width: 55px;
+    }
+
+    .points-display {
+        bottom: 25px;
+    }
+
+    .points-display:not(.centered):not(.right-aligned) {
+        left: 104px;
+    }
+
+    .points-display.centered {
+        left: 50%;
+        transform: translateX(calc(-50% - 30px));
+    }
+
+    .points-display.right-aligned {
+        left: auto;
+        right: 25px;
+    }
+}

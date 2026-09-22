@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FastMenu</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="menu-container" class="menu-container hidden">
+        <div id="menu-more-top" class="menu-more-indicator hidden">
+            ▲ <span id="menu-more-top-count">0</span> <!-- voci sopra -->
+        </div>
+
+        <div id="menu-items" class="menu-items">
+            <div id="menu-virtual-content" class="menu-virtual-content"></div>
+        </div>
+
+        <div id="menu-more-bottom" class="menu-more-indicator hidden">
+            ▼ <span id="menu-more-bottom-count">0</span> <!-- voci sotto -->
+        </div>
+
+        <div id="menu-tooltip" class="menu-tooltip hidden">
+            <div class="menu-tooltip-header">
+                <div id="menu-tooltip-icon" class="menu-tooltip-icon hidden"></div>
+                <div id="menu-tooltip-title" class="menu-tooltip-title"></div>
+            </div>
+            <div id="menu-tooltip-description" class="menu-tooltip-description"></div>
+            <div id="menu-tooltip-footer" class="menu-tooltip-footer hidden"></div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

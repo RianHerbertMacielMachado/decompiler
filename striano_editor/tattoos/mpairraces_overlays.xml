@@ -1,0 +1,267 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<PedDecorationCollection>
+  <bRequiredForSync value="true" />
+  <presets>
+	<Item>
+      <uvPos x="0.830000" y="0.600000" />
+      <scale x="0.120000" y="0.120000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_Airraces_Tattoo_000_M</nameHash>
+      <txdHash>MP_Airraces_Tattoo_000</txdHash>
+      <txtHash>MP_Airraces_Tattoo_000</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.830000" y="0.620000" />
+      <scale x="0.110000" y="0.100000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_Airraces_Tattoo_000_F</nameHash>
+      <txdHash>MP_Airraces_Tattoo_000</txdHash>
+      <txtHash>MP_Airraces_Tattoo_000</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_FEMALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.228000" y="0.470000" />
+      <scale x="0.300000" y="0.330000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_Airraces_Tattoo_001_M</nameHash>
+      <txdHash>MP_Airraces_Tattoo_001</txdHash>
+      <txtHash>MP_Airraces_Tattoo_001</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.228000" y="0.660000" />
+      <scale x="0.190000" y="0.200000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_Airraces_Tattoo_001_F</nameHash>
+      <txdHash>MP_Airraces_Tattoo_001</txdHash>
+      <txtHash>MP_Airraces_Tattoo_001</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_FEMALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.228000" y="0.650000" />
+      <scale x="0.200000" y="0.230000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_Airraces_Tattoo_002_M</nameHash>
+      <txdHash>MP_Airraces_Tattoo_002</txdHash>
+      <txtHash>MP_Airraces_Tattoo_002</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.228000" y="0.710000" />
+      <scale x="0.200000" y="0.190000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_Airraces_Tattoo_002_F</nameHash>
+      <txdHash>MP_Airraces_Tattoo_002</txdHash>
+      <txtHash>MP_Airraces_Tattoo_002</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_FEMALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.460000" y="0.640000" />
+      <scale x="0.230000" y="0.340000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_Airraces_Tattoo_003_M</nameHash>
+      <txdHash>MP_Airraces_Tattoo_003</txdHash>
+      <txtHash>MP_Airraces_Tattoo_003</txtHash>
+      <zone>ZONE_LEFT_ARM</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.460000" y="0.620000" />
+      <scale x="0.230000" y="0.350000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_Airraces_Tattoo_003_F</nameHash>
+      <txdHash>MP_Airraces_Tattoo_003</txdHash>
+      <txtHash>MP_Airraces_Tattoo_003</txtHash>
+      <zone>ZONE_LEFT_ARM</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_FEMALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.228000" y="0.480000" />
+      <scale x="0.225000" y="0.310000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_Airraces_Tattoo_004_M</nameHash>
+      <txdHash>MP_Airraces_Tattoo_004</txdHash>
+      <txtHash>MP_Airraces_Tattoo_004</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.228000" y="0.550000" />
+      <scale x="0.225000" y="0.250000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_Airraces_Tattoo_004_F</nameHash>
+      <txdHash>MP_Airraces_Tattoo_004</txdHash>
+      <txtHash>MP_Airraces_Tattoo_004</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_FEMALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.228000" y="0.570000" />
+      <scale x="0.190000" y="0.220000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_Airraces_Tattoo_005_M</nameHash>
+      <txdHash>MP_Airraces_Tattoo_005</txdHash>
+      <txtHash>MP_Airraces_Tattoo_005</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.228000" y="0.650000" />
+      <scale x="0.190000" y="0.170000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_Airraces_Tattoo_005_F</nameHash>
+      <txdHash>MP_Airraces_Tattoo_005</txdHash>
+      <txtHash>MP_Airraces_Tattoo_005</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_FEMALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.728000" y="0.295000" />
+      <scale x="0.180000" y="0.160000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_Airraces_Tattoo_006_M</nameHash>
+      <txdHash>MP_Airraces_Tattoo_006</txdHash>
+      <txtHash>MP_Airraces_Tattoo_006</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.728000" y="0.340000" />
+      <scale x="0.180000" y="0.130000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_Airraces_Tattoo_006_F</nameHash>
+      <txdHash>MP_Airraces_Tattoo_006</txdHash>
+      <txtHash>MP_Airraces_Tattoo_006</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_FEMALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.228000" y="0.590000" />
+      <scale x="0.180000" y="0.300000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_Airraces_Tattoo_007_M</nameHash>
+      <txdHash>MP_Airraces_Tattoo_007</txdHash>
+      <txtHash>MP_Airraces_Tattoo_007</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.228000" y="0.670000" />
+      <scale x="0.180000" y="0.220000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_Airraces_Tattoo_007_F</nameHash>
+      <txdHash>MP_Airraces_Tattoo_007</txdHash>
+      <txtHash>MP_Airraces_Tattoo_007</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_FEMALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+  </presets>
+  <nameHash>mpAirraces_overlays</nameHash>
+  <medalLocations content="vector2_array">
+    0.140000	0.070000	
+    0.370000	0.070000	
+    0.600000	0.070000	
+    0.835000	0.070000	
+    0.140000	0.150000	
+    0.370000	0.150000	
+    0.600000	0.150000	
+    0.835000	0.150000	
+    0.140000	0.230000	
+    0.370000	0.230000	
+    0.600000	0.230000	
+    0.835000	0.230000	
+    0.100000	0.700000	
+    0.300000	0.700000	
+    0.500000	0.700000	
+    0.700000	0.700000	
+  </medalLocations>
+  <medalScale x="0.240000" y="0.100000" />
+</PedDecorationCollection>

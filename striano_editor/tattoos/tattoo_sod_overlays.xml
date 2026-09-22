@@ -1,0 +1,378 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PedDecorationCollection>
+  <bRequiredForSync value="true" />
+  <presets>
+    <!--pngwing.com_M-->
+    <Item>
+      <uvPos x="0.348000" y="0.463000" />
+      <scale x="0.278000" y="0.278000" />
+      <rotation value="47.000000" />
+      <nameHash>pngwing.com_M</nameHash>
+      <txdHash>pngwing.com</txdHash>
+      <txtHash>pngwing.com</txtHash>
+      <zone>ZONE_HEAD</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+    <!--pngwing.com_1_M-->
+    <Item>
+      <uvPos x="0.483000" y="0.585000" />
+      <scale x="0.399000" y="0.399000" />
+      <rotation value="13.000000" />
+      <nameHash>pngwing.com_1_M</nameHash>
+      <txdHash>pngwing.com_1</txdHash>
+      <txtHash>pngwing.com_1</txtHash>
+      <zone>ZONE_HEAD</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+    <!--pngwing.com_2_M-->
+    <Item>
+      <uvPos x="0.664000" y="0.585000" />
+      <scale x="0.352000" y="0.352000" />
+      <rotation value="13.000000" />
+      <nameHash>pngwing.com_2_M</nameHash>
+      <txdHash>pngwing.com_2</txdHash>
+      <txtHash>pngwing.com_2</txtHash>
+      <zone>ZONE_HEAD</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+    <!--pngwing.com+-+Copia_M-->
+    <Item>
+      <uvPos x="0.451000" y="0.670000" />
+      <scale x="0.183000" y="0.183000" />
+      <rotation value="13.000000" />
+      <nameHash>pngwing.com+-+Copia_M</nameHash>
+      <txdHash>pngwing.com+-+Copia</txdHash>
+      <txtHash>pngwing.com+-+Copia</txtHash>
+      <zone>ZONE_HEAD</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+    <!--pngwing.com_16_M-->
+    <Item>
+      <uvPos x="0.225000" y="0.790000" />
+      <scale x="0.239000" y="0.239000" />
+      <rotation value="0.000000" />
+      <nameHash>pngwing.com_16_M</nameHash>
+      <txdHash>pngwing.com_16</txdHash>
+      <txtHash>pngwing.com_16</txtHash>
+      <zone>ZONE_HEAD</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+    <!--sporco2_M-->
+    <Item>
+      <uvPos x="0.398000" y="0.567000" />
+      <scale x="0.191000" y="0.191000" />
+      <rotation value="-157.000000" />
+      <nameHash>sporco2_M</nameHash>
+      <txdHash>sporco2</txdHash>
+      <txtHash>sporco2</txtHash>
+      <zone>ZONE_HEAD</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+    <!--pngwing.com_5_M-->
+    <Item>
+      <uvPos x="0.567000" y="0.262000" />
+      <scale x="0.332000" y="0.332000" />
+      <rotation value="0.000000" />
+      <nameHash>pngwing.com_5_M</nameHash>
+      <txdHash>pngwing.com_5</txdHash>
+      <txtHash>pngwing.com_5</txtHash>
+      <zone>ZONE_LEFT_ARM</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+    <!--pngwing.com_6_M-->
+    <Item>
+      <uvPos x="0.425000" y="0.459000" />
+      <scale x="0.419000" y="0.419000" />
+      <rotation value="0.000000" />
+      <nameHash>pngwing.com_6_M</nameHash>
+      <txdHash>pngwing.com_6</txdHash>
+      <txtHash>pngwing.com_6</txtHash>
+      <zone>ZONE_LEFT_ARM</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+    <!--pngwing.com_7_M-->
+    <Item>
+      <uvPos x="0.425000" y="0.633000" />
+      <scale x="0.352000" y="0.352000" />
+      <rotation value="0.000000" />
+      <nameHash>pngwing.com_7_M</nameHash>
+      <txdHash>pngwing.com_7</txdHash>
+      <txtHash>pngwing.com_7</txtHash>
+      <zone>ZONE_LEFT_ARM</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+    <!--pngwing.com_11_M-->
+    <Item>
+      <uvPos x="0.176000" y="0.288000" />
+      <scale x="0.355000" y="0.355000" />
+      <rotation value="0.000000" />
+      <nameHash>pngwing.com_11_M</nameHash>
+      <txdHash>pngwing.com_11</txdHash>
+      <txtHash>pngwing.com_11</txtHash>
+      <zone>ZONE_LEFT_LEG</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+    <!--pngwing.com_12_M-->
+    <Item>
+      <uvPos x="0.176000" y="0.557000" />
+      <scale x="0.355000" y="0.355000" />
+      <rotation value="0.000000" />
+      <nameHash>pngwing.com_12_M</nameHash>
+      <txdHash>pngwing.com_12</txdHash>
+      <txtHash>pngwing.com_12</txtHash>
+      <zone>ZONE_LEFT_LEG</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+    <!--pngwing.com_13_M-->
+    <Item>
+      <uvPos x="0.176000" y="0.751000" />
+      <scale x="0.355000" y="0.355000" />
+      <rotation value="0.000000" />
+      <nameHash>pngwing.com_13_M</nameHash>
+      <txdHash>pngwing.com_13</txdHash>
+      <txtHash>pngwing.com_13</txtHash>
+      <zone>ZONE_LEFT_LEG</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+    <!--pngwing.com_8_M-->
+    <Item>
+      <uvPos x="0.425000" y="0.633000" />
+      <scale x="0.352000" y="0.352000" />
+      <rotation value="0.000000" />
+      <nameHash>pngwing.com_8_M</nameHash>
+      <txdHash>pngwing.com_8</txdHash>
+      <txtHash>pngwing.com_8</txtHash>
+      <zone>ZONE_RIGHT_ARM</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+    <!--pngwing.com_9_M-->
+    <Item>
+      <uvPos x="0.176000" y="0.633000" />
+      <scale x="0.355000" y="0.355000" />
+      <rotation value="0.000000" />
+      <nameHash>pngwing.com_9_M</nameHash>
+      <txdHash>pngwing.com_9</txdHash>
+      <txtHash>pngwing.com_9</txtHash>
+      <zone>ZONE_RIGHT_ARM</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+    <!--pngwing.com_10_M-->
+    <Item>
+      <uvPos x="0.176000" y="0.288000" />
+      <scale x="0.355000" y="0.355000" />
+      <rotation value="0.000000" />
+      <nameHash>pngwing.com_10_M</nameHash>
+      <txdHash>pngwing.com_10</txdHash>
+      <txtHash>pngwing.com_10</txtHash>
+      <zone>ZONE_RIGHT_ARM</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+    <!--pngwing.com_14_M-->
+    <Item>
+      <uvPos x="0.176000" y="0.751000" />
+      <scale x="0.355000" y="0.355000" />
+      <rotation value="0.000000" />
+      <nameHash>pngwing.com_14_M</nameHash>
+      <txdHash>pngwing.com_14</txdHash>
+      <txtHash>pngwing.com_14</txtHash>
+      <zone>ZONE_RIGHT_LEG</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+    <!--pngwing.com_15_M-->
+    <Item>
+      <uvPos x="0.176000" y="0.505000" />
+      <scale x="0.355000" y="0.355000" />
+      <rotation value="0.000000" />
+      <nameHash>pngwing.com_15_M</nameHash>
+      <txdHash>pngwing.com_15</txdHash>
+      <txtHash>pngwing.com_15</txtHash>
+      <zone>ZONE_RIGHT_LEG</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+    <!--pngwing.com+-+Copia_1_M-->
+    <Item>
+      <uvPos x="0.743000" y="0.443000" />
+      <scale x="0.334000" y="0.355000" />
+      <rotation value="0.000000" />
+      <nameHash>pngwing.com+-+Copia_1_M</nameHash>
+      <txdHash>pngwing.com+-+Copia_1</txdHash>
+      <txtHash>pngwing.com+-+Copia_1</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+    <!--pngwing.com+-+Copia_2_M-->
+    <Item>
+      <uvPos x="0.210000" y="0.580000" />
+      <scale x="0.202000" y="0.267000" />
+      <rotation value="0.000000" />
+      <nameHash>pngwing.com+-+Copia_2_M</nameHash>
+      <txdHash>pngwing.com+-+Copia_2</txdHash>
+      <txtHash>pngwing.com+-+Copia_2</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+    <!--pngwing.com_3_M-->
+    <Item>
+      <uvPos x="0.609000" y="0.632000" />
+      <scale x="0.270000" y="0.270000" />
+      <rotation value="0.000000" />
+      <nameHash>pngwing.com_3_M</nameHash>
+      <txdHash>pngwing.com_3</txdHash>
+      <txtHash>pngwing.com_3</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+    <!--pngwing.com_4_M-->
+    <Item>
+      <uvPos x="0.829000" y="0.521000" />
+      <scale x="0.270000" y="0.270000" />
+      <rotation value="0.000000" />
+      <nameHash>pngwing.com_4_M</nameHash>
+      <txdHash>pngwing.com_4</txdHash>
+      <txtHash>pngwing.com_4</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+    <!--sporco2_1_M-->
+    <Item>
+      <uvPos x="0.789000" y="0.155000" />
+      <scale x="0.458000" y="0.458000" />
+      <rotation value="-157.000000" />
+      <nameHash>sporco2_1_M</nameHash>
+      <txdHash>sporco2_1</txdHash>
+      <txtHash>sporco2_1</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+  </presets>
+  <nameHash>tattoo_sod_overlays</nameHash>
+   <medalLocations content="vector2_array">
+    0.140000	0.070000
+    0.370000	0.070000
+    0.600000	0.070000
+    0.835000	0.070000
+    0.140000	0.150000
+    0.370000	0.150000
+    0.600000	0.150000
+    0.835000	0.150000
+    0.140000	0.230000
+    0.370000	0.230000
+    0.600000	0.230000
+    0.835000	0.230000
+    0.100000	0.700000
+    0.300000	0.700000
+    0.500000	0.700000
+    0.700000	0.700000
+  </medalLocations>
+  <medalScale x="0.240000" y="0.100000" />
+</PedDecorationCollection>

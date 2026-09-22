@@ -1,0 +1,1077 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<PedDecorationCollection>
+  <bRequiredForSync value="true" />
+  <presets>
+	<Item>
+      <uvPos x="0.735000" y="0.570000" />
+      <scale x="0.200000" y="0.200000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_LUXE_LC_000_M</nameHash>
+      <txdHash>MP_LeChien_000</txdHash>
+      <txtHash>MP_LeChien_000</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_BADGE</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.735000" y="0.570000" />
+      <scale x="0.200000" y="0.200000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_LUXE_LC_001_M</nameHash>
+      <txdHash>MP_LeChien_001</txdHash>
+      <txtHash>MP_LeChien_001</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_BADGE</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.735000" y="0.570000" />
+      <scale x="0.250000" y="0.250000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_LUXE_LC_002_M</nameHash>
+      <txdHash>MP_LeChien_002</txdHash>
+      <txtHash>MP_LeChien_002</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_BADGE</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.735000" y="0.570000" />
+      <scale x="0.250000" y="0.250000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_LUXE_LC_003_M</nameHash>
+      <txdHash>MP_LeChien_003</txdHash>
+      <txtHash>MP_LeChien_003</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_BADGE</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.735000" y="0.630000" />
+      <scale x="0.200000" y="0.200000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_LUXE_LC_006_M</nameHash>
+      <txdHash>MP_LeChien_006</txdHash>
+      <txtHash>MP_LeChien_006</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_BADGE</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.735000" y="0.630000" />
+      <scale x="0.200000" y="0.200000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_LUXE_LC_007_M</nameHash>
+      <txdHash>MP_LeChien_007</txdHash>
+      <txtHash>MP_LeChien_007</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_BADGE</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.735000" y="0.580000" />
+      <scale x="0.200000" y="0.200000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_LUXE_LC_008_M</nameHash>
+      <txdHash>MP_LeChien_008</txdHash>
+      <txtHash>MP_LeChien_008</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_BADGE</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.735000" y="0.580000" />
+      <scale x="0.200000" y="0.200000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_LUXE_LC_009_M</nameHash>
+      <txdHash>MP_LeChien_009</txdHash>
+      <txtHash>MP_LeChien_009</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_BADGE</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.735000" y="0.520000" />
+      <scale x="0.300000" y="0.260000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_LUXE_LC_012_M</nameHash>
+      <txdHash>MP_LeChien_012</txdHash>
+      <txtHash>MP_LeChien_012</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_BADGE</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.735000" y="0.520000" />
+      <scale x="0.300000" y="0.260000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_LUXE_LC_013_M</nameHash>
+      <txdHash>MP_LeChien_013</txdHash>
+      <txtHash>MP_LeChien_013</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_BADGE</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.735000" y="0.560000" />
+      <scale x="0.220000" y="0.220000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_LUXE_LC_014_M</nameHash>
+      <txdHash>MP_LeChien_014</txdHash>
+      <txtHash>MP_LeChien_014</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_BADGE</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.735000" y="0.560000" />
+      <scale x="0.220000" y="0.220000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_LUXE_LC_015_M</nameHash>
+      <txdHash>MP_LeChien_015</txdHash>
+      <txtHash>MP_LeChien_015</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_BADGE</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.735000" y="0.620000" />
+      <scale x="0.150000" y="0.150000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_LUXE_VDG_000_M</nameHash>
+      <txdHash>MP_VDG_000</txdHash>
+      <txtHash>MP_VDG_000</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_BADGE</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.735000" y="0.620000" />
+      <scale x="0.150000" y="0.150000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_LUXE_VDG_001_M</nameHash>
+      <txdHash>MP_VDG_001</txdHash>
+      <txtHash>MP_VDG_001</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_BADGE</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.735000" y="0.520000" />
+      <scale x="0.300000" y="0.280000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_LUXE_VDG_002_M</nameHash>
+      <txdHash>MP_VDG_003</txdHash>
+      <txtHash>MP_VDG_003</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_BADGE</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.735000" y="0.620000" />
+      <scale x="0.350000" y="0.350000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_LUXE_VDG_004_M</nameHash>
+      <txdHash>MP_VDG_004</txdHash>
+      <txtHash>MP_VDG_004</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_BADGE</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.735000" y="0.820000" />
+      <scale x="0.200000" y="0.150000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_LUXE_VDG_005_M</nameHash>
+      <txdHash>MP_VDG_005</txdHash>
+      <txtHash>MP_VDG_005</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_BADGE</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.735000" y="0.550000" />
+      <scale x="0.250000" y="0.250000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_LUXE_VDG_006_M</nameHash>
+      <txdHash>MP_VDG_006</txdHash>
+      <txtHash>MP_VDG_006</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_BADGE</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.715000" y="0.580000" />
+      <scale x="0.200000" y="0.200000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_LUXE_LC_000_F</nameHash>
+      <txdHash>MP_LeChien_000</txdHash>
+      <txtHash>MP_LeChien_000</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_BADGE</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_FEMALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.715000" y="0.580000" />
+      <scale x="0.200000" y="0.200000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_LUXE_LC_001_F</nameHash>
+      <txdHash>MP_LeChien_001</txdHash>
+      <txtHash>MP_LeChien_001</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_BADGE</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_FEMALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.715000" y="0.580000" />
+      <scale x="0.250000" y="0.250000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_LUXE_LC_002_F</nameHash>
+      <txdHash>MP_LeChien_002</txdHash>
+      <txtHash>MP_LeChien_002</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_BADGE</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_FEMALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.715000" y="0.580000" />
+      <scale x="0.250000" y="0.250000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_LUXE_LC_003_F</nameHash>
+      <txdHash>MP_LeChien_003</txdHash>
+      <txtHash>MP_LeChien_003</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_BADGE</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_FEMALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.715000" y="0.630000" />
+      <scale x="0.150000" y="0.150000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_LUXE_LC_006_F</nameHash>
+      <txdHash>MP_LeChien_006</txdHash>
+      <txtHash>MP_LeChien_006</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_BADGE</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_FEMALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.715000" y="0.630000" />
+      <scale x="0.150000" y="0.150000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_LUXE_LC_007_F</nameHash>
+      <txdHash>MP_LeChien_007</txdHash>
+      <txtHash>MP_LeChien_007</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_BADGE</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_FEMALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.735000" y="0.580000" />
+      <scale x="0.200000" y="0.200000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_LUXE_LC_008_F</nameHash>
+      <txdHash>MP_LeChien_008</txdHash>
+      <txtHash>MP_LeChien_008</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_BADGE</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_FEMALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.735000" y="0.580000" />
+      <scale x="0.200000" y="0.200000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_LUXE_LC_009_F</nameHash>
+      <txdHash>MP_LeChien_009</txdHash>
+      <txtHash>MP_LeChien_009</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_BADGE</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_FEMALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.715000" y="0.570000" />
+      <scale x="0.300000" y="0.240000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_LUXE_LC_012_F</nameHash>
+      <txdHash>MP_LeChien_012</txdHash>
+      <txtHash>MP_LeChien_012</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_BADGE</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_FEMALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.715000" y="0.570000" />
+      <scale x="0.300000" y="0.240000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_LUXE_LC_013_F</nameHash>
+      <txdHash>MP_LeChien_013</txdHash>
+      <txtHash>MP_LeChien_013</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_BADGE</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_FEMALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.715000" y="0.600000" />
+      <scale x="0.220000" y="0.220000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_LUXE_LC_014_F</nameHash>
+      <txdHash>MP_LeChien_014</txdHash>
+      <txtHash>MP_LeChien_014</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_BADGE</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_FEMALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.715000" y="0.600000" />
+      <scale x="0.220000" y="0.220000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_LUXE_LC_015_F</nameHash>
+      <txdHash>MP_LeChien_015</txdHash>
+      <txtHash>MP_LeChien_015</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_BADGE</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_FEMALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.715000" y="0.640000" />
+      <scale x="0.150000" y="0.150000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_LUXE_VDG_000_F</nameHash>
+      <txdHash>MP_VDG_000</txdHash>
+      <txtHash>MP_VDG_000</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_BADGE</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_FEMALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.715000" y="0.640000" />
+      <scale x="0.150000" y="0.150000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_LUXE_VDG_001_F</nameHash>
+      <txdHash>MP_VDG_001</txdHash>
+      <txtHash>MP_VDG_001</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_BADGE</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_FEMALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.715000" y="0.560000" />
+      <scale x="0.300000" y="0.280000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_LUXE_VDG_002_F</nameHash>
+      <txdHash>MP_VDG_003</txdHash>
+      <txtHash>MP_VDG_003</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_BADGE</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_FEMALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.715000" y="0.650000" />
+      <scale x="0.350000" y="0.315000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_LUXE_VDG_004_F</nameHash>
+      <txdHash>MP_VDG_004</txdHash>
+      <txtHash>MP_VDG_004</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_BADGE</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_FEMALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.735000" y="0.850000" />
+      <scale x="0.200000" y="0.150000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_LUXE_VDG_005_F</nameHash>
+      <txdHash>MP_VDG_005</txdHash>
+      <txtHash>MP_VDG_005</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_BADGE</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_FEMALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.735000" y="0.600000" />
+      <scale x="0.220000" y="0.220000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_LUXE_VDG_006_F</nameHash>
+      <txdHash>MP_VDG_006</txdHash>
+      <txtHash>MP_VDG_006</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_BADGE</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_FEMALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.630000" y="0.600000" />
+      <scale x="0.120000" y="0.120000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_LUXE_TAT_002_M</nameHash>
+      <txdHash>MP_Luxe_Tat_002</txdHash>
+      <txtHash>MP_Luxe_Tat_002</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.270000" y="0.480000" />
+      <scale x="0.200000" y="0.150000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_LUXE_TAT_005_M</nameHash>
+      <txdHash>MP_Luxe_Tat_005</txdHash>
+      <txtHash>MP_Luxe_Tat_005</txtHash>
+      <zone>ZONE_LEFT_ARM</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.180000" y="0.470000" />
+      <scale x="0.150000" y="0.190000" />
+      <rotation value="-90.000000" />
+      <nameHash>MP_LUXE_TAT_010_M</nameHash>
+      <txdHash>MP_Luxe_Tat_010</txdHash>
+      <txtHash>MP_Luxe_Tat_010</txtHash>
+      <zone>ZONE_RIGHT_ARM</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.250000" y="0.340000" />
+      <scale x="0.200000" y="0.20000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_LUXE_TAT_011_M</nameHash>
+      <txdHash>MP_Luxe_Tat_011</txdHash>
+      <txtHash>MP_Luxe_Tat_011</txtHash>
+      <zone>ZONE_LEFT_LEG</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.730000" y="0.380000" />
+      <scale x="0.340000" y="0.330000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_LUXE_TAT_012_M</nameHash>
+      <txdHash>MP_Luxe_Tat_012</txdHash>
+      <txtHash>MP_Luxe_Tat_012</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.540000" y="0.465000" />
+      <scale x="0.160000" y="0.155000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_LUXE_TAT_016_M</nameHash>
+      <txdHash>MP_Luxe_Tat_016</txdHash>
+      <txtHash>MP_Luxe_Tat_016</txtHash>
+      <zone>ZONE_LEFT_ARM</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.520000" y="0.780000" />
+      <scale x="0.200000" y="0.200000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_LUXE_TAT_017_M</nameHash>
+      <txdHash>MP_Luxe_Tat_017</txdHash>
+      <txtHash>MP_Luxe_Tat_017</txtHash>
+      <zone>ZONE_RIGHT_ARM</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.500000" y="0.770000" />
+      <scale x="0.150000" y="0.200000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_LUXE_TAT_018_M</nameHash>
+      <txdHash>MP_Luxe_Tat_018</txdHash>
+      <txtHash>MP_Luxe_Tat_018</txtHash>
+      <zone>ZONE_LEFT_ARM</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.227000" y="0.460000" />
+      <scale x="0.300000" y="0.400000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_LUXE_TAT_022_M</nameHash>
+      <txdHash>MP_Luxe_Tat_022</txdHash>
+      <txtHash>MP_Luxe_Tat_022</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.800000" y="0.340000" />
+      <scale x="0.280000" y="0.180000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_LUXE_TAT_023_M</nameHash>
+      <txdHash>MP_Luxe_Tat_023</txdHash>
+      <txtHash>MP_Luxe_Tat_023</txtHash>
+      <zone>ZONE_RIGHT_LEG</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.640000" y="0.620000" />
+      <scale x="0.140000" y="0.140000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_LUXE_TAT_025_M</nameHash>
+      <txdHash>MP_Luxe_Tat_025</txdHash>
+      <txtHash>MP_Luxe_Tat_025</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.500000" y="0.820000" />
+      <scale x="0.100000" y="0.140000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_LUXE_TAT_026_M</nameHash>
+      <txdHash>MP_Luxe_Tat_026</txdHash>
+      <txtHash>MP_Luxe_Tat_026</txtHash>
+      <zone>ZONE_RIGHT_ARM</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.820000" y="0.600000" />
+      <scale x="0.120000" y="0.120000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_LUXE_TAT_027_M</nameHash>
+      <txdHash>MP_Luxe_Tat_027</txdHash>
+      <txtHash>MP_Luxe_Tat_027</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.820000" y="0.470000" />
+      <scale x="0.180000" y="0.175000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_LUXE_TAT_028_M</nameHash>
+      <txdHash>MP_Luxe_Tat_028</txdHash>
+      <txtHash>MP_Luxe_Tat_028</txtHash>
+      <zone>ZONE_LEFT_ARM</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.230000" y="0.460000" />
+      <scale x="0.360000" y="0.380000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_LUXE_TAT_029_M</nameHash>
+      <txdHash>MP_Luxe_Tat_029</txdHash>
+      <txtHash>MP_Luxe_Tat_029</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.720000" y="0.670000" />
+      <scale x="0.280000" y="0.350000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_LUXE_TAT_030_M</nameHash>
+      <txdHash>MP_Luxe_Tat_030</txdHash>
+      <txtHash>MP_Luxe_Tat_030</txtHash>
+      <zone>ZONE_RIGHT_ARM</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.260000" y="0.660000" />
+      <scale x="0.280000" y="0.350000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_LUXE_TAT_031_M</nameHash>
+      <txdHash>MP_Luxe_Tat_031</txdHash>
+      <txtHash>MP_Luxe_Tat_031</txtHash>
+      <zone>ZONE_LEFT_ARM</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.650000" y="0.620000" />
+      <scale x="0.130000" y="0.130000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_LUXE_TAT_002_F</nameHash>
+      <txdHash>MP_Luxe_Tat_002</txdHash>
+      <txtHash>MP_Luxe_Tat_002</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_FEMALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.220000" y="0.450000" />
+      <scale x="0.200000" y="0.150000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_LUXE_TAT_005_F</nameHash>
+      <txdHash>MP_Luxe_Tat_005</txdHash>
+      <txtHash>MP_Luxe_Tat_005</txtHash>
+      <zone>ZONE_LEFT_ARM</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_FEMALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.180000" y="0.470000" />
+      <scale x="0.150000" y="0.190000" />
+      <rotation value="-90.000000" />
+      <nameHash>MP_LUXE_TAT_010_F</nameHash>
+      <txdHash>MP_Luxe_Tat_010</txdHash>
+      <txtHash>MP_Luxe_Tat_010</txtHash>
+      <zone>ZONE_RIGHT_ARM</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_FEMALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.250000" y="0.340000" />
+      <scale x="0.200000" y="0.20000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_LUXE_TAT_011_F</nameHash>
+      <txdHash>MP_Luxe_Tat_011</txdHash>
+      <txtHash>MP_Luxe_Tat_011</txtHash>
+      <zone>ZONE_LEFT_LEG</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_FEMALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.745000" y="0.390000" />
+      <scale x="0.330000" y="0.330000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_LUXE_TAT_012_F</nameHash>
+      <txdHash>MP_Luxe_Tat_012</txdHash>
+      <txtHash>MP_Luxe_Tat_012</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_FEMALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.540000" y="0.420000" />
+      <scale x="0.160000" y="0.160000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_LUXE_TAT_016_F</nameHash>
+      <txdHash>MP_Luxe_Tat_016</txdHash>
+      <txtHash>MP_Luxe_Tat_016</txtHash>
+      <zone>ZONE_LEFT_ARM</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_FEMALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.520000" y="0.780000" />
+      <scale x="0.200000" y="0.200000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_LUXE_TAT_017_F</nameHash>
+      <txdHash>MP_Luxe_Tat_017</txdHash>
+      <txtHash>MP_Luxe_Tat_017</txtHash>
+      <zone>ZONE_RIGHT_ARM</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_FEMALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.500000" y="0.770000" />
+      <scale x="0.150000" y="0.200000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_LUXE_TAT_018_F</nameHash>
+      <txdHash>MP_Luxe_Tat_018</txdHash>
+      <txtHash>MP_Luxe_Tat_018</txtHash>
+      <zone>ZONE_LEFT_ARM</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_FEMALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.227000" y="0.560000" />
+      <scale x="0.300000" y="0.300000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_LUXE_TAT_022_F</nameHash>
+      <txdHash>MP_Luxe_Tat_022</txdHash>
+      <txtHash>MP_Luxe_Tat_022</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_FEMALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.800000" y="0.340000" />
+      <scale x="0.280000" y="0.180000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_LUXE_TAT_023_F</nameHash>
+      <txdHash>MP_Luxe_Tat_023</txdHash>
+      <txtHash>MP_Luxe_Tat_023</txtHash>
+      <zone>ZONE_RIGHT_LEG</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_FEMALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.640000" y="0.620000" />
+      <scale x="0.140000" y="0.140000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_LUXE_TAT_025_F</nameHash>
+      <txdHash>MP_Luxe_Tat_025</txdHash>
+      <txtHash>MP_Luxe_Tat_025</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_FEMALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.480000" y="0.840000" />
+      <scale x="0.110000" y="0.140000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_LUXE_TAT_026_F</nameHash>
+      <txdHash>MP_Luxe_Tat_026</txdHash>
+      <txtHash>MP_Luxe_Tat_026</txtHash>
+      <zone>ZONE_RIGHT_ARM</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_FEMALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.820000" y="0.620000" />
+      <scale x="0.120000" y="0.120000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_LUXE_TAT_027_F</nameHash>
+      <txdHash>MP_Luxe_Tat_027</txdHash>
+      <txtHash>MP_Luxe_Tat_027</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_FEMALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.820000" y="0.430000" />
+      <scale x="0.180000" y="0.175000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_LUXE_TAT_028_F</nameHash>
+      <txdHash>MP_Luxe_Tat_028</txdHash>
+      <txtHash>MP_Luxe_Tat_028</txtHash>
+      <zone>ZONE_LEFT_ARM</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_FEMALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.235000" y="0.570000" />
+      <scale x="0.360000" y="0.290000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_LUXE_TAT_029_F</nameHash>
+      <txdHash>MP_Luxe_Tat_029</txdHash>
+      <txtHash>MP_Luxe_Tat_029</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_FEMALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.720000" y="0.670000" />
+      <scale x="0.280000" y="0.350000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_LUXE_TAT_030_F</nameHash>
+      <txdHash>MP_Luxe_Tat_030</txdHash>
+      <txtHash>MP_Luxe_Tat_030</txtHash>
+      <zone>ZONE_RIGHT_ARM</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_FEMALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.260000" y="0.660000" />
+      <scale x="0.280000" y="0.350000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_LUXE_TAT_031_F</nameHash>
+      <txdHash>MP_Luxe_Tat_031</txdHash>
+      <txtHash>MP_Luxe_Tat_031</txtHash>
+      <zone>ZONE_LEFT_ARM</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_FEMALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+  </presets>
+  <nameHash>mpLuxe2_overlays</nameHash>
+  <medalLocations content="vector2_array">
+    0.140000	0.070000	
+    0.370000	0.070000	
+    0.600000	0.070000	
+    0.835000	0.070000	
+    0.140000	0.150000	
+    0.370000	0.150000	
+    0.600000	0.150000	
+    0.835000	0.150000	
+    0.140000	0.230000	
+    0.370000	0.230000	
+    0.600000	0.230000	
+    0.835000	0.230000	
+    0.100000	0.700000	
+    0.300000	0.700000	
+    0.500000	0.700000	
+    0.700000	0.700000	
+  </medalLocations>
+  <medalScale x="0.240000" y="0.100000" />
+</PedDecorationCollection>

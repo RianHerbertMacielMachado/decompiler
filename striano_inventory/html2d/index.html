@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Inventory 2D</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <main id="app" class="app hidden">
+        <div class="shade"></div>
+
+        <section id="window" class="window">
+            <header class="header">
+                <div>
+                    <span class="brand">STRIANO</span>
+                    <h1 id="mainTitle">Inventory</h1>
+                </div>
+
+                <div class="header-buttons">
+                    <button id="refresh" type="button" title="Refresh">↻</button>
+                    <button id="close" type="button" title="Close">×</button>
+                </div>
+            </header>
+
+            <div id="loading" class="loading">
+                <span class="spinner"></span>
+            </div>
+
+            <div id="content" class="content hidden">
+                <section id="otherSection" class="inventory-section hidden">
+                    <div class="section-title">
+                        <h2 id="otherTitle">Container</h2>
+                        <span id="otherCount">0</span>
+                    </div>
+                    <div id="otherGrid" class="grid" data-inventory=""></div>
+					<div id="secondaryButtons" class="inventory-buttons"></div>
+                </section>
+
+                <section class="inventory-section">
+                    <!--
+					<div class="section-title">
+                        <h2>Inventory</h2>
+                        <span id="playerCount">0</span>
+                    </div>
+					-->
+                    <div id="playerGrid" class="grid" data-inventory="player"></div>
+					
+					<button class="inventory-button" data-action="slotSwords">⚔️ Swords</button>
+					<button class="inventory-button" data-action="slot1">🔫 Slot [1]</button>
+					<button class="inventory-button" data-action="slot2">🔫 Slot [2]</button>
+					<button class="inventory-button" data-action="borsone">🎒 Bag</button>
+					
+					<!-- <button class="inventory-button" data-action="inv3d">📦 Inv 3D</button> -->
+					<button class="inventory-button" data-action="keys">🗝️ Keys</button>
+                </section>
+            </div>
+
+            <footer id="help" class="help"></footer>
+        </section>
+
+        <div id="contextMenu" class="context-menu hidden">
+            <button id="useAction" type="button">Use</button>
+            <button id="splitOneAction" type="button">Split 1</button>
+            <button id="splitHalfAction" type="button">Split half</button>
+			<button id="dropAction" type="button">Drop</button>
+        </div>
+
+        <div id="amountModal" class="modal hidden">
+            <form id="amountForm" class="modal-box">
+                <h3 id="amountTitle">Amount</h3>
+                <input id="amountInput" type="number" min="1" value="1">
+                <div class="modal-buttons">
+                    <button id="amountCancel" type="button">Cancel</button>
+                    <button type="submit" class="confirm">Confirm</button>
+                </div>
+            </form>
+        </div>
+
+        <div id="tooltip" class="tooltip hidden"></div>
+        <div id="busy" class="busy hidden"><span class="spinner"></span></div>		
+    </main>
+	
+	<!-- SOCCER HUD -->
+	<div id="shotHud">
+	  <div class="aim">
+		<div class="ring"></div>
+		<div class="axis axis-x"></div><div class="axis axis-y"></div>
+		<div id="trail"></div><div id="origin"></div><div id="cursor"></div>
+	  </div>
+	  <div class="power"><div id="powerFill"></div></div>
+	</div>
+	
+	<div id="bookViewer" class="book-viewer hidden">
+		<div id="bookInner"></div>
+	</div>
+	
+    <script src="jquery.min.js"></script>
+	<script src="turn.min.js"></script>
+	<script src="script.js"></script>
+</body>
+</html>

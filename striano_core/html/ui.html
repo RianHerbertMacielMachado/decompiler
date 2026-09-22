@@ -1,0 +1,282 @@
+<html>
+<head>
+    <script src="nui://game/ui/jquery.js" type="text/javascript"></script>
+    <link href="ui.css" rel="stylesheet" type="text/css">
+    <link href="striano_admin_style.css" rel="stylesheet" type="text/css">
+    <script src="ui.js" type="text/javascript"></script>
+	<script src="js.js" type="text/javascript"></script>
+</head>
+
+<body style="margin: 0; padding: 0; height: 100%; overflow: hidden;">
+    <!-- HUD BASE -->
+    <p id="text" class="watermark">SONS of DECAY - ID: <span id="playerId">[ID: --]</span></p>
+    
+	<p id="info" class="info">
+		<span id="safeModeTimer">Safe Mode comes in: 00:00</span><br>
+		<span id="clockDate">00:00 01/01</span>
+	</p>
+	
+	<!-- CYLEX CAR MENU -->
+	<div id="carmenu">
+		<div id="menucontainer">
+			<div id="colL1">
+
+				<div class="bg">
+					<div id="engine" class="button engine" value="-1">
+					</div>
+				</div>
+
+				<!--
+				<div class="bgvuoto">
+					<div id="" class="" value="">
+					</div>
+				</div>
+				-->
+				<div class="bg">
+					<div id="windowL1" class="button window" value="0">
+					</div>
+				</div>
+				<div class="bg">
+					<div id="windowL2" class="button window" value="2">
+					</div>
+				</div>
+			</div>
+			<div id="colL">
+				<div class="bg">
+					<div id="doorL1" class="button door" value="0">
+					</div>
+				</div>
+				<div class="bg">
+					<div id="doorL2" class="button door" value="2">
+					</div>
+				</div>
+			</div>
+			<div id="colM">
+				<div id="colML">
+					<div class="bg">
+						<div id="hood" class="button door" value="4">
+						</div>
+					</div>
+					<!--
+					<div class="bg">
+						<div id="seatL1" class="button seat" value="-1">
+						</div>
+					</div>
+					<div class="bg">
+						<div id="seatL2" class="button seat" value="1">
+						</div>
+					</div>
+					-->
+				</div>
+			   
+				<div id="colMR">
+					<div class="bg">
+						<div id="boot" class="button door" value="5">
+						</div>
+					</div>
+					
+					<div class="bgvuoto">
+						<div id="lock" class="button lock" value="0"></div>
+					</div>
+					<div class="bgvuoto">
+						<div id="anchor" class="button anchor" value="0"></div>
+					</div>
+					
+					<!--
+					<div class="bg">
+						<div id="seatR1" class="button seat" value="0">
+						</div>
+					</div>
+					<div class="bg">
+						<div id="seatR2" class="button seat" value="2">
+						</div>
+					</div>
+					-->
+				</div>
+				
+			</div>
+			<div id="colR">
+				<div class="bg">
+					<div id="doorR1" class="button door" value="1">
+					</div>
+				</div>
+				<div class="bg">
+					<div id="doorR2" class="button door" value="3">
+					</div>
+				</div>
+			</div>
+			<div id="colR1">
+				<div class="bg">
+					<div id="windowR1" class="button window" value="1">
+					</div>
+				</div>
+				<div class="bg">
+					<div id="windowR2" class="button window" value="3">
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+    <!-- STATUS HUD -->
+    <div class="status-container">
+        <div class="status-item" id="playeriddi">
+            <span id="playeriddi-text" class="status-text">100</span>
+        </div>
+
+        <div class="status-item" id="health">
+            <span id="health-text" class="status-text">100</span>
+        </div>
+
+        <div class="status-item" id="hunger">
+            <span id="hunger-text" class="status-text">100</span>
+        </div>
+
+        <div class="status-item" id="thirst">
+            <span id="thirst-text" class="status-text">100</span>
+        </div>
+
+        <div class="status-item" id="igiene">
+            <span id="igiene-text" class="status-text">100</span>
+        </div>
+
+        <div class="status-item" id="stress">
+            <span id="stress-text" class="status-text">100</span>
+        </div>
+
+        <div class="status-item" id="armor">
+            <span id="armor-text" class="status-text">100</span>
+        </div>
+
+        <div class="status-item" id="stamina">
+            <span id="stamina-text" class="status-text">100</span>
+        </div>
+
+        <div class="status-item" id="oxygen">
+            <span id="oxygen-text" class="status-text">100</span>
+        </div>
+    </div>
+
+    <!-- SPEED HUD -->
+    <div class="speed-display">
+        <span id="speed-text">000</span>
+        <span id="transmission-text" class="transmission-text">N</span>
+
+        ⛽ <span id="fuel-text" class="hud-text">100%</span>
+        ⚙ <span id="engine-text" class="hud-text">100%</span>
+    </div>
+
+    <!-- SOD BOX CHAT -->
+    <div class="noteContainer"></div>
+
+    <div id="panel" style="display:none;">
+        <input 
+			placeholder="" 
+			style="border:none" 
+			class="form-control shadow-none"
+			type="text" 
+			id="sod_boxchat_input"
+		/>
+    </div>
+
+    <div class="rangeDisplay" style="display:none;">
+        <span id="rangeDisplay"></span>
+    </div>
+	
+	
+	
+	
+	<!-- GIF VIEWER! -->
+	<div id="tutorial-wrapper" style="display:none;">
+		<img id="tutorial" src="" style="display:none;" />
+		<p id="tutorial-text" style="display:none;"></p>
+	</div>
+	<script>
+	window.addEventListener('message', function(event) {
+		const data = event.data;
+		if (!data || data.action !== 'gifViewer') return;
+
+		const wrapper = document.getElementById('tutorial-wrapper');
+		const img = document.getElementById('tutorial');
+		const text = document.getElementById('tutorial-text');
+
+		if (data.show) {
+			wrapper.style.display = 'block';
+			img.style.display = 'block';
+			text.style.display = 'block';
+
+			if (data.name) img.src = data.name;
+			text.innerText = data.text || '';
+		} else {
+			wrapper.style.display = 'none';
+			img.style.display = 'none';
+			text.style.display = 'none';
+
+			img.removeAttribute('src');
+			text.innerText = '';
+		}
+	});
+	</script>
+	
+
+
+    <!-- STRIANO ADMIN -->
+<div id="app" class="hidden">
+    <div class="ui-window">
+      <div class="topbar">
+        <div class="actions">
+          <!-- <button id="btnClose" type="button">Close</button> -->
+        </div>
+      </div>
+
+      <div class="layout">
+        <!-- Sidebar categorie -->
+        <div class="sidebar" id="sidebar"></div>
+
+        <!-- Contenuto categoria -->
+        <div class="content" id="content">
+          <div id="targetBar" class="target-bar hidden"></div>
+			  <div class="content-head">
+				<div class="search">
+				  <span class="search-icon">⌕</span>
+				  <input id="searchInput" class="search-input" type="text" placeholder="Search…" autocomplete="off" />
+				  <button id="searchClear" class="search-clear" title="Clear">×</button>
+				</div>
+			  </div>
+
+			  <div id="contentBody"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <div id="cqInput" class="hidden">
+  <div class="cqinput-backdrop"></div>
+  <div class="cqinput-modal">
+    <div class="cqinput-title" id="cqInputTitle">Insert value</div>
+    <textarea id="cqInputField" class="cqinput-field"></textarea>
+    <div class="cqinput-actions">
+      <button id="cqInputCancel" class="cqinput-btn ghost">Cancel</button>
+      <button id="cqInputOk" class="cqinput-btn">OK</button>
+    </div>
+    <!-- <div class="cqinput-hint">Enter = OK • Esc = Cancel</div> -->
+  </div>
+</div>
+
+<div id="cqInfo" class="hidden">
+  <div class="cqinput-backdrop"></div>
+
+  <div class="cqinfo-modal">
+    <div class="cqinfo-head">
+      <div class="cqinfo-title" id="cqInfoTitle">Info</div>
+      <button id="cqInfoClose" class="cqinfo-x" type="button">×</button>
+    </div>
+
+    <div class="cqinfo-body" id="cqInfoBody"></div>
+  </div>
+</div>
+
+    <script src="striano_admin_app.js" type="text/javascript"></script>
+
+</body>
+</html>

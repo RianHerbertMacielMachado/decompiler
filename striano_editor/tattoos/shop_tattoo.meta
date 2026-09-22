@@ -1,0 +1,513 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TattooShopItemArray>
+	<TattooShopItems>
+		<Item>
+			<id value="10000"/>
+			<cost value="50"/>
+			<textLabel>Horror-Blood-PNG-Clipart-Background_M</textLabel>
+			<collection>sodbloodtattoo</collection>
+			<preset>Horror-Blood-PNG-Clipart-Background_M</preset>
+			<zone>PDZ_HEAD</zone>
+			<updateGroup>ARM_LEFT_1</updateGroup>
+			<eFaction>TATTOO_MP_FM</eFaction>
+			<eFacing>TATTOO_BACK</eFacing>
+	        <lockHash />
+		</Item>
+		<Item>
+			<id value="10001"/>
+			<cost value="50"/>
+			<textLabel>Horror-Blood-PNG-Clipart-Background_1_M</textLabel>
+			<collection>sodbloodtattoo</collection>
+			<preset>Horror-Blood-PNG-Clipart-Background_1_M</preset>
+			<zone>PDZ_HEAD</zone>
+			<updateGroup>ARM_LEFT_1</updateGroup>
+			<eFaction>TATTOO_MP_FM</eFaction>
+			<eFacing>TATTOO_BACK</eFacing>
+	        <lockHash />
+		</Item>
+		<Item>
+			<id value="10002"/>
+			<cost value="50"/>
+			<textLabel>Horror-Blood-PNG-Clipart-Background_2_M</textLabel>
+			<collection>sodbloodtattoo</collection>
+			<preset>Horror-Blood-PNG-Clipart-Background_2_M</preset>
+			<zone>PDZ_HEAD</zone>
+			<updateGroup>ARM_LEFT_1</updateGroup>
+			<eFaction>TATTOO_MP_FM</eFaction>
+			<eFacing>TATTOO_BACK</eFacing>
+	        <lockHash />
+		</Item>
+		<Item>
+			<id value="10003"/>
+			<cost value="50"/>
+			<textLabel>Horror-Blood-PNG-Clipart-Background_3_M</textLabel>
+			<collection>sodbloodtattoo</collection>
+			<preset>Horror-Blood-PNG-Clipart-Background_3_M</preset>
+			<zone>PDZ_HEAD</zone>
+			<updateGroup>ARM_LEFT_1</updateGroup>
+			<eFaction>TATTOO_MP_FM</eFaction>
+			<eFacing>TATTOO_BACK</eFacing>
+	        <lockHash />
+		</Item>
+		<Item>
+			<id value="10004"/>
+			<cost value="50"/>
+			<textLabel>sangue1_M</textLabel>
+			<collection>sodbloodtattoo</collection>
+			<preset>sangue1_M</preset>
+			<zone>PDZ_HEAD</zone>
+			<updateGroup>ARM_LEFT_1</updateGroup>
+			<eFaction>TATTOO_MP_FM</eFaction>
+			<eFacing>TATTOO_BACK</eFacing>
+	        <lockHash />
+		</Item>
+		<Item>
+			<id value="10005"/>
+			<cost value="50"/>
+			<textLabel>sangue3_M</textLabel>
+			<collection>sodbloodtattoo</collection>
+			<preset>sangue3_M</preset>
+			<zone>PDZ_HEAD</zone>
+			<updateGroup>ARM_LEFT_1</updateGroup>
+			<eFaction>TATTOO_MP_FM</eFaction>
+			<eFacing>TATTOO_BACK</eFacing>
+	        <lockHash />
+		</Item>
+		<Item>
+			<id value="10006"/>
+			<cost value="50"/>
+			<textLabel>sangue4_5_M</textLabel>
+			<collection>sodbloodtattoo</collection>
+			<preset>sangue4_5_M</preset>
+			<zone>PDZ_HEAD</zone>
+			<updateGroup>ARM_LEFT_1</updateGroup>
+			<eFaction>TATTOO_MP_FM</eFaction>
+			<eFacing>TATTOO_BACK</eFacing>
+	        <lockHash />
+		</Item>
+		<Item>
+			<id value="10007"/>
+			<cost value="50"/>
+			<textLabel>sangue4_6_M</textLabel>
+			<collection>sodbloodtattoo</collection>
+			<preset>sangue4_6_M</preset>
+			<zone>PDZ_HEAD</zone>
+			<updateGroup>ARM_LEFT_1</updateGroup>
+			<eFaction>TATTOO_MP_FM</eFaction>
+			<eFacing>TATTOO_BACK</eFacing>
+	        <lockHash />
+		</Item>
+		<Item>
+			<id value="10008"/>
+			<cost value="50"/>
+			<textLabel>sangue4_7_M</textLabel>
+			<collection>sodbloodtattoo</collection>
+			<preset>sangue4_7_M</preset>
+			<zone>PDZ_HEAD</zone>
+			<updateGroup>ARM_LEFT_1</updateGroup>
+			<eFaction>TATTOO_MP_FM</eFaction>
+			<eFacing>TATTOO_BACK</eFacing>
+	        <lockHash />
+		</Item>
+		<Item>
+			<id value="10009"/>
+			<cost value="50"/>
+			<textLabel>sangue4_8_M</textLabel>
+			<collection>sodbloodtattoo</collection>
+			<preset>sangue4_8_M</preset>
+			<zone>PDZ_HEAD</zone>
+			<updateGroup>ARM_LEFT_1</updateGroup>
+			<eFaction>TATTOO_MP_FM</eFaction>
+			<eFacing>TATTOO_BACK</eFacing>
+	        <lockHash />
+		</Item>
+		<Item>
+			<id value="10010"/>
+			<cost value="50"/>
+			<textLabel>sangue4_9_M</textLabel>
+			<collection>sodbloodtattoo</collection>
+			<preset>sangue4_9_M</preset>
+			<zone>PDZ_HEAD</zone>
+			<updateGroup>ARM_LEFT_1</updateGroup>
+			<eFaction>TATTOO_MP_FM</eFaction>
+			<eFacing>TATTOO_BACK</eFacing>
+	        <lockHash />
+		</Item>
+		<Item>
+			<id value="10011"/>
+			<cost value="50"/>
+			<textLabel>sangue2_M</textLabel>
+			<collection>sodbloodtattoo</collection>
+			<preset>sangue2_M</preset>
+			<zone>PDZ_HEAD</zone>
+			<updateGroup>ARM_LEFT_1</updateGroup>
+			<eFaction>TATTOO_MP_FM</eFaction>
+			<eFacing>TATTOO_BACK</eFacing>
+	        <lockHash />
+		</Item>
+		<Item>
+			<id value="10012"/>
+			<cost value="50"/>
+			<textLabel>sangue5_M</textLabel>
+			<collection>sodbloodtattoo</collection>
+			<preset>sangue5_M</preset>
+			<zone>PDZ_HEAD</zone>
+			<updateGroup>ARM_LEFT_1</updateGroup>
+			<eFaction>TATTOO_MP_FM</eFaction>
+			<eFacing>TATTOO_BACK</eFacing>
+	        <lockHash />
+		</Item>
+		<Item>
+			<id value="10013"/>
+			<cost value="50"/>
+			<textLabel>sangue5_1_M</textLabel>
+			<collection>sodbloodtattoo</collection>
+			<preset>sangue5_1_M</preset>
+			<zone>PDZ_HEAD</zone>
+			<updateGroup>ARM_LEFT_1</updateGroup>
+			<eFaction>TATTOO_MP_FM</eFaction>
+			<eFacing>TATTOO_BACK</eFacing>
+	        <lockHash />
+		</Item>
+		<Item>
+			<id value="10014"/>
+			<cost value="50"/>
+			<textLabel>sangue4_3_M</textLabel>
+			<collection>sodbloodtattoo</collection>
+			<preset>sangue4_3_M</preset>
+			<zone>PDZ_LEFT_LEG</zone>
+			<updateGroup>ARM_LEFT_1</updateGroup>
+			<eFaction>TATTOO_MP_FM</eFaction>
+			<eFacing>TATTOO_BACK</eFacing>
+	        <lockHash />
+		</Item>
+		<Item>
+			<id value="10015"/>
+			<cost value="50"/>
+			<textLabel>sangue4_1_M</textLabel>
+			<collection>sodbloodtattoo</collection>
+			<preset>sangue4_1_M</preset>
+			<zone>PDZ_RIGHT_ARM</zone>
+			<updateGroup>ARM_LEFT_1</updateGroup>
+			<eFaction>TATTOO_MP_FM</eFaction>
+			<eFacing>TATTOO_BACK</eFacing>
+	        <lockHash />
+		</Item>
+		<Item>
+			<id value="10016"/>
+			<cost value="50"/>
+			<textLabel>sangue4_2_M</textLabel>
+			<collection>sodbloodtattoo</collection>
+			<preset>sangue4_2_M</preset>
+			<zone>PDZ_RIGHT_ARM</zone>
+			<updateGroup>ARM_LEFT_1</updateGroup>
+			<eFaction>TATTOO_MP_FM</eFaction>
+			<eFacing>TATTOO_BACK</eFacing>
+	        <lockHash />
+		</Item>
+		<Item>
+			<id value="10017"/>
+			<cost value="50"/>
+			<textLabel>sangue4_M</textLabel>
+			<collection>sodbloodtattoo</collection>
+			<preset>sangue4_M</preset>
+			<zone>PDZ_TORSO</zone>
+			<updateGroup>ARM_LEFT_1</updateGroup>
+			<eFaction>TATTOO_MP_FM</eFaction>
+			<eFacing>TATTOO_BACK</eFacing>
+	        <lockHash />
+		</Item>
+		<Item>
+			<id value="10018"/>
+			<cost value="50"/>
+			<textLabel>sangue3_1_M</textLabel>
+			<collection>sodbloodtattoo</collection>
+			<preset>sangue3_1_M</preset>
+			<zone>PDZ_TORSO</zone>
+			<updateGroup>ARM_LEFT_1</updateGroup>
+			<eFaction>TATTOO_MP_FM</eFaction>
+			<eFacing>TATTOO_BACK</eFacing>
+	        <lockHash />
+		</Item>
+		<Item>
+			<id value="10019"/>
+			<cost value="50"/>
+			<textLabel>sangue4_4_M</textLabel>
+			<collection>sodbloodtattoo</collection>
+			<preset>sangue4_4_M</preset>
+			<zone>PDZ_TORSO</zone>
+			<updateGroup>ARM_LEFT_1</updateGroup>
+			<eFaction>TATTOO_MP_FM</eFaction>
+			<eFacing>TATTOO_BACK</eFacing>
+	        <lockHash />
+		</Item>
+		
+		
+		<Item>
+			<id value="10000"/>
+			<cost value="50"/>
+			<textLabel>pngwing.com_M</textLabel>
+			<collection>tattoo_sod</collection>
+			<preset>pngwing.com_M</preset>
+			<zone>PDZ_HEAD</zone>
+			<updateGroup>ARM_LEFT_1</updateGroup>
+			<eFaction>TATTOO_MP_FM</eFaction>
+			<eFacing>TATTOO_BACK</eFacing>
+	        <lockHash />
+		</Item>
+		<Item>
+			<id value="10001"/>
+			<cost value="50"/>
+			<textLabel>pngwing.com_1_M</textLabel>
+			<collection>tattoo_sod</collection>
+			<preset>pngwing.com_1_M</preset>
+			<zone>PDZ_HEAD</zone>
+			<updateGroup>ARM_LEFT_1</updateGroup>
+			<eFaction>TATTOO_MP_FM</eFaction>
+			<eFacing>TATTOO_BACK</eFacing>
+	        <lockHash />
+		</Item>
+		<Item>
+			<id value="10002"/>
+			<cost value="50"/>
+			<textLabel>pngwing.com_2_M</textLabel>
+			<collection>tattoo_sod</collection>
+			<preset>pngwing.com_2_M</preset>
+			<zone>PDZ_HEAD</zone>
+			<updateGroup>ARM_LEFT_1</updateGroup>
+			<eFaction>TATTOO_MP_FM</eFaction>
+			<eFacing>TATTOO_BACK</eFacing>
+	        <lockHash />
+		</Item>
+		<Item>
+			<id value="10003"/>
+			<cost value="50"/>
+			<textLabel>pngwing.com+-+Copia_M</textLabel>
+			<collection>tattoo_sod</collection>
+			<preset>pngwing.com+-+Copia_M</preset>
+			<zone>PDZ_HEAD</zone>
+			<updateGroup>ARM_LEFT_1</updateGroup>
+			<eFaction>TATTOO_MP_FM</eFaction>
+			<eFacing>TATTOO_BACK</eFacing>
+	        <lockHash />
+		</Item>
+		<Item>
+			<id value="10004"/>
+			<cost value="50"/>
+			<textLabel>pngwing.com_16_M</textLabel>
+			<collection>tattoo_sod</collection>
+			<preset>pngwing.com_16_M</preset>
+			<zone>PDZ_HEAD</zone>
+			<updateGroup>ARM_LEFT_1</updateGroup>
+			<eFaction>TATTOO_MP_FM</eFaction>
+			<eFacing>TATTOO_BACK</eFacing>
+	        <lockHash />
+		</Item>
+		<Item>
+			<id value="10005"/>
+			<cost value="50"/>
+			<textLabel>sporco2_M</textLabel>
+			<collection>tattoo_sod</collection>
+			<preset>sporco2_M</preset>
+			<zone>PDZ_HEAD</zone>
+			<updateGroup>ARM_LEFT_1</updateGroup>
+			<eFaction>TATTOO_MP_FM</eFaction>
+			<eFacing>TATTOO_BACK</eFacing>
+	        <lockHash />
+		</Item>
+		<Item>
+			<id value="10006"/>
+			<cost value="50"/>
+			<textLabel>pngwing.com_5_M</textLabel>
+			<collection>tattoo_sod</collection>
+			<preset>pngwing.com_5_M</preset>
+			<zone>PDZ_LEFT_ARM</zone>
+			<updateGroup>ARM_LEFT_1</updateGroup>
+			<eFaction>TATTOO_MP_FM</eFaction>
+			<eFacing>TATTOO_BACK</eFacing>
+	        <lockHash />
+		</Item>
+		<Item>
+			<id value="10007"/>
+			<cost value="50"/>
+			<textLabel>pngwing.com_6_M</textLabel>
+			<collection>tattoo_sod</collection>
+			<preset>pngwing.com_6_M</preset>
+			<zone>PDZ_LEFT_ARM</zone>
+			<updateGroup>ARM_LEFT_1</updateGroup>
+			<eFaction>TATTOO_MP_FM</eFaction>
+			<eFacing>TATTOO_BACK</eFacing>
+	        <lockHash />
+		</Item>
+		<Item>
+			<id value="10008"/>
+			<cost value="50"/>
+			<textLabel>pngwing.com_7_M</textLabel>
+			<collection>tattoo_sod</collection>
+			<preset>pngwing.com_7_M</preset>
+			<zone>PDZ_LEFT_ARM</zone>
+			<updateGroup>ARM_LEFT_1</updateGroup>
+			<eFaction>TATTOO_MP_FM</eFaction>
+			<eFacing>TATTOO_BACK</eFacing>
+	        <lockHash />
+		</Item>
+		<Item>
+			<id value="10009"/>
+			<cost value="50"/>
+			<textLabel>pngwing.com_11_M</textLabel>
+			<collection>tattoo_sod</collection>
+			<preset>pngwing.com_11_M</preset>
+			<zone>PDZ_LEFT_LEG</zone>
+			<updateGroup>ARM_LEFT_1</updateGroup>
+			<eFaction>TATTOO_MP_FM</eFaction>
+			<eFacing>TATTOO_BACK</eFacing>
+	        <lockHash />
+		</Item>
+		<Item>
+			<id value="10010"/>
+			<cost value="50"/>
+			<textLabel>pngwing.com_12_M</textLabel>
+			<collection>tattoo_sod</collection>
+			<preset>pngwing.com_12_M</preset>
+			<zone>PDZ_LEFT_LEG</zone>
+			<updateGroup>ARM_LEFT_1</updateGroup>
+			<eFaction>TATTOO_MP_FM</eFaction>
+			<eFacing>TATTOO_BACK</eFacing>
+	        <lockHash />
+		</Item>
+		<Item>
+			<id value="10011"/>
+			<cost value="50"/>
+			<textLabel>pngwing.com_13_M</textLabel>
+			<collection>tattoo_sod</collection>
+			<preset>pngwing.com_13_M</preset>
+			<zone>PDZ_LEFT_LEG</zone>
+			<updateGroup>ARM_LEFT_1</updateGroup>
+			<eFaction>TATTOO_MP_FM</eFaction>
+			<eFacing>TATTOO_BACK</eFacing>
+	        <lockHash />
+		</Item>
+		<Item>
+			<id value="10012"/>
+			<cost value="50"/>
+			<textLabel>pngwing.com_8_M</textLabel>
+			<collection>tattoo_sod</collection>
+			<preset>pngwing.com_8_M</preset>
+			<zone>PDZ_RIGHT_ARM</zone>
+			<updateGroup>ARM_LEFT_1</updateGroup>
+			<eFaction>TATTOO_MP_FM</eFaction>
+			<eFacing>TATTOO_BACK</eFacing>
+	        <lockHash />
+		</Item>
+		<Item>
+			<id value="10013"/>
+			<cost value="50"/>
+			<textLabel>pngwing.com_9_M</textLabel>
+			<collection>tattoo_sod</collection>
+			<preset>pngwing.com_9_M</preset>
+			<zone>PDZ_RIGHT_ARM</zone>
+			<updateGroup>ARM_LEFT_1</updateGroup>
+			<eFaction>TATTOO_MP_FM</eFaction>
+			<eFacing>TATTOO_BACK</eFacing>
+	        <lockHash />
+		</Item>
+		<Item>
+			<id value="10014"/>
+			<cost value="50"/>
+			<textLabel>pngwing.com_10_M</textLabel>
+			<collection>tattoo_sod</collection>
+			<preset>pngwing.com_10_M</preset>
+			<zone>PDZ_RIGHT_ARM</zone>
+			<updateGroup>ARM_LEFT_1</updateGroup>
+			<eFaction>TATTOO_MP_FM</eFaction>
+			<eFacing>TATTOO_BACK</eFacing>
+	        <lockHash />
+		</Item>
+		<Item>
+			<id value="10015"/>
+			<cost value="50"/>
+			<textLabel>pngwing.com_14_M</textLabel>
+			<collection>tattoo_sod</collection>
+			<preset>pngwing.com_14_M</preset>
+			<zone>PDZ_RIGHT_LEG</zone>
+			<updateGroup>ARM_LEFT_1</updateGroup>
+			<eFaction>TATTOO_MP_FM</eFaction>
+			<eFacing>TATTOO_BACK</eFacing>
+	        <lockHash />
+		</Item>
+		<Item>
+			<id value="10016"/>
+			<cost value="50"/>
+			<textLabel>pngwing.com_15_M</textLabel>
+			<collection>tattoo_sod</collection>
+			<preset>pngwing.com_15_M</preset>
+			<zone>PDZ_RIGHT_LEG</zone>
+			<updateGroup>ARM_LEFT_1</updateGroup>
+			<eFaction>TATTOO_MP_FM</eFaction>
+			<eFacing>TATTOO_BACK</eFacing>
+	        <lockHash />
+		</Item>
+		<Item>
+			<id value="10017"/>
+			<cost value="50"/>
+			<textLabel>pngwing.com+-+Copia_1_M</textLabel>
+			<collection>tattoo_sod</collection>
+			<preset>pngwing.com+-+Copia_1_M</preset>
+			<zone>PDZ_TORSO</zone>
+			<updateGroup>ARM_LEFT_1</updateGroup>
+			<eFaction>TATTOO_MP_FM</eFaction>
+			<eFacing>TATTOO_BACK</eFacing>
+	        <lockHash />
+		</Item>
+		<Item>
+			<id value="10018"/>
+			<cost value="50"/>
+			<textLabel>pngwing.com+-+Copia_2_M</textLabel>
+			<collection>tattoo_sod</collection>
+			<preset>pngwing.com+-+Copia_2_M</preset>
+			<zone>PDZ_TORSO</zone>
+			<updateGroup>ARM_LEFT_1</updateGroup>
+			<eFaction>TATTOO_MP_FM</eFaction>
+			<eFacing>TATTOO_BACK</eFacing>
+	        <lockHash />
+		</Item>
+		<Item>
+			<id value="10019"/>
+			<cost value="50"/>
+			<textLabel>pngwing.com_3_M</textLabel>
+			<collection>tattoo_sod</collection>
+			<preset>pngwing.com_3_M</preset>
+			<zone>PDZ_TORSO</zone>
+			<updateGroup>ARM_LEFT_1</updateGroup>
+			<eFaction>TATTOO_MP_FM</eFaction>
+			<eFacing>TATTOO_BACK</eFacing>
+	        <lockHash />
+		</Item>
+		<Item>
+			<id value="10020"/>
+			<cost value="50"/>
+			<textLabel>pngwing.com_4_M</textLabel>
+			<collection>tattoo_sod</collection>
+			<preset>pngwing.com_4_M</preset>
+			<zone>PDZ_TORSO</zone>
+			<updateGroup>ARM_LEFT_1</updateGroup>
+			<eFaction>TATTOO_MP_FM</eFaction>
+			<eFacing>TATTOO_BACK</eFacing>
+	        <lockHash />
+		</Item>
+		<Item>
+			<id value="10021"/>
+			<cost value="50"/>
+			<textLabel>sporco2_1_M</textLabel>
+			<collection>tattoo_sod</collection>
+			<preset>sporco2_1_M</preset>
+			<zone>PDZ_TORSO</zone>
+			<updateGroup>ARM_LEFT_1</updateGroup>
+			<eFaction>TATTOO_MP_FM</eFaction>
+			<eFacing>TATTOO_BACK</eFacing>
+	        <lockHash />
+		</Item>
+		
+		
+	</TattooShopItems>
+</TattooShopItemArray>

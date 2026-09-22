@@ -1,0 +1,161 @@
+<CodeWalkerProject>
+  <Name>New CodeWalker Project</Name>
+  <Version value="1" />
+  <YmapFilenames>
+    <Item>au.ymap</Item>
+    <Item>au2.ymap</Item>
+    <Item>barnfire.ymap</Item>
+    <Item>base1.ymap</Item>
+    <Item>base1b.ymap</Item>
+    <Item>base2.ymap</Item>
+    <Item>checkpointhelpingsurvivals.ymap</Item>
+    <Item>chilliadbase.ymap</Item>
+    <Item>city.ymap</Item>
+    <Item>citycentral.ymap</Item>
+    <Item>czombie.ymap</Item>
+    <Item>dignityvillage.ymap</Item>
+    <Item>end.ymap</Item>
+    <Item>evacpoint.ymap</Item>
+    <Item>factory.ymap</Item>
+    <Item>forest1.ymap</Item>
+    <Item>forest1b.ymap</Item>
+    <Item>forest1c.ymap</Item>
+    <Item>forest2.ymap</Item>
+    <Item>forest2b.ymap</Item>
+    <Item>forest3.ymap</Item>
+    <Item>forest3b.ymap</Item>
+    <Item>freeway.ymap</Item>
+    <Item>giungla.ymap</Item>
+    <Item>grove.ymap</Item>
+    <Item>hei_cs2_02_strm_1.ymap</Item>
+    <Item>hei_dt1_06.ymap</Item>
+    <Item>hei_dt1_06_long_0.ymap</Item>
+    <Item>hei_dt1_12_strm_0.ymap</Item>
+    <Item>hei_dt1_14_strm_0.ymap</Item>
+    <Item>hei_dt1_15.ymap</Item>
+    <Item>hei_dt1_15_strm_0.ymap</Item>
+    <Item>hei_dt1_18.ymap</Item>
+    <Item>hei_dt1_22.ymap</Item>
+    <Item>hei_dt1_22_strm_0.ymap</Item>
+    <Item>hei_dt1_rd1_critical_1.ymap</Item>
+    <Item>hei_dt1_rd1_long_0.ymap</Item>
+    <Item>hei_dt1_rd1_long_1.ymap</Item>
+    <Item>hei_dt1_rd1_strm_1.ymap</Item>
+    <Item>hei_dt1_rd1_strm_7.ymap</Item>
+    <Item>hospital.ymap</Item>
+    <Item>hospitalgaraje.ymap</Item>
+    <Item>humanelabs.ymap</Item>
+    <Item>junkyard.ymap</Item>
+    <Item>m1.ymap</Item>
+    <Item>m2.ymap</Item>
+    <Item>m3.5.ymap</Item>
+    <Item>m3.ymap</Item>
+    <Item>m4.ymap</Item>
+    <Item>m5.ymap</Item>
+    <Item>marketnorth.ymap</Item>
+    <Item>mazebankarenabase.ymap</Item>
+    <Item>militarybase.ymap</Item>
+    <Item>motel.ymap</Item>
+    <Item>ofarmranch.ymap</Item>
+    <Item>planecrasharoport.ymap</Item>
+    <Item>river.ymap</Item>
+    <Item>river2.ymap</Item>
+    <Item>rodeo.ymap</Item>
+    <Item>rodeo2.ymap</Item>
+    <Item>sandy.ymap</Item>
+    <Item>school.ymap</Item>
+    <Item>stabcity.ymap</Item>
+    <Item>theatrevinewood.ymap</Item>
+    <Item>thedefender.ymap</Item>
+    <Item>therichman.ymap</Item>
+    <Item>therichmanhotelpostapocalypse..ymap</Item>
+    <Item>treeworld.ymap</Item>
+    <Item>vanilla1.ymap</Item>
+    <Item>walkingdeadroad.ymap</Item>
+    <Item>zombie1.ymap</Item>
+    <Item>zombiebase.ymap</Item>
+    <Item>dt1_rd1_critical_1.ymap</Item>
+    <Item>..\..\..\..\[props]\striano_props\stream\[flags]\[thelab]\dt1_rd1_strm_5.ymap</Item>
+  </YmapFilenames>
+  <YtypFilenames>
+    <Item>..\..\..\..\[props]\striano_props\stream\[fans]\strianofans.ytyp</Item>
+    <Item>..\..\..\..\[props]\striano_props\stream\[flags]\[dogma]\striano_flags.ytyp</Item>
+    <Item>..\..\..\..\[props]\striano_props\stream\[flags]\[thelab]\flagthelab.ytyp</Item>
+    <Item>..\..\..\..\[props]\striano_props\stream\[flags]\[1shot]\oneshotflag.ytyp</Item>
+    <Item>..\..\..\..\[props]\striano_props\stream\[belt]\striano_belt.ytyp</Item>
+    <Item>..\..\..\..\[props]\striano_props\stream\[belt]\striano_belt2.ytyp</Item>
+    <Item>..\..\..\..\[props]\striano_props\stream\[blades]\striano_blade.ytyp</Item>
+    <Item>..\..\..\..\[props]\striano_props\stream\[bow]\striano_bow.ytyp</Item>
+    <Item>..\..\..\..\[props]\striano_props\stream\[ffsword]\ffsword.ytyp</Item>
+    <Item>..\..\..\..\[props]\striano_props\stream\[goldenaxe]\striano_goldenaxe.ytyp</Item>
+    <Item>..\..\..\..\[props]\striano_props\stream\[grim]\striano_grim.ytyp</Item>
+    <Item>..\..\..\..\[props]\striano_props\stream\[guitar_survival]\survguitar.ytyp</Item>
+    <Item>..\..\..\..\[props]\striano_props\stream\[holowatch]\holowatch.ytyp</Item>
+    <Item>..\..\..\..\[props]\striano_props\stream\[katana_pack]\katana_striano_pack.ytyp</Item>
+    <Item>..\..\..\..\[props]\striano_props\stream\[lowpoly_weapons]\striano_weapons.ytyp</Item>
+    <Item>..\..\..\..\[props]\striano_props\stream\[masks]\striano_masks.ytyp</Item>
+    <Item>..\..\..\..\[props]\striano_props\stream\[revknife]\striano_revknife.ytyp</Item>
+    <Item>..\..\..\..\[props]\striano_props\stream\[shields]\striano_shield_1.ytyp</Item>
+    <Item>..\..\..\..\[props]\striano_props\stream\[shields]\striano_shield_2.ytyp</Item>
+    <Item>..\..\..\..\[props]\striano_props\stream\[shields]\striano_shield_pack.ytyp</Item>
+    <Item>..\..\..\..\[props]\striano_props\stream\[spear]\striano_spear.ytyp</Item>
+    <Item>..\..\..\..\[props]\striano_props\stream\[valknife]\valknife.ytyp</Item>
+    <Item>..\..\..\..\[props]\striano_props\stream\[warhammer]\warhammer.ytyp</Item>
+    <Item>..\..\..\..\[props]\striano_props\stream\[spade alez]\alez_str_sword.ytyp</Item>
+    <Item>..\..\..\..\[props]\alezlab_props\stream\[edera]\ale_striano_edera.ytyp</Item>
+  </YtypFilenames>
+  <YbnFilenames />
+  <YndFilenames />
+  <YnvFilenames />
+  <TrainsFilenames />
+  <ScenarioFilenames />
+  <AudioRelFilenames />
+  <YdrFilenames>
+    <Item>..\..\..\..\[props]\striano_props\stream\[fans]\striano_fans.ydr</Item>
+    <Item>..\..\..\..\[props]\striano_props\stream\[flags]\[dogma]\dogmaflag.ydr</Item>
+    <Item>..\..\..\..\[props]\striano_props\stream\[flags]\[thelab]\flagthelab.ydr</Item>
+    <Item>..\..\..\..\[props]\striano_props\stream\[flags]\[1shot]\oneshotflag.ydr</Item>
+    <Item>..\..\..\..\[props]\striano_props\stream\[belt]\striano_champbelt.ydr</Item>
+    <Item>..\..\..\..\[props]\striano_props\stream\[belt]\striano_champbelt2.ydr</Item>
+    <Item>..\..\..\..\[props]\striano_props\stream\[blades]\strianoblade.ydr</Item>
+    <Item>..\..\..\..\[props]\striano_props\stream\[bow]\striano_arrow.ydr</Item>
+    <Item>..\..\..\..\[props]\striano_props\stream\[bow]\striano_bow.ydr</Item>
+    <Item>..\..\..\..\[props]\striano_props\stream\[ffsword]\ffsword.ydr</Item>
+    <Item>..\..\..\..\[props]\striano_props\stream\[goldenaxe]\striano_goldenaxe.ydr</Item>
+    <Item>..\..\..\..\[props]\striano_props\stream\[grim]\weapon_grim.ydr</Item>
+    <Item>..\..\..\..\[props]\striano_props\stream\[guitar_survival]\zaino_surv_guitar.ydr</Item>
+    <Item>..\..\..\..\[props]\striano_props\stream\[holowatch]\sodwatchholo.ydr</Item>
+    <Item>..\..\..\..\[props]\striano_props\stream\[katana_pack]\katana_striano.ydr</Item>
+    <Item>..\..\..\..\[props]\striano_props\stream\[lowpoly_weapons]\axe.ydr</Item>
+    <Item>..\..\..\..\[props]\striano_props\stream\[lowpoly_weapons]\bat_bloody.ydr</Item>
+    <Item>..\..\..\..\[props]\striano_props\stream\[lowpoly_weapons]\darksword.ydr</Item>
+    <Item>..\..\..\..\[props]\striano_props\stream\[lowpoly_weapons]\runicsword.ydr</Item>
+    <Item>..\..\..\..\[props]\striano_props\stream\[lowpoly_weapons]\sword.ydr</Item>
+    <Item>..\..\..\..\[props]\striano_props\stream\[lowpoly_weapons]\vikingsword.ydr</Item>
+    <Item>..\..\..\..\[props]\striano_props\stream\[masks]\striano_mask_1.ydr</Item>
+    <Item>..\..\..\..\[props]\striano_props\stream\[masks]\striano_mask_2.ydr</Item>
+    <Item>..\..\..\..\[props]\striano_props\stream\[masks]\striano_mask_3.ydr</Item>
+    <Item>..\..\..\..\[props]\striano_props\stream\[masks]\striano_mask_4.ydr</Item>
+    <Item>..\..\..\..\[props]\striano_props\stream\[masks]\striano_mask_5.ydr</Item>
+    <Item>..\..\..\..\[props]\striano_props\stream\[revknife]\striano_revknife.ydr</Item>
+    <Item>..\..\..\..\[props]\striano_props\stream\[shields]\striano_shield_1.ydr</Item>
+    <Item>..\..\..\..\[props]\striano_props\stream\[shields]\striano_shield_2.ydr</Item>
+    <Item>..\..\..\..\[props]\striano_props\stream\[shields]\striano_shield_3.ydr</Item>
+    <Item>..\..\..\..\[props]\striano_props\stream\[shields]\striano_shield_4.ydr</Item>
+    <Item>..\..\..\..\[props]\striano_props\stream\[spear]\striano_spear.ydr</Item>
+    <Item>..\..\..\..\[props]\striano_props\stream\[valknife]\valknife.ydr</Item>
+    <Item>..\..\..\..\[props]\striano_props\stream\[warhammer]\striano_warhammer.ydr</Item>
+    <Item>..\..\..\..\[props]\striano_props\stream\[spade alez]\alez_str_sword1.ydr</Item>
+    <Item>..\..\..\..\[props]\striano_props\stream\[spade alez]\alez_str_sword2.ydr</Item>
+    <Item>..\..\..\..\[props]\striano_props\stream\[spade alez]\alez_str_sword3.ydr</Item>
+    <Item>..\..\..\..\[props]\alezlab_props\stream\[edera]\ale_striano_edera_1.ydr</Item>
+    <Item>..\..\..\..\[props]\alezlab_props\stream\[edera]\ale_striano_edera_2.ydr</Item>
+    <Item>..\..\..\..\[props]\alezlab_props\stream\[edera]\ale_striano_edera_3.ydr</Item>
+    <Item>..\..\..\..\[props]\alezlab_props\stream\[edera]\ale_striano_edera_4.ydr</Item>
+    <Item>..\..\..\..\[props]\alezlab_props\stream\[edera]\ale_striano_edera_5.ydr</Item>
+    <Item>..\..\..\..\[props]\alezlab_props\stream\[edera]\ale_striano_edera_6.ydr</Item>
+  </YdrFilenames>
+  <YddFilenames />
+  <YftFilenames />
+  <YtdFilenames />
+</CodeWalkerProject>

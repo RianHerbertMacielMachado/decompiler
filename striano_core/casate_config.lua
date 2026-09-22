@@ -1,0 +1,97 @@
+local L0_1, L1_1, L2_1, L3_1, L4_1, L5_1, L6_1
+L0_1 = {}
+CasateConfig = L0_1
+L0_1 = CasateConfig
+L0_1.MinNameLength = 3
+L0_1 = CasateConfig
+L0_1.MaxNameLength = 32
+L0_1 = CasateConfig
+L0_1.InviteDuration = 60
+L0_1 = CasateConfig
+L0_1.StartingPoints = 100
+L0_1 = CasateConfig
+L0_1.MaxPoints = 1000
+L0_1 = CasateConfig
+L1_1 = {}
+L2_1 = {}
+L2_1.label = "Capocasata"
+L2_1.level = 3
+L1_1.owner = L2_1
+L2_1 = {}
+L2_1.label = "Ufficiale"
+L2_1.level = 2
+L1_1.officer = L2_1
+L2_1 = {}
+L2_1.label = "Membro"
+L2_1.level = 1
+L1_1.member = L2_1
+L0_1.Ranks = L1_1
+L0_1 = CasateConfig
+L1_1 = {}
+L2_1 = {}
+L2_1.name = "Territorio 1"
+L3_1 = vector3
+L4_1 = 4448.293
+L5_1 = 7920.757
+L6_1 = 3.02
+L3_1 = L3_1(L4_1, L5_1, L6_1)
+L2_1.coords = L3_1
+L2_1.radius = 35.0
+L2_1.claimCost = 50
+L2_1.fuelItem = "coal"
+L2_1.fuelLabel = "Carbone"
+L2_1.fuelAmount = 10
+L2_1.progressPerBatch = 10
+L2_1.processTime = 600
+L2_1.rewardItem = "territory_crate"
+L2_1.rewardLabel = "Cassa del Territorio"
+L1_1.territorio_1 = L2_1
+L2_1 = {}
+L2_1.name = "Territorio 2"
+L3_1 = vector3
+L4_1 = 1599.888
+L5_1 = 8892.483
+L6_1 = 8.294
+L3_1 = L3_1(L4_1, L5_1, L6_1)
+L2_1.coords = L3_1
+L2_1.radius = 40.0
+L2_1.claimCost = 75
+L2_1.fuelItem = "ferro"
+L2_1.fuelLabel = "Ferro"
+L2_1.fuelAmount = 10
+L2_1.progressPerBatch = 10
+L2_1.processTime = 600
+L2_1.rewardItem = "territory_crate"
+L2_1.rewardLabel = "Cassa del Territorio"
+L1_1.territorio_2 = L2_1
+L2_1 = {}
+L2_1.name = "Territorio 3"
+L3_1 = vector3
+L4_1 = -1331.142
+L5_1 = 7820.241
+L6_1 = 9.969
+L3_1 = L3_1(L4_1, L5_1, L6_1)
+L2_1.coords = L3_1
+L2_1.radius = 45.0
+L2_1.claimCost = 100
+L2_1.fuelItem = "wood"
+L2_1.fuelLabel = "Legno"
+L2_1.fuelAmount = 10
+L2_1.progressPerBatch = 10
+L2_1.processTime = 600
+L2_1.rewardItem = "territory_crate"
+L2_1.rewardLabel = "Cassa del Territorio"
+L1_1.territorio_3 = L2_1
+L0_1.Territories = L1_1
+L0_1 = exports
+L1_1 = "GetTerritoriesConfigClient"
+function L2_1()
+  local L0_2, L1_2
+  L0_2 = CasateConfig
+  L0_2 = L0_2.Territories
+  if not L0_2 then
+    L0_2 = {}
+  end
+  return L0_2
+end
+L0_1(L1_1, L2_1)

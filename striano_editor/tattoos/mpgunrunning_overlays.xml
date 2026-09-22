@@ -1,0 +1,1801 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<PedDecorationCollection>
+  <bRequiredForSync value="true" />
+  <presets>
+	<Item>
+      <uvPos x="0.737000" y="0.640000" />
+      <scale x="0.140000" y="0.140000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_Gunrunning_Award_000_M</nameHash>
+      <txdHash>MP_Gunrunning_Award_000</txdHash>
+      <txtHash>MP_Gunrunning_Award_000</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_BADGE</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.737000" y="0.640000" />
+      <scale x="0.140000" y="0.140000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_Gunrunning_Award_001_M</nameHash>
+      <txdHash>MP_Gunrunning_Award_001</txdHash>
+      <txtHash>MP_Gunrunning_Award_001</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_BADGE</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.737000" y="0.640000" />
+      <scale x="0.140000" y="0.140000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_Gunrunning_Award_002_M</nameHash>
+      <txdHash>MP_Gunrunning_Award_002</txdHash>
+      <txtHash>MP_Gunrunning_Award_002</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_BADGE</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.737000" y="0.640000" />
+      <scale x="0.140000" y="0.140000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_Gunrunning_Award_003_M</nameHash>
+      <txdHash>MP_Gunrunning_Award_003</txdHash>
+      <txtHash>MP_Gunrunning_Award_003</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_BADGE</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.737000" y="0.640000" />
+      <scale x="0.140000" y="0.140000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_Gunrunning_Award_004_M</nameHash>
+      <txdHash>MP_Gunrunning_Award_004</txdHash>
+      <txtHash>MP_Gunrunning_Award_004</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_BADGE</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.737000" y="0.640000" />
+      <scale x="0.140000" y="0.140000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_Gunrunning_Award_005_M</nameHash>
+      <txdHash>MP_Gunrunning_Award_005</txdHash>
+      <txtHash>MP_Gunrunning_Award_005</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_BADGE</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.737000" y="0.640000" />
+      <scale x="0.140000" y="0.140000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_Gunrunning_Award_006_M</nameHash>
+      <txdHash>MP_Gunrunning_Award_006</txdHash>
+      <txtHash>MP_Gunrunning_Award_006</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_BADGE</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.737000" y="0.640000" />
+      <scale x="0.140000" y="0.140000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_Gunrunning_Award_007_M</nameHash>
+      <txdHash>MP_Gunrunning_Award_007</txdHash>
+      <txtHash>MP_Gunrunning_Award_007</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_BADGE</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.737000" y="0.640000" />
+      <scale x="0.140000" y="0.140000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_Gunrunning_Award_008_M</nameHash>
+      <txdHash>MP_Gunrunning_Award_008</txdHash>
+      <txtHash>MP_Gunrunning_Award_008</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_BADGE</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.737000" y="0.640000" />
+      <scale x="0.140000" y="0.140000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_Gunrunning_Award_009_M</nameHash>
+      <txdHash>MP_Gunrunning_Award_009</txdHash>
+      <txtHash>MP_Gunrunning_Award_009</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_BADGE</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.737000" y="0.640000" />
+      <scale x="0.140000" y="0.140000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_Gunrunning_Award_010_M</nameHash>
+      <txdHash>MP_Gunrunning_Award_010</txdHash>
+      <txtHash>MP_Gunrunning_Award_010</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_BADGE</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.737000" y="0.640000" />
+      <scale x="0.140000" y="0.140000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_Gunrunning_Award_011_M</nameHash>
+      <txdHash>MP_Gunrunning_Award_011</txdHash>
+      <txtHash>MP_Gunrunning_Award_011</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_BADGE</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.737000" y="0.640000" />
+      <scale x="0.140000" y="0.140000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_Gunrunning_Award_012_M</nameHash>
+      <txdHash>MP_Gunrunning_Award_012</txdHash>
+      <txtHash>MP_Gunrunning_Award_012</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_BADGE</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.737000" y="0.640000" />
+      <scale x="0.140000" y="0.140000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_Gunrunning_Award_013_M</nameHash>
+      <txdHash>MP_Gunrunning_Award_013</txdHash>
+      <txtHash>MP_Gunrunning_Award_013</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_BADGE</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.737000" y="0.640000" />
+      <scale x="0.140000" y="0.140000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_Gunrunning_Award_014_M</nameHash>
+      <txdHash>MP_Gunrunning_Award_014</txdHash>
+      <txtHash>MP_Gunrunning_Award_014</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_BADGE</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.737000" y="0.640000" />
+      <scale x="0.140000" y="0.140000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_Gunrunning_Award_015_M</nameHash>
+      <txdHash>MP_Gunrunning_Award_015</txdHash>
+      <txtHash>MP_Gunrunning_Award_015</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_BADGE</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.737000" y="0.640000" />
+      <scale x="0.140000" y="0.140000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_Gunrunning_Award_016_M</nameHash>
+      <txdHash>MP_Gunrunning_Award_016</txdHash>
+      <txtHash>MP_Gunrunning_Award_016</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_BADGE</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.735000" y="0.620000" />
+      <scale x="0.200000" y="0.200000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_Gunrunning_Award_017_M</nameHash>
+      <txdHash>MP_Gunrunning_Award_017</txdHash>
+      <txtHash>MP_Gunrunning_Award_017</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_BADGE</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.737000" y="0.640000" />
+      <scale x="0.140000" y="0.140000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_Gunrunning_Award_018_M</nameHash>
+      <txdHash>MP_Gunrunning_Award_018</txdHash>
+      <txtHash>MP_Gunrunning_Award_018</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_BADGE</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.727000" y="0.640000" />
+      <scale x="0.140000" y="0.140000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_Gunrunning_Award_000_F</nameHash>
+      <txdHash>MP_Gunrunning_Award_000</txdHash>
+      <txtHash>MP_Gunrunning_Award_000</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_BADGE</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_FEMALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.727000" y="0.640000" />
+      <scale x="0.140000" y="0.140000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_Gunrunning_Award_001_F</nameHash>
+      <txdHash>MP_Gunrunning_Award_001</txdHash>
+      <txtHash>MP_Gunrunning_Award_001</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_BADGE</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_FEMALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.727000" y="0.640000" />
+      <scale x="0.140000" y="0.140000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_Gunrunning_Award_002_F</nameHash>
+      <txdHash>MP_Gunrunning_Award_002</txdHash>
+      <txtHash>MP_Gunrunning_Award_002</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_BADGE</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_FEMALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.727000" y="0.640000" />
+      <scale x="0.140000" y="0.140000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_Gunrunning_Award_003_F</nameHash>
+      <txdHash>MP_Gunrunning_Award_003</txdHash>
+      <txtHash>MP_Gunrunning_Award_003</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_BADGE</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_FEMALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.727000" y="0.640000" />
+      <scale x="0.140000" y="0.140000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_Gunrunning_Award_004_F</nameHash>
+      <txdHash>MP_Gunrunning_Award_004</txdHash>
+      <txtHash>MP_Gunrunning_Award_004</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_BADGE</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_FEMALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.727000" y="0.640000" />
+      <scale x="0.140000" y="0.140000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_Gunrunning_Award_005_F</nameHash>
+      <txdHash>MP_Gunrunning_Award_005</txdHash>
+      <txtHash>MP_Gunrunning_Award_005</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_BADGE</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_FEMALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.727000" y="0.640000" />
+      <scale x="0.140000" y="0.140000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_Gunrunning_Award_006_F</nameHash>
+      <txdHash>MP_Gunrunning_Award_006</txdHash>
+      <txtHash>MP_Gunrunning_Award_006</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_BADGE</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_FEMALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.727000" y="0.640000" />
+      <scale x="0.140000" y="0.140000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_Gunrunning_Award_007_F</nameHash>
+      <txdHash>MP_Gunrunning_Award_007</txdHash>
+      <txtHash>MP_Gunrunning_Award_007</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_BADGE</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_FEMALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.727000" y="0.640000" />
+      <scale x="0.140000" y="0.140000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_Gunrunning_Award_008_F</nameHash>
+      <txdHash>MP_Gunrunning_Award_008</txdHash>
+      <txtHash>MP_Gunrunning_Award_008</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_BADGE</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_FEMALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.727000" y="0.640000" />
+      <scale x="0.140000" y="0.140000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_Gunrunning_Award_009_F</nameHash>
+      <txdHash>MP_Gunrunning_Award_009</txdHash>
+      <txtHash>MP_Gunrunning_Award_009</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_BADGE</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_FEMALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.727000" y="0.640000" />
+      <scale x="0.140000" y="0.140000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_Gunrunning_Award_010_F</nameHash>
+      <txdHash>MP_Gunrunning_Award_010</txdHash>
+      <txtHash>MP_Gunrunning_Award_010</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_BADGE</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_FEMALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.727000" y="0.640000" />
+      <scale x="0.140000" y="0.140000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_Gunrunning_Award_011_F</nameHash>
+      <txdHash>MP_Gunrunning_Award_011</txdHash>
+      <txtHash>MP_Gunrunning_Award_011</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_BADGE</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_FEMALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.727000" y="0.640000" />
+      <scale x="0.140000" y="0.140000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_Gunrunning_Award_012_F</nameHash>
+      <txdHash>MP_Gunrunning_Award_012</txdHash>
+      <txtHash>MP_Gunrunning_Award_012</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_BADGE</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_FEMALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.727000" y="0.640000" />
+      <scale x="0.140000" y="0.140000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_Gunrunning_Award_013_F</nameHash>
+      <txdHash>MP_Gunrunning_Award_013</txdHash>
+      <txtHash>MP_Gunrunning_Award_013</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_BADGE</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_FEMALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.727000" y="0.640000" />
+      <scale x="0.140000" y="0.140000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_Gunrunning_Award_014_F</nameHash>
+      <txdHash>MP_Gunrunning_Award_014</txdHash>
+      <txtHash>MP_Gunrunning_Award_014</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_BADGE</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_FEMALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.727000" y="0.640000" />
+      <scale x="0.140000" y="0.140000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_Gunrunning_Award_015_F</nameHash>
+      <txdHash>MP_Gunrunning_Award_015</txdHash>
+      <txtHash>MP_Gunrunning_Award_015</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_BADGE</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_FEMALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.727000" y="0.640000" />
+      <scale x="0.140000" y="0.140000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_Gunrunning_Award_016_F</nameHash>
+      <txdHash>MP_Gunrunning_Award_016</txdHash>
+      <txtHash>MP_Gunrunning_Award_016</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_BADGE</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_FEMALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.727000" y="0.640000" />
+      <scale x="0.140000" y="0.140000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_Gunrunning_Award_017_F</nameHash>
+      <txdHash>MP_Gunrunning_Award_017</txdHash>
+      <txtHash>MP_Gunrunning_Award_017</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_BADGE</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_FEMALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.727000" y="0.640000" />
+      <scale x="0.140000" y="0.140000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_Gunrunning_Award_018_F</nameHash>
+      <txdHash>MP_Gunrunning_Award_018</txdHash>
+      <txtHash>MP_Gunrunning_Award_018</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_BADGE</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_FEMALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.768000" y="0.580000" />
+      <scale x="0.160000" y="0.160000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_Gunrunning_Award_019_M</nameHash>
+      <txdHash>MP_Gunrunning_Award_019</txdHash>
+      <txtHash>MP_Gunrunning_Award_019</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_BADGE</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.750000" y="0.600000" />
+      <scale x="0.175000" y="0.160000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_Gunrunning_Award_019_F</nameHash>
+      <txdHash>MP_Gunrunning_Award_019</txdHash>
+      <txtHash>MP_Gunrunning_Award_019</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_BADGE</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_FEMALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.735000" y="0.645000" />
+      <scale x="0.110000" y="0.110000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_Gunrunning_Award_020_M</nameHash>
+      <txdHash>MP_Gunrunning_Award_020</txdHash>
+      <txtHash>MP_Gunrunning_Award_020</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_BADGE</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.735000" y="0.655000" />
+      <scale x="0.115000" y="0.110000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_Gunrunning_Award_020_F</nameHash>
+      <txdHash>MP_Gunrunning_Award_020</txdHash>
+      <txtHash>MP_Gunrunning_Award_020</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_BADGE</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_FEMALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.737000" y="0.640000" />
+      <scale x="0.135000" y="0.135000" />
+      <rotation value="-5.000000" />
+      <nameHash>MP_Gunrunning_Award_021_M</nameHash>
+      <txdHash>MP_Gunrunning_Award_021</txdHash>
+      <txtHash>MP_Gunrunning_Award_021</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_BADGE</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.720000" y="0.655000" />
+      <scale x="0.135000" y="0.135000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_Gunrunning_Award_021_F</nameHash>
+      <txdHash>MP_Gunrunning_Award_021</txdHash>
+      <txtHash>MP_Gunrunning_Award_021</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_BADGE</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_FEMALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.768000" y="0.580000" />
+      <scale x="0.160000" y="0.160000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_Gunrunning_Award_022_M</nameHash>
+      <txdHash>MP_Gunrunning_Award_022</txdHash>
+      <txtHash>MP_Gunrunning_Award_022</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_BADGE</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.750000" y="0.600000" />
+      <scale x="0.175000" y="0.160000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_Gunrunning_Award_022_F</nameHash>
+      <txdHash>MP_Gunrunning_Award_022</txdHash>
+      <txtHash>MP_Gunrunning_Award_022</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_BADGE</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_FEMALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.737000" y="0.640000" />
+      <scale x="0.130000" y="0.130000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_Gunrunning_Award_023_M</nameHash>
+      <txdHash>MP_Gunrunning_Award_023</txdHash>
+      <txtHash>MP_Gunrunning_Award_023</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_BADGE</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.732000" y="0.640000" />
+      <scale x="0.135000" y="0.135000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_Gunrunning_Award_023_F</nameHash>
+      <txdHash>MP_Gunrunning_Award_023</txdHash>
+      <txtHash>MP_Gunrunning_Award_023</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_BADGE</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_FEMALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.737000" y="0.640000" />
+      <scale x="0.140000" y="0.140000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_Gunrunning_Award_024_M</nameHash>
+      <txdHash>MP_Gunrunning_Award_024</txdHash>
+      <txtHash>MP_Gunrunning_Award_024</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_BADGE</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.730000" y="0.665000" />
+      <scale x="0.140000" y="0.140000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_Gunrunning_Award_024_F</nameHash>
+      <txdHash>MP_Gunrunning_Award_024</txdHash>
+      <txtHash>MP_Gunrunning_Award_024</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_BADGE</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_FEMALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.750000" y="0.600000" />
+      <scale x="0.175000" y="0.160000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_Gunrunning_Award_025_F</nameHash>
+      <txdHash>MP_Gunrunning_Award_025</txdHash>
+      <txtHash>MP_Gunrunning_Award_025</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_BADGE</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_FEMALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.750000" y="0.600000" />
+      <scale x="0.175000" y="0.160000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_Gunrunning_Award_026_F</nameHash>
+      <txdHash>MP_Gunrunning_Award_026</txdHash>
+      <txtHash>MP_Gunrunning_Award_026</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_BADGE</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_FEMALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.500000" y="0.500000" />
+      <scale x="0.600000" y="0.500000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_Gunrunning_Hair_M_000_M</nameHash>
+      <txdHash>MP_Gunrunning_Hair_M_000</txdHash>
+      <txtHash>MP_Gunrunning_Hair_M_000</txtHash>
+      <zone>ZONE_HEAD</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+      <usesTintColor value="true" />
+    </Item>
+	<Item>
+      <uvPos x="0.500000" y="0.500000" />
+      <scale x="0.600000" y="0.500000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_Gunrunning_Hair_M_001_M</nameHash>
+      <txdHash>MP_Gunrunning_Hair_M_001</txdHash>
+      <txtHash>MP_Gunrunning_Hair_M_001</txtHash>
+      <zone>ZONE_HEAD</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+      <usesTintColor value="true" />
+    </Item>
+	<Item>
+      <uvPos x="0.500000" y="0.500000" />
+      <scale x="0.600000" y="0.500000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_Gunrunning_Hair_F_000_F</nameHash>
+      <txdHash>MP_Gunrunning_Hair_F_000</txdHash>
+      <txtHash>MP_Gunrunning_Hair_F_000</txtHash>
+      <zone>ZONE_HEAD</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_FEMALE</gender>
+      <award />
+      <awardLevel />
+      <usesTintColor value="true" />
+    </Item>
+	<Item>
+      <uvPos x="0.500000" y="0.500000" />
+      <scale x="0.600000" y="0.500000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_Gunrunning_Hair_F_001_F</nameHash>
+      <txdHash>MP_Gunrunning_Hair_F_001</txdHash>
+      <txtHash>MP_Gunrunning_Hair_F_001</txtHash>
+      <zone>ZONE_HEAD</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_FEMALE</gender>
+      <award />
+      <awardLevel />
+      <usesTintColor value="true" />
+    </Item>
+	<Item>
+      <uvPos x="0.220000" y="0.640000" />
+      <scale x="0.170000" y="0.190000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_Gunrunning_Tattoo_000_M</nameHash>
+      <txdHash>MP_Gunrunning_Tattoo_000</txdHash>
+      <txtHash>MP_Gunrunning_Tattoo_000</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.230000" y="0.690000" />
+      <scale x="0.170000" y="0.170000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_Gunrunning_Tattoo_000_F</nameHash>
+      <txdHash>MP_Gunrunning_Tattoo_000</txdHash>
+      <txtHash>MP_Gunrunning_Tattoo_000</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_FEMALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.225000" y="0.245000" />
+      <scale x="0.170000" y="0.130000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_Gunrunning_Tattoo_001_M</nameHash>
+      <txdHash>MP_Gunrunning_Tattoo_001</txdHash>
+      <txtHash>MP_Gunrunning_Tattoo_001</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.225000" y="0.370000" />
+      <scale x="0.190000" y="0.120000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_Gunrunning_Tattoo_001_F</nameHash>
+      <txdHash>MP_Gunrunning_Tattoo_001</txdHash>
+      <txtHash>MP_Gunrunning_Tattoo_001</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_FEMALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.540000" y="0.250000" />
+      <scale x="0.050000" y="0.050000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_Gunrunning_Tattoo_002_M</nameHash>
+      <txdHash>MP_Gunrunning_Tattoo_002</txdHash>
+      <txtHash>MP_Gunrunning_Tattoo_002</txtHash>
+      <zone>ZONE_RIGHT_ARM</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.560000" y="0.205000" />
+      <scale x="0.055000" y="0.050000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_Gunrunning_Tattoo_002_F</nameHash>
+      <txdHash>MP_Gunrunning_Tattoo_002</txdHash>
+      <txtHash>MP_Gunrunning_Tattoo_002</txtHash>
+      <zone>ZONE_RIGHT_ARM</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_FEMALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.230000" y="0.310000" />
+      <scale x="0.160000" y="0.180000" />
+      <rotation value="-20.520000" />
+      <nameHash>MP_Gunrunning_Tattoo_003_M</nameHash>
+      <txdHash>MP_Gunrunning_Tattoo_003</txdHash>
+      <txtHash>MP_Gunrunning_Tattoo_003</txtHash>
+      <zone>ZONE_HEAD</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.220000" y="0.310000" />
+      <scale x="0.180000" y="0.180000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_Gunrunning_Tattoo_003_F</nameHash>
+      <txdHash>MP_Gunrunning_Tattoo_003</txdHash>
+      <txtHash>MP_Gunrunning_Tattoo_003</txtHash>
+      <zone>ZONE_HEAD</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_FEMALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.490000" y="0.245000" />
+      <scale x="-0.060000" y="0.050000" />
+      <rotation value="-28.440000" />
+      <nameHash>MP_Gunrunning_Tattoo_004_M</nameHash>
+      <txdHash>MP_Gunrunning_Tattoo_004</txdHash>
+      <txtHash>MP_Gunrunning_Tattoo_004</txtHash>
+      <zone>ZONE_LEFT_ARM</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.450000" y="0.210000" />
+      <scale x="-0.060000" y="0.040000" />
+      <rotation value="-35.640000" />
+      <nameHash>MP_Gunrunning_Tattoo_004_F</nameHash>
+      <txdHash>MP_Gunrunning_Tattoo_004</txdHash>
+      <txtHash>MP_Gunrunning_Tattoo_004</txtHash>
+      <zone>ZONE_LEFT_ARM</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_FEMALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.220000" y="0.360000" />
+      <scale x="0.090000" y="0.100000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_Gunrunning_Tattoo_005_M</nameHash>
+      <txdHash>MP_Gunrunning_Tattoo_005</txdHash>
+      <txtHash>MP_Gunrunning_Tattoo_005</txtHash>
+      <zone>ZONE_LEFT_LEG</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.215000" y="0.360000" />
+      <scale x="0.090000" y="0.095000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_Gunrunning_Tattoo_005_F</nameHash>
+      <txdHash>MP_Gunrunning_Tattoo_005</txdHash>
+      <txtHash>MP_Gunrunning_Tattoo_005</txtHash>
+      <zone>ZONE_LEFT_LEG</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_FEMALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.760000" y="0.360000" />
+      <scale x="0.090000" y="0.110000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_Gunrunning_Tattoo_006_M</nameHash>
+      <txdHash>MP_Gunrunning_Tattoo_006</txdHash>
+      <txtHash>MP_Gunrunning_Tattoo_006</txtHash>
+      <zone>ZONE_RIGHT_LEG</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.760000" y="0.360000" />
+      <scale x="0.090000" y="0.110000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_Gunrunning_Tattoo_006_F</nameHash>
+      <txdHash>MP_Gunrunning_Tattoo_006</txdHash>
+      <txtHash>MP_Gunrunning_Tattoo_006</txtHash>
+      <zone>ZONE_RIGHT_LEG</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_FEMALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.735000" y="0.670000" />
+      <scale x="0.060000" y="0.060000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_Gunrunning_Tattoo_007_M</nameHash>
+      <txdHash>MP_Gunrunning_Tattoo_007</txdHash>
+      <txtHash>MP_Gunrunning_Tattoo_007</txtHash>
+      <zone>ZONE_LEFT_LEG</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.700000" y="0.670000" />
+      <scale x="0.060000" y="0.070000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_Gunrunning_Tattoo_007_F</nameHash>
+      <txdHash>MP_Gunrunning_Tattoo_007</txdHash>
+      <txtHash>MP_Gunrunning_Tattoo_007</txtHash>
+      <zone>ZONE_LEFT_LEG</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_FEMALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.720000" y="0.780000" />
+      <scale x="0.150000" y="0.150000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_Gunrunning_Tattoo_008_M</nameHash>
+      <txdHash>MP_Gunrunning_Tattoo_008</txdHash>
+      <txtHash>MP_Gunrunning_Tattoo_008</txtHash>
+      <zone>ZONE_LEFT_ARM</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.720000" y="0.770000" />
+      <scale x="0.150000" y="0.180000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_Gunrunning_Tattoo_008_F</nameHash>
+      <txdHash>MP_Gunrunning_Tattoo_008</txdHash>
+      <txtHash>MP_Gunrunning_Tattoo_008</txtHash>
+      <zone>ZONE_LEFT_ARM</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_FEMALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.220000" y="0.650000" />
+      <scale x="0.170000" y="0.170000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_Gunrunning_Tattoo_009_M</nameHash>
+      <txdHash>MP_Gunrunning_Tattoo_009</txdHash>
+      <txtHash>MP_Gunrunning_Tattoo_009</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.230000" y="0.650000" />
+      <scale x="0.170000" y="0.170000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_Gunrunning_Tattoo_009_F</nameHash>
+      <txdHash>MP_Gunrunning_Tattoo_009</txdHash>
+      <txtHash>MP_Gunrunning_Tattoo_009</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_FEMALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.720000" y="0.315000" />
+      <scale x="0.190000" y="0.180000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_Gunrunning_Tattoo_010_M</nameHash>
+      <txdHash>MP_Gunrunning_Tattoo_010</txdHash>
+      <txtHash>MP_Gunrunning_Tattoo_010</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.720000" y="0.340000" />
+      <scale x="0.190000" y="0.140000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_Gunrunning_Tattoo_010_F</nameHash>
+      <txdHash>MP_Gunrunning_Tattoo_010</txdHash>
+      <txtHash>MP_Gunrunning_Tattoo_010</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_FEMALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.470000" y="0.500000" />
+      <scale x="0.280000" y="0.360000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_Gunrunning_Tattoo_011_M</nameHash>
+      <txdHash>MP_Gunrunning_Tattoo_011</txdHash>
+      <txtHash>MP_Gunrunning_Tattoo_011</txtHash>
+      <zone>ZONE_LEFT_LEG</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.470000" y="0.500000" />
+      <scale x="0.280000" y="0.380000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_Gunrunning_Tattoo_011_F</nameHash>
+      <txdHash>MP_Gunrunning_Tattoo_011</txdHash>
+      <txtHash>MP_Gunrunning_Tattoo_011</txtHash>
+      <zone>ZONE_LEFT_LEG</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_FEMALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.820000" y="0.600000" />
+      <scale x="0.150000" y="0.140000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_Gunrunning_Tattoo_012_M</nameHash>
+      <txdHash>MP_Gunrunning_Tattoo_012</txdHash>
+      <txtHash>MP_Gunrunning_Tattoo_012</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.820000" y="0.620000" />
+      <scale x="0.150000" y="0.120000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_Gunrunning_Tattoo_012_F</nameHash>
+      <txdHash>MP_Gunrunning_Tattoo_012</txdHash>
+      <txtHash>MP_Gunrunning_Tattoo_012</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_FEMALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.220000" y="0.625000" />
+      <scale x="0.180000" y="0.190000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_Gunrunning_Tattoo_013_M</nameHash>
+      <txdHash>MP_Gunrunning_Tattoo_013</txdHash>
+      <txtHash>MP_Gunrunning_Tattoo_013</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.235000" y="0.650000" />
+      <scale x="0.180000" y="0.185000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_Gunrunning_Tattoo_013_F</nameHash>
+      <txdHash>MP_Gunrunning_Tattoo_013</txdHash>
+      <txtHash>MP_Gunrunning_Tattoo_013</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_FEMALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.220000" y="0.640000" />
+      <scale x="0.180000" y="0.160000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_Gunrunning_Tattoo_014_M</nameHash>
+      <txdHash>MP_Gunrunning_Tattoo_014</txdHash>
+      <txtHash>MP_Gunrunning_Tattoo_014</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.235000" y="0.660000" />
+      <scale x="0.180000" y="0.160000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_Gunrunning_Tattoo_014_F</nameHash>
+      <txdHash>MP_Gunrunning_Tattoo_014</txdHash>
+      <txtHash>MP_Gunrunning_Tattoo_014</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_FEMALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.520000" y="0.620000" />
+      <scale x="0.280000" y="0.300000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_Gunrunning_Tattoo_015_M</nameHash>
+      <txdHash>MP_Gunrunning_Tattoo_015</txdHash>
+      <txtHash>MP_Gunrunning_Tattoo_015</txtHash>
+      <zone>ZONE_LEFT_ARM</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.520000" y="0.620000" />
+      <scale x="0.280000" y="0.330000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_Gunrunning_Tattoo_015_F</nameHash>
+      <txdHash>MP_Gunrunning_Tattoo_015</txdHash>
+      <txtHash>MP_Gunrunning_Tattoo_015</txtHash>
+      <zone>ZONE_LEFT_ARM</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_FEMALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.440000" y="0.890000" />
+      <scale x="0.075000" y="0.080000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_Gunrunning_Tattoo_016_M</nameHash>
+      <txdHash>MP_Gunrunning_Tattoo_016</txdHash>
+      <txtHash>MP_Gunrunning_Tattoo_016</txtHash>
+      <zone>ZONE_LEFT_ARM</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.440000" y="0.890000" />
+      <scale x="0.075000" y="0.080000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_Gunrunning_Tattoo_016_F</nameHash>
+      <txdHash>MP_Gunrunning_Tattoo_016</txdHash>
+      <txtHash>MP_Gunrunning_Tattoo_016</txtHash>
+      <zone>ZONE_LEFT_ARM</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_FEMALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.720000" y="0.630000" />
+      <scale x="0.160000" y="0.150000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_Gunrunning_Tattoo_017_M</nameHash>
+      <txdHash>MP_Gunrunning_Tattoo_017</txdHash>
+      <txtHash>MP_Gunrunning_Tattoo_017</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.735000" y="0.660000" />
+      <scale x="0.160000" y="0.130000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_Gunrunning_Tattoo_017_F</nameHash>
+      <txdHash>MP_Gunrunning_Tattoo_017</txdHash>
+      <txtHash>MP_Gunrunning_Tattoo_017</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_FEMALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.230000" y="0.245000" />
+      <scale x="0.170000" y="0.160000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_Gunrunning_Tattoo_018_M</nameHash>
+      <txdHash>MP_Gunrunning_Tattoo_018</txdHash>
+      <txtHash>MP_Gunrunning_Tattoo_018</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.230000" y="0.355000" />
+      <scale x="0.170000" y="0.130000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_Gunrunning_Tattoo_018_F</nameHash>
+      <txdHash>MP_Gunrunning_Tattoo_018</txdHash>
+      <txtHash>MP_Gunrunning_Tattoo_018</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_FEMALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.220000" y="0.650000" />
+      <scale x="0.180000" y="0.180000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_Gunrunning_Tattoo_019_M</nameHash>
+      <txdHash>MP_Gunrunning_Tattoo_019</txdHash>
+      <txtHash>MP_Gunrunning_Tattoo_019</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.235000" y="0.650000" />
+      <scale x="0.180000" y="0.180000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_Gunrunning_Tattoo_019_F</nameHash>
+      <txdHash>MP_Gunrunning_Tattoo_019</txdHash>
+      <txtHash>MP_Gunrunning_Tattoo_019</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_FEMALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.720000" y="0.605000" />
+      <scale x="0.200000" y="0.220000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_Gunrunning_Tattoo_020_M</nameHash>
+      <txdHash>MP_Gunrunning_Tattoo_020</txdHash>
+      <txtHash>MP_Gunrunning_Tattoo_020</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.735000" y="0.620000" />
+      <scale x="0.200000" y="0.200000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_Gunrunning_Tattoo_020_F</nameHash>
+      <txdHash>MP_Gunrunning_Tattoo_020</txdHash>
+      <txtHash>MP_Gunrunning_Tattoo_020</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_FEMALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.520000" y="0.900000" />
+      <scale x="0.065000" y="0.095000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_Gunrunning_Tattoo_021_M</nameHash>
+      <txdHash>MP_Gunrunning_Tattoo_021</txdHash>
+      <txtHash>MP_Gunrunning_Tattoo_021</txtHash>
+      <zone>ZONE_RIGHT_ARM</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.510000" y="0.905000" />
+      <scale x="0.065000" y="0.090000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_Gunrunning_Tattoo_021_F</nameHash>
+      <txdHash>MP_Gunrunning_Tattoo_021</txdHash>
+      <txtHash>MP_Gunrunning_Tattoo_021</txtHash>
+      <zone>ZONE_RIGHT_ARM</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_FEMALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.148000" y="0.670000" />
+      <scale x="0.150000" y="0.160000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_Gunrunning_Tattoo_022_M</nameHash>
+      <txdHash>MP_Gunrunning_Tattoo_022</txdHash>
+      <txtHash>MP_Gunrunning_Tattoo_022</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.148000" y="0.710000" />
+      <scale x="0.150000" y="0.150000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_Gunrunning_Tattoo_022_F</nameHash>
+      <txdHash>MP_Gunrunning_Tattoo_022</txdHash>
+      <txtHash>MP_Gunrunning_Tattoo_022</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_FEMALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.220000" y="0.340000" />
+      <scale x="0.190000" y="0.220000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_Gunrunning_Tattoo_023_M</nameHash>
+      <txdHash>MP_Gunrunning_Tattoo_023</txdHash>
+      <txtHash>MP_Gunrunning_Tattoo_023</txtHash>
+      <zone>ZONE_LEFT_LEG</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.220000" y="0.340000" />
+      <scale x="0.190000" y="0.220000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_Gunrunning_Tattoo_023_F</nameHash>
+      <txdHash>MP_Gunrunning_Tattoo_023</txdHash>
+      <txtHash>MP_Gunrunning_Tattoo_023</txtHash>
+      <zone>ZONE_LEFT_LEG</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_FEMALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.690000" y="0.435000" />
+      <scale x="0.220000" y="0.135000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_Gunrunning_Tattoo_024_M</nameHash>
+      <txdHash>MP_Gunrunning_Tattoo_024</txdHash>
+      <txtHash>MP_Gunrunning_Tattoo_024</txtHash>
+      <zone>ZONE_RIGHT_ARM</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.690000" y="0.410000" />
+      <scale x="0.220000" y="0.150000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_Gunrunning_Tattoo_024_F</nameHash>
+      <txdHash>MP_Gunrunning_Tattoo_024</txdHash>
+      <txtHash>MP_Gunrunning_Tattoo_024</txtHash>
+      <zone>ZONE_RIGHT_ARM</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_FEMALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.520000" y="0.470000" />
+      <scale x="0.245000" y="0.150000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_Gunrunning_Tattoo_025_M</nameHash>
+      <txdHash>MP_Gunrunning_Tattoo_025</txdHash>
+      <txtHash>MP_Gunrunning_Tattoo_025</txtHash>
+      <zone>ZONE_LEFT_ARM</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.520000" y="0.440000" />
+      <scale x="0.245000" y="0.160000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_Gunrunning_Tattoo_025_F</nameHash>
+      <txdHash>MP_Gunrunning_Tattoo_025</txdHash>
+      <txtHash>MP_Gunrunning_Tattoo_025</txtHash>
+      <zone>ZONE_LEFT_ARM</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_FEMALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.790000" y="0.330000" />
+      <scale x="0.270000" y="0.180000" />
+      <rotation value="13.680000" />
+      <nameHash>MP_Gunrunning_Tattoo_026_M</nameHash>
+      <txdHash>MP_Gunrunning_Tattoo_026</txdHash>
+      <txtHash>MP_Gunrunning_Tattoo_026</txtHash>
+      <zone>ZONE_RIGHT_LEG</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.790000" y="0.330000" />
+      <scale x="0.270000" y="0.180000" />
+      <rotation value="13.680000" />
+      <nameHash>MP_Gunrunning_Tattoo_026_F</nameHash>
+      <txdHash>MP_Gunrunning_Tattoo_026</txdHash>
+      <txtHash>MP_Gunrunning_Tattoo_026</txtHash>
+      <zone>ZONE_RIGHT_LEG</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_FEMALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.640000" y="0.760000" />
+      <scale x="0.155000" y="0.150000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_Gunrunning_Tattoo_027_M</nameHash>
+      <txdHash>MP_Gunrunning_Tattoo_027</txdHash>
+      <txtHash>MP_Gunrunning_Tattoo_027</txtHash>
+      <zone>ZONE_LEFT_ARM</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.640000" y="0.760000" />
+      <scale x="0.155000" y="0.170000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_Gunrunning_Tattoo_027_F</nameHash>
+      <txdHash>MP_Gunrunning_Tattoo_027</txdHash>
+      <txtHash>MP_Gunrunning_Tattoo_027</txtHash>
+      <zone>ZONE_LEFT_ARM</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_FEMALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.725000" y="0.630000" />
+      <scale x="0.170000" y="0.150000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_Gunrunning_Tattoo_028_M</nameHash>
+      <txdHash>MP_Gunrunning_Tattoo_028</txdHash>
+      <txtHash>MP_Gunrunning_Tattoo_028</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.745000" y="0.660000" />
+      <scale x="0.170000" y="0.140000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_Gunrunning_Tattoo_028_F</nameHash>
+      <txdHash>MP_Gunrunning_Tattoo_028</txdHash>
+      <txtHash>MP_Gunrunning_Tattoo_028</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_FEMALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.720000" y="0.310000" />
+      <scale x="0.180000" y="0.150000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_Gunrunning_Tattoo_029_M</nameHash>
+      <txdHash>MP_Gunrunning_Tattoo_029</txdHash>
+      <txtHash>MP_Gunrunning_Tattoo_029</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.720000" y="0.360000" />
+      <scale x="0.180000" y="0.115000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_Gunrunning_Tattoo_029_F</nameHash>
+      <txdHash>MP_Gunrunning_Tattoo_029</txdHash>
+      <txtHash>MP_Gunrunning_Tattoo_029</txtHash>
+      <zone>ZONE_TORSO</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_FEMALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.520000" y="0.680000" />
+      <scale x="0.200000" y="0.170000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_Gunrunning_Tattoo_030_M</nameHash>
+      <txdHash>MP_Gunrunning_Tattoo_030</txdHash>
+      <txtHash>MP_Gunrunning_Tattoo_030</txtHash>
+      <zone>ZONE_RIGHT_LEG</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_MALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+	<Item>
+      <uvPos x="0.520000" y="0.700000" />
+      <scale x="0.200000" y="0.170000" />
+      <rotation value="0.000000" />
+      <nameHash>MP_Gunrunning_Tattoo_030_F</nameHash>
+      <txdHash>MP_Gunrunning_Tattoo_030</txdHash>
+      <txtHash>MP_Gunrunning_Tattoo_030</txtHash>
+      <zone>ZONE_RIGHT_LEG</zone>
+      <type>TYPE_TATTOO</type>
+      <faction>FM</faction>
+      <garment>All</garment>
+      <gender>GENDER_FEMALE</gender>
+      <award />
+      <awardLevel />
+    </Item>
+  </presets>
+  <nameHash>mpGunrunning_overlays</nameHash>
+  <medalLocations content="vector2_array">
+    0.140000	0.070000	
+    0.370000	0.070000	
+    0.600000	0.070000	
+    0.835000	0.070000	
+    0.140000	0.150000	
+    0.370000	0.150000	
+    0.600000	0.150000	
+    0.835000	0.150000	
+    0.140000	0.230000	
+    0.370000	0.230000	
+    0.600000	0.230000	
+    0.835000	0.230000	
+    0.100000	0.700000	
+    0.300000	0.700000	
+    0.500000	0.700000	
+    0.700000	0.700000	
+  </medalLocations>
+  <medalScale x="0.240000" y="0.100000" />
+</PedDecorationCollection>
