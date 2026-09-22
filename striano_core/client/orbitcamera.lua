@@ -1,536 +1,330 @@
-local L0_1, L1_1, L2_1, L3_1, L4_1, L5_1, L6_1, L7_1, L8_1, L9_1, L10_1, L11_1, L12_1, L13_1, L14_1, L15_1, L16_1, L17_1, L18_1, L19_1, L20_1, L21_1, L22_1, L23_1, L24_1, L25_1, L26_1, L27_1, L28_1, L29_1
-L0_1 = 50.0
-L1_1 = 2.5
-L2_1 = 35.0
-L3_1 = 0.5
-L4_1 = 1000
-L5_1 = 8.0
-L6_1 = 1.5
-L7_1 = math
-L7_1 = L7_1.cos
-L8_1 = math
-L8_1 = L8_1.sin
-L9_1 = math
-L9_1 = L9_1.min
-L10_1 = math
-L10_1 = L10_1.max
-L11_1 = table
-L11_1 = L11_1.insert
-L12_1 = math
-L12_1 = L12_1.pi
-L12_1 = L12_1 / 180.0
-L13_1 = nil
-L14_1 = nil
-L15_1 = vector3
-L16_1 = 0
-L17_1 = 0
-L18_1 = 0
-L15_1 = L15_1(L16_1, L17_1, L18_1)
-L16_1 = nil
-L17_1 = L1_1
-L18_1 = L2_1
-L19_1 = L1_1
-L20_1 = 0.0
-L21_1 = 0.0
-L22_1 = {}
-L23_1 = 14
-L24_1 = 15
-L25_1 = 16
-L26_1 = 17
-L27_1 = 81
-L28_1 = 82
-L29_1 = 99
-L22_1[1] = L23_1
-L22_1[2] = L24_1
-L22_1[3] = L25_1
-L22_1[4] = L26_1
-L22_1[5] = L27_1
-L22_1[6] = L28_1
-L22_1[7] = L29_1
-function L23_1(A0_2, A1_2, A2_2)
-  local L3_2, L4_2, L5_2, L6_2, L7_2, L8_2, L9_2, L10_2, L11_2, L12_2, L13_2
-  L3_2 = GetShapeTestResult
-  L4_2 = _ENV
-  L5_2 = "StartExpensiveSynchronousShapeTestLosProbe"
-  L4_2 = L4_2[L5_2]
-  L5_2 = A0_2.x
-  L6_2 = A0_2.y
-  L7_2 = A0_2.z
-  L8_2 = A1_2.x
-  L9_2 = A1_2.y
-  L10_2 = A1_2.z
-  L11_2 = -1
-  L12_2 = A2_2
-  L13_2 = 4
-  L4_2, L5_2, L6_2, L7_2, L8_2, L9_2, L10_2, L11_2, L12_2, L13_2 = L4_2(L5_2, L6_2, L7_2, L8_2, L9_2, L10_2, L11_2, L12_2, L13_2)
-  L3_2, L4_2, L5_2 = L3_2(L4_2, L5_2, L6_2, L7_2, L8_2, L9_2, L10_2, L11_2, L12_2, L13_2)
-  L6_2 = L4_2
-  L7_2 = L5_2
-  return L6_2, L7_2
+-- =============================================================================
+-- orbitcamera.lua
+-- Orbit/death camera system for striano_core
+-- Provides a spherical orbit camera around a tracked entity or fixed point,
+-- with mouse yaw/pitch input, scroll zoom, and 4-corner LOS collision probe.
+-- =============================================================================
+
+-- ---------------------------------------------------------------------------
+-- Constants
+-- ---------------------------------------------------------------------------
+local DEFAULT_FOV            = 50.0
+local DEFAULT_MIN_DIST       = 2.5
+local DEFAULT_MAX_DIST       = 35.0
+local SCROLL_SENSITIVITY     = 0.5
+local BLEND_DURATION_MS      = 1000
+local MOUSE_SENSITIVITY_YAW  = 8.0
+local MOUSE_SENSITIVITY_PITCH = 1.5
+local DEG_TO_RAD             = math.pi / 180.0
+
+local mCos = math.cos
+local mSin = math.sin
+local mMin = math.min
+local mMax = math.max
+
+-- ---------------------------------------------------------------------------
+-- State
+-- ---------------------------------------------------------------------------
+local camFov         = DEFAULT_FOV
+local orbitCam       = nil          -- active scripted camera handle
+local trackedEntity  = nil          -- entity being tracked (or nil for fixed point)
+local focusOrigin    = vector3(0, 0, 0) -- world position the camera orbits around
+local trackedOffset  = nil          -- vector3 offset applied to entity coords
+
+local orbitRadius    = DEFAULT_MIN_DIST
+local minOrbitDist   = DEFAULT_MIN_DIST
+local maxOrbitDist   = DEFAULT_MAX_DIST
+local orbitPitch     = 0.0          -- vertical angle in degrees
+local orbitYaw       = 0.0          -- horizontal angle in degrees
+
+-- Controls disabled while orbit cam is active
+local disabledControls = { 14, 15, 16, 17, 81, 82, 99 }
+
+-- ---------------------------------------------------------------------------
+-- rayCastCollision(from, to, ignoreEntity)
+-- LOS probe from `from` to `to`, ignoring `ignoreEntity`.
+-- Returns: hit (bool), endCoords (vector3)
+-- ---------------------------------------------------------------------------
+local function rayCastCollision(from, to, ignoreEntity)
+    local handle = StartExpensiveSynchronousShapeTestLosProbe(
+        from.x, from.y, from.z,
+        to.x,   to.y,   to.z,
+        -1,
+        ignoreEntity,
+        4
+    )
+    local _, hit, endCoords = GetShapeTestResult(handle)
+    return hit, endCoords
 end
-function L24_1()
-  local L0_2, L1_2, L2_2, L3_2, L4_2, L5_2, L6_2, L7_2, L8_2, L9_2, L10_2, L11_2, L12_2, L13_2, L14_2, L15_2, L16_2, L17_2
-  L0_2 = IsInputDisabled
-  L1_2 = 0
-  L0_2 = L0_2(L1_2)
-  if L0_2 then
-    L0_2 = L5_1
-    if L0_2 then
-      goto lbl_10
+
+-- ---------------------------------------------------------------------------
+-- updateOrbitInputs()
+-- Reads mouse axes and scroll wheel to update yaw, pitch, and radius.
+-- Also updates focusOrigin if a trackedEntity is set.
+-- Returns the computed raw (unclamped-radius) orbit position vector3.
+-- ---------------------------------------------------------------------------
+local function updateOrbitInputs()
+    -- Mouse sensitivity: keyboard/gamepad vs mouse
+    local sensitivity = IsInputDisabled(0) and MOUSE_SENSITIVITY_YAW or MOUSE_SENSITIVITY_PITCH
+
+    -- Yaw (horizontal rotation) — control axis 1
+    local yawDelta = GetDisabledControlUnboundNormal(1, 1) * sensitivity
+    orbitYaw = orbitYaw - yawDelta
+
+    -- Pitch (vertical rotation) — control axis 2
+    local pitchDelta = GetDisabledControlUnboundNormal(1, 2) * sensitivity
+    orbitPitch = orbitPitch + pitchDelta
+    orbitPitch = mMax(mMin(orbitPitch, 89.0), -89.0)
+
+    -- Scroll wheel zoom — controls 16 (scroll up) and 17 (scroll down)
+    local scrollUp   = GetDisabledControlNormal(0, 16)
+    local scrollDown = GetDisabledControlNormal(0, 17)
+    local scrollDelta = (scrollUp - scrollDown) * SCROLL_SENSITIVITY
+    orbitRadius = orbitRadius + scrollDelta
+    orbitRadius = mMax(mMin(orbitRadius, maxOrbitDist), minOrbitDist)
+
+    -- Update focus origin from tracked entity
+    if trackedEntity and DoesEntityExist(trackedEntity) then
+        focusOrigin = GetEntityCoords(trackedEntity) + trackedOffset
     end
-  end
-  L0_2 = L6_1
-  ::lbl_10::
-  L1_2 = L21_1
-  L2_2 = GetDisabledControlUnboundNormal
-  L3_2 = 1
-  L4_2 = 1
-  L2_2 = L2_2(L3_2, L4_2)
-  L2_2 = L2_2 * L0_2
-  L1_2 = L1_2 - L2_2
-  L21_1 = L1_2
-  L1_2 = L20_1
-  L2_2 = GetDisabledControlUnboundNormal
-  L3_2 = 1
-  L4_2 = 2
-  L2_2 = L2_2(L3_2, L4_2)
-  L2_2 = L2_2 * L0_2
-  L1_2 = L1_2 + L2_2
-  L20_1 = L1_2
-  L1_2 = L10_1
-  L2_2 = L9_1
-  L3_2 = L20_1
-  L4_2 = 89.0
-  L2_2 = L2_2(L3_2, L4_2)
-  L3_2 = -89.0
-  L1_2 = L1_2(L2_2, L3_2)
-  L20_1 = L1_2
-  L1_2 = L19_1
-  L2_2 = GetDisabledControlNormal
-  L3_2 = 0
-  L4_2 = 16
-  L2_2 = L2_2(L3_2, L4_2)
-  L3_2 = GetDisabledControlNormal
-  L4_2 = 0
-  L5_2 = 17
-  L3_2 = L3_2(L4_2, L5_2)
-  L2_2 = L2_2 - L3_2
-  L3_2 = L3_1
-  L2_2 = L2_2 * L3_2
-  L1_2 = L1_2 + L2_2
-  L19_1 = L1_2
-  L1_2 = L10_1
-  L2_2 = L9_1
-  L3_2 = L19_1
-  L4_2 = L18_1
-  L2_2 = L2_2(L3_2, L4_2)
-  L3_2 = L17_1
-  L1_2 = L1_2(L2_2, L3_2)
-  L19_1 = L1_2
-  L1_2 = L14_1
-  if L1_2 then
-    L1_2 = DoesEntityExist
-    L2_2 = L14_1
-    L1_2 = L1_2(L2_2)
-    if L1_2 then
-      L1_2 = GetEntityCoords
-      L2_2 = L14_1
-      L1_2 = L1_2(L2_2)
-      L2_2 = L16_1
-      L1_2 = L1_2 + L2_2
-      L15_1 = L1_2
-    end
-  end
-  L1_2 = L7_1
-  L2_2 = L20_1
-  L3_2 = L12_1
-  L2_2 = L2_2 * L3_2
-  L1_2 = L1_2(L2_2)
-  L2_2 = vector3
-  L3_2 = L7_1
-  L4_2 = L21_1
-  L5_2 = L12_1
-  L4_2 = L4_2 * L5_2
-  L3_2 = L3_2(L4_2)
-  L3_2 = L3_2 * L1_2
-  L4_2 = L8_1
-  L5_2 = L21_1
-  L6_2 = L12_1
-  L5_2 = L5_2 * L6_2
-  L4_2 = L4_2(L5_2)
-  L4_2 = L4_2 * L1_2
-  L5_2 = L8_1
-  L6_2 = L20_1
-  L7_2 = L12_1
-  L6_2 = L6_2 * L7_2
-  L5_2, L6_2, L7_2, L8_2, L9_2, L10_2, L11_2, L12_2, L13_2, L14_2, L15_2, L16_2, L17_2 = L5_2(L6_2)
-  L2_2 = L2_2(L3_2, L4_2, L5_2, L6_2, L7_2, L8_2, L9_2, L10_2, L11_2, L12_2, L13_2, L14_2, L15_2, L16_2, L17_2)
-  L3_2 = L19_1
-  L2_2 = L2_2 * L3_2
-  L3_2 = L15_1
-  L3_2 = L3_2 + L2_2
-  L4_2 = L14_1
-  if not L4_2 then
-    L4_2 = PlayerPedId
-    L4_2 = L4_2()
-  end
-  L5_2 = GetCamMatrix
-  L6_2 = L13_1
-  L5_2, L6_2, L7_2 = L5_2(L6_2)
-  L8_2 = L5_2 * 0.125
-  L9_2 = L7_2 * 0.07
-  L10_2 = {}
-  L11_2 = {}
-  L12_2 = L23_1
-  L13_2 = L15_1
-  L14_2 = L3_2 + L8_2
-  L14_2 = L14_2 + L9_2
-  L15_2 = L4_2
-  L12_2, L13_2, L14_2, L15_2, L16_2, L17_2 = L12_2(L13_2, L14_2, L15_2)
-  L11_2[1] = L12_2
-  L11_2[2] = L13_2
-  L11_2[3] = L14_2
-  L11_2[4] = L15_2
-  L11_2[5] = L16_2
-  L11_2[6] = L17_2
-  L10_2[1] = L11_2
-  L11_2 = {}
-  L12_2 = L23_1
-  L13_2 = L15_1
-  L14_2 = L3_2 + L8_2
-  L14_2 = L14_2 - L9_2
-  L15_2 = L4_2
-  L12_2, L13_2, L14_2, L15_2, L16_2, L17_2 = L12_2(L13_2, L14_2, L15_2)
-  L11_2[1] = L12_2
-  L11_2[2] = L13_2
-  L11_2[3] = L14_2
-  L11_2[4] = L15_2
-  L11_2[5] = L16_2
-  L11_2[6] = L17_2
-  L10_2[2] = L11_2
-  L11_2 = {}
-  L12_2 = L23_1
-  L13_2 = L15_1
-  L14_2 = L3_2 - L8_2
-  L14_2 = L14_2 - L9_2
-  L15_2 = L4_2
-  L12_2, L13_2, L14_2, L15_2, L16_2, L17_2 = L12_2(L13_2, L14_2, L15_2)
-  L11_2[1] = L12_2
-  L11_2[2] = L13_2
-  L11_2[3] = L14_2
-  L11_2[4] = L15_2
-  L11_2[5] = L16_2
-  L11_2[6] = L17_2
-  L10_2[3] = L11_2
-  L11_2 = {}
-  L12_2 = L23_1
-  L13_2 = L15_1
-  L14_2 = L3_2 - L8_2
-  L14_2 = L14_2 + L9_2
-  L15_2 = L4_2
-  L12_2, L13_2, L14_2, L15_2, L16_2, L17_2 = L12_2(L13_2, L14_2, L15_2)
-  L11_2[1] = L12_2
-  L11_2[2] = L13_2
-  L11_2[3] = L14_2
-  L11_2[4] = L15_2
-  L11_2[5] = L16_2
-  L11_2[6] = L17_2
-  L10_2[4] = L11_2
-  L11_2 = L19_1
-  L12_2 = 1
-  L13_2 = #L10_2
-  L14_2 = 1
-  for L15_2 = L12_2, L13_2, L14_2 do
-    L16_2 = L10_2[L15_2]
-    L16_2 = L16_2[1]
-    if L16_2 then
-      L16_2 = L15_1
-      L17_2 = L10_2[L15_2]
-      L17_2 = L17_2[2]
-      L16_2 = L16_2 - L17_2
-      L16_2 = #L16_2
-      if L11_2 > L16_2 then
-        L11_2 = L16_2
-      end
-    end
-  end
-  L12_2 = L19_1
-  L12_2 = L11_2 / L12_2
-  L2_2 = L2_2 * L12_2
-  L12_2 = L15_1
-  L12_2 = L12_2 + L2_2
-  return L12_2
+
+    -- Compute spherical orbit position
+    local pitchRad = orbitPitch * DEG_TO_RAD
+    local yawRad   = orbitYaw   * DEG_TO_RAD
+    local cosP     = mCos(pitchRad)
+    local sphereDir = vector3(
+        mCos(yawRad) * cosP,
+        mSin(yawRad) * cosP,
+        mSin(pitchRad)
+    )
+    local rawCamPos = focusOrigin + (sphereDir * orbitRadius)
+    return rawCamPos
 end
-function L25_1()
-  local L0_2, L1_2, L2_2, L3_2, L4_2, L5_2, L6_2, L7_2, L8_2, L9_2
-  L0_2 = DisableFirstPersonCamThisFrame
-  L0_2()
-  L0_2 = ipairs
-  L1_2 = L22_1
-  L0_2, L1_2, L2_2, L3_2 = L0_2(L1_2)
-  for L4_2, L5_2 in L0_2, L1_2, L2_2, L3_2 do
-    L6_2 = DisableControlAction
-    L7_2 = 0
-    L8_2 = L5_2
-    L9_2 = true
-    L6_2(L7_2, L8_2, L9_2)
-  end
-  L0_2 = L24_1
-  L0_2 = L0_2()
-  L1_2 = SetCamCoord
-  L2_2 = L13_1
-  L3_2 = L0_2.x
-  L4_2 = L0_2.y
-  L5_2 = L0_2.z
-  L1_2(L2_2, L3_2, L4_2, L5_2)
-  L1_2 = PointCamAtCoord
-  L2_2 = L13_1
-  L3_2 = L15_1.x
-  L4_2 = L15_1.y
-  L5_2 = L15_1.z
-  L1_2(L2_2, L3_2, L4_2, L5_2)
-  L1_2 = SetFocusPosAndVel
-  L2_2 = L15_1.x
-  L3_2 = L15_1.y
-  L4_2 = L15_1.z
-  L5_2 = 0.0
-  L6_2 = 0.0
-  L7_2 = 0.0
-  L1_2(L2_2, L3_2, L4_2, L5_2, L6_2, L7_2)
-end
-function L26_1(A0_2, ...)
-  local L1_2, L2_2, L3_2, L4_2
-  L1_2 = print
-  L2_2 = "^1[ERROR] %s^0"
-  L3_2 = L2_2
-  L2_2 = L2_2.format
-  L4_2 = A0_2
-  L2_2 = L2_2(L3_2, L4_2)
-  L3_2 = L2_2
-  L2_2 = L2_2.format
-  L4_2 = ...
-  L2_2, L3_2, L4_2 = L2_2(L3_2, L4_2)
-  L1_2(L2_2, L3_2, L4_2)
-end
-function L27_1(A0_2, A1_2, A2_2, A3_2, A4_2)
-  local L5_2, L6_2, L7_2, L8_2, L9_2, L10_2, L11_2, L12_2, L13_2, L14_2, L15_2, L16_2
-  L5_2 = L13_1
-  if L5_2 then
-    return
-  end
-  L5_2 = ClearFocus
-  L5_2()
-  if A1_2 then
-    L14_1 = A1_2
-    L16_1 = A0_2
-    L5_2 = GetEntityCoords
-    L6_2 = L14_1
-    L5_2 = L5_2(L6_2)
-    L6_2 = L16_1
-    L5_2 = L5_2 + L6_2
-    L15_1 = L5_2
-  else
-    L15_1 = A0_2
-  end
-  L5_2 = GetModelDimensions
-  L6_2 = GetEntityModel
-  L7_2 = A1_2
-  L6_2, L7_2, L8_2, L9_2, L10_2, L11_2, L12_2, L13_2, L14_2, L15_2, L16_2 = L6_2(L7_2)
-  L5_2, L6_2 = L5_2(L6_2, L7_2, L8_2, L9_2, L10_2, L11_2, L12_2, L13_2, L14_2, L15_2, L16_2)
-  if nil == A3_2 or nil == A4_2 then
-    L7_2 = L1_1
-    L17_1 = L7_2
-    L7_2 = L2_1
-    L18_1 = L7_2
-    L7_2 = L17_1
-    L8_2 = 0.5
-    if L7_2 < L8_2 then
-      L7_2 = 0.5
-      L17_1 = L7_2
-      L7_2 = 25.0
-      L18_1 = L7_2
+
+-- ---------------------------------------------------------------------------
+-- updateOrbitFrame()
+-- Full per-frame orbit camera update:
+--   1. Reads input and gets raw camera position.
+--   2. Probes 4 corners for wall collision.
+--   3. Clamps radius to keep camera out of geometry.
+--   4. Sets camera position and makes it look at the focus origin.
+-- ---------------------------------------------------------------------------
+local function updateOrbitFrame()
+    -- Disable first-person and block orbit-related input controls
+    DisableFirstPersonCamThisFrame()
+    for _, ctrl in ipairs(disabledControls) do
+        DisableControlAction(0, ctrl, true)
     end
-  else
-    L7_2 = A3_2 + 0.0
-    L17_1 = L7_2
-    L7_2 = A4_2 + 0.0
-    L18_1 = L7_2
-  end
-  L7_2 = L17_1
-  L19_1 = L7_2
-  L7_2 = GetGameplayCamRot
-  L8_2 = 2
-  L7_2 = L7_2(L8_2)
-  L8_2 = L7_2.x
-  L8_2 = -L8_2
-  L20_1 = L8_2
-  L8_2 = L7_2.z
-  L8_2 = L8_2 - 90
-  L21_1 = L8_2
-  L8_2 = CreateCamWithParams
-  L9_2 = "DEFAULT_SCRIPTED_CAMERA"
-  L10_2 = L15_1.x
-  L11_2 = L15_1.y
-  L12_2 = L15_1.z
-  L13_2 = 0
-  L14_2 = 0
-  L15_2 = 0
-  L16_2 = GetGameplayCamFov
-  L16_2 = L16_2()
-  L8_2 = L8_2(L9_2, L10_2, L11_2, L12_2, L13_2, L14_2, L15_2, L16_2)
-  L13_1 = L8_2
-  L8_2 = SetCamActive
-  L9_2 = L13_1
-  L10_2 = true
-  L8_2(L9_2, L10_2)
-  L8_2 = RenderScriptCams
-  L9_2 = true
-  L10_2 = true
-  L11_2 = A2_2 or L11_2
-  if not A2_2 then
-    L11_2 = L4_1
-  end
-  L12_2 = true
-  L13_2 = false
-  L8_2(L9_2, L10_2, L11_2, L12_2, L13_2)
-  L8_2 = SetCamNearClip
-  L9_2 = L13_1
-  L10_2 = 0.05
-  L8_2(L9_2, L10_2)
-  L8_2 = SetCamFov
-  L9_2 = L13_1
-  L10_2 = L0_1
-  L8_2(L9_2, L10_2)
-  L8_2 = CreateThread
-  function L9_2()
-    local L0_3, L1_3
-    while true do
-      L0_3 = L13_1
-      if nil == L0_3 then
-        break
-      end
-      L0_3 = L25_1
-      L0_3()
-      L0_3 = Wait
-      L1_3 = 0
-      L0_3(L1_3)
+
+    local rawCamPos = updateOrbitInputs()
+
+    -- Determine ignore entity for ray casts (player ped if no tracked entity)
+    local ignoreEnt = trackedEntity or PlayerPedId()
+
+    -- Get camera right/up vectors for the 4-corner spread
+    local _, _, camRight, camUp = GetCamMatrix(orbitCam)
+    local rightOff = camRight * 0.125
+    local upOff    = camUp    * 0.07
+
+    -- Four corner probes
+    local corners = {
+        { focusOrigin, rawCamPos + rightOff + upOff    },
+        { focusOrigin, rawCamPos + rightOff - upOff    },
+        { focusOrigin, rawCamPos - rightOff - upOff    },
+        { focusOrigin, rawCamPos - rightOff + upOff    },
+    }
+
+    -- Find closest collision across all corners
+    local clampedRadius = orbitRadius
+    for _, probe in ipairs(corners) do
+        local hit, hitCoords = rayCastCollision(probe[1], probe[2], ignoreEnt)
+        if hit then
+            local dist = #(focusOrigin - hitCoords)
+            if clampedRadius > dist then
+                clampedRadius = dist
+            end
+        end
     end
-  end
-  L8_2(L9_2)
+
+    -- Re-compute camera position with clamped radius
+    local fraction = clampedRadius / orbitRadius
+    local finalCamPos = focusOrigin + (rawCamPos - focusOrigin) * fraction
+
+    -- Apply to scripted camera
+    SetCamCoord(orbitCam, finalCamPos.x, finalCamPos.y, finalCamPos.z)
+    PointCamAtCoord(orbitCam, focusOrigin.x, focusOrigin.y, focusOrigin.z)
+    SetFocusPosAndVel(focusOrigin.x, focusOrigin.y, focusOrigin.z, 0.0, 0.0, 0.0)
 end
-StartOrbitCam = L27_1
-L27_1 = exports
-L28_1 = "StartOrbitCam"
-L29_1 = StartOrbitCam
-L27_1(L28_1, L29_1)
-L27_1 = exports
-L28_1 = "updateFOVcam"
-function L29_1(A0_2)
-  local L1_2, L2_2, L3_2
-  L1_2 = L13_1
-  if L1_2 then
-    if 1 == A0_2 then
-      L1_2 = L0_1
-      L2_2 = 0.5
-      if L1_2 > L2_2 then
-        L1_2 = L0_1
-        L1_2 = L1_2 - 0.7
-        L0_1 = L1_2
-        L1_2 = SetCamFov
-        L2_2 = L13_1
-        L3_2 = L0_1
-        L1_2(L2_2, L3_2)
-      end
+
+-- ---------------------------------------------------------------------------
+-- logError(fmt, ...)
+-- Internal error logger with red console colour.
+-- ---------------------------------------------------------------------------
+local function logError(fmt, ...)
+    print(string.format("^1[ERROR] " .. fmt .. "^0", ...))
+end
+
+-- ---------------------------------------------------------------------------
+-- StartOrbitCam(offset, entity, blendMs, minDist, maxDist)
+-- Creates and activates the orbit camera.
+--   offset  — vector3 offset from entity (or fixed world position when entity is nil)
+--   entity  — entity handle to orbit around (nil = treat offset as absolute position)
+--   blendMs — camera blend-in duration in milliseconds (default: BLEND_DURATION_MS)
+--   minDist — minimum zoom distance (default: DEFAULT_MIN_DIST)
+--   maxDist — maximum zoom distance (default: DEFAULT_MAX_DIST)
+-- ---------------------------------------------------------------------------
+local function StartOrbitCam(offset, entity, blendMs, minDist, maxDist)
+    if orbitCam then
+        -- Already active
+        return
+    end
+
+    ClearFocus()
+
+    -- Set up tracking
+    if entity then
+        trackedEntity = entity
+        trackedOffset = offset
+        focusOrigin   = GetEntityCoords(entity) + offset
     else
-      L1_2 = L0_1
-      L2_2 = 89.5
-      if L1_2 < L2_2 then
-        L1_2 = L0_1
-        L1_2 = L1_2 + 0.7
-        L0_1 = L1_2
-        L1_2 = SetCamFov
-        L2_2 = L13_1
-        L3_2 = L0_1
-        L1_2(L2_2, L3_2)
-      end
+        trackedEntity = nil
+        trackedOffset = nil
+        focusOrigin   = offset
     end
-  end
+
+    -- Determine min/max orbit distance
+    if minDist == nil or maxDist == nil then
+        minOrbitDist = DEFAULT_MIN_DIST
+        maxOrbitDist = DEFAULT_MAX_DIST
+        if minOrbitDist < 0.5 then
+            minOrbitDist = 0.5
+            maxOrbitDist = 25.0
+        end
+    else
+        minOrbitDist = minDist + 0.0
+        maxOrbitDist = maxDist + 0.0
+    end
+    orbitRadius = minOrbitDist
+
+    -- Inherit current gameplay camera rotation so the orbit starts facing the
+    -- same direction the player was looking
+    local gameplayCamRot = GetGameplayCamRot(2)
+    orbitPitch = -(gameplayCamRot.x)
+    orbitYaw   = gameplayCamRot.z - 90
+
+    -- Create scripted camera at focus origin
+    local blendTime = blendMs or BLEND_DURATION_MS
+    orbitCam = CreateCamWithParams(
+        "DEFAULT_SCRIPTED_CAMERA",
+        focusOrigin.x, focusOrigin.y, focusOrigin.z,
+        0, 0, 0,
+        GetGameplayCamFov()
+    )
+
+    SetCamActive(orbitCam, true)
+    RenderScriptCams(true, true, blendTime, true, false)
+    SetCamNearClip(orbitCam, 0.05)
+    SetCamFov(orbitCam, camFov)
+
+    -- Update loop
+    CreateThread(function()
+        while orbitCam do
+            updateOrbitFrame()
+            Wait(0)
+        end
+    end)
 end
-L27_1(L28_1, L29_1)
-function L27_1(A0_2)
-  local L1_2, L2_2, L3_2, L4_2, L5_2, L6_2
-  L1_2 = L13_1
-  if nil == L1_2 then
-    return
-  end
-  L1_2 = ClearFocus
-  L1_2()
-  L1_2 = 50.0
-  L0_1 = L1_2
-  L1_2 = RenderScriptCams
-  L2_2 = false
-  L3_2 = true
-  L4_2 = A0_2 or L4_2
-  if not A0_2 then
-    L4_2 = L4_1
-  end
-  L5_2 = true
-  L6_2 = false
-  L1_2(L2_2, L3_2, L4_2, L5_2, L6_2)
-  L1_2 = DestroyCam
-  L2_2 = L13_1
-  L3_2 = false
-  L1_2(L2_2, L3_2)
-  L1_2 = nil
-  L13_1 = L1_2
-  L1_2 = nil
-  L14_1 = L1_2
+
+exports("StartOrbitCam", StartOrbitCam)
+StartOrbitCam = StartOrbitCam  -- expose as global for direct calls
+
+-- ---------------------------------------------------------------------------
+-- updateFOVcam(direction)
+-- Adjusts camera FOV while orbit cam is active.
+--   direction == 1 → zoom in  (decrease FOV)
+--   direction ~= 1 → zoom out (increase FOV)
+-- ---------------------------------------------------------------------------
+exports("updateFOVcam", function(direction)
+    if not orbitCam then return end
+
+    if direction == 1 then
+        -- Zoom in
+        if camFov > 0.5 then
+            camFov = camFov - 0.7
+            SetCamFov(orbitCam, camFov)
+        end
+    else
+        -- Zoom out
+        if camFov < 89.5 then
+            camFov = camFov + 0.7
+            SetCamFov(orbitCam, camFov)
+        end
+    end
+end)
+
+-- ---------------------------------------------------------------------------
+-- EndOrbitCam(blendMs)
+-- Destroys the orbit camera and blends back to gameplay camera.
+--   blendMs — blend-out duration in milliseconds (default: BLEND_DURATION_MS)
+-- ---------------------------------------------------------------------------
+local function EndOrbitCam(blendMs)
+    if orbitCam == nil then return end
+
+    ClearFocus()
+    camFov = DEFAULT_FOV
+
+    local blendTime = blendMs or BLEND_DURATION_MS
+    RenderScriptCams(false, true, blendTime, true, false)
+    DestroyCam(orbitCam, false)
+
+    orbitCam       = nil
+    trackedEntity  = nil
 end
-EndOrbitCam = L27_1
-L27_1 = exports
-L28_1 = "EndOrbitCam"
-L29_1 = EndOrbitCam
-L27_1(L28_1, L29_1)
-function L27_1()
-  local L0_2, L1_2
-  L0_2 = L13_1
-  L0_2 = nil ~= L0_2
-  return L0_2
+
+exports("EndOrbitCam", EndOrbitCam)
+EndOrbitCam = EndOrbitCam  -- expose as global
+
+-- ---------------------------------------------------------------------------
+-- IsOrbitCamActive()
+-- Returns true if the orbit camera is currently active.
+-- ---------------------------------------------------------------------------
+local function IsOrbitCamActive()
+    return orbitCam ~= nil
 end
-IsOrbitCamActive = L27_1
-L27_1 = exports
-L28_1 = "IsOrbitCamActive"
-L29_1 = IsOrbitCamActive
-L27_1(L28_1, L29_1)
-function L27_1(A0_2)
-  local L1_2
-  if A0_2 then
-    L1_2 = L14_1
-  end
-  L1_2 = A0_2 == L1_2
-  return L1_2
+
+exports("IsOrbitCamActive", IsOrbitCamActive)
+IsOrbitCamActive = IsOrbitCamActive
+
+-- ---------------------------------------------------------------------------
+-- IsEntityBeingTracked(entity)
+-- Returns true if `entity` is the currently tracked entity.
+-- ---------------------------------------------------------------------------
+local function IsEntityBeingTracked(entity)
+    if not entity then return false end
+    return entity == trackedEntity
 end
-IsEntityBeingTracked = L27_1
-L27_1 = exports
-L28_1 = "IsEntityBeingTracked"
-L29_1 = IsEntityBeingTracked
-L27_1(L28_1, L29_1)
-function L27_1()
-  local L0_2, L1_2
-  L0_2 = L14_1
-  return L0_2
+
+exports("IsEntityBeingTracked", IsEntityBeingTracked)
+IsEntityBeingTracked = IsEntityBeingTracked
+
+-- ---------------------------------------------------------------------------
+-- GetTrackedEntity()
+-- Returns the currently tracked entity handle, or nil.
+-- ---------------------------------------------------------------------------
+local function GetTrackedEntity()
+    return trackedEntity
 end
-GetTrackedEntity = L27_1
-L27_1 = exports
-L28_1 = "GetTrackedEntity"
-L29_1 = GetTrackedEntity
-L27_1(L28_1, L29_1)
-function L27_1(A0_2)
-  local L1_2
-  L14_1 = A0_2
+
+exports("GetTrackedEntity", GetTrackedEntity)
+GetTrackedEntity = GetTrackedEntity
+
+-- ---------------------------------------------------------------------------
+-- ChangeTrackedEntity(entity)
+-- Replaces the tracked entity without restarting the camera.
+-- ---------------------------------------------------------------------------
+local function ChangeTrackedEntity(entity)
+    trackedEntity = entity
 end
-SetTrackedEntity = L27_1
-L27_1 = exports
-L28_1 = "ChangeTrackedEntity"
-L29_1 = SetTrackedEntity
-L27_1(L28_1, L29_1)
+
+exports("ChangeTrackedEntity", ChangeTrackedEntity)
+ChangeTrackedEntity = ChangeTrackedEntity

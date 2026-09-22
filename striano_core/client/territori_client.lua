@@ -1,1128 +1,495 @@
-local L0_1, L1_1, L2_1, L3_1, L4_1, L5_1, L6_1, L7_1, L8_1, L9_1, L10_1, L11_1, L12_1, L13_1, L14_1, L15_1, L16_1, L17_1, L18_1, L19_1, L20_1, L21_1, L22_1, L23_1, L24_1, L25_1, L26_1, L27_1
-L0_1 = {}
-L1_1 = nil
-L2_1 = false
-L3_1 = false
-L4_1 = 750
-function L5_1(A0_2)
-  local L1_2, L2_2
-  L1_2 = tostring
-  L2_2 = A0_2 or L2_2
-  if not A0_2 then
-    L2_2 = ""
-  end
-  L1_2 = L1_2(L2_2)
-  A0_2 = L1_2
-  L1_2 = CasateConfig
-  L1_2 = L1_2.Territories
-  if L1_2 then
-    L1_2 = CasateConfig
-    L1_2 = L1_2.Territories
-    L1_2 = L1_2[A0_2]
-    if L1_2 then
-      goto lbl_17
+-- =============================================================================
+-- territori_client.lua
+-- Territory system client-side for striano_core / casate module.
+-- Tracks which territory the player is currently inside, handles claim
+-- progress, sends server events, and exposes territory info exports.
+-- =============================================================================
+
+-- ---------------------------------------------------------------------------
+-- State
+-- ---------------------------------------------------------------------------
+local territoryStates   = {}      -- [territoryId] = serverData  (from casate:receiveTerritories)
+local currentTerritory  = nil     -- string id of territory player is currently in
+local territoriesLoaded = false   -- true after first receiveTerritories
+local claimRunning      = false   -- true while a claim timer is active
+
+local trackerActive     = false   -- guard for startTrackerLoop()
+local claimVersion      = 0       -- incremented each claim attempt; stale threads abort
+
+-- Tuning
+local TRACKER_TICK_MS   = 750
+local CLAIM_DURATION_MS = 10000
+local CLAIM_POLL_MS     = 100
+local CLAIM_MAX_RADIUS  = 5.0
+
+-- ---------------------------------------------------------------------------
+-- getTerritoryConfig(id)
+-- Returns CasateConfig.Territories[id] or nil.
+-- ---------------------------------------------------------------------------
+local function getTerritoryConfig(id)
+    id = tostring(id or "")
+    if CasateConfig and CasateConfig.Territories and CasateConfig.Territories[id] then
+        return CasateConfig.Territories[id]
     end
-  end
-  L1_2 = nil
-  ::lbl_17::
-  return L1_2
+    return nil
 end
-L6_1 = false
-L7_1 = 0
-L8_1 = 10000
-L9_1 = 100
-L10_1 = 5.0
-function L11_1(A0_2)
-  local L1_2, L2_2
-  L1_2 = L6_1
-  if not L1_2 then
-    return
-  end
-  L1_2 = false
-  L6_1 = L1_2
-  L1_2 = L7_1
-  L1_2 = L1_2 + 1
-  L7_1 = L1_2
-  if A0_2 then
-    L1_2 = Notify
-    L2_2 = A0_2
-    L1_2(L2_2)
-  end
+
+-- ---------------------------------------------------------------------------
+-- getTerritoryState(id)
+-- Returns the server-synced state for a territory id, or nil.
+-- ---------------------------------------------------------------------------
+local function getTerritoryState(id)
+    id = tostring(id or "")
+    if not getTerritoryConfig(id) then return nil end
+    return territoryStates[id]
 end
-function L12_1(A0_2)
-  local L1_2, L2_2, L3_2, L4_2, L5_2, L6_2, L7_2, L8_2, L9_2, L10_2, L11_2
-  L1_2 = L6_1
-  if L1_2 then
-    L1_2 = Notify
-    L2_2 = "Stai gi\195\160 reclamando un territorio."
-    L1_2(L2_2)
-    return
-  end
-  L1_2 = L5_1
-  L2_2 = A0_2
-  L1_2 = L1_2(L2_2)
-  if L1_2 then
-    L2_2 = L1_2.coords
-    if L2_2 then
-      goto lbl_20
+
+-- ---------------------------------------------------------------------------
+-- getTerritoryOwner(id)
+-- Returns the owner casata id of a territory, or nil.
+-- ---------------------------------------------------------------------------
+local function getTerritoryOwner(id)
+    local state = getTerritoryState(id)
+    return state and state.owner or nil
+end
+
+-- ---------------------------------------------------------------------------
+-- getTerritoryStatus(id)
+-- Returns the status string ("neutral", "owned", "contested") of a territory.
+-- ---------------------------------------------------------------------------
+local function getTerritoryStatus(id)
+    local state = getTerritoryState(id)
+    return (state and state.status) or "neutral"
+end
+
+-- ---------------------------------------------------------------------------
+-- getTerritoryDisplayName(id)
+-- Returns the human-readable name for a territory.
+-- ---------------------------------------------------------------------------
+local function getTerritoryDisplayName(id)
+    local cfg = getTerritoryConfig(id)
+    if cfg and cfg.name then return cfg.name end
+    return tostring(id or "Territorio")
+end
+
+-- ---------------------------------------------------------------------------
+-- getTerritoryData(id, path)
+-- Returns nested data from the territory state by dot-separated path.
+-- E.g. getTerritoryData("zone1", "stats.cratesOpened")
+-- ---------------------------------------------------------------------------
+local function getTerritoryData(id, path)
+    local state = getTerritoryState(id)
+    if not state then return nil end
+    if path == nil or path == "" then return state end
+
+    local current = state
+    for key in tostring(path):gmatch("[^.]+") do
+        if type(current) ~= "table" then return nil end
+        current = current[key]
     end
-  end
-  L2_2 = Notify
-  L3_2 = "Territorio non valido."
-  L2_2(L3_2)
-  do return end
-  ::lbl_20::
-  L2_2 = PlayerPedId
-  L2_2 = L2_2()
-  L3_2 = DoesEntityExist
-  L4_2 = L2_2
-  L3_2 = L3_2(L4_2)
-  if L3_2 then
-    L3_2 = IsEntityDead
-    L4_2 = L2_2
-    L3_2 = L3_2(L4_2)
-    if not L3_2 then
-      L3_2 = IsPedFatallyInjured
-      L4_2 = L2_2
-      L3_2 = L3_2(L4_2)
-      if not L3_2 then
-        goto lbl_41
-      end
-    end
-  end
-  L3_2 = Notify
-  L4_2 = "Non puoi reclamare il territorio in questo momento."
-  L3_2(L4_2)
-  do return end
-  ::lbl_41::
-  L3_2 = GetEntityCoords
-  L4_2 = L2_2
-  L3_2 = L3_2(L4_2)
-  L4_2 = vector3
-  L5_2 = L1_2.coords
-  L5_2 = L5_2.x
-  L6_2 = L1_2.coords
-  L6_2 = L6_2.y
-  L7_2 = L1_2.coords
-  L7_2 = L7_2.z
-  L4_2 = L4_2(L5_2, L6_2, L7_2)
-  L5_2 = GetEntityHealth
-  L6_2 = L2_2
-  L5_2 = L5_2(L6_2)
-  L6_2 = L7_1
-  L6_2 = L6_2 + 1
-  L7_1 = L6_2
-  L7_2 = true
-  L6_1 = L7_2
-  L7_2 = Notify
-  L8_2 = "Rimani nella zona per %s secondi per reclamare il territorio."
-  L9_2 = L8_2
-  L8_2 = L8_2.format
-  L10_2 = math
-  L10_2 = L10_2.floor
-  L11_2 = L8_1
-  L11_2 = L11_2 / 1000
-  L10_2, L11_2 = L10_2(L11_2)
-  L8_2, L9_2, L10_2, L11_2 = L8_2(L9_2, L10_2, L11_2)
-  L7_2(L8_2, L9_2, L10_2, L11_2)
-  L7_2 = CreateThread
-  function L8_2()
-    local L0_3, L1_3, L2_3, L3_3, L4_3
-    L0_3 = GetGameTimer
-    L0_3 = L0_3()
-    L1_3 = L8_1
-    L0_3 = L0_3 + L1_3
-    while true do
-      L1_3 = L6_1
-      if not L1_3 then
-        break
-      end
-      L1_3 = L7_1
-      L2_3 = L6_2
-      if L1_3 ~= L2_3 then
-        break
-      end
-      L1_3 = Wait
-      L2_3 = L9_1
-      L1_3(L2_3)
-      L1_3 = PlayerPedId
-      L1_3 = L1_3()
-      L2_2 = L1_3
-      L1_3 = DoesEntityExist
-      L2_3 = L2_2
-      L1_3 = L1_3(L2_3)
-      if L1_3 then
-        L1_3 = IsEntityDead
-        L2_3 = L2_2
-        L1_3 = L1_3(L2_3)
-        if not L1_3 then
-          L1_3 = IsPedFatallyInjured
-          L2_3 = L2_2
-          L1_3 = L1_3(L2_3)
-          if not L1_3 then
-            goto lbl_38
-          end
-        end
-      end
-      L1_3 = L11_1
-      L2_3 = "Conquista annullata: sei gravemente ferito."
-      L1_3(L2_3)
-      do return end
-      ::lbl_38::
-      L1_3 = GetEntityHealth
-      L2_3 = L2_2
-      L1_3 = L1_3(L2_3)
-      L2_3 = L5_2
-      if L1_3 < L2_3 then
-        L1_3 = L11_1
-        L2_3 = "Conquista annullata: sei stato colpito."
-        L1_3(L2_3)
-        return
-      end
-      L1_3 = L1_1
-      L2_3 = A0_2
-      if L1_3 ~= L2_3 then
-        L1_3 = L11_1
-        L2_3 = "Conquista annullata: hai lasciato il territorio."
-        L1_3(L2_3)
-        return
-      end
-      L1_3 = GetEntityCoords
-      L2_3 = L2_2
-      L1_3 = L1_3(L2_3)
-      L2_3 = L3_2
-      L2_3 = L1_3 - L2_3
-      L2_3 = #L2_3
-      L3_3 = L10_1
-      if L2_3 > L3_3 then
-        L2_3 = L11_1
-        L3_3 = "Conquista annullata: ti sei allontanato troppo."
-        L2_3(L3_3)
-        return
-      end
-      L2_3 = L4_2
-      L2_3 = L1_3 - L2_3
-      L2_3 = #L2_3
-      L3_3 = tonumber
-      L4_3 = L1_2.radius
-      L3_3 = L3_3(L4_3)
-      if not L3_3 then
-        L3_3 = 30.0
-      end
-      if L2_3 > L3_3 then
-        L2_3 = L11_1
-        L3_3 = "Conquista annullata: hai lasciato il territorio."
-        L2_3(L3_3)
-        return
-      end
-      L2_3 = GetGameTimer
-      L2_3 = L2_3()
-      if L0_3 <= L2_3 then
-        L2_3 = false
-        L6_1 = L2_3
-        L2_3 = Notify
-        L3_3 = "Conquista completata. Verifica in corso..."
-        L2_3(L3_3)
-        L2_3 = TriggerServerEvent
-        L3_3 = "casate:claimTerritory"
-        L4_3 = A0_2
-        L2_3(L3_3, L4_3)
-        return
-      end
-    end
-  end
-  L7_2(L8_2)
+    return current
 end
-function L13_1(A0_2)
-  local L1_2, L2_2
-  L1_2 = tostring
-  L2_2 = A0_2 or L2_2
-  if not A0_2 then
-    L2_2 = ""
-  end
-  L1_2 = L1_2(L2_2)
-  A0_2 = L1_2
-  L1_2 = L5_1
-  L2_2 = A0_2
-  L1_2 = L1_2(L2_2)
-  if not L1_2 then
-    L1_2 = nil
-    return L1_2
-  end
-  L1_2 = L0_1
-  L1_2 = L1_2[A0_2]
-  return L1_2
-end
-function L14_1(A0_2)
-  local L1_2, L2_2
-  L1_2 = L13_1
-  L2_2 = A0_2
-  L1_2 = L1_2(L2_2)
-  if L1_2 then
-    L2_2 = L1_2.owner
-    if L2_2 then
-      goto lbl_10
-    end
-  end
-  L2_2 = nil
-  ::lbl_10::
-  return L2_2
-end
-function L15_1(A0_2)
-  local L1_2, L2_2
-  L1_2 = L13_1
-  L2_2 = A0_2
-  L1_2 = L1_2(L2_2)
-  if L1_2 then
-    L2_2 = L1_2.status
-    if L2_2 then
-      goto lbl_10
-    end
-  end
-  L2_2 = "neutral"
-  ::lbl_10::
-  return L2_2
-end
-function L16_1(A0_2)
-  local L1_2, L2_2, L3_2
-  L1_2 = L5_1
-  L2_2 = A0_2
-  L1_2 = L1_2(L2_2)
-  if L1_2 then
-    L2_2 = L1_2.name
-    if L2_2 then
-      goto lbl_14
-    end
-  end
-  L2_2 = tostring
-  L3_2 = A0_2 or L3_2
-  if not A0_2 then
-    L3_2 = "Territorio"
-  end
-  L2_2 = L2_2(L3_2)
-  ::lbl_14::
-  return L2_2
-end
-function L17_1(A0_2, A1_2)
-  local L2_2, L3_2, L4_2, L5_2, L6_2, L7_2, L8_2, L9_2, L10_2
-  L2_2 = L13_1
-  L3_2 = A0_2
-  L2_2 = L2_2(L3_2)
-  if not L2_2 then
-    L3_2 = nil
-    return L3_2
-  end
-  if nil == A1_2 or "" == A1_2 then
-    return L2_2
-  end
-  L3_2 = L2_2
-  L4_2 = tostring
-  L5_2 = A1_2
-  L4_2 = L4_2(L5_2)
-  L5_2 = L4_2
-  L4_2 = L4_2.gmatch
-  L6_2 = "[^.]+"
-  L4_2, L5_2, L6_2, L7_2 = L4_2(L5_2, L6_2)
-  for L8_2 in L4_2, L5_2, L6_2, L7_2 do
-    L9_2 = type
-    L10_2 = L3_2
-    L9_2 = L9_2(L10_2)
-    if "table" ~= L9_2 then
-      L9_2 = nil
-      return L9_2
-    end
-    L3_2 = L3_2[L8_2]
-  end
-  return L3_2
-end
-function L18_1(A0_2)
-  local L1_2, L2_2, L3_2, L4_2, L5_2, L6_2, L7_2, L8_2, L9_2, L10_2, L11_2
-  if not A0_2 then
-    L1_2 = nil
-    return L1_2
-  end
-  L1_2 = pairs
-  L2_2 = CasateConfig
-  L2_2 = L2_2.Territories
-  if not L2_2 then
-    L2_2 = {}
-  end
-  L1_2, L2_2, L3_2, L4_2 = L1_2(L2_2)
-  for L5_2, L6_2 in L1_2, L2_2, L3_2, L4_2 do
-    L7_2 = L6_2.coords
-    L8_2 = tonumber
-    L9_2 = L6_2.radius
-    L8_2 = L8_2(L9_2)
-    if not L8_2 then
-      L8_2 = 30.0
-    end
-    if L7_2 then
-      L9_2 = A0_2 - L7_2
-      L9_2 = #L9_2
-      if L8_2 >= L9_2 then
-        L10_2 = L5_2
-        L11_2 = L9_2
-        return L10_2, L11_2
-      end
-    end
-  end
-  L1_2 = nil
-  return L1_2
-end
-function L19_1()
-  local L0_2, L1_2
-  L0_2 = L1_1
-  return L0_2
-end
-function L20_1(A0_2)
-  local L1_2, L2_2, L3_2
-  L1_2 = L1_1
-  L2_2 = tostring
-  L3_2 = A0_2 or L3_2
-  if not A0_2 then
-    L3_2 = ""
-  end
-  L2_2 = L2_2(L3_2)
-  L1_2 = L1_2 == L2_2
-  return L1_2
-end
-function L21_1()
-  local L0_2, L1_2
-  L0_2 = L2_1
-  if L0_2 then
-    return
-  end
-  L0_2 = true
-  L2_1 = L0_2
-  L0_2 = CreateThread
-  function L1_2()
-    local L0_3, L1_3, L2_3, L3_3, L4_3, L5_3, L6_3, L7_3, L8_3, L9_3
-    while true do
-      L0_3 = L2_1
-      if not L0_3 then
-        break
-      end
-      L0_3 = PlayerPedId
-      L0_3 = L0_3()
-      if 0 ~= L0_3 then
-        L1_3 = DoesEntityExist
-        L2_3 = L0_3
-        L1_3 = L1_3(L2_3)
-        if L1_3 then
-          L1_3 = GetEntityCoords
-          L2_3 = L0_3
-          L1_3 = L1_3(L2_3)
-          L2_3 = L18_1
-          L3_3 = L1_3
-          L2_3 = L2_3(L3_3)
-          L3_3 = L1_1
-          if L2_3 ~= L3_3 then
-            L3_3 = L1_1
-            L1_1 = L2_3
-            if L3_3 then
-              L4_3 = TriggerEvent
-              L5_3 = "casate:leftTerritory"
-              L6_3 = L3_3
-              L4_3(L5_3, L6_3)
+
+-- ---------------------------------------------------------------------------
+-- getTerritoryFromCoords(pos)
+-- Returns the territory id (and distance) that contains pos, or nil.
+-- ---------------------------------------------------------------------------
+local function getTerritoryFromCoords(pos)
+    if not pos then return nil end
+    if not (CasateConfig and CasateConfig.Territories) then return nil end
+
+    for id, cfg in pairs(CasateConfig.Territories) do
+        local coords = cfg.coords
+        local radius = tonumber(cfg.radius) or 30.0
+        if coords then
+            local dist = #(pos - coords)
+            if dist <= radius then
+                return id, dist
             end
-            if L2_3 then
-              L4_3 = TriggerEvent
-              L5_3 = "casate:enteredTerritory"
-              L6_3 = L2_3
-              L7_3 = L5_1
-              L8_3 = L2_3
-              L7_3 = L7_3(L8_3)
-              L8_3 = L13_1
-              L9_3 = L2_3
-              L8_3, L9_3 = L8_3(L9_3)
-              L4_3(L5_3, L6_3, L7_3, L8_3, L9_3)
+        end
+    end
+    return nil
+end
+
+-- ---------------------------------------------------------------------------
+-- getCurrentTerritory()
+-- Returns the id of the territory the player is currently inside, or nil.
+-- ---------------------------------------------------------------------------
+local function getCurrentTerritory()
+    return currentTerritory
+end
+
+-- ---------------------------------------------------------------------------
+-- isInsideTerritory(id)
+-- Returns true if the player is currently inside territory `id`.
+-- ---------------------------------------------------------------------------
+local function isInsideTerritory(id)
+    local check = tostring(id or "")
+    return currentTerritory == check
+end
+
+-- =============================================================================
+-- CLAIM SYSTEM
+-- =============================================================================
+
+-- ---------------------------------------------------------------------------
+-- stopTerritoryClaim(notifyMsg)
+-- Aborts any running claim. Increments claimVersion to cancel stale threads.
+-- ---------------------------------------------------------------------------
+local function stopTerritoryClaim(notifyMsg)
+    if not claimRunning then return end
+    claimRunning = false
+    claimVersion = claimVersion + 1
+    if notifyMsg then
+        Notify(notifyMsg)
+    end
+end
+
+-- ---------------------------------------------------------------------------
+-- startTerritoryClaim(territoryId)
+-- Begins the claim timer for `territoryId`. Runs a loop that:
+--   - Cancels if player dies, is hit, leaves the territory, or moves too far
+--   - Fires casate:claimTerritory server event on success
+-- ---------------------------------------------------------------------------
+local function startTerritoryClaim(territoryId)
+    if claimRunning then
+        Notify("Stai già reclamando un territorio.")
+        return
+    end
+
+    local cfg = getTerritoryConfig(territoryId)
+    if not (cfg and cfg.coords) then
+        Notify("Territorio non valido.")
+        return
+    end
+
+    local ped = PlayerPedId()
+    if not DoesEntityExist(ped) or IsEntityDead(ped) or IsPedFatallyInjured(ped) then
+        Notify("Non puoi reclamare il territorio in questo momento.")
+        return
+    end
+
+    -- Snapshot values at claim start
+    local claimStartPos  = GetEntityCoords(ped)
+    local territoryCenter = vector3(cfg.coords.x, cfg.coords.y, cfg.coords.z)
+    local startHealth    = GetEntityHealth(ped)
+    claimVersion = claimVersion + 1
+    local myVersion = claimVersion
+    claimRunning = true
+
+    local durationSec = math.floor(CLAIM_DURATION_MS / 1000)
+    Notify(string.format("Rimani nella zona per %s secondi per reclamare il territorio.", durationSec))
+
+    CreateThread(function()
+        local deadline = GetGameTimer() + CLAIM_DURATION_MS
+
+        while true do
+            if not claimRunning or claimVersion ~= myVersion then
+                return
             end
-          end
+
+            Wait(CLAIM_POLL_MS)
+            ped = PlayerPedId()
+
+            -- Death check
+            if not DoesEntityExist(ped) or IsEntityDead(ped) or IsPedFatallyInjured(ped) then
+                stopTerritoryClaim("Conquista annullata: sei gravemente ferito.")
+                return
+            end
+
+            -- Hit check
+            if GetEntityHealth(ped) < startHealth then
+                stopTerritoryClaim("Conquista annullata: sei stato colpito.")
+                return
+            end
+
+            -- Left territory check (territory id changed)
+            if currentTerritory ~= territoryId then
+                stopTerritoryClaim("Conquista annullata: hai lasciato il territorio.")
+                return
+            end
+
+            -- Distance from original claim position
+            local currentPos = GetEntityCoords(ped)
+            if #(currentPos - claimStartPos) > CLAIM_MAX_RADIUS then
+                stopTerritoryClaim("Conquista annullata: ti sei allontanato troppo.")
+                return
+            end
+
+            -- Distance from territory center
+            local claimRadius = tonumber(cfg.radius) or 30.0
+            if #(currentPos - territoryCenter) > claimRadius then
+                stopTerritoryClaim("Conquista annullata: hai lasciato il territorio.")
+                return
+            end
+
+            -- Success
+            if GetGameTimer() >= deadline then
+                claimRunning = false
+                Notify("Conquista completata. Verifica in corso...")
+                TriggerServerEvent("casate:claimTerritory", territoryId)
+                return
+            end
         end
-      end
-      L1_3 = Wait
-      L2_3 = L4_1
-      L1_3(L2_3)
-    end
-  end
-  L0_2(L1_2)
+    end)
 end
-function L22_1()
-  local L0_2, L1_2
-  L0_2 = TriggerServerEvent
-  L1_2 = "casate:requestTerritories"
-  L0_2(L1_2)
-end
-L23_1 = RegisterNetEvent
-L24_1 = "casate:receiveTerritories"
-function L25_1(A0_2)
-  local L1_2, L2_2, L3_2
-  L1_2 = type
-  L2_2 = A0_2
-  L1_2 = L1_2(L2_2)
-  L1_2 = A0_2 or L1_2
-  if "table" ~= L1_2 or not A0_2 then
-    L1_2 = {}
-  end
-  L0_1 = L1_2
-  L1_2 = true
-  L3_1 = L1_2
-  L1_2 = TriggerEvent
-  L2_2 = "casate:territoriesLoaded"
-  L3_2 = L0_1
-  L1_2(L2_2, L3_2)
-end
-L23_1(L24_1, L25_1)
-L23_1 = RegisterNetEvent
-L24_1 = "casate:territoryUpdated"
-function L25_1(A0_2, A1_2)
-  local L2_2, L3_2, L4_2, L5_2
-  L2_2 = tostring
-  L3_2 = A0_2 or L3_2
-  if not A0_2 then
-    L3_2 = ""
-  end
-  L2_2 = L2_2(L3_2)
-  A0_2 = L2_2
-  if "" == A0_2 then
-    return
-  end
-  if nil == A1_2 then
-    L2_2 = L0_1
-    L2_2[A0_2] = nil
-  else
-    L2_2 = L0_1
-    L2_2[A0_2] = A1_2
-  end
-  L2_2 = TriggerEvent
-  L3_2 = "casate:territoryStateChanged"
-  L4_2 = A0_2
-  L5_2 = A1_2
-  L2_2(L3_2, L4_2, L5_2)
-end
-L23_1(L24_1, L25_1)
-function L23_1(A0_2)
-  local L1_2, L2_2, L3_2, L4_2, L5_2, L6_2, L7_2, L8_2, L9_2, L10_2, L11_2, L12_2, L13_2, L14_2, L15_2, L16_2, L17_2, L18_2, L19_2
-  if not A0_2 then
-    A0_2 = L1_1
-  end
-  if not A0_2 then
-    L1_2 = ExecuteCommand
-    L2_2 = "e shrug"
-    L1_2(L2_2)
-    L1_2 = Notify
-    L2_2 = "Non ti trovi dentro alcun territorio."
-    return L1_2(L2_2)
-  end
-  L1_2 = L5_1
-  L2_2 = A0_2
-  L1_2 = L1_2(L2_2)
-  if not L1_2 then
-    L2_2 = Notify
-    L3_2 = "Configurazione del territorio non trovata."
-    return L2_2(L3_2)
-  end
-  L2_2 = L13_1
-  L3_2 = A0_2
-  L2_2 = L2_2(L3_2)
-  if L2_2 then
-    L3_2 = L2_2.owner
-    if L3_2 then
-      goto lbl_31
-    end
-  end
-  L3_2 = nil
-  ::lbl_31::
-  if L2_2 then
-    L4_2 = L2_2.ownerName
-    if L4_2 then
-      goto lbl_37
-    end
-  end
-  L4_2 = nil
-  ::lbl_37::
-  if L2_2 then
-    L5_2 = L2_2.status
-    if L5_2 then
-      goto lbl_43
-    end
-  end
-  L5_2 = "neutral"
-  ::lbl_43::
-  if L2_2 then
-    L6_2 = L2_2.stats
-    if L6_2 then
-      L6_2 = L2_2.stats
-      L6_2 = L6_2.cratesOpened
-      if L6_2 then
-        goto lbl_53
-      end
-    end
-  end
-  L6_2 = 0
-  ::lbl_53::
-  if L2_2 then
-    L7_2 = L2_2.stats
-    if L7_2 then
-      L7_2 = L2_2.stats
-      L7_2 = L7_2.cratesLost
-      if L7_2 then
-        goto lbl_63
-      end
-    end
-  end
-  L7_2 = 0
-  ::lbl_63::
-  if L2_2 then
-    L8_2 = L2_2.stats
-    if L8_2 then
-      L8_2 = L2_2.stats
-      L8_2 = L8_2.deliveriesCompleted
-      if L8_2 then
-        goto lbl_73
-      end
-    end
-  end
-  L8_2 = 0
-  ::lbl_73::
-  if L2_2 then
-    L9_2 = L2_2.stats
-    if L9_2 then
-      L9_2 = L2_2.stats
-      L9_2 = L9_2.deliveriesFailed
-      if L9_2 then
-        goto lbl_83
-      end
-    end
-  end
-  L9_2 = 0
-  ::lbl_83::
-  L10_2 = L4_2 or L10_2
-  L10_2 = L3_2 or L10_2
-  if not L4_2 and not L3_2 then
-    L10_2 = "Nessuna Casata"
-  end
-  L11_2 = {}
-  L11_2.neutral = "Neutrale"
-  L11_2.owned = "Occupato"
-  L11_2.contested = "Conteso"
-  L12_2 = L11_2[L5_2]
-  if not L12_2 then
-    L12_2 = L5_2
-  end
-  L13_2 = exports
-  L13_2 = L13_2.striano_fastmenu
-  L14_2 = L13_2
-  L13_2 = L13_2.clearMenu
-  L13_2(L14_2)
-  L13_2 = exports
-  L13_2 = L13_2.striano_fastmenu
-  L14_2 = L13_2
-  L13_2 = L13_2.addMenuItem
-  L15_2 = "\240\159\143\180 %s"
-  L16_2 = L15_2
-  L15_2 = L15_2.format
-  L17_2 = L1_2.name
-  if not L17_2 then
-    L17_2 = A0_2
-  end
-  L15_2 = L15_2(L16_2, L17_2)
-  function L16_2()
-    local L0_3, L1_3
-  end
-  L17_2 = false
-  L13_2(L14_2, L15_2, L16_2, L17_2)
-  L13_2 = exports
-  L13_2 = L13_2.striano_fastmenu
-  L14_2 = L13_2
-  L13_2 = L13_2.addMenuItem
-  L15_2 = "\240\159\155\161\239\184\143 Proprietario: %s"
-  L16_2 = L15_2
-  L15_2 = L15_2.format
-  L17_2 = L10_2
-  L15_2 = L15_2(L16_2, L17_2)
-  function L16_2()
-    local L0_3, L1_3
-  end
-  L17_2 = false
-  L13_2(L14_2, L15_2, L16_2, L17_2)
-  L13_2 = exports
-  L13_2 = L13_2.striano_fastmenu
-  L14_2 = L13_2
-  L13_2 = L13_2.addMenuItem
-  L15_2 = "\240\159\147\140 Stato: %s"
-  L16_2 = L15_2
-  L15_2 = L15_2.format
-  L17_2 = L12_2
-  L15_2 = L15_2(L16_2, L17_2)
-  function L16_2()
-    local L0_3, L1_3
-  end
-  L17_2 = false
-  L13_2(L14_2, L15_2, L16_2, L17_2)
-  L13_2 = exports
-  L13_2 = L13_2.striano_fastmenu
-  L14_2 = L13_2
-  L13_2 = L13_2.addMenuItem
-  L15_2 = "\226\173\144 Costo conquista: %s punti"
-  L16_2 = L15_2
-  L15_2 = L15_2.format
-  L17_2 = L1_2.claimCost
-  if not L17_2 then
-    L17_2 = 0
-  end
-  L15_2 = L15_2(L16_2, L17_2)
-  function L16_2()
-    local L0_3, L1_3
-  end
-  L17_2 = false
-  L13_2(L14_2, L15_2, L16_2, L17_2)
-  L13_2 = exports
-  L13_2 = L13_2.striano_fastmenu
-  L14_2 = L13_2
-  L13_2 = L13_2.addMenuItem
-  L15_2 = "\240\159\147\166 Casse aperte: %s"
-  L16_2 = L15_2
-  L15_2 = L15_2.format
-  L17_2 = L6_2
-  L15_2 = L15_2(L16_2, L17_2)
-  function L16_2()
-    local L0_3, L1_3
-  end
-  L17_2 = false
-  L13_2(L14_2, L15_2, L16_2, L17_2)
-  L13_2 = exports
-  L13_2 = L13_2.striano_fastmenu
-  L14_2 = L13_2
-  L13_2 = L13_2.addMenuItem
-  L15_2 = "\240\159\146\128 Casse perse: %s"
-  L16_2 = L15_2
-  L15_2 = L15_2.format
-  L17_2 = L7_2
-  L15_2 = L15_2(L16_2, L17_2)
-  function L16_2()
-    local L0_3, L1_3
-  end
-  L17_2 = false
-  L13_2(L14_2, L15_2, L16_2, L17_2)
-  L13_2 = exports
-  L13_2 = L13_2.striano_fastmenu
-  L14_2 = L13_2
-  L13_2 = L13_2.addMenuItem
-  L15_2 = "\226\156\133 Consegne completate: %s"
-  L16_2 = L15_2
-  L15_2 = L15_2.format
-  L17_2 = L8_2
-  L15_2 = L15_2(L16_2, L17_2)
-  function L16_2()
-    local L0_3, L1_3
-  end
-  L17_2 = false
-  L13_2(L14_2, L15_2, L16_2, L17_2)
-  L13_2 = exports
-  L13_2 = L13_2.striano_fastmenu
-  L14_2 = L13_2
-  L13_2 = L13_2.addMenuItem
-  L15_2 = "\226\157\140 Consegne fallite: %s"
-  L16_2 = L15_2
-  L15_2 = L15_2.format
-  L17_2 = L9_2
-  L15_2 = L15_2(L16_2, L17_2)
-  function L16_2()
-    local L0_3, L1_3
-  end
-  L17_2 = false
-  L13_2(L14_2, L15_2, L16_2, L17_2)
-  if L3_2 then
-    L13_2 = exports
-    L13_2 = L13_2.striano_fastmenu
-    L14_2 = L13_2
-    L13_2 = L13_2.addMenuItem
-    L15_2 = "\240\159\147\141 Gestisci Produzioni"
-    function L16_2()
-      local L0_3, L1_3, L2_3
-      L0_3 = TriggerEvent
-      L1_3 = "casate:openSingleTerritoryMenu"
-      L2_3 = A0_2
-      L0_3(L1_3, L2_3)
-    end
-    L17_2 = false
-    L13_2(L14_2, L15_2, L16_2, L17_2)
-  end
-  if not L3_2 then
-    L13_2 = exports
-    L13_2 = L13_2.striano_fastmenu
-    L14_2 = L13_2
-    L13_2 = L13_2.addMenuItem
-    L15_2 = "\240\159\143\180 Reclama territorio"
-    function L16_2()
-      local L0_3, L1_3
-      L0_3 = exports
-      L0_3 = L0_3.striano_fastmenu
-      L1_3 = L0_3
-      L0_3 = L0_3.closeMenu
-      L0_3(L1_3)
-      L0_3 = L12_1
-      L1_3 = A0_2
-      L0_3(L1_3)
-    end
-    L17_2 = true
-    L13_2(L14_2, L15_2, L16_2, L17_2)
-  else
-    L13_2 = exports
-    L13_2 = L13_2.striano_core
-    L14_2 = L13_2
-    L13_2 = L13_2.GetCurrentCasataData
-    L13_2 = L13_2(L14_2)
-    if L13_2 then
-      L14_2 = L13_2.id
-      if L14_2 then
-        goto lbl_216
-      end
-    end
-    L14_2 = nil
-    ::lbl_216::
-    if L14_2 and L3_2 == L14_2 then
-      L15_2 = L13_2.myRank
-      if "owner" == L15_2 then
-        L15_2 = exports
-        L15_2 = L15_2.striano_fastmenu
-        L16_2 = L15_2
-        L15_2 = L15_2.addMenuItem
-        L17_2 = "\240\159\154\170 Abbandona territorio"
-        function L18_2()
-          local L0_3, L1_3, L2_3, L3_3, L4_3
-          L0_3 = exports
-          L0_3 = L0_3.striano_fastmenu
-          L1_3 = L0_3
-          L0_3 = L0_3.closeMenu
-          L0_3(L1_3)
-          L0_3 = exports
-          L0_3 = L0_3.striano_core
-          L1_3 = L0_3
-          L0_3 = L0_3.OpenInput
-          L2_3 = "Scrivi CONFERMA per abbandonare il territorio"
-          L3_3 = ""
-          L4_3 = {}
-          L4_3.maxLen = 16
-          L0_3 = L0_3(L1_3, L2_3, L3_3, L4_3)
-          L1_3 = string
-          L1_3 = L1_3.lower
-          L2_3 = tostring
-          L3_3 = L0_3 or L3_3
-          if not L0_3 then
-            L3_3 = ""
-          end
-          L2_3, L3_3, L4_3 = L2_3(L3_3)
-          L1_3 = L1_3(L2_3, L3_3, L4_3)
-          L0_3 = L1_3
-          if "conferma" ~= L0_3 then
-            L1_3 = Notify
-            L2_3 = "Operazione annullata."
-            return L1_3(L2_3)
-          end
-          L1_3 = TriggerServerEvent
-          L2_3 = "casate:releaseTerritory"
-          L3_3 = A0_2
-          L1_3(L2_3, L3_3)
+
+-- =============================================================================
+-- TERRITORY TRACKER LOOP
+-- Checks player position every TRACKER_TICK_MS ms and fires local events on
+-- territory enter/leave.
+-- =============================================================================
+
+local function startTrackerLoop()
+    if trackerActive then return end
+    trackerActive = true
+
+    CreateThread(function()
+        while trackerActive do
+            local ped = PlayerPedId()
+            if ped ~= 0 and DoesEntityExist(ped) then
+                local pos = GetEntityCoords(ped)
+                local foundId = getTerritoryFromCoords(pos)
+
+                if foundId ~= currentTerritory then
+                    local previousId = currentTerritory
+                    currentTerritory = foundId
+
+                    if previousId then
+                        TriggerEvent("casate:leftTerritory", previousId)
+                    end
+                    if foundId then
+                        local cfg   = getTerritoryConfig(foundId)
+                        local state = getTerritoryState(foundId)
+                        TriggerEvent("casate:enteredTerritory", foundId, cfg, state)
+                    end
+                end
+            end
+            Wait(TRACKER_TICK_MS)
         end
-        L19_2 = true
-        L15_2(L16_2, L17_2, L18_2, L19_2)
-      end
+    end)
+end
+
+-- =============================================================================
+-- TERRITORY MENU
+-- =============================================================================
+
+-- ---------------------------------------------------------------------------
+-- openTerritoryMenu(id)
+-- Opens the fastmenu with territory stats, claim/release options.
+-- ---------------------------------------------------------------------------
+local function openTerritoryMenu(id)
+    if not id then id = currentTerritory end
+
+    if not id then
+        ExecuteCommand("e shrug")
+        Notify("Non ti trovi dentro alcun territorio.")
+        return
     end
-  end
-  L13_2 = exports
-  L13_2 = L13_2.striano_fastmenu
-  L14_2 = L13_2
-  L13_2 = L13_2.openMenu
-  L13_2(L14_2)
-end
-L24_1 = RegisterNetEvent
-L25_1 = "casate:enteredTerritory"
-function L26_1(A0_2)
-  local L1_2, L2_2, L3_2, L4_2, L5_2, L6_2, L7_2, L8_2, L9_2
-  L1_2 = L5_1
-  L2_2 = A0_2
-  L1_2 = L1_2(L2_2)
-  if not L1_2 then
-    return
-  end
-  L2_2 = L13_1
-  L3_2 = A0_2
-  L2_2 = L2_2(L3_2)
-  if L2_2 then
-    L3_2 = L2_2.owner
-    if L3_2 then
-      goto lbl_16
+
+    local cfg = getTerritoryConfig(id)
+    if not cfg then
+        Notify("Configurazione del territorio non trovata.")
+        return
     end
-  end
-  L3_2 = nil
-  ::lbl_16::
-  if L3_2 then
-    L4_2 = L0_1
-    if L4_2 then
-      L4_2 = L0_1
-      L4_2 = L4_2[A0_2]
+
+    local state     = getTerritoryState(id)
+    local owner     = state and state.owner     or nil
+    local ownerName = state and state.ownerName or nil
+    local status    = (state and state.status)  or "neutral"
+
+    -- Stats (default to 0)
+    local cratesOpened        = (state and state.stats and state.stats.cratesOpened)        or 0
+    local cratesLost          = (state and state.stats and state.stats.cratesLost)          or 0
+    local deliveriesCompleted = (state and state.stats and state.stats.deliveriesCompleted) or 0
+    local deliveriesFailed    = (state and state.stats and state.stats.deliveriesFailed)    or 0
+
+    -- Display name for owner
+    local ownerDisplay = ownerName or owner or "Nessuna Casata"
+
+    -- Localise status
+    local statusLabels = {
+        neutral   = "Neutrale",
+        owned     = "Occupato",
+        contested = "Conteso",
+    }
+    local statusDisplay = statusLabels[status] or status
+
+    -- Build menu
+    local fm = exports.striano_fastmenu
+    fm:clearMenu()
+
+    local territoryName = cfg.name or id
+    fm:addMenuItem("🏴 " .. territoryName, function() end, false)
+    fm:addMenuItem("🛡️ Proprietario: " .. ownerDisplay, function() end, false)
+    fm:addMenuItem("🔌 Stato: " .. statusDisplay, function() end, false)
+    fm:addMenuItem("⭐ Costo conquista: " .. tostring(cfg.claimCost or 0) .. " punti", function() end, false)
+    fm:addMenuItem("📦 Casse aperte: " .. cratesOpened, function() end, false)
+    fm:addMenuItem("💀 Casse perse: " .. cratesLost, function() end, false)
+    fm:addMenuItem("✅ Consegne completate: " .. deliveriesCompleted, function() end, false)
+    fm:addMenuItem("❌ Consegne fallite: " .. deliveriesFailed, function() end, false)
+
+    if owner then
+        -- Territory is owned
+        fm:addMenuItem("📍 Gestisci Produzioni", function()
+            TriggerEvent("casate:openSingleTerritoryMenu", id)
+        end, false)
+
+        -- Check if current player's casata owns it and they are the owner rank
+        local casataData = exports.striano_core:GetCurrentCasataData()
+        local casataId   = casataData and casataData.id
+        if casataId and owner == casataId then
+            if casataData.myRank == "owner" then
+                fm:addMenuItem("🚩 Abbandona territorio", function()
+                    exports.striano_fastmenu:closeMenu()
+                    local input = exports.striano_core:OpenInput(
+                        "Scrivi CONFERMA per abbandonare il territorio", "", { maxLen = 16 }
+                    )
+                    local confirmed = string.lower(tostring(input or ""))
+                    if confirmed ~= "conferma" then
+                        Notify("Operazione annullata.")
+                        return
+                    end
+                    TriggerServerEvent("casate:releaseTerritory", id)
+                end, true)
+            end
+        end
+    else
+        -- Neutral — show claim option
+        fm:addMenuItem("🏴 Reclama territorio", function()
+            exports.striano_fastmenu:closeMenu()
+            startTerritoryClaim(id)
+        end, true)
     end
-    L5_2 = Notify
-    L6_2 = "Sei entrato nel territorio %s, controllato dalla Casata %s."
-    L7_2 = L6_2
-    L6_2 = L6_2.format
-    L8_2 = L1_2.name
-    if not L8_2 then
-      L8_2 = A0_2
+
+    fm:openMenu()
+end
+
+-- =============================================================================
+-- NET EVENTS
+-- =============================================================================
+
+RegisterNetEvent("casate:receiveTerritories")
+AddEventHandler("casate:receiveTerritories", function(data)
+    territoryStates  = (type(data) == "table" and data) or {}
+    territoriesLoaded = true
+    TriggerEvent("casate:territoriesLoaded", territoryStates)
+end)
+
+RegisterNetEvent("casate:territoryUpdated")
+AddEventHandler("casate:territoryUpdated", function(territoryId, newData)
+    territoryId = tostring(territoryId or "")
+    if territoryId == "" then return end
+
+    if newData == nil then
+        territoryStates[territoryId] = nil
+    else
+        territoryStates[territoryId] = newData
     end
-    if L4_2 then
-      L9_2 = L4_2.ownerName
-      if L9_2 then
-        goto lbl_36
-      end
+
+    TriggerEvent("casate:territoryStateChanged", territoryId, newData)
+end)
+
+-- Entry / leave notification handlers
+RegisterNetEvent("casate:enteredTerritory")
+AddEventHandler("casate:enteredTerritory", function(territoryId)
+    local cfg   = getTerritoryConfig(territoryId)
+    if not cfg then return end
+
+    local state  = getTerritoryState(territoryId)
+    local owner  = state and state.owner or nil
+
+    local displayName = cfg.name or territoryId
+
+    if owner then
+        local ownerLabel = (state and state.ownerName) or owner
+        Notify(string.format(
+            "Sei entrato nel territorio %s, controllato dalla Casata %s.",
+            displayName, ownerLabel
+        ))
+    else
+        Notify(string.format("Sei entrato nel territorio neutrale %s.", displayName))
     end
-    L9_2 = L3_2
-    ::lbl_36::
-    L6_2, L7_2, L8_2, L9_2 = L6_2(L7_2, L8_2, L9_2)
-    L5_2(L6_2, L7_2, L8_2, L9_2)
-  else
-    L4_2 = Notify
-    L5_2 = "Sei entrato nel territorio neutrale %s."
-    L6_2 = L5_2
-    L5_2 = L5_2.format
-    L7_2 = L1_2.name
-    if not L7_2 then
-      L7_2 = A0_2
+end)
+
+RegisterNetEvent("casate:leftTerritory")
+AddEventHandler("casate:leftTerritory", function(territoryId)
+    -- Silent leave; extend here for notifications if needed
+    local cfg = getTerritoryConfig(territoryId)
+    if not cfg then return end
+end)
+
+-- =============================================================================
+-- COMMANDS
+-- =============================================================================
+
+RegisterCommand("territorio", function()
+    openTerritoryMenu()
+end, false)
+
+RegisterCommand("territoriodebug", function()
+    local id = getCurrentTerritory()
+    if not id then
+        print("^3[TERRITORI] Non sei dentro nessun territorio.^7")
+        return
     end
-    L5_2, L6_2, L7_2, L8_2, L9_2 = L5_2(L6_2, L7_2)
-    L4_2(L5_2, L6_2, L7_2, L8_2, L9_2)
-  end
-end
-L24_1(L25_1, L26_1)
-L24_1 = RegisterNetEvent
-L25_1 = "casate:leftTerritory"
-function L26_1(A0_2)
-  local L1_2, L2_2
-  L1_2 = L5_1
-  L2_2 = A0_2
-  L1_2 = L1_2(L2_2)
-  if not L1_2 then
-    return
-  end
-end
-L24_1(L25_1, L26_1)
-L24_1 = RegisterCommand
-L25_1 = "territorio"
-function L26_1()
-  local L0_2, L1_2
-  L0_2 = L23_1
-  L0_2()
-end
-L27_1 = false
-L24_1(L25_1, L26_1, L27_1)
-L24_1 = RegisterCommand
-L25_1 = "territoriodebug"
-function L26_1()
-  local L0_2, L1_2, L2_2, L3_2, L4_2, L5_2
-  L0_2 = L19_1
-  L0_2 = L0_2()
-  if not L0_2 then
-    L1_2 = print
-    L2_2 = "^3[TERRITORI] Non sei dentro nessun territorio.^7"
-    L1_2(L2_2)
-    return
-  end
-  L1_2 = L5_1
-  L2_2 = L0_2
-  L1_2 = L1_2(L2_2)
-  L2_2 = L13_1
-  L3_2 = L0_2
-  L2_2 = L2_2(L3_2)
-  L3_2 = print
-  L4_2 = "^2[TERRITORI] TERRITORIO CORRENTE^7"
-  L3_2(L4_2)
-  L3_2 = print
-  L4_2 = "ID:"
-  L5_2 = L0_2
-  L3_2(L4_2, L5_2)
-  L3_2 = print
-  L4_2 = "Nome:"
-  L5_2 = L1_2 or L5_2
-  if L1_2 then
-    L5_2 = L1_2.name
-  end
-  L3_2(L4_2, L5_2)
-  L3_2 = print
-  L4_2 = "Owner:"
-  if L2_2 then
-    L5_2 = L2_2.owner
-    if L5_2 then
-      goto lbl_36
+    local cfg   = getTerritoryConfig(id)
+    local state = getTerritoryState(id)
+    print("^2[TERRITORI] TERRITORIO CORRENTE^7")
+    print("ID:", id)
+    print("Nome:", cfg and cfg.name or id)
+    print("Owner:", (state and state.owner) or "Nessuno")
+    print("Status:", (state and state.status) or "neutral")
+end, false)
+
+-- =============================================================================
+-- EXPORTS
+-- =============================================================================
+
+exports("StartTerritoryClaim",   startTerritoryClaim)
+exports("StopTerritoryClaim",    stopTerritoryClaim)
+exports("IsTerritoryClaimRunning", function() return claimRunning end)
+exports("GetTerritoryConfigClient", function(id) return getTerritoryConfig(id) end)
+exports("GetTerritoryStateClient",  function(id) return getTerritoryState(id) end)
+exports("GetTerritoryOwnerClient",  function(id) return getTerritoryOwner(id) end)
+exports("GetTerritoryDataClient",   function(id, path) return getTerritoryData(id, path) end)
+exports("GetCurrentTerritory",      function() return getCurrentTerritory() end)
+exports("IsInsideTerritory",        function(id) return isInsideTerritory(id) end)
+exports("GetTerritoryFromCoords",   function(pos) return getTerritoryFromCoords(pos) end)
+exports("OpenTerritoryMenu",        function(id) openTerritoryMenu(id) end)
+exports("RequestTerritories", function()
+    TriggerServerEvent("casate:requestTerritories")
+end)
+exports("AreTerritoriesLoaded", function() return territoriesLoaded end)
+
+-- ---------------------------------------------------------------------------
+-- IsInsideOwnedTerritory()
+-- Returns: isOwned (bool), currentTerritoryId (string or nil)
+-- Checks whether the player is inside a territory owned by their own casata.
+-- ---------------------------------------------------------------------------
+function IsInsideOwnedTerritory()
+    local id = getCurrentTerritory()
+    if not id or not CurrentCasataData then
+        return false, nil
     end
-  end
-  L5_2 = "Nessuno"
-  ::lbl_36::
-  L3_2(L4_2, L5_2)
-  L3_2 = print
-  L4_2 = "Status:"
-  if L2_2 then
-    L5_2 = L2_2.status
-    if L5_2 then
-      goto lbl_45
+
+    local owner  = getTerritoryOwner(id)
+    local myId   = CurrentCasataData.id
+    if owner ~= myId then
+        return false, id
     end
-  end
-  L5_2 = "neutral"
-  ::lbl_45::
-  L3_2(L4_2, L5_2)
+    return true, id
 end
-L27_1 = false
-L24_1(L25_1, L26_1, L27_1)
-L24_1 = exports
-L25_1 = "StartTerritoryClaim"
-L26_1 = L12_1
-L24_1(L25_1, L26_1)
-L24_1 = exports
-L25_1 = "StopTerritoryClaim"
-L26_1 = L11_1
-L24_1(L25_1, L26_1)
-L24_1 = exports
-L25_1 = "IsTerritoryClaimRunning"
-function L26_1()
-  local L0_2, L1_2
-  L0_2 = L6_1
-  return L0_2
-end
-L24_1(L25_1, L26_1)
-L24_1 = exports
-L25_1 = "GetTerritoryConfigClient"
-function L26_1(A0_2)
-  local L1_2, L2_2
-  L1_2 = L5_1
-  L2_2 = A0_2
-  return L1_2(L2_2)
-end
-L24_1(L25_1, L26_1)
-L24_1 = exports
-L25_1 = "GetTerritoryStateClient"
-function L26_1(A0_2)
-  local L1_2, L2_2
-  L1_2 = L13_1
-  L2_2 = A0_2
-  return L1_2(L2_2)
-end
-L24_1(L25_1, L26_1)
-L24_1 = exports
-L25_1 = "GetTerritoryOwnerClient"
-function L26_1(A0_2)
-  local L1_2, L2_2
-  L1_2 = L14_1
-  L2_2 = A0_2
-  return L1_2(L2_2)
-end
-L24_1(L25_1, L26_1)
-L24_1 = exports
-L25_1 = "GetTerritoryDataClient"
-function L26_1(A0_2, A1_2)
-  local L2_2, L3_2, L4_2
-  L2_2 = L17_1
-  L3_2 = A0_2
-  L4_2 = A1_2
-  return L2_2(L3_2, L4_2)
-end
-L24_1(L25_1, L26_1)
-L24_1 = exports
-L25_1 = "GetCurrentTerritory"
-function L26_1()
-  local L0_2, L1_2
-  L0_2 = L19_1
-  return L0_2()
-end
-L24_1(L25_1, L26_1)
-L24_1 = exports
-L25_1 = "IsInsideTerritory"
-function L26_1(A0_2)
-  local L1_2, L2_2
-  L1_2 = L20_1
-  L2_2 = A0_2
-  return L1_2(L2_2)
-end
-L24_1(L25_1, L26_1)
-L24_1 = exports
-L25_1 = "GetTerritoryFromCoords"
-function L26_1(A0_2)
-  local L1_2, L2_2
-  L1_2 = L18_1
-  L2_2 = A0_2
-  return L1_2(L2_2)
-end
-L24_1(L25_1, L26_1)
-L24_1 = exports
-L25_1 = "OpenTerritoryMenu"
-function L26_1(A0_2)
-  local L1_2, L2_2
-  L1_2 = L23_1
-  L2_2 = A0_2
-  L1_2(L2_2)
-end
-L24_1(L25_1, L26_1)
-L24_1 = exports
-L25_1 = "RequestTerritories"
-function L26_1()
-  local L0_2, L1_2
-  L0_2 = L22_1
-  L0_2()
-end
-L24_1(L25_1, L26_1)
-L24_1 = exports
-L25_1 = "AreTerritoriesLoaded"
-function L26_1()
-  local L0_2, L1_2
-  L0_2 = L3_1
-  return L0_2
-end
-L24_1(L25_1, L26_1)
-function L24_1()
-  local L0_2, L1_2, L2_2, L3_2
-  L0_2 = L19_1
-  L0_2 = L0_2()
-  if L0_2 then
-    L1_2 = CurrentCasataData
-    if L1_2 then
-      goto lbl_11
-    end
-  end
-  L1_2 = false
-  L2_2 = nil
-  do return L1_2, L2_2 end
-  ::lbl_11::
-  L1_2 = L14_1
-  L2_2 = L0_2
-  L1_2 = L1_2(L2_2)
-  L2_2 = CurrentCasataData
-  L2_2 = L2_2.id
-  if L1_2 ~= L2_2 then
-    L2_2 = false
-    L3_2 = L0_2
-    return L2_2, L3_2
-  end
-  L2_2 = true
-  L3_2 = L0_2
-  return L2_2, L3_2
-end
-IsInsideOwnedTerritory = L24_1
-L24_1 = exports
-L25_1 = "IsInsideOwnedTerritory"
-L26_1 = IsInsideOwnedTerritory
-L24_1(L25_1, L26_1)
-L24_1 = CreateThread
-function L25_1()
-  local L0_2, L1_2
-  L0_2 = Wait
-  L1_2 = 1000
-  L0_2(L1_2)
-  L0_2 = L22_1
-  L0_2()
-  L0_2 = Wait
-  L1_2 = 3000
-  L0_2(L1_2)
-  L0_2 = L21_1
-  L0_2()
-end
-L24_1(L25_1)
+
+exports("IsInsideOwnedTerritory", IsInsideOwnedTerritory)
+
+-- =============================================================================
+-- STARTUP
+-- =============================================================================
+
+CreateThread(function()
+    Wait(1000)
+    TriggerServerEvent("casate:requestTerritories")
+    Wait(3000)
+    startTrackerLoop()
+end)

@@ -1,1102 +1,660 @@
-local L0_1, L1_1, L2_1, L3_1, L4_1, L5_1, L6_1, L7_1, L8_1, L9_1, L10_1, L11_1, L12_1, L13_1, L14_1, L15_1, L16_1, L17_1, L18_1, L19_1, L20_1, L21_1, L22_1, L23_1, L24_1, L25_1, L26_1, L27_1
-L0_1 = 120
-L1_1 = 90.0
-L2_1 = vector3
-L3_1 = 0.0
-L4_1 = 0.35
-L5_1 = 0.08
-L2_1 = L2_1(L3_1, L4_1, L5_1)
-L3_1 = vector3
-L4_1 = -90.0
-L5_1 = 0.0
-L6_1 = 0.0
-L3_1 = L3_1(L4_1, L5_1, L6_1)
-L4_1 = 1.8
-L5_1 = 0.55
-L6_1 = 180
-L7_1 = {}
-L8_1 = {}
-L9_1 = {}
-function L10_1(A0_2)
-  local L1_2
-  L1_2 = A0_2 or nil
-  if A0_2 then
-    L1_2 = A0_2.x
-    L1_2 = nil ~= L1_2
-  end
-  return L1_2
+-- =============================================================================
+-- particles_manager_client.lua
+-- Particle effects (ptfx) manager for striano_core.
+-- Provides looped/non-looped FX on entities, entity bones, and world coords.
+-- Includes a "fake loop" emulation for effects that only support one-shot API.
+-- =============================================================================
+
+-- ---------------------------------------------------------------------------
+-- Constants / defaults
+-- ---------------------------------------------------------------------------
+local MAX_ACTIVE_FX   = 120
+local DEFAULT_MAX_DIST = 90.0
+
+-- Default offset applied when none is supplied (slightly in front & up)
+local DEFAULT_OFFSET = vector3(0.0, 0.35, 0.08)
+-- Default rotation when none is supplied
+local DEFAULT_ROT    = vector3(-90.0, 0.0, 0.0)
+
+local DEFAULT_SCALE  = 1.8
+local DEFAULT_ALPHA  = 0.55
+local FAKE_LOOP_TICK = 180   -- ms between non-looped re-fires
+
+-- ---------------------------------------------------------------------------
+-- State tables
+-- loopedFxByEntity[entityHandle] = fxHandle   — active looped FX per entity
+-- fakeLoopByKey[key]             = { ... }    — fake-looped (non-looped) FX on entities
+-- coordFakeLoops[key]            = { ... }    — fake-looped FX at world coords
+-- coordFxByHandle[fxHandle]      = true       — active looped coord FX
+-- entityToFakeKey[entity]        = key        — reverse lookup for StopFakeLoop(entity)
+-- ---------------------------------------------------------------------------
+local loopedFxByEntity  = {}
+local fakeLoopByKey     = {}
+local coordFakeLoops    = {}
+local coordFxByHandle   = {}
+local entityToFakeKey   = {}
+
+-- ---------------------------------------------------------------------------
+-- isVec3(v) — returns true if v is a vector3 (has .x field)
+-- ---------------------------------------------------------------------------
+local function isVec3(v)
+    if not v then return false end
+    if v then return v.x ~= nil end
+    return false
 end
-function L11_1(A0_2)
-  local L1_2, L2_2, L3_2, L4_2
-  L1_2 = L10_1
-  L2_2 = A0_2
-  L1_2 = L1_2(L2_2)
-  if L1_2 then
-    return A0_2
-  else
-    L1_2 = type
-    L2_2 = A0_2
-    L1_2 = L1_2(L2_2)
-    if "table" == L1_2 then
-      L1_2 = vector3
-      L2_2 = A0_2.x
-      if not L2_2 then
-        L2_2 = 0.0
-      end
-      L3_2 = A0_2.y
-      if not L3_2 then
-        L3_2 = 0.0
-      end
-      L4_2 = A0_2.z
-      if not L4_2 then
-        L4_2 = 0.0
-      end
-      return L1_2(L2_2, L3_2, L4_2)
-    else
-      L1_2 = vector3
-      L2_2 = 0.0
-      L3_2 = 0.0
-      L4_2 = 0.0
-      return L1_2(L2_2, L3_2, L4_2)
+
+-- ---------------------------------------------------------------------------
+-- toVec3(v) — converts table {x,y,z} or nil to vector3; falls back to zero.
+-- ---------------------------------------------------------------------------
+local function toVec3(v)
+    if isVec3(v) then return v end
+    if type(v) == "table" then
+        return vector3(v.x or 0.0, v.y or 0.0, v.z or 0.0)
     end
-  end
+    return vector3(0.0, 0.0, 0.0)
 end
-function L12_1(A0_2, A1_2)
-  local L2_2, L3_2, L4_2, L5_2, L6_2
-  L2_2 = A0_2.x
-  L3_2 = A1_2.x
-  L2_2 = L2_2 - L3_2
-  L3_2 = A0_2.y
-  L4_2 = A1_2.y
-  L3_2 = L3_2 - L4_2
-  L4_2 = A0_2.z
-  L5_2 = A1_2.z
-  L4_2 = L4_2 - L5_2
-  L5_2 = L2_2 * L2_2
-  L6_2 = L3_2 * L3_2
-  L5_2 = L5_2 + L6_2
-  L6_2 = L4_2 * L4_2
-  L5_2 = L5_2 + L6_2
-  return L5_2
+
+-- ---------------------------------------------------------------------------
+-- distSq(a, b) — squared distance between two vector3s (avoids sqrt)
+-- ---------------------------------------------------------------------------
+local function distSq(a, b)
+    local dx = a.x - b.x
+    local dy = a.y - b.y
+    local dz = a.z - b.z
+    return dx*dx + dy*dy + dz*dz
 end
-function L13_1(A0_2)
-  local L1_2, L2_2
-  L1_2 = HasNamedPtfxAssetLoaded
-  L2_2 = A0_2
-  L1_2 = L1_2(L2_2)
-  if not L1_2 then
-    L1_2 = RequestNamedPtfxAsset
-    L2_2 = A0_2
-    L1_2(L2_2)
+
+-- ---------------------------------------------------------------------------
+-- loadPtfxAsset(dict)
+-- Requests and waits for a named PTFX asset, then sets it as active.
+-- ---------------------------------------------------------------------------
+local function loadPtfxAsset(dict)
+    if not HasNamedPtfxAssetLoaded(dict) then
+        RequestNamedPtfxAsset(dict)
+        while not HasNamedPtfxAssetLoaded(dict) do
+            Wait(0)
+        end
+    end
+    UseParticleFxAsset(dict)
+end
+
+-- ---------------------------------------------------------------------------
+-- countActiveLooped()
+-- Counts active looped FX handles in loopedFxByEntity.
+-- ---------------------------------------------------------------------------
+local function countActiveLooped()
+    local count = 0
+    for _, handle in pairs(loopedFxByEntity) do
+        if handle and handle ~= -1 then
+            count = count + 1
+        end
+    end
+    return count
+end
+
+-- ---------------------------------------------------------------------------
+-- evictOldestLooped()
+-- When the looped FX cap is reached, stops the first found active one.
+-- ---------------------------------------------------------------------------
+local function evictOldestLooped()
+    local total = countActiveLooped()
+    for _, handle in pairs(coordFxByHandle) do
+        total = total + 1
+    end
+    if total < MAX_ACTIVE_FX then return end
+
+    -- Evict from entity looped table first
+    for entityKey, handle in pairs(loopedFxByEntity) do
+        if handle and handle ~= -1 then
+            StopParticleFxLooped(handle, false)
+            loopedFxByEntity[entityKey] = nil
+            return
+        end
+    end
+    -- Then evict from coord looped table
+    for handle in pairs(coordFxByHandle) do
+        StopParticleFxLooped(handle, false)
+        coordFxByHandle[handle] = nil
+        return
+    end
+end
+
+-- =============================================================================
+-- LOOPED FX ON ENTITY
+-- =============================================================================
+
+-- ---------------------------------------------------------------------------
+-- startFxOnEntityInternal(fxName, entity, offset, rot, scale, alpha, dict)
+-- Core implementation — up to 3 retries with 120 ms between attempts.
+-- Returns: fxHandle on success, or nil, errorMsg on failure.
+-- ---------------------------------------------------------------------------
+local function startFxOnEntityInternal(fxName, entity, offset, rot, scale, alpha, dict)
+    if entity == 0 or not DoesEntityExist(entity) then
+        return nil, "no_entity"
+    end
+
+    loadPtfxAsset(dict)
+    evictOldestLooped()
+
+    -- Stop any existing FX on this entity
+    local existing = loopedFxByEntity[entity]
+    if existing and existing ~= -1 then
+        StopParticleFxLooped(existing, false)
+        loopedFxByEntity[entity] = nil
+        Wait(0)
+    end
+
+    offset = toVec3(offset or DEFAULT_OFFSET)
+    rot    = toVec3(rot    or DEFAULT_ROT)
+    scale  = scale or DEFAULT_SCALE
+    alpha  = alpha or DEFAULT_ALPHA
+
+    local handle
+    for _ = 1, 3 do
+        handle = StartParticleFxLoopedOnEntity(
+            fxName, entity,
+            offset.x, offset.y, offset.z,
+            rot.x,    rot.y,    rot.z,
+            scale,
+            false, false, false
+        )
+        if handle and handle ~= -1 then
+            SetParticleFxLoopedAlpha(handle, alpha)
+            loopedFxByEntity[entity] = handle
+            return handle
+        end
+        Wait(120)
+    end
+
+    return nil, "start_failed"
+end
+
+-- ---------------------------------------------------------------------------
+-- StartFx(dict, fxName, entity, offset, rot, scale, alpha)
+-- Public API — starts a looped particle on an entity.
+-- ---------------------------------------------------------------------------
+function StartFx(dict, fxName, entity, offset, rot, scale, alpha)
+    if not dict or not fxName then return nil, "bad_params" end
+    return startFxOnEntityInternal(fxName, entity, offset, rot, scale, alpha, dict)
+end
+
+exports("StartFx", StartFx)
+
+-- ---------------------------------------------------------------------------
+-- StartFxOnBone(dict, fxName, entity, boneIdOrName, offset, rot, scale, alpha)
+-- Starts a looped particle attached to a specific entity bone.
+-- boneIdOrName may be an integer bone index or a string bone name.
+-- Falls back to "chassis" bone if the name is not found.
+-- ---------------------------------------------------------------------------
+function StartFxOnBone(dict, fxName, entity, boneIdOrName, offset, rot, scale, alpha)
+    if not dict or not fxName then return nil, "bad_params" end
+    if entity == 0 or not DoesEntityExist(entity) then return nil, "no_entity" end
+
+    loadPtfxAsset(dict)
+    evictOldestLooped()
+
+    -- Stop existing FX on this entity
+    local existing = loopedFxByEntity[entity]
+    if existing and existing ~= -1 then
+        StopParticleFxLooped(existing, false)
+        loopedFxByEntity[entity] = nil
+        Wait(0)
+    end
+
+    -- Resolve bone index
+    local boneIndex = 0
+    if type(boneIdOrName) == "number" then
+        boneIndex = boneIdOrName
+    elseif type(boneIdOrName) == "string" then
+        local idx = GetEntityBoneIndexByName(entity, boneIdOrName)
+        if idx ~= -1 then
+            boneIndex = idx
+        else
+            local chassisIdx = GetEntityBoneIndexByName(entity, "chassis")
+            if chassisIdx ~= -1 then
+                boneIndex = chassisIdx
+            end
+        end
+    end
+
+    offset = toVec3(offset or DEFAULT_OFFSET)
+    rot    = toVec3(rot    or DEFAULT_ROT)
+    scale  = scale or DEFAULT_SCALE
+    alpha  = alpha or DEFAULT_ALPHA
+
+    local handle
+    for _ = 1, 3 do
+        handle = StartParticleFxLoopedOnEntityBone(
+            fxName, entity, boneIndex,
+            offset.x, offset.y, offset.z,
+            rot.x,    rot.y,    rot.z,
+            scale,
+            false, false, false
+        )
+        if handle and handle ~= -1 then
+            SetParticleFxLoopedAlpha(handle, alpha)
+            loopedFxByEntity[entity] = handle
+            return handle
+        end
+        Wait(120)
+    end
+
+    return nil, "start_failed"
+end
+
+exports("StartFxOnBone", StartFxOnBone)
+
+-- ---------------------------------------------------------------------------
+-- StopFx(entity)
+-- Stops the looped FX currently playing on `entity`.
+-- ---------------------------------------------------------------------------
+function StopFx(entity)
+    local handle = loopedFxByEntity[entity]
+    if handle and handle ~= -1 then
+        StopParticleFxLooped(handle, false)
+    end
+    loopedFxByEntity[entity] = nil
+end
+
+exports("StopFx", StopFx)
+
+-- ---------------------------------------------------------------------------
+-- StopAllFx()
+-- Stops all looped FX tracked in loopedFxByEntity.
+-- ---------------------------------------------------------------------------
+function StopAllFx()
+    for entityKey, handle in pairs(loopedFxByEntity) do
+        if handle and handle ~= -1 then
+            StopParticleFxLooped(handle, false)
+        end
+        loopedFxByEntity[entityKey] = nil
+    end
+end
+
+exports("StopAllFx", StopAllFx)
+
+-- ---------------------------------------------------------------------------
+-- CountActiveFx()
+-- Returns the total number of active looped FX handles.
+-- ---------------------------------------------------------------------------
+function CountActiveFx()
+    return countActiveLooped()
+end
+
+exports("CountActiveFx", CountActiveFx)
+
+-- =============================================================================
+-- FAKE LOOP FX ON ENTITY
+-- (For effects that have no looped variant — re-fired periodically)
+-- =============================================================================
+
+-- Background thread: fires non-looped entity FX for enabled fake-loop entries
+CreateThread(function()
     while true do
-      L1_2 = HasNamedPtfxAssetLoaded
-      L2_2 = A0_2
-      L1_2 = L1_2(L2_2)
-      if L1_2 then
-        break
-      end
-      L1_2 = Wait
-      L2_2 = 0
-      L1_2(L2_2)
-    end
-  end
-  L1_2 = UseParticleFxAsset
-  L2_2 = A0_2
-  L1_2(L2_2)
-end
-function L14_1()
-  local L0_2, L1_2, L2_2, L3_2, L4_2, L5_2, L6_2, L7_2
-  L0_2 = 0
-  L1_2 = pairs
-  L2_2 = L7_1
-  L1_2, L2_2, L3_2, L4_2 = L1_2(L2_2)
-  for L5_2, L6_2 in L1_2, L2_2, L3_2, L4_2 do
-    if L6_2 and -1 ~= L6_2 then
-      L0_2 = L0_2 + 1
-    end
-  end
-  return L0_2
-end
-function L15_1()
-  local L0_2, L1_2, L2_2, L3_2, L4_2, L5_2, L6_2, L7_2, L8_2
-  L0_2 = L14_1
-  L0_2 = L0_2()
-  L1_2 = L0_1
-  if L0_2 < L1_2 then
-    return
-  end
-  L0_2 = pairs
-  L1_2 = L7_1
-  L0_2, L1_2, L2_2, L3_2 = L0_2(L1_2)
-  for L4_2, L5_2 in L0_2, L1_2, L2_2, L3_2 do
-    if L5_2 and -1 ~= L5_2 then
-      L6_2 = StopParticleFxLooped
-      L7_2 = L5_2
-      L8_2 = false
-      L6_2(L7_2, L8_2)
-      L6_2 = L7_1
-      L6_2[L4_2] = nil
-      break
-    end
-  end
-end
-function L16_1(A0_2, A1_2, A2_2, A3_2, A4_2, A5_2, A6_2)
-  local L7_2, L8_2, L9_2, L10_2, L11_2, L12_2, L13_2, L14_2, L15_2, L16_2, L17_2, L18_2, L19_2, L20_2, L21_2, L22_2, L23_2, L24_2, L25_2
-  if 0 ~= A1_2 then
-    L7_2 = DoesEntityExist
-    L8_2 = A1_2
-    L7_2 = L7_2(L8_2)
-    if L7_2 then
-      goto lbl_11
-    end
-  end
-  L7_2 = nil
-  L8_2 = "no_entity"
-  do return L7_2, L8_2 end
-  ::lbl_11::
-  L7_2 = L13_1
-  L8_2 = A6_2
-  L7_2(L8_2)
-  L7_2 = L15_1
-  L7_2()
-  L7_2 = L7_1
-  L7_2 = L7_2[A1_2]
-  if L7_2 and -1 ~= L7_2 then
-    L8_2 = StopParticleFxLooped
-    L9_2 = L7_2
-    L10_2 = false
-    L8_2(L9_2, L10_2)
-    L8_2 = L7_1
-    L8_2[A1_2] = nil
-    L8_2 = Wait
-    L9_2 = 0
-    L8_2(L9_2)
-  end
-  L8_2 = L11_1
-  L9_2 = A2_2 or L9_2
-  if not A2_2 then
-    L9_2 = L2_1
-  end
-  L8_2 = L8_2(L9_2)
-  A2_2 = L8_2
-  L8_2 = L11_1
-  L9_2 = A3_2 or L9_2
-  if not A3_2 then
-    L9_2 = L3_1
-  end
-  L8_2 = L8_2(L9_2)
-  A3_2 = L8_2
-  if not A4_2 then
-    A4_2 = L4_1
-  end
-  if not A5_2 then
-    A5_2 = L5_1
-  end
-  L8_2 = nil
-  L9_2 = 1
-  L10_2 = 3
-  L11_2 = 1
-  for L12_2 = L9_2, L10_2, L11_2 do
-    L13_2 = StartParticleFxLoopedOnEntity
-    L14_2 = A0_2
-    L15_2 = A1_2
-    L16_2 = A2_2.x
-    L17_2 = A2_2.y
-    L18_2 = A2_2.z
-    L19_2 = A3_2.x
-    L20_2 = A3_2.y
-    L21_2 = A3_2.z
-    L22_2 = A4_2
-    L23_2 = false
-    L24_2 = false
-    L25_2 = false
-    L13_2 = L13_2(L14_2, L15_2, L16_2, L17_2, L18_2, L19_2, L20_2, L21_2, L22_2, L23_2, L24_2, L25_2)
-    L8_2 = L13_2
-    if L8_2 and -1 ~= L8_2 then
-      L13_2 = SetParticleFxLoopedAlpha
-      L14_2 = L8_2
-      L15_2 = A5_2
-      L13_2(L14_2, L15_2)
-      L13_2 = L7_1
-      L13_2[A1_2] = L8_2
-      return L8_2
-    end
-    L13_2 = Wait
-    L14_2 = 120
-    L13_2(L14_2)
-  end
-  L9_2 = nil
-  L10_2 = "start_failed"
-  return L9_2, L10_2
-end
-function L17_1(A0_2, A1_2, A2_2, A3_2, A4_2, A5_2, A6_2)
-  local L7_2, L8_2, L9_2, L10_2, L11_2, L12_2, L13_2, L14_2
-  if not A0_2 or not A1_2 then
-    L7_2 = nil
-    L8_2 = "bad_params"
-    return L7_2, L8_2
-  end
-  L7_2 = L16_1
-  L8_2 = A1_2
-  L9_2 = A2_2
-  L10_2 = A3_2
-  L11_2 = A4_2
-  L12_2 = A5_2
-  L13_2 = A6_2
-  L14_2 = A0_2
-  return L7_2(L8_2, L9_2, L10_2, L11_2, L12_2, L13_2, L14_2)
-end
-StartFx = L17_1
-L17_1 = exports
-L18_1 = "StartFx"
-L19_1 = StartFx
-L17_1(L18_1, L19_1)
-function L17_1(A0_2, A1_2, A2_2, A3_2, A4_2, A5_2, A6_2, A7_2)
-  local L8_2, L9_2, L10_2, L11_2, L12_2, L13_2, L14_2, L15_2, L16_2, L17_2, L18_2, L19_2, L20_2, L21_2, L22_2, L23_2, L24_2, L25_2, L26_2, L27_2, L28_2
-  if not A0_2 or not A1_2 then
-    L8_2 = nil
-    L9_2 = "bad_params"
-    return L8_2, L9_2
-  end
-  if 0 ~= A2_2 then
-    L8_2 = DoesEntityExist
-    L9_2 = A2_2
-    L8_2 = L8_2(L9_2)
-    if L8_2 then
-      goto lbl_18
-    end
-  end
-  L8_2 = nil
-  L9_2 = "no_entity"
-  do return L8_2, L9_2 end
-  ::lbl_18::
-  L8_2 = L13_1
-  L9_2 = A0_2
-  L8_2(L9_2)
-  L8_2 = L15_1
-  L8_2()
-  L8_2 = L7_1
-  L8_2 = L8_2[A2_2]
-  if L8_2 and -1 ~= L8_2 then
-    L9_2 = StopParticleFxLooped
-    L10_2 = L8_2
-    L11_2 = false
-    L9_2(L10_2, L11_2)
-    L9_2 = L7_1
-    L9_2[A2_2] = nil
-    L9_2 = Wait
-    L10_2 = 0
-    L9_2(L10_2)
-  end
-  L9_2 = 0
-  L10_2 = type
-  L11_2 = A3_2
-  L10_2 = L10_2(L11_2)
-  if "number" == L10_2 then
-    L9_2 = A3_2
-  else
-    L10_2 = type
-    L11_2 = A3_2
-    L10_2 = L10_2(L11_2)
-    if "string" == L10_2 then
-      L10_2 = GetEntityBoneIndexByName
-      L11_2 = A2_2
-      L12_2 = A3_2
-      L10_2 = L10_2(L11_2, L12_2)
-      if -1 ~= L10_2 then
-        L9_2 = L10_2
-      else
-        L11_2 = GetEntityBoneIndexByName
-        L12_2 = A2_2
-        L13_2 = "chassis"
-        L11_2 = L11_2(L12_2, L13_2)
-        L10_2 = L11_2
-        L9_2 = L10_2 or L9_2
-        if -1 == L10_2 or not L10_2 then
-          L9_2 = 0
-        end
-      end
-    end
-  end
-  L10_2 = L11_1
-  L11_2 = A4_2 or L11_2
-  if not A4_2 then
-    L11_2 = L2_1
-  end
-  L10_2 = L10_2(L11_2)
-  A4_2 = L10_2
-  L10_2 = L11_1
-  L11_2 = A5_2 or L11_2
-  if not A5_2 then
-    L11_2 = L3_1
-  end
-  L10_2 = L10_2(L11_2)
-  A5_2 = L10_2
-  if not A6_2 then
-    A6_2 = L4_1
-  end
-  if not A7_2 then
-    A7_2 = L5_1
-  end
-  L10_2 = nil
-  L11_2 = 1
-  L12_2 = 3
-  L13_2 = 1
-  for L14_2 = L11_2, L12_2, L13_2 do
-    L15_2 = StartParticleFxLoopedOnEntityBone
-    L16_2 = A1_2
-    L17_2 = A2_2
-    L18_2 = L9_2
-    L19_2 = A4_2.x
-    L20_2 = A4_2.y
-    L21_2 = A4_2.z
-    L22_2 = A5_2.x
-    L23_2 = A5_2.y
-    L24_2 = A5_2.z
-    L25_2 = A6_2
-    L26_2 = false
-    L27_2 = false
-    L28_2 = false
-    L15_2 = L15_2(L16_2, L17_2, L18_2, L19_2, L20_2, L21_2, L22_2, L23_2, L24_2, L25_2, L26_2, L27_2, L28_2)
-    L10_2 = L15_2
-    if L10_2 and -1 ~= L10_2 then
-      L15_2 = SetParticleFxLoopedAlpha
-      L16_2 = L10_2
-      L17_2 = A7_2
-      L15_2(L16_2, L17_2)
-      L15_2 = L7_1
-      L15_2[A2_2] = L10_2
-      return L10_2
-    end
-    L15_2 = Wait
-    L16_2 = 120
-    L15_2(L16_2)
-  end
-  L11_2 = nil
-  L12_2 = "start_failed"
-  return L11_2, L12_2
-end
-StartFxOnBone = L17_1
-L17_1 = exports
-L18_1 = "StartFxOnBone"
-L19_1 = StartFxOnBone
-L17_1(L18_1, L19_1)
-function L17_1(A0_2)
-  local L1_2, L2_2, L3_2, L4_2
-  L1_2 = L7_1
-  L1_2 = L1_2[A0_2]
-  if L1_2 and -1 ~= L1_2 then
-    L2_2 = StopParticleFxLooped
-    L3_2 = L1_2
-    L4_2 = false
-    L2_2(L3_2, L4_2)
-  end
-  L2_2 = L7_1
-  L2_2[A0_2] = nil
-end
-StopFx = L17_1
-L17_1 = exports
-L18_1 = "StopFx"
-L19_1 = StopFx
-L17_1(L18_1, L19_1)
-function L17_1()
-  local L0_2, L1_2, L2_2, L3_2, L4_2, L5_2, L6_2, L7_2, L8_2
-  L0_2 = pairs
-  L1_2 = L7_1
-  L0_2, L1_2, L2_2, L3_2 = L0_2(L1_2)
-  for L4_2, L5_2 in L0_2, L1_2, L2_2, L3_2 do
-    if L5_2 and -1 ~= L5_2 then
-      L6_2 = StopParticleFxLooped
-      L7_2 = L5_2
-      L8_2 = false
-      L6_2(L7_2, L8_2)
-    end
-    L6_2 = L7_1
-    L6_2[L4_2] = nil
-  end
-end
-StopAllFx = L17_1
-L17_1 = exports
-L18_1 = "StopAllFx"
-L19_1 = StopAllFx
-L17_1(L18_1, L19_1)
-function L17_1()
-  local L0_2, L1_2
-  L0_2 = L14_1
-  return L0_2()
-end
-CountActiveFx = L17_1
-L17_1 = exports
-L18_1 = "CountActiveFx"
-L19_1 = CountActiveFx
-L17_1(L18_1, L19_1)
-L17_1 = CreateThread
-function L18_1()
-  local L0_2, L1_2, L2_2, L3_2, L4_2, L5_2, L6_2, L7_2, L8_2, L9_2, L10_2, L11_2, L12_2, L13_2, L14_2, L15_2, L16_2, L17_2, L18_2, L19_2, L20_2, L21_2
-  while true do
-    L0_2 = PlayerPedId
-    L0_2 = L0_2()
-    L1_2 = GetEntityCoords
-    L2_2 = L0_2
-    L1_2 = L1_2(L2_2)
-    L2_2 = pairs
-    L3_2 = L8_1
-    L2_2, L3_2, L4_2, L5_2 = L2_2(L3_2)
-    for L6_2, L7_2 in L2_2, L3_2, L4_2, L5_2 do
-      L8_2 = L7_2.enabled
-      if L8_2 then
-        L8_2 = L7_2.ent
-        if L8_2 then
-          L8_2 = DoesEntityExist
-          L9_2 = L7_2.ent
-          L8_2 = L8_2(L9_2)
-          if L8_2 then
-            L8_2 = GetEntityCoords
-            L9_2 = L7_2.ent
-            L8_2 = L8_2(L9_2)
-            L9_2 = L7_2.maxDist
-            if not L9_2 then
-              L9_2 = L1_1
+        local playerPos = GetEntityCoords(PlayerPedId())
+
+        for _, entry in pairs(fakeLoopByKey) do
+            if entry.enabled and entry.ent then
+                if DoesEntityExist(entry.ent) then
+                    local entPos  = GetEntityCoords(entry.ent)
+                    local maxDist = entry.maxDist or DEFAULT_MAX_DIST
+                    if distSq(playerPos, entPos) <= maxDist * maxDist then
+                        loadPtfxAsset(entry.dict)
+                        UseParticleFxAsset(entry.dict)
+                        local off   = toVec3(entry.off   or DEFAULT_OFFSET)
+                        local rot   = toVec3(entry.rot   or DEFAULT_ROT)
+                        local scale = entry.scale or DEFAULT_SCALE
+                        StartParticleFxNonLoopedOnEntity(
+                            entry.name, entry.ent,
+                            off.x, off.y, off.z,
+                            rot.x, rot.y, rot.z,
+                            scale
+                        )
+                    end
+                end
             end
-            L10_2 = L12_1
-            L11_2 = L1_2
-            L12_2 = L8_2
-            L10_2 = L10_2(L11_2, L12_2)
-            L11_2 = L9_2 * L9_2
-            if L10_2 <= L11_2 then
-              L10_2 = L13_1
-              L11_2 = L7_2.dict
-              L10_2(L11_2)
-              L10_2 = UseParticleFxAsset
-              L11_2 = L7_2.dict
-              L10_2(L11_2)
-              L10_2 = L11_1
-              L11_2 = L7_2.off
-              if not L11_2 then
-                L11_2 = L2_1
-              end
-              L10_2 = L10_2(L11_2)
-              L11_2 = L11_1
-              L12_2 = L7_2.rot
-              if not L12_2 then
-                L12_2 = L3_1
-              end
-              L11_2 = L11_2(L12_2)
-              L12_2 = StartParticleFxNonLoopedOnEntity
-              L13_2 = L7_2.name
-              L14_2 = L7_2.ent
-              L15_2 = L10_2.x
-              L16_2 = L10_2.y
-              L17_2 = L10_2.z
-              L18_2 = L11_2.x
-              L19_2 = L11_2.y
-              L20_2 = L11_2.z
-              L21_2 = L7_2.scale
-              if not L21_2 then
-                L21_2 = L4_1
-              end
-              L12_2(L13_2, L14_2, L15_2, L16_2, L17_2, L18_2, L19_2, L20_2, L21_2)
+        end
+
+        Wait(FAKE_LOOP_TICK)
+    end
+end)
+
+-- ---------------------------------------------------------------------------
+-- keyForEntity(entity) — generates a stable string key from an entity handle
+-- ---------------------------------------------------------------------------
+local function keyForEntity(entity)
+    return tostring(entity)
+end
+
+-- ---------------------------------------------------------------------------
+-- StartFakeLoop(dict, fxName, entity, offset, rot, scale, tickMs, maxDist)
+-- Registers a non-looped FX to be re-fired every tickMs ms near the entity.
+-- Returns the key string that can be passed to StopFakeLoop.
+-- ---------------------------------------------------------------------------
+function StartFakeLoop(dict, fxName, entity, offset, rot, scale, tickMs, maxDist)
+    if not dict or not fxName or (entity == 0 or not DoesEntityExist(entity)) then
+        return nil, "bad_params"
+    end
+
+    local key = keyForEntity(entity)
+    fakeLoopByKey[key] = {
+        ent     = entity,
+        dict    = dict,
+        name    = fxName,
+        off     = offset,
+        rot     = rot,
+        scale   = scale,
+        tick    = tickMs  or FAKE_LOOP_TICK,
+        maxDist = maxDist or DEFAULT_MAX_DIST,
+        enabled = true,
+    }
+    entityToFakeKey[entity] = key
+    return key
+end
+
+exports("StartFakeLoop", StartFakeLoop)
+
+-- ---------------------------------------------------------------------------
+-- StopFakeLoop(keyOrEntity)
+-- Removes the fake-loop entry by key string or entity handle.
+-- Returns true on success, false if not found.
+-- ---------------------------------------------------------------------------
+function StopFakeLoop(keyOrEntity)
+    local key = keyOrEntity
+    if type(keyOrEntity) ~= "string" then
+        key = entityToFakeKey[keyOrEntity]
+    end
+    if key then
+        local entry = fakeLoopByKey[key]
+        if entry then
+            entityToFakeKey[entry.ent] = nil
+            fakeLoopByKey[key] = nil
+            return true
+        end
+    end
+    return false
+end
+
+exports("StopFakeLoop", StopFakeLoop)
+
+-- ---------------------------------------------------------------------------
+-- ClearFxInRange(radius)
+-- Removes all world particle effects within `radius` of the player ped.
+-- ---------------------------------------------------------------------------
+function ClearFxInRange(radius)
+    local pos = GetEntityCoords(PlayerPedId())
+    RemoveParticleFxInRange(pos.x, pos.y, pos.z, radius or 500.0)
+end
+
+exports("ClearFxInRange", ClearFxInRange)
+
+-- Background cleanup: remove stale entity handles from loopedFxByEntity
+CreateThread(function()
+    while true do
+        for entityKey, handle in pairs(loopedFxByEntity) do
+            if handle ~= -1 and not DoesEntityExist(entityKey) then
+                loopedFxByEntity[entityKey] = nil
             end
-          end
         end
-      end
+        Wait(1000)
     end
-    L2_2 = Wait
-    L3_2 = L6_1
-    L2_2(L3_2)
-  end
-end
-L17_1(L18_1)
-function L17_1(A0_2)
-  local L1_2, L2_2
-  L1_2 = tostring
-  L2_2 = A0_2
-  return L1_2(L2_2)
-end
-function L18_1(A0_2, A1_2, A2_2, A3_2, A4_2, A5_2, A6_2, A7_2)
-  local L8_2, L9_2, L10_2, L11_2
-  if A0_2 and A1_2 and 0 ~= A2_2 then
-    L8_2 = DoesEntityExist
-    L9_2 = A2_2
-    L8_2 = L8_2(L9_2)
-    if L8_2 then
-      goto lbl_15
+end)
+
+-- ---------------------------------------------------------------------------
+-- onResourceStop — stop all FX and clear nearby particles on unload
+-- ---------------------------------------------------------------------------
+AddEventHandler("onResourceStop", function(resourceName)
+    if resourceName ~= GetCurrentResourceName() then return end
+    StopAllFx()
+    ClearFxInRange(200.0)
+end)
+
+-- =============================================================================
+-- NET EVENTS — server-triggered FX on networked entities
+-- =============================================================================
+
+RegisterNetEvent("ptfx_core:cl_start_on_net")
+AddEventHandler("ptfx_core:cl_start_on_net", function(netId, dict, fxName, offset, rot, scale, alpha, onBone, boneIdOrName)
+    local entity = NetworkGetEntityFromNetworkId(netId)
+    if entity == 0 then return end
+
+    if onBone then
+        StartFxOnBone(dict, fxName, entity, boneIdOrName, offset, rot, scale, alpha)
+    else
+        StartFx(dict, fxName, entity, offset, rot, scale, alpha)
     end
-  end
-  L8_2 = nil
-  L9_2 = "bad_params"
-  do return L8_2, L9_2 end
-  ::lbl_15::
-  L8_2 = L17_1
-  L9_2 = A2_2
-  L8_2 = L8_2(L9_2)
-  L9_2 = L8_1
-  L10_2 = {}
-  L10_2.ent = A2_2
-  L10_2.dict = A0_2
-  L10_2.name = A1_2
-  L10_2.off = A3_2
-  L10_2.rot = A4_2
-  L10_2.scale = A5_2
-  L11_2 = A6_2 or L11_2
-  if not A6_2 then
-    L11_2 = L6_1
-  end
-  L10_2.tick = L11_2
-  L11_2 = A7_2 or L11_2
-  if not A7_2 then
-    L11_2 = L1_1
-  end
-  L10_2.maxDist = L11_2
-  L10_2.enabled = true
-  L9_2[L8_2] = L10_2
-  L9_2 = L9_1
-  L9_2[A2_2] = L8_2
-  return L8_2
-end
-StartFakeLoop = L18_1
-L18_1 = exports
-L19_1 = "StartFakeLoop"
-L20_1 = StartFakeLoop
-L18_1(L19_1, L20_1)
-function L18_1(A0_2)
-  local L1_2, L2_2, L3_2
-  L1_2 = A0_2
-  L2_2 = type
-  L3_2 = A0_2
-  L2_2 = L2_2(L3_2)
-  if "string" ~= L2_2 then
-    L2_2 = L9_1
-    L1_2 = L2_2[A0_2]
-  end
-  if L1_2 then
-    L2_2 = L8_1
-    L2_2 = L2_2[L1_2]
-    if L2_2 then
-      L2_2 = L8_1
-      L2_2 = L2_2[L1_2]
-      L3_2 = L2_2.ent
-      L2_2 = L9_1
-      L2_2[L3_2] = nil
-      L2_2 = L8_1
-      L2_2[L1_2] = nil
-      L2_2 = true
-      return L2_2
-    end
-  end
-  L2_2 = false
-  return L2_2
-end
-StopFakeLoop = L18_1
-L18_1 = exports
-L19_1 = "StopFakeLoop"
-L20_1 = StopFakeLoop
-L18_1(L19_1, L20_1)
-function L18_1(A0_2)
-  local L1_2, L2_2, L3_2, L4_2, L5_2, L6_2, L7_2
-  L1_2 = PlayerPedId
-  L1_2 = L1_2()
-  L2_2 = GetEntityCoords
-  L3_2 = L1_2
-  L2_2 = L2_2(L3_2)
-  L3_2 = RemoveParticleFxInRange
-  L4_2 = L2_2.x
-  L5_2 = L2_2.y
-  L6_2 = L2_2.z
-  L7_2 = A0_2 or L7_2
-  if not A0_2 then
-    L7_2 = 500.0
-  end
-  L3_2(L4_2, L5_2, L6_2, L7_2)
-end
-ClearFxInRange = L18_1
-L18_1 = exports
-L19_1 = "ClearFxInRange"
-L20_1 = ClearFxInRange
-L18_1(L19_1, L20_1)
-L18_1 = CreateThread
-function L19_1()
-  local L0_2, L1_2, L2_2, L3_2, L4_2, L5_2, L6_2, L7_2
-  while true do
-    L0_2 = pairs
-    L1_2 = L7_1
-    L0_2, L1_2, L2_2, L3_2 = L0_2(L1_2)
-    for L4_2, L5_2 in L0_2, L1_2, L2_2, L3_2 do
-      if -1 ~= L5_2 then
-        L6_2 = DoesEntityExist
-        L7_2 = L4_2
-        L6_2 = L6_2(L7_2)
-        if L6_2 then
-          goto lbl_14
+end)
+
+RegisterNetEvent("ptfx_core:cl_start_fake_on_net")
+AddEventHandler("ptfx_core:cl_start_fake_on_net", function(netId, dict, fxName, offset, rot, scale, tickMs, maxDist)
+    local entity = NetworkGetEntityFromNetworkId(netId)
+    if entity == 0 then return end
+    StartFakeLoop(dict, fxName, entity, offset, rot, scale, tickMs, maxDist)
+end)
+
+RegisterNetEvent("ptfx_core:cl_stop_on_net")
+AddEventHandler("ptfx_core:cl_stop_on_net", function(netId, alsoFakeLoop)
+    local entity = NetworkGetEntityFromNetworkId(netId)
+    if entity ~= 0 then
+        StopFx(entity)
+        if alsoFakeLoop then
+            StopFakeLoop(entity)
         end
-      end
-      L6_2 = L7_1
-      L6_2[L4_2] = nil
-      ::lbl_14::
     end
-    L0_2 = Wait
-    L1_2 = 1000
-    L0_2(L1_2)
-  end
-end
-L18_1(L19_1)
-L18_1 = AddEventHandler
-L19_1 = "onResourceStop"
-function L20_1(A0_2)
-  local L1_2, L2_2
-  L1_2 = GetCurrentResourceName
-  L1_2 = L1_2()
-  if A0_2 == L1_2 then
-    L1_2 = StopAllFx
-    L1_2()
-    L1_2 = ClearFxInRange
-    L2_2 = 200.0
-    L1_2(L2_2)
-  end
-end
-L18_1(L19_1, L20_1)
-L18_1 = RegisterNetEvent
-L19_1 = "ptfx_core:cl_start_on_net"
-function L20_1(A0_2, A1_2, A2_2, A3_2, A4_2, A5_2, A6_2, A7_2, A8_2)
-  local L9_2, L10_2, L11_2, L12_2, L13_2, L14_2, L15_2, L16_2, L17_2, L18_2
-  L9_2 = NetworkGetEntityFromNetworkId
-  L10_2 = A0_2
-  L9_2 = L9_2(L10_2)
-  if 0 == L9_2 then
-    return
-  end
-  if A7_2 then
-    L10_2 = StartFxOnBone
-    L11_2 = A1_2
-    L12_2 = A2_2
-    L13_2 = L9_2
-    L14_2 = A8_2
-    L15_2 = A3_2
-    L16_2 = A4_2
-    L17_2 = A5_2
-    L18_2 = A6_2
-    L10_2(L11_2, L12_2, L13_2, L14_2, L15_2, L16_2, L17_2, L18_2)
-  else
-    L10_2 = StartFx
-    L11_2 = A1_2
-    L12_2 = A2_2
-    L13_2 = L9_2
-    L14_2 = A3_2
-    L15_2 = A4_2
-    L16_2 = A5_2
-    L17_2 = A6_2
-    L10_2(L11_2, L12_2, L13_2, L14_2, L15_2, L16_2, L17_2)
-  end
-end
-L18_1(L19_1, L20_1)
-L18_1 = RegisterNetEvent
-L19_1 = "ptfx_core:cl_start_fake_on_net"
-function L20_1(A0_2, A1_2, A2_2, A3_2, A4_2, A5_2, A6_2, A7_2)
-  local L8_2, L9_2, L10_2, L11_2, L12_2, L13_2, L14_2, L15_2, L16_2, L17_2
-  L8_2 = NetworkGetEntityFromNetworkId
-  L9_2 = A0_2
-  L8_2 = L8_2(L9_2)
-  if 0 == L8_2 then
-    return
-  end
-  L9_2 = StartFakeLoop
-  L10_2 = A1_2
-  L11_2 = A2_2
-  L12_2 = L8_2
-  L13_2 = A3_2
-  L14_2 = A4_2
-  L15_2 = A5_2
-  L16_2 = A6_2
-  L17_2 = A7_2
-  L9_2(L10_2, L11_2, L12_2, L13_2, L14_2, L15_2, L16_2, L17_2)
-end
-L18_1(L19_1, L20_1)
-L18_1 = RegisterNetEvent
-L19_1 = "ptfx_core:cl_stop_on_net"
-function L20_1(A0_2, A1_2)
-  local L2_2, L3_2, L4_2
-  L2_2 = NetworkGetEntityFromNetworkId
-  L3_2 = A0_2
-  L2_2 = L2_2(L3_2)
-  if 0 ~= L2_2 then
-    L3_2 = StopFx
-    L4_2 = L2_2
-    L3_2(L4_2)
-    if A1_2 then
-      L3_2 = StopFakeLoop
-      L4_2 = L2_2
-      L3_2(L4_2)
-    end
-  end
-end
-L18_1(L19_1, L20_1)
-L18_1 = RegisterNetEvent
-L19_1 = "ptfx_core:cl_stop_all"
-function L20_1()
-  local L0_2, L1_2
-  L0_2 = StopAllFx
-  L0_2()
-end
-L18_1(L19_1, L20_1)
-L18_1 = {}
-L19_1 = {}
-L20_1 = L6_1 or L20_1
-if not L6_1 then
-  L20_1 = 180
-end
-function L21_1()
-  local L0_2, L1_2, L2_2, L3_2, L4_2, L5_2, L6_2, L7_2
-  L0_2 = CountActiveFx
-  if L0_2 then
-    L0_2 = CountActiveFx
-    L0_2 = L0_2()
-    if L0_2 then
-      goto lbl_9
-    end
-  end
-  L0_2 = 0
-  ::lbl_9::
-  L1_2 = pairs
-  L2_2 = L18_1
-  L1_2, L2_2, L3_2, L4_2 = L1_2(L2_2)
-  for L5_2 in L1_2, L2_2, L3_2, L4_2 do
-    L0_2 = L0_2 + 1
-  end
-  return L0_2
-end
-function L22_1()
-  local L0_2, L1_2, L2_2, L3_2, L4_2, L5_2, L6_2, L7_2, L8_2
-  L0_2 = L21_1
-  L0_2 = L0_2()
-  L1_2 = L0_1
-  if L0_2 < L1_2 then
-    return
-  end
-  L0_2 = pairs
-  L1_2 = L7_1
-  if not L1_2 then
-    L1_2 = {}
-  end
-  L0_2, L1_2, L2_2, L3_2 = L0_2(L1_2)
-  for L4_2, L5_2 in L0_2, L1_2, L2_2, L3_2 do
-    if L5_2 and -1 ~= L5_2 then
-      L6_2 = StopParticleFxLooped
-      L7_2 = L5_2
-      L8_2 = false
-      L6_2(L7_2, L8_2)
-      L6_2 = L7_1
-      L6_2[L4_2] = nil
-      return
-    end
-  end
-  L0_2 = pairs
-  L1_2 = L18_1
-  L0_2, L1_2, L2_2, L3_2 = L0_2(L1_2)
-  for L4_2, L5_2 in L0_2, L1_2, L2_2, L3_2 do
-    L6_2 = StopParticleFxLooped
-    L7_2 = L4_2
-    L8_2 = false
-    L6_2(L7_2, L8_2)
-    L6_2 = L18_1
-    L6_2[L4_2] = nil
-    return
-  end
-end
-function L23_1(A0_2, A1_2, A2_2, A3_2, A4_2, A5_2, A6_2)
-  local L7_2, L8_2, L9_2, L10_2, L11_2, L12_2, L13_2, L14_2, L15_2, L16_2, L17_2, L18_2, L19_2, L20_2, L21_2, L22_2, L23_2
-  if not A2_2 then
-    L7_2 = nil
-    L8_2 = "no_pos"
-    return L7_2, L8_2
-  end
-  L7_2 = L13_1
-  L8_2 = A0_2
-  L7_2(L8_2)
-  L7_2 = L22_1
-  L7_2()
-  L7_2 = A2_2
-  L8_2 = A3_2 or L8_2
-  if not A3_2 then
-    L8_2 = vector3
-    L9_2 = 0.0
-    L10_2 = 0.0
-    L11_2 = 0.0
-    L8_2 = L8_2(L9_2, L10_2, L11_2)
-  end
-  L9_2 = A4_2 or L9_2
-  if not A4_2 then
-    L9_2 = L4_1
-  end
-  L10_2 = A5_2 or L10_2
-  if not A5_2 then
-    L10_2 = L5_1
-  end
-  if A6_2 then
-    L11_2 = StartNetworkedParticleFxLoopedAtCoord
-    if L11_2 then
-      goto lbl_31
-    end
-  end
-  L11_2 = StartParticleFxLoopedAtCoord
-  ::lbl_31::
-  L12_2 = L11_2
-  L13_2 = A1_2
-  L14_2 = L7_2.x
-  L15_2 = L7_2.y
-  L16_2 = L7_2.z
-  L17_2 = L8_2.x
-  L18_2 = L8_2.y
-  L19_2 = L8_2.z
-  L20_2 = L9_2
-  L21_2 = false
-  L22_2 = false
-  L23_2 = false
-  L12_2 = L12_2(L13_2, L14_2, L15_2, L16_2, L17_2, L18_2, L19_2, L20_2, L21_2, L22_2, L23_2)
-  if not L12_2 or -1 == L12_2 then
-    L13_2 = nil
-    L14_2 = "start_failed"
-    return L13_2, L14_2
-  end
-  L13_2 = SetParticleFxLoopedAlpha
-  L14_2 = L12_2
-  L15_2 = L10_2
-  L13_2(L14_2, L15_2)
-  L13_2 = L18_1
-  L13_2[L12_2] = true
-  return L12_2
-end
-function L24_1(A0_2, A1_2, A2_2, A3_2, A4_2, A5_2)
-  local L6_2, L7_2, L8_2, L9_2, L10_2, L11_2, L12_2, L13_2
-  L6_2 = L23_1
-  L7_2 = A0_2
-  L8_2 = A1_2
-  L9_2 = A2_2
-  L10_2 = A3_2
-  L11_2 = A4_2
-  L12_2 = A5_2
-  L13_2 = false
-  return L6_2(L7_2, L8_2, L9_2, L10_2, L11_2, L12_2, L13_2)
-end
-StartFxCoord = L24_1
-L24_1 = exports
-L25_1 = "StartFxCoord"
-L26_1 = StartFxCoord
-L24_1(L25_1, L26_1)
-function L24_1(A0_2, A1_2, A2_2, A3_2, A4_2, A5_2)
-  local L6_2, L7_2, L8_2, L9_2, L10_2, L11_2, L12_2, L13_2
-  L6_2 = L23_1
-  L7_2 = A0_2
-  L8_2 = A1_2
-  L9_2 = A2_2
-  L10_2 = A3_2
-  L11_2 = A4_2
-  L12_2 = A5_2
-  L13_2 = true
-  return L6_2(L7_2, L8_2, L9_2, L10_2, L11_2, L12_2, L13_2)
-end
-StartFxCoordNet = L24_1
-L24_1 = exports
-L25_1 = "StartFxCoordNet"
-L26_1 = StartFxCoordNet
-L24_1(L25_1, L26_1)
-function L24_1(A0_2, A1_2, A2_2)
-  local L3_2, L4_2, L5_2, L6_2, L7_2, L8_2, L9_2, L10_2, L11_2, L12_2, L13_2, L14_2, L15_2, L16_2, L17_2, L18_2
-  if A0_2 and -1 ~= A0_2 then
-    L3_2 = A1_2
-    L4_2 = A2_2
-    if L3_2 or L4_2 then
-      L5_2 = 0.0
-      L6_2 = 0.0
-      L7_2 = 0.0
-      L8_2 = 0.0
-      L9_2 = 0.0
-      L10_2 = 0.0
-      if L3_2 then
-        L11_2 = L3_2.x
-        L12_2 = L3_2.y
-        L7_2 = L3_2.z
-        L6_2 = L12_2
-        L5_2 = L11_2
-      end
-      if L4_2 then
-        L11_2 = L4_2.x
-        L12_2 = L4_2.y
-        L10_2 = L4_2.z
-        L9_2 = L12_2
-        L8_2 = L11_2
-      end
-      L11_2 = SetParticleFxLoopedOffsets
-      L12_2 = A0_2
-      L13_2 = L5_2
-      L14_2 = L6_2
-      L15_2 = L7_2
-      L16_2 = L8_2
-      L17_2 = L9_2
-      L18_2 = L10_2
-      L11_2(L12_2, L13_2, L14_2, L15_2, L16_2, L17_2, L18_2)
-    end
-    L5_2 = true
-    return L5_2
-  end
-  L3_2 = false
-  return L3_2
-end
-UpdateFxCoord = L24_1
-L24_1 = exports
-L25_1 = "UpdateFxCoord"
-L26_1 = UpdateFxCoord
-L24_1(L25_1, L26_1)
-function L24_1(A0_2)
-  local L1_2, L2_2, L3_2
-  if A0_2 and -1 ~= A0_2 then
-    L1_2 = StopParticleFxLooped
-    L2_2 = A0_2
-    L3_2 = false
-    L1_2(L2_2, L3_2)
-    L1_2 = L18_1
-    L1_2[A0_2] = nil
-    L1_2 = true
-    return L1_2
-  end
-  L1_2 = false
-  return L1_2
-end
-StopFxCoord = L24_1
-L24_1 = exports
-L25_1 = "StopFxCoord"
-L26_1 = StopFxCoord
-L24_1(L25_1, L26_1)
-L24_1 = CreateThread
-function L25_1()
-  local L0_2, L1_2, L2_2, L3_2, L4_2, L5_2, L6_2, L7_2, L8_2, L9_2, L10_2, L11_2, L12_2, L13_2, L14_2, L15_2, L16_2, L17_2, L18_2, L19_2, L20_2
-  while true do
-    L0_2 = pairs
-    L1_2 = L19_1
-    L0_2, L1_2, L2_2, L3_2 = L0_2(L1_2)
-    for L4_2, L5_2 in L0_2, L1_2, L2_2, L3_2 do
-      L6_2 = L5_2.enabled
-      if L6_2 then
-        L6_2 = L5_2.pos
-        if L6_2 then
-          L6_2 = L13_1
-          L7_2 = L5_2.dict
-          L6_2(L7_2)
-          L6_2 = L5_2.scale
-          if not L6_2 then
-            L6_2 = L4_1
-          end
-          L7_2 = L5_2.pos
-          L8_2 = L5_2.rot
-          if not L8_2 then
-            L8_2 = vector3
-            L9_2 = 0
-            L10_2 = 0
-            L11_2 = 0
-            L8_2 = L8_2(L9_2, L10_2, L11_2)
-          end
-          L9_2 = StartParticleFxNonLoopedAtCoord
-          L10_2 = L5_2.name
-          L11_2 = L7_2.x
-          L12_2 = L7_2.y
-          L13_2 = L7_2.z
-          L14_2 = L8_2.x
-          L15_2 = L8_2.y
-          L16_2 = L8_2.z
-          L17_2 = L6_2
-          L18_2 = false
-          L19_2 = false
-          L20_2 = false
-          L9_2(L10_2, L11_2, L12_2, L13_2, L14_2, L15_2, L16_2, L17_2, L18_2, L19_2, L20_2)
+end)
+
+RegisterNetEvent("ptfx_core:cl_stop_all")
+AddEventHandler("ptfx_core:cl_stop_all", function()
+    StopAllFx()
+end)
+
+-- =============================================================================
+-- LOOPED / FAKE-LOOP FX AT WORLD COORDINATES
+-- =============================================================================
+
+-- coordFxByHandle: fxHandle → true  (for looped coord FX)
+-- coordFakeLoops:  key      → entry (for fake coord FX)
+
+local COORD_FAKE_TICK = FAKE_LOOP_TICK  -- same default tick as entity fake loop
+
+-- ---------------------------------------------------------------------------
+-- evictOldestCoordOrEntity()
+-- When global cap is reached, stops the first found active coord/entity FX.
+-- ---------------------------------------------------------------------------
+local function evictOldestTotal()
+    local total = countActiveLooped()
+    for _ in pairs(coordFxByHandle) do total = total + 1 end
+    if total < MAX_ACTIVE_FX then return end
+
+    for entityKey, handle in pairs(loopedFxByEntity) do
+        if handle and handle ~= -1 then
+            StopParticleFxLooped(handle, false)
+            loopedFxByEntity[entityKey] = nil
+            return
         end
-      end
     end
-    L0_2 = Wait
-    L1_2 = L20_1
-    L0_2(L1_2)
-  end
-end
-L24_1(L25_1)
-function L24_1(A0_2)
-  local L1_2, L2_2, L3_2, L4_2, L5_2
-  L1_2 = "coord:%0.3f,%0.3f,%0.3f"
-  L2_2 = L1_2
-  L1_2 = L1_2.format
-  L3_2 = A0_2.x
-  L4_2 = A0_2.y
-  L5_2 = A0_2.z
-  return L1_2(L2_2, L3_2, L4_2, L5_2)
-end
-function L25_1(A0_2, A1_2, A2_2, A3_2, A4_2, A5_2)
-  local L6_2, L7_2, L8_2, L9_2
-  if not A2_2 then
-    L6_2 = nil
-    L7_2 = "no_pos"
-    return L6_2, L7_2
-  end
-  L6_2 = L24_1
-  L7_2 = A2_2
-  L6_2 = L6_2(L7_2)
-  L7_2 = L19_1
-  L8_2 = {}
-  L8_2.dict = A0_2
-  L8_2.name = A1_2
-  L8_2.pos = A2_2
-  L8_2.rot = A3_2
-  L8_2.scale = A4_2
-  L9_2 = A5_2 or L9_2
-  if not A5_2 then
-    L9_2 = L20_1
-  end
-  L8_2.tick = L9_2
-  L8_2.enabled = true
-  L7_2[L6_2] = L8_2
-  return L6_2
-end
-StartFakeLoopCoord = L25_1
-L25_1 = exports
-L26_1 = "StartFakeLoopCoord"
-L27_1 = StartFakeLoopCoord
-L25_1(L26_1, L27_1)
-function L25_1(A0_2)
-  local L1_2
-  if A0_2 then
-    L1_2 = L19_1
-    L1_2 = L1_2[A0_2]
-    if L1_2 then
-      L1_2 = L19_1
-      L1_2[A0_2] = nil
-      L1_2 = true
-      return L1_2
+    for handle in pairs(coordFxByHandle) do
+        StopParticleFxLooped(handle, false)
+        coordFxByHandle[handle] = nil
+        return
     end
-  end
-  L1_2 = false
-  return L1_2
 end
-StopFakeLoopCoord = L25_1
-L25_1 = exports
-L26_1 = "StopFakeLoopCoord"
-L27_1 = StopFakeLoopCoord
-L25_1(L26_1, L27_1)
-L25_1 = RegisterCommand
-L26_1 = "pfx_clear"
-function L27_1()
-  local L0_2, L1_2
-  L0_2 = ClearFxInRange
-  L1_2 = 500.0
-  L0_2(L1_2)
+
+-- ---------------------------------------------------------------------------
+-- startFxCoordInternal(dict, fxName, pos, rot, scale, alpha, networked)
+-- Starts a looped particle at a world coordinate.
+-- Returns: fxHandle on success, or nil, errorMsg.
+-- ---------------------------------------------------------------------------
+local function startFxCoordInternal(dict, fxName, pos, rot, scale, alpha, networked)
+    if not pos then return nil, "no_pos" end
+
+    loadPtfxAsset(dict)
+    evictOldestTotal()
+
+    rot   = rot   or vector3(0.0, 0.0, 0.0)
+    scale = scale or DEFAULT_SCALE
+    alpha = alpha or DEFAULT_ALPHA
+
+    local startFn = networked and StartNetworkedParticleFxLoopedAtCoord
+                               or StartParticleFxLoopedAtCoord
+
+    local handle = startFn(
+        fxName,
+        pos.x, pos.y, pos.z,
+        rot.x, rot.y, rot.z,
+        scale,
+        false, false, false
+    )
+
+    if not handle or handle == -1 then
+        return nil, "start_failed"
+    end
+
+    SetParticleFxLoopedAlpha(handle, alpha)
+    coordFxByHandle[handle] = true
+    return handle
 end
-L25_1(L26_1, L27_1)
-L25_1 = RegisterCommand
-L26_1 = "pfx_count"
-function L27_1()
-  local L0_2, L1_2, L2_2, L3_2
-  L0_2 = print
-  L1_2 = "[ptfx_core] active looped: %d"
-  L2_2 = L1_2
-  L1_2 = L1_2.format
-  L3_2 = CountActiveFx
-  L3_2 = L3_2()
-  L1_2, L2_2, L3_2 = L1_2(L2_2, L3_2)
-  L0_2(L1_2, L2_2, L3_2)
+
+-- ---------------------------------------------------------------------------
+-- StartFxCoord(dict, fxName, pos, rot, scale, alpha)
+-- Starts a local looped FX at world position.
+-- ---------------------------------------------------------------------------
+function StartFxCoord(dict, fxName, pos, rot, scale, alpha)
+    return startFxCoordInternal(dict, fxName, pos, rot, scale, alpha, false)
 end
-L25_1(L26_1, L27_1)
+
+exports("StartFxCoord", StartFxCoord)
+
+-- ---------------------------------------------------------------------------
+-- StartFxCoordNet(dict, fxName, pos, rot, scale, alpha)
+-- Starts a networked looped FX at world position.
+-- ---------------------------------------------------------------------------
+function StartFxCoordNet(dict, fxName, pos, rot, scale, alpha)
+    return startFxCoordInternal(dict, fxName, pos, rot, scale, alpha, true)
+end
+
+exports("StartFxCoordNet", StartFxCoordNet)
+
+-- ---------------------------------------------------------------------------
+-- UpdateFxCoord(fxHandle, newOffset, newRot)
+-- Updates the world offsets of an active looped coord FX.
+-- Returns true on success, false if handle is invalid.
+-- ---------------------------------------------------------------------------
+function UpdateFxCoord(fxHandle, newOffset, newRot)
+    if not fxHandle or fxHandle == -1 then return false end
+
+    if newOffset or newRot then
+        local ox, oy, oz = 0.0, 0.0, 0.0
+        local rx, ry, rz = 0.0, 0.0, 0.0
+
+        if newOffset then
+            ox, oy, oz = newOffset.x, newOffset.y, newOffset.z
+        end
+        if newRot then
+            rx, ry, rz = newRot.x, newRot.y, newRot.z
+        end
+
+        SetParticleFxLoopedOffsets(fxHandle, ox, oy, oz, rx, ry, rz)
+    end
+
+    return true
+end
+
+exports("UpdateFxCoord", UpdateFxCoord)
+
+-- ---------------------------------------------------------------------------
+-- StopFxCoord(fxHandle)
+-- Stops a looped coord FX by handle.
+-- Returns true on success, false if handle is invalid.
+-- ---------------------------------------------------------------------------
+function StopFxCoord(fxHandle)
+    if not fxHandle or fxHandle == -1 then return false end
+    StopParticleFxLooped(fxHandle, false)
+    coordFxByHandle[fxHandle] = nil
+    return true
+end
+
+exports("StopFxCoord", StopFxCoord)
+
+-- =============================================================================
+-- FAKE LOOP FX AT WORLD COORDINATES
+-- (re-fires non-looped FX at a fixed world position on a timer)
+-- =============================================================================
+
+-- Background thread: fires non-looped coord FX for enabled coord fake-loop entries
+CreateThread(function()
+    while true do
+        for _, entry in pairs(coordFakeLoops) do
+            if entry.enabled and entry.pos then
+                loadPtfxAsset(entry.dict)
+                local rot   = entry.rot or vector3(0, 0, 0)
+                local scale = entry.scale or DEFAULT_SCALE
+                StartParticleFxNonLoopedAtCoord(
+                    entry.name,
+                    entry.pos.x, entry.pos.y, entry.pos.z,
+                    rot.x, rot.y, rot.z,
+                    scale,
+                    false, false, false
+                )
+            end
+        end
+        Wait(COORD_FAKE_TICK)
+    end
+end)
+
+-- ---------------------------------------------------------------------------
+-- coordKey(pos) — stable string key derived from world position
+-- ---------------------------------------------------------------------------
+local function coordKey(pos)
+    return string.format("coord:%.3f,%.3f,%.3f", pos.x, pos.y, pos.z)
+end
+
+-- ---------------------------------------------------------------------------
+-- StartFakeLoopCoord(dict, fxName, pos, rot, scale, tickMs)
+-- Registers a non-looped FX to be re-fired at world position every tickMs ms.
+-- Returns key string for StopFakeLoopCoord.
+-- ---------------------------------------------------------------------------
+function StartFakeLoopCoord(dict, fxName, pos, rot, scale, tickMs)
+    if not pos then return nil, "no_pos" end
+
+    local key = coordKey(pos)
+    coordFakeLoops[key] = {
+        dict    = dict,
+        name    = fxName,
+        pos     = pos,
+        rot     = rot,
+        scale   = scale,
+        tick    = tickMs or COORD_FAKE_TICK,
+        enabled = true,
+    }
+    return key
+end
+
+exports("StartFakeLoopCoord", StartFakeLoopCoord)
+
+-- ---------------------------------------------------------------------------
+-- StopFakeLoopCoord(key)
+-- Removes a fake-loop coord entry by its key string.
+-- Returns true on success, false if not found.
+-- ---------------------------------------------------------------------------
+function StopFakeLoopCoord(key)
+    if key and coordFakeLoops[key] then
+        coordFakeLoops[key] = nil
+        return true
+    end
+    return false
+end
+
+exports("StopFakeLoopCoord", StopFakeLoopCoord)
+
+-- =============================================================================
+-- DEBUG COMMANDS
+-- =============================================================================
+
+RegisterCommand("pfx_clear", function()
+    ClearFxInRange(500.0)
+end)
+
+RegisterCommand("pfx_count", function()
+    print(string.format("[ptfx_core] active looped: %d", CountActiveFx()))
+end)
