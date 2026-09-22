@@ -1,254 +1,167 @@
-local L0_1, L1_1, L2_1
-L0_1 = {}
-HostCross = L0_1
-L0_1 = {}
-CorsaCross = L0_1
-L0_1 = {}
-VincitoreCross = L0_1
-L0_1 = RegisterNetEvent
-L1_1 = "corsa:crossvincitore"
-L0_1(L1_1)
-L0_1 = AddEventHandler
-L1_1 = "corsa:crossvincitore"
-function L2_1(A0_2)
-  local L1_2, L2_2, L3_2, L4_2, L5_2, L6_2, L7_2, L8_2, L9_2
-  L1_2 = source
-  L2_2 = VincitoreCross
-  L2_2 = L2_2[A0_2]
-  if nil == L2_2 then
-    L2_2 = VincitoreCross
-    L2_2[A0_2] = 1
-    L2_2 = TriggerClientEvent
-    L3_2 = "corsa:crossvincitore"
-    L4_2 = -1
-    L5_2 = m
-    L5_2 = L5_2.WinnerIs
-    L6_2 = getIdentity
-    L7_2 = L1_2
-    L6_2 = L6_2(L7_2)
-    L6_2 = L6_2.firstname
-    L7_2 = " "
-    L8_2 = getIdentity
-    L9_2 = L1_2
-    L8_2 = L8_2(L9_2)
-    L8_2 = L8_2.lastname
-    L5_2 = L5_2 .. L6_2 .. L7_2 .. L8_2
-    L6_2 = A0_2
-    L2_2(L3_2, L4_2, L5_2, L6_2)
-    L2_2 = Wait
-    L3_2 = 5000
-    L2_2(L3_2)
-    L2_2 = VincitoreCross
-    L2_2[A0_2] = nil
-    L2_2 = CorsaCross
-    L2_2[A0_2] = nil
-  end
-end
-L0_1(L1_1, L2_1)
-L0_1 = RegisterNetEvent
-L1_1 = "corsa:stopcross"
-L0_1(L1_1)
-L0_1 = AddEventHandler
-L1_1 = "corsa:stopcross"
-function L2_1()
-  local L0_2, L1_2, L2_2
-  L0_2 = TriggerClientEvent
-  L1_2 = "corsa:stopcross"
-  L2_2 = -1
-  L0_2(L1_2, L2_2)
-end
-L0_1(L1_1, L2_1)
-L0_1 = ESX
-L0_1 = L0_1.RegisterServerCallback
-L1_1 = "corsa:cross"
-function L2_1(A0_2, A1_2, A2_2)
-  local L3_2, L4_2
-  L3_2 = A1_2
-  L4_2 = CorsaCross
-  L4_2 = L4_2[A2_2]
-  L3_2(L4_2)
-end
-L0_1(L1_1, L2_1)
-L0_1 = ESX
-L0_1 = L0_1.RegisterServerCallback
-L1_1 = "corsa:checkhostcross"
-function L2_1(A0_2, A1_2, A2_2)
-  local L3_2, L4_2
-  L3_2 = A1_2
-  L4_2 = HostCross
-  L4_2 = L4_2[A2_2]
-  L3_2(L4_2)
-end
-L0_1(L1_1, L2_1)
-L0_1 = RegisterNetEvent
-L1_1 = "corsa:hostcross"
-L0_1(L1_1)
-L0_1 = AddEventHandler
-L1_1 = "corsa:hostcross"
-function L2_1(A0_2)
-  local L1_2, L2_2, L3_2, L4_2, L5_2, L6_2, L7_2, L8_2
-  L1_2 = source
-  L2_2 = ESX
-  L2_2 = L2_2.GetPlayerFromId
-  L3_2 = L1_2
-  L2_2 = L2_2(L3_2)
-  L3_2 = L2_2.identifier
-  L4_2 = HostCross
-  L4_2[A0_2] = L3_2
-  L4_2 = TriggerClientEvent
-  L5_2 = "esx:showNotification"
-  L6_2 = L2_2.source
-  L7_2 = m
-  L7_2 = L7_2.YouHost
-  L4_2(L5_2, L6_2, L7_2)
-  L4_2 = TriggerClientEvent
-  L5_2 = "esx:showNotification"
-  L6_2 = L2_2.source
-  L7_2 = m
-  L7_2 = L7_2.RaceID
-  L8_2 = A0_2
-  L7_2 = L7_2 .. L8_2
-  L4_2(L5_2, L6_2, L7_2)
-end
-L0_1(L1_1, L2_1)
-L0_1 = RegisterNetEvent
-L1_1 = "corsa:delhostcross"
-L0_1(L1_1)
-L0_1 = AddEventHandler
-L1_1 = "corsa:delhostcross"
-function L2_1(A0_2)
-  local L1_2
-  L1_2 = HostCross
-  L1_2[A0_2] = nil
-end
-L0_1(L1_1, L2_1)
-L0_1 = RegisterCommand
-L1_1 = StartRaceCommand
-function L2_1(A0_2, A1_2, A2_2)
-  local L3_2, L4_2, L5_2, L6_2, L7_2, L8_2, L9_2
-  L3_2 = A1_2[1]
-  if nil == L3_2 then
-    L3_2 = TriggerClientEvent
-    L4_2 = "esx:showNotification"
-    L5_2 = A0_2
-    L6_2 = m
-    L6_2 = L6_2.InsertIDRace
-    L3_2(L4_2, L5_2, L6_2)
-    return
-  end
-  L3_2 = tonumber
-  L4_2 = A1_2[1]
-  L3_2 = L3_2(L4_2)
-  L4_2 = ESX
-  L4_2 = L4_2.GetPlayerFromId
-  L5_2 = A0_2
-  L4_2 = L4_2(L5_2)
-  L5_2 = L4_2.identifier
-  L6_2 = HostCross
-  L6_2 = L6_2[L3_2]
-  if nil == L6_2 then
-    L6_2 = TriggerClientEvent
-    L7_2 = "esx:showNotification"
-    L8_2 = L4_2.source
-    L9_2 = m
-    L9_2 = L9_2.NoRaceAv
-    L6_2(L7_2, L8_2, L9_2)
-    return
-  end
-  L6_2 = HostCross
-  L6_2 = L6_2[L3_2]
-  if L6_2 ~= L5_2 then
-    L6_2 = TriggerClientEvent
-    L7_2 = "esx:showNotification"
-    L8_2 = L4_2.source
-    L9_2 = m
-    L9_2 = L9_2.YouNotHost
-    L6_2(L7_2, L8_2, L9_2)
-    return
-  end
-  L6_2 = CorsaCross
-  L6_2 = L6_2[L3_2]
-  if 1 == L6_2 then
-    L6_2 = TriggerClientEvent
-    L7_2 = "esx:showNotification"
-    L8_2 = L4_2.source
-    L9_2 = m
-    L9_2 = L9_2.AlredyRace
-    L6_2(L7_2, L8_2, L9_2)
-    return
-  end
-  L6_2 = CorsaCross
-  L6_2[L3_2] = 1
-  L6_2 = TriggerClientEvent
-  L7_2 = "corsa:startcross"
-  L8_2 = -1
-  L9_2 = L3_2
-  L6_2(L7_2, L8_2, L9_2)
-end
-L0_1(L1_1, L2_1)
-L0_1 = RegisterCommand
-L1_1 = StopRaceCommand
-function L2_1(A0_2, A1_2, A2_2)
-  local L3_2, L4_2, L5_2, L6_2, L7_2, L8_2, L9_2
-  L3_2 = A1_2[1]
-  if nil == L3_2 then
-    L3_2 = TriggerClientEvent
-    L4_2 = "esx:showNotification"
-    L5_2 = A0_2
-    L6_2 = m
-    L6_2 = L6_2.InsertIDRace
-    L3_2(L4_2, L5_2, L6_2)
-    return
-  end
-  L3_2 = tonumber
-  L4_2 = A1_2[1]
-  L3_2 = L3_2(L4_2)
-  L4_2 = ESX
-  L4_2 = L4_2.GetPlayerFromId
-  L5_2 = A0_2
-  L4_2 = L4_2(L5_2)
-  L5_2 = L4_2.identifier
-  L6_2 = HostCross
-  L6_2 = L6_2[L3_2]
-  if nil == L6_2 then
-    L6_2 = TriggerClientEvent
-    L7_2 = "esx:showNotification"
-    L8_2 = L4_2.source
-    L9_2 = m
-    L9_2 = L9_2.NoRaceAv
-    L6_2(L7_2, L8_2, L9_2)
-    return
-  end
-  L6_2 = HostCross
-  L6_2 = L6_2[L3_2]
-  if L6_2 ~= L5_2 then
-    L6_2 = TriggerClientEvent
-    L7_2 = "esx:showNotification"
-    L8_2 = L4_2.source
-    L9_2 = m
-    L9_2 = L9_2.YouNotHost
-    L6_2(L7_2, L8_2, L9_2)
-    return
-  end
-  L6_2 = CorsaCross
-  L6_2 = L6_2[L3_2]
-  if nil == L6_2 then
-    L6_2 = TriggerClientEvent
-    L7_2 = "esx:showNotification"
-    L8_2 = L4_2.source
-    L9_2 = m
-    L9_2 = L9_2.AlredyRace
-    L6_2(L7_2, L8_2, L9_2)
-    return
-  end
-  L6_2 = CorsaCross
-  L6_2[L3_2] = nil
-  L6_2 = HostCross
-  L6_2[L3_2] = nil
-  L6_2 = TriggerClientEvent
-  L7_2 = "corsa:stopcross"
-  L8_2 = -1
-  L9_2 = L3_2
-  L6_2(L7_2, L8_2, L9_2)
-end
-L0_1(L1_1, L2_1)
+-- ============================================================
+--  classicrace - server/main.lua
+--  Lógica de servidor para o sistema de corridas
+-- ============================================================
+
+-- Tabelas de estado das corridas
+HostCross     = {}   -- [raceID] = identifier do host
+CorsaCross    = {}   -- [raceID] = 1 enquanto a corrida está ativa
+VincitoreCross = {}  -- [raceID] = 1 após um vencedor ser declarado
+
+-- ------------------------------------------------------------
+-- Evento: cliente chegou em primeiro (vencedor)
+-- ------------------------------------------------------------
+
+RegisterNetEvent("corsa:crossvincitore")
+AddEventHandler("corsa:crossvincitore", function(raceID)
+    local src = source
+
+    -- Ignorar se já há um vencedor registrado para esta corrida
+    if VincitoreCross[raceID] ~= nil then return end
+
+    VincitoreCross[raceID] = 1
+
+    -- Montar mensagem com o nome do vencedor
+    local identity    = getIdentity(src)
+    local winnerName  = identity.firstname .. " " .. identity.lastname
+    local winnerMsg   = m.WinnerIs .. winnerName
+
+    -- Transmitir para todos os clientes
+    TriggerClientEvent("corsa:crossvincitore", -1, winnerMsg, raceID)
+
+    Wait(5000)
+
+    -- Limpar estado da corrida
+    VincitoreCross[raceID] = nil
+    CorsaCross[raceID]     = nil
+end)
+
+-- ------------------------------------------------------------
+-- Evento: corrida encerrada pelo host ou pelo sistema
+-- ------------------------------------------------------------
+
+RegisterNetEvent("corsa:stopcross")
+AddEventHandler("corsa:stopcross", function()
+    TriggerClientEvent("corsa:stopcross", -1)
+end)
+
+-- ------------------------------------------------------------
+-- Callback: verificar se uma corrida já está em andamento
+-- Retorna o estado atual de CorsaCross[raceID] (nil = livre)
+-- ------------------------------------------------------------
+
+ESX.RegisterServerCallback("corsa:cross", function(source, cb, raceID)
+    cb(CorsaCross[raceID])
+end)
+
+-- ------------------------------------------------------------
+-- Callback: verificar se já existe um host para uma corrida
+-- Retorna o identifier do host, ou nil se não houver
+-- ------------------------------------------------------------
+
+ESX.RegisterServerCallback("corsa:checkhostcross", function(source, cb, raceID)
+    cb(HostCross[raceID])
+end)
+
+-- ------------------------------------------------------------
+-- Evento: registrar o jogador como host de uma corrida
+-- ------------------------------------------------------------
+
+RegisterNetEvent("corsa:hostcross")
+AddEventHandler("corsa:hostcross", function(raceID)
+    local src    = source
+    local player = ESX.GetPlayerFromId(src)
+
+    HostCross[raceID] = player.identifier
+
+    TriggerClientEvent("esx:showNotification", player.source, m.YouHost)
+    TriggerClientEvent("esx:showNotification", player.source, m.RaceID .. raceID)
+end)
+
+-- ------------------------------------------------------------
+-- Evento: remover o host de uma corrida (ao sair/terminar)
+-- ------------------------------------------------------------
+
+RegisterNetEvent("corsa:delhostcross")
+AddEventHandler("corsa:delhostcross", function(raceID)
+    HostCross[raceID] = nil
+end)
+
+-- ------------------------------------------------------------
+-- Comando: iniciar uma corrida  (/startrace <ID>)
+-- ------------------------------------------------------------
+
+RegisterCommand(StartRaceCommand, function(src, args)
+    local raceID = args[1]
+
+    -- Validar argumento
+    if raceID == nil then
+        TriggerClientEvent("esx:showNotification", src, m.InsertIDRace)
+        return
+    end
+
+    raceID = tonumber(raceID)
+    local player = ESX.GetPlayerFromId(src)
+
+    -- Verificar se existe host registrado para essa corrida
+    if HostCross[raceID] == nil then
+        TriggerClientEvent("esx:showNotification", player.source, m.NoRaceAv)
+        return
+    end
+
+    -- Verificar se quem executa o comando é o host
+    if HostCross[raceID] ~= player.identifier then
+        TriggerClientEvent("esx:showNotification", player.source, m.YouNotHost)
+        return
+    end
+
+    -- Verificar se a corrida já está em andamento
+    if CorsaCross[raceID] == 1 then
+        TriggerClientEvent("esx:showNotification", player.source, m.AlredyRace)
+        return
+    end
+
+    -- Iniciar a corrida
+    CorsaCross[raceID] = 1
+    TriggerClientEvent("corsa:startcross", -1, raceID)
+end)
+
+-- ------------------------------------------------------------
+-- Comando: parar uma corrida  (/stoprace <ID>)
+-- ------------------------------------------------------------
+
+RegisterCommand(StopRaceCommand, function(src, args)
+    local raceID = args[1]
+
+    -- Validar argumento
+    if raceID == nil then
+        TriggerClientEvent("esx:showNotification", src, m.InsertIDRace)
+        return
+    end
+
+    raceID = tonumber(raceID)
+    local player = ESX.GetPlayerFromId(src)
+
+    -- Verificar se existe host registrado
+    if HostCross[raceID] == nil then
+        TriggerClientEvent("esx:showNotification", player.source, m.NoRaceAv)
+        return
+    end
+
+    -- Verificar se é o host
+    if HostCross[raceID] ~= player.identifier then
+        TriggerClientEvent("esx:showNotification", player.source, m.YouNotHost)
+        return
+    end
+
+    -- Verificar se há corrida ativa para parar
+    if CorsaCross[raceID] == nil then
+        TriggerClientEvent("esx:showNotification", player.source, m.AlredyRace)
+        return
+    end
+
+    -- Parar a corrida e limpar estado
+    CorsaCross[raceID] = nil
+    HostCross[raceID]  = nil
+    TriggerClientEvent("corsa:stopcross", -1, raceID)
+end)

@@ -1,1228 +1,528 @@
-local L0_1, L1_1, L2_1, L3_1, L4_1, L5_1, L6_1, L7_1, L8_1, L9_1, L10_1, L11_1, L12_1, L13_1, L14_1, L15_1, L16_1, L17_1
-L0_1 = AdminLevel
-if not L0_1 then
-  L0_1 = {}
-end
-AdminLevel = L0_1
-L0_1 = {}
-L1_1 = "license:9febe2dc3b17fc6228bfbbb2a04fc3bb10b23636"
-L0_1[L1_1] = 1
-ADMIN_BY_IDENTIFIER = L0_1
-L0_1 = "admins.json"
-L1_1 = {}
-function L2_1()
-  local L0_2, L1_2, L2_2, L3_2, L4_2
-  L0_2 = LoadResourceFile
-  L1_2 = GetCurrentResourceName
-  L1_2 = L1_2()
-  L2_2 = L0_1
-  L0_2 = L0_2(L1_2, L2_2)
-  if L0_2 and "" ~= L0_2 then
-    L1_2 = pcall
-    L2_2 = json
-    L2_2 = L2_2.decode
-    L3_2 = L0_2
-    L1_2, L2_2 = L1_2(L2_2, L3_2)
-    if L1_2 then
-      L3_2 = type
-      L4_2 = L2_2
-      L3_2 = L3_2(L4_2)
-      if "table" == L3_2 then
-        L1_1 = L2_2
-    end
+-- ============================================================
+--  striano_admin - server/main.lua
+--  Lógica de servidor do sistema de administração
+-- ============================================================
+
+-- ------------------------------------------------------------
+-- Tabelas de estado
+-- ------------------------------------------------------------
+
+if not AdminLevel then AdminLevel = {} end   -- [srcId] = nível de admin em cache
+
+-- Admins hardcoded por identifier (configuração base no fxmanifest)
+ADMIN_BY_IDENTIFIER = {
+    ["license:9febe2dc3b17fc6228bfbbb2a04fc3bb10b23636"] = 1,
+}
+
+-- Permissões de grupos por funcionalidade
+GROUPS = GROUPS or {}
+GROUPS.player       = 2
+GROUPS.world        = 2
+GROUPS.vehicles     = 2
+GROUPS.weapons      = 2
+GROUPS.time_weather = 2
+GROUPS.misc         = 2
+GROUPS.appearance   = 2
+GROUPS.debug        = 1
+
+-- Ficheiro JSON onde os admins persistidos são guardados
+local ADMINS_FILE = "admins.json"
+local savedAdmins = {}   -- tabela carregada do JSON
+
+-- Tabelas anti-spam para abertura do menu
+local menuOpenTimestamps = {}   -- [srcId] = último timestamp de abertura
+local menuOpenWindowEnd  = {}   -- [srcId] = timestamp até onde a janela está válida
+
+local MENU_OPEN_COOLDOWN_MS = GetConvarInt("cqadmin_open_menu_window_ms", 1000)
+local MENU_WINDOW_MS        = GetConvarInt("cqadmin_cap_open_window_ms", 300000)
+
+-- ------------------------------------------------------------
+-- Persistência do JSON de admins
+-- ------------------------------------------------------------
+
+local function loadAdmins()
+    local raw = LoadResourceFile(GetCurrentResourceName(), ADMINS_FILE)
+    if raw and raw ~= "" then
+        local ok, decoded = pcall(json.decode, raw)
+        if ok and type(decoded) == "table" then
+            savedAdmins = decoded
+        else
+            savedAdmins = {}
+            print("^1[striano_admin]^0 admins.json corrupted or empty.")
+        end
     else
-      L3_2 = {}
-      L1_1 = L3_2
-      L3_2 = print
-      L4_2 = "^1[striano_admin]^0 admins.json corrupted or empty."
-      L3_2(L4_2)
+        savedAdmins = {}
     end
-  else
-    L1_2 = {}
-    L1_1 = L1_2
-  end
 end
-function L3_1()
-  local L0_2, L1_2, L2_2, L3_2, L4_2, L5_2
-  L0_2 = SaveResourceFile
-  L1_2 = GetCurrentResourceName
-  L1_2 = L1_2()
-  L2_2 = L0_1
-  L3_2 = json
-  L3_2 = L3_2.encode
-  L4_2 = L1_1
-  L5_2 = {}
-  L5_2.indent = true
-  L3_2 = L3_2(L4_2, L5_2)
-  L4_2 = -1
-  L0_2(L1_2, L2_2, L3_2, L4_2)
+
+local function saveAdmins()
+    SaveResourceFile(GetCurrentResourceName(), ADMINS_FILE, json.encode(savedAdmins, { indent = true }), -1)
 end
-function L4_1(A0_2)
-  local L1_2, L2_2, L3_2
-  L1_2 = GetPlayerIdentifiers
-  L2_2 = A0_2
-  L1_2 = L1_2(L2_2)
-  L2_2 = type
-  L3_2 = L1_2
-  L2_2 = L2_2(L3_2)
-  if "table" ~= L2_2 then
-    L2_2 = {}
-    return L2_2
-  end
-  return L1_2
+
+-- ------------------------------------------------------------
+-- Helpers de identifiers
+-- ------------------------------------------------------------
+
+--- Retorna a lista de identifiers do jogador ou {} em caso de falha.
+local function getPlayerIdentifiers(src)
+    local ids = GetPlayerIdentifiers(src)
+    return (type(ids) == "table") and ids or {}
 end
-function L5_1(A0_2)
-  local L1_2, L2_2, L3_2, L4_2, L5_2, L6_2, L7_2, L8_2, L9_2, L10_2
-  L1_2 = L4_1
-  L2_2 = A0_2
-  L1_2 = L1_2(L2_2)
-  L2_2 = ipairs
-  L3_2 = L1_2
-  L2_2, L3_2, L4_2, L5_2 = L2_2(L3_2)
-  for L6_2, L7_2 in L2_2, L3_2, L4_2, L5_2 do
-    L9_2 = L7_2
-    L8_2 = L7_2.find
-    L10_2 = "license:"
-    L8_2 = L8_2(L9_2, L10_2)
-    if 1 == L8_2 then
-      return L7_2
+
+--- Retorna o identifier principal (prioridade: license > steam > discord > primeiro).
+local function getPrimaryIdentifier(src)
+    local ids = getPlayerIdentifiers(src)
+    for _, id in ipairs(ids) do
+        if id:find("license:", 1, true) == 1 then return id end
     end
-  end
-  L2_2 = ipairs
-  L3_2 = L1_2
-  L2_2, L3_2, L4_2, L5_2 = L2_2(L3_2)
-  for L6_2, L7_2 in L2_2, L3_2, L4_2, L5_2 do
-    L9_2 = L7_2
-    L8_2 = L7_2.find
-    L10_2 = "steam:"
-    L8_2 = L8_2(L9_2, L10_2)
-    if 1 == L8_2 then
-      return L7_2
+    for _, id in ipairs(ids) do
+        if id:find("steam:", 1, true) == 1 then return id end
     end
-  end
-  L2_2 = ipairs
-  L3_2 = L1_2
-  L2_2, L3_2, L4_2, L5_2 = L2_2(L3_2)
-  for L6_2, L7_2 in L2_2, L3_2, L4_2, L5_2 do
-    L9_2 = L7_2
-    L8_2 = L7_2.find
-    L10_2 = "discord:"
-    L8_2 = L8_2(L9_2, L10_2)
-    if 1 == L8_2 then
-      return L7_2
+    for _, id in ipairs(ids) do
+        if id:find("discord:", 1, true) == 1 then return id end
     end
-  end
-  L2_2 = L1_2[1]
-  return L2_2
+    return ids[1]
 end
-function L6_1(A0_2, A1_2)
-  local L2_2, L3_2, L4_2, L5_2, L6_2, L7_2, L8_2, L9_2, L10_2, L11_2, L12_2, L13_2
-  L2_2 = L4_1
-  L3_2 = A0_2
-  L2_2 = L2_2(L3_2)
-  L3_2 = ipairs
-  L4_2 = L2_2
-  L3_2, L4_2, L5_2, L6_2 = L3_2(L4_2)
-  for L7_2, L8_2 in L3_2, L4_2, L5_2, L6_2 do
-    L10_2 = L8_2
-    L9_2 = L8_2.find
-    L11_2 = A1_2
-    L12_2 = 1
-    L13_2 = true
-    L9_2 = L9_2(L10_2, L11_2, L12_2, L13_2)
-    if 1 == L9_2 then
-      return L8_2
+
+--- Retorna o primeiro identifier do jogador que começa com um prefixo específico.
+local function getIdentifierByPrefix(src, prefix)
+    for _, id in ipairs(getPlayerIdentifiers(src)) do
+        if id:find(prefix, 1, true) == 1 then return id end
     end
-  end
-  L3_2 = nil
-  return L3_2
+    return nil
 end
-function L7_1(A0_2)
-  local L1_2, L2_2, L3_2, L4_2, L5_2, L6_2, L7_2, L8_2, L9_2, L10_2, L11_2
-  L1_2 = 0
-  L2_2 = L4_1
-  L3_2 = A0_2
-  L2_2 = L2_2(L3_2)
-  L3_2 = ipairs
-  L4_2 = L2_2
-  L3_2, L4_2, L5_2, L6_2 = L3_2(L4_2)
-  for L7_2, L8_2 in L3_2, L4_2, L5_2, L6_2 do
-    L9_2 = L1_1
-    L9_2 = L9_2[L8_2]
-    if nil == L9_2 then
-      L10_2 = ADMIN_BY_IDENTIFIER
-      L9_2 = L10_2[L8_2]
+
+-- ------------------------------------------------------------
+-- Nível de admin
+-- ------------------------------------------------------------
+
+--- Lê o nível de admin bruto nos dicionários (sem cache).
+local function resolveAdminLevel(src)
+    local level = 0
+    for _, id in ipairs(getPlayerIdentifiers(src)) do
+        local lv = savedAdmins[id] or ADMIN_BY_IDENTIFIER[id]
+        if lv ~= nil then
+            lv = tonumber(lv) or 0
+            if lv > 0 and (level == 0 or level > lv) then
+                level = lv
+            end
+        end
     end
-    if nil ~= L9_2 then
-      L10_2 = tonumber
-      L11_2 = L9_2
-      L10_2 = L10_2(L11_2)
-      L9_2 = L10_2 or L9_2
-      if not L10_2 then
-        L9_2 = 0
-      end
-      if L9_2 > 0 and (0 == L1_2 or L1_2 > L9_2) then
-        L1_2 = L9_2
-      end
+    return level
+end
+
+--- Atualiza o cache e o state do jogador e retorna o nível.
+local function refreshAdminLevel(src)
+    src = tonumber(src) or 0
+    if src <= 0 then return 0 end
+
+    local lv = resolveAdminLevel(src)
+    AdminLevel[src] = lv
+
+    local p = Player(src)
+    if p and p.state then
+        p.state.adminLevel = lv
+        p.state.isAdmin    = lv > 0
     end
-  end
-  return L1_2
+    return lv
 end
-function L8_1(A0_2)
-  local L1_2, L2_2, L3_2, L4_2
-  L1_2 = tonumber
-  L2_2 = A0_2
-  L1_2 = L1_2(L2_2)
-  A0_2 = L1_2 or A0_2
-  if not L1_2 then
-    A0_2 = 0
-  end
-  if A0_2 <= 0 then
-    L1_2 = 0
-    return L1_2
-  end
-  L1_2 = L7_1
-  L2_2 = A0_2
-  L1_2 = L1_2(L2_2)
-  L2_2 = AdminLevel
-  L2_2[A0_2] = L1_2
-  L2_2 = Player
-  L3_2 = A0_2
-  L2_2 = L2_2(L3_2)
-  if L2_2 then
-    L3_2 = L2_2.state
-    if L3_2 then
-      L3_2 = L2_2.state
-      L3_2.adminLevel = L1_2
-      L3_2 = L2_2.state
-      L4_2 = L1_2 > 0
-      L3_2.isAdmin = L4_2
+
+--- Retorna o nível de admin do jogador (com cache).
+function GetAdminLevel(src)
+    src = tonumber(src) or 0
+    if src <= 0 then return 0 end
+    local cached = AdminLevel[src]
+    if not cached then
+        cached = refreshAdminLevel(src)
+        if not cached then cached = 0 end
     end
-  end
-  return L1_2
+    return cached
 end
-function L9_1(A0_2)
-  local L1_2, L2_2
-  L1_2 = tonumber
-  L2_2 = A0_2
-  L1_2 = L1_2(L2_2)
-  A0_2 = L1_2 or A0_2
-  if not L1_2 then
-    A0_2 = 0
-  end
-  if A0_2 <= 0 then
-    L1_2 = 0
-    return L1_2
-  end
-  L1_2 = AdminLevel
-  L1_2 = L1_2[A0_2]
-  if not L1_2 then
-    L1_2 = L8_1
-    L2_2 = A0_2
-    L1_2 = L1_2(L2_2)
-    if not L1_2 then
-      L1_2 = 0
+
+--- Verifica se o jogador tem ao menos o nível mínimo pedido.
+function IsAdmin(src, minLevel)
+    src      = tonumber(src)      or 0
+    minLevel = tonumber(minLevel) or 1
+    if src <= 0 then return false end
+    local lv = GetAdminLevel(src)
+    return lv > 0 and minLevel >= lv
+end
+
+exports("GetAdminLevel", GetAdminLevel)
+exports("adminlv",       GetAdminLevel)
+exports("IsAdmin",       IsAdmin)
+exports("imadmin",       IsAdmin)
+exports("admin",         IsAdmin)
+
+-- ------------------------------------------------------------
+-- Helper: nome legível do nível
+-- ------------------------------------------------------------
+
+local function adminLevelName(lv)
+    lv = tonumber(lv) or 0
+    if lv == 1 then return "SuperAdmin" end
+    if lv == 2 then return "Admin"      end
+    if lv == 3 then return "Mod"        end
+    return "None"
+end
+
+-- ------------------------------------------------------------
+-- Helper: enviar mensagem de animação / chat ao cliente
+-- ------------------------------------------------------------
+
+local function sendAnimCmd(src, cmd)
+    TriggerClientEvent("anim:cmd", src, cmd)
+end
+
+-- ------------------------------------------------------------
+-- Eventos de ciclo de vida do jogador
+-- ------------------------------------------------------------
+
+AddEventHandler("playerJoining", function()
+    refreshAdminLevel(source)
+end)
+
+AddEventHandler("playerDropped", function()
+    AdminLevel[source] = nil
+end)
+
+AddEventHandler("onResourceStart", function(resourceName)
+    if resourceName ~= GetCurrentResourceName() then return end
+    loadAdmins()
+    for _, srcStr in ipairs(GetPlayers()) do
+        refreshAdminLevel(tonumber(srcStr))
     end
-  end
-  return L1_2
-end
-GetAdminLevel = L9_1
-function L9_1(A0_2, A1_2)
-  local L2_2, L3_2
-  L2_2 = tonumber
-  L3_2 = A0_2
-  L2_2 = L2_2(L3_2)
-  A0_2 = L2_2 or A0_2
-  if not L2_2 then
-    A0_2 = 0
-  end
-  if A0_2 <= 0 then
-    L2_2 = false
-    return L2_2
-  end
-  L2_2 = tonumber
-  L3_2 = A1_2
-  L2_2 = L2_2(L3_2)
-  A1_2 = L2_2 or A1_2
-  if not L2_2 then
-    A1_2 = 1
-  end
-  L2_2 = GetAdminLevel
-  L3_2 = A0_2
-  L2_2 = L2_2(L3_2)
-  L3_2 = L2_2 > 0 and A1_2 >= L2_2
-  return L3_2
-end
-IsAdmin = L9_1
-L9_1 = exports
-L10_1 = "GetAdminLevel"
-L11_1 = GetAdminLevel
-L9_1(L10_1, L11_1)
-L9_1 = exports
-L10_1 = "adminlv"
-L11_1 = GetAdminLevel
-L9_1(L10_1, L11_1)
-L9_1 = exports
-L10_1 = "IsAdmin"
-L11_1 = IsAdmin
-L9_1(L10_1, L11_1)
-L9_1 = exports
-L10_1 = "imadmin"
-L11_1 = IsAdmin
-L9_1(L10_1, L11_1)
-L9_1 = exports
-L10_1 = "admin"
-L11_1 = IsAdmin
-L9_1(L10_1, L11_1)
-L9_1 = AddEventHandler
-L10_1 = "playerJoining"
-function L11_1()
-  local L0_2, L1_2
-  L0_2 = L8_1
-  L1_2 = source
-  L0_2(L1_2)
-end
-L9_1(L10_1, L11_1)
-L9_1 = AddEventHandler
-L10_1 = "playerDropped"
-function L11_1()
-  local L0_2, L1_2
-  L0_2 = source
-  L1_2 = AdminLevel
-  L1_2[L0_2] = nil
-end
-L9_1(L10_1, L11_1)
-L9_1 = AddEventHandler
-L10_1 = "onResourceStart"
-function L11_1(A0_2)
-  local L1_2, L2_2, L3_2, L4_2, L5_2, L6_2, L7_2, L8_2, L9_2
-  L1_2 = GetCurrentResourceName
-  L1_2 = L1_2()
-  if A0_2 ~= L1_2 then
-    return
-  end
-  L1_2 = L2_1
-  L1_2()
-  L1_2 = ipairs
-  L2_2 = GetPlayers
-  L2_2, L3_2, L4_2, L5_2, L6_2, L7_2, L8_2, L9_2 = L2_2()
-  L1_2, L2_2, L3_2, L4_2 = L1_2(L2_2, L3_2, L4_2, L5_2, L6_2, L7_2, L8_2, L9_2)
-  for L5_2, L6_2 in L1_2, L2_2, L3_2, L4_2 do
-    L7_2 = L8_1
-    L8_2 = tonumber
-    L9_2 = L6_2
-    L8_2, L9_2 = L8_2(L9_2)
-    L7_2(L8_2, L9_2)
-  end
-end
-L9_1(L10_1, L11_1)
-function L9_1(A0_2, A1_2)
-  local L2_2, L3_2, L4_2, L5_2
-  L2_2 = TriggerClientEvent
-  L3_2 = "anim:cmd"
-  L4_2 = A0_2
-  L5_2 = A1_2
-  L2_2(L3_2, L4_2, L5_2)
-end
-function L10_1(A0_2)
-  local L1_2, L2_2
-  L1_2 = tonumber
-  L2_2 = A0_2
-  L1_2 = L1_2(L2_2)
-  A0_2 = L1_2 or A0_2
-  if not L1_2 then
-    A0_2 = 0
-  end
-  if 1 == A0_2 then
-    L1_2 = "SuperAdmin"
-    return L1_2
-  end
-  if 2 == A0_2 then
-    L1_2 = "Admin"
-    return L1_2
-  end
-  if 3 == A0_2 then
-    L1_2 = "Mod"
-    return L1_2
-  end
-  L1_2 = "None"
-  return L1_2
-end
-L11_1 = RegisterCommand
-L12_1 = "adminlist"
-function L13_1(A0_2, A1_2)
-  local L2_2, L3_2, L4_2, L5_2, L6_2, L7_2, L8_2, L9_2, L10_2, L11_2, L12_2, L13_2, L14_2, L15_2, L16_2, L17_2, L18_2
-  L2_2 = A0_2
-  L3_2 = IsAdmin
-  L4_2 = L2_2
-  L5_2 = 1
-  L3_2 = L3_2(L4_2, L5_2)
-  if not L3_2 then
-    L3_2 = L9_1
-    L4_2 = L2_2
-    L5_2 = "No permission."
-    L3_2(L4_2, L5_2)
-    return
-  end
-  L3_2 = {}
-  L4_2 = #L3_2
-  L4_2 = L4_2 + 1
-  L3_2[L4_2] = "^3==== ADMIN LIST ===="
-  L4_2 = #L3_2
-  L4_2 = L4_2 + 1
-  L3_2[L4_2] = "^5[CONFIG BASE]^7"
-  L4_2 = false
-  L5_2 = pairs
-  L6_2 = ADMIN_BY_IDENTIFIER
-  if not L6_2 then
-    L6_2 = {}
-  end
-  L5_2, L6_2, L7_2, L8_2 = L5_2(L6_2)
-  for L9_2, L10_2 in L5_2, L6_2, L7_2, L8_2 do
-    L4_2 = true
-    L11_2 = #L3_2
-    L11_2 = L11_2 + 1
-    L12_2 = "- %s | lv %s (%s)"
-    L13_2 = L12_2
-    L12_2 = L12_2.format
-    L14_2 = L9_2
-    L15_2 = tostring
-    L16_2 = L10_2
-    L15_2 = L15_2(L16_2)
-    L16_2 = L10_1
-    L17_2 = L10_2
-    L16_2, L17_2, L18_2 = L16_2(L17_2)
-    L12_2 = L12_2(L13_2, L14_2, L15_2, L16_2, L17_2, L18_2)
-    L3_2[L11_2] = L12_2
-  end
-  if not L4_2 then
-    L5_2 = #L3_2
-    L5_2 = L5_2 + 1
-    L3_2[L5_2] = "- No admins in list."
-  end
-  L5_2 = #L3_2
-  L5_2 = L5_2 + 1
-  L3_2[L5_2] = "^2[ADMINS SAVED]^7"
-  L5_2 = false
-  L6_2 = pairs
-  L7_2 = L1_1
-  if not L7_2 then
-    L7_2 = {}
-  end
-  L6_2, L7_2, L8_2, L9_2 = L6_2(L7_2)
-  for L10_2, L11_2 in L6_2, L7_2, L8_2, L9_2 do
-    L5_2 = true
-    L12_2 = #L3_2
-    L12_2 = L12_2 + 1
-    L13_2 = "- %s | lv %s (%s)"
-    L14_2 = L13_2
-    L13_2 = L13_2.format
-    L15_2 = L10_2
-    L16_2 = tostring
-    L17_2 = L11_2
-    L16_2 = L16_2(L17_2)
-    L17_2 = L10_1
-    L18_2 = L11_2
-    L17_2, L18_2 = L17_2(L18_2)
-    L13_2 = L13_2(L14_2, L15_2, L16_2, L17_2, L18_2)
-    L3_2[L12_2] = L13_2
-  end
-  if not L5_2 then
-    L6_2 = #L3_2
-    L6_2 = L6_2 + 1
-    L3_2[L6_2] = "- No saved admins."
-  end
-  L6_2 = 1
-  L7_2 = #L3_2
-  L8_2 = 1
-  for L9_2 = L6_2, L7_2, L8_2 do
-    L10_2 = TriggerClientEvent
-    L11_2 = "chat:addMessage"
-    L12_2 = L2_2
-    L13_2 = {}
-    L14_2 = {}
-    L15_2 = 255
-    L16_2 = 180
-    L17_2 = 80
-    L14_2[1] = L15_2
-    L14_2[2] = L16_2
-    L14_2[3] = L17_2
-    L13_2.color = L14_2
-    L13_2.multiline = true
-    L14_2 = {}
-    L15_2 = "ADMIN"
-    L16_2 = L3_2[L9_2]
-    L14_2[1] = L15_2
-    L14_2[2] = L16_2
-    L13_2.args = L14_2
-    L10_2(L11_2, L12_2, L13_2)
-  end
-  L6_2 = print
-  L7_2 = "[striano_admin] /adminlist requested by"
-  L8_2 = GetPlayerName
-  L9_2 = L2_2
-  L8_2 = L8_2(L9_2)
-  if not L8_2 then
-    L8_2 = "Unknown"
-  end
-  L9_2 = L2_2
-  L6_2(L7_2, L8_2, L9_2)
-end
-L14_1 = false
-L11_1(L12_1, L13_1, L14_1)
-L11_1 = RegisterCommand
-L12_1 = "setadmin"
-function L13_1(A0_2, A1_2)
-  local L2_2, L3_2, L4_2, L5_2, L6_2, L7_2, L8_2, L9_2, L10_2, L11_2, L12_2, L13_2, L14_2, L15_2
-  L2_2 = A0_2
-  L3_2 = IsAdmin
-  L4_2 = L2_2
-  L5_2 = 1
-  L3_2 = L3_2(L4_2, L5_2)
-  if not L3_2 then
-    L3_2 = L9_1
-    L4_2 = L2_2
-    L5_2 = "No permission."
-    L3_2(L4_2, L5_2)
-    return
-  end
-  L3_2 = tonumber
-  L4_2 = A1_2[1]
-  if not L4_2 then
-    L4_2 = 0
-  end
-  L3_2 = L3_2(L4_2)
-  L4_2 = tonumber
-  L5_2 = A1_2[2]
-  if not L5_2 then
-    L5_2 = 0
-  end
-  L4_2 = L4_2(L5_2)
-  if not (L3_2 <= 0) then
-    L5_2 = GetPlayerName
-    L6_2 = L3_2
-    L5_2 = L5_2(L6_2)
-    if L5_2 then
-      goto lbl_37
+end)
+
+-- ------------------------------------------------------------
+-- Comandos de gestão de admins
+-- ------------------------------------------------------------
+
+--- /adminlist — lista todos os admins (requer lv 1)
+RegisterCommand("adminlist", function(src, args)
+    if not IsAdmin(src, 1) then
+        sendAnimCmd(src, "No permission.")
+        return
     end
-  end
-  L5_2 = L9_1
-  L6_2 = L2_2
-  L7_2 = "/setadmin [id] [lv]"
-  L5_2(L6_2, L7_2)
-  do return end
-  ::lbl_37::
-  if L4_2 <= 0 or L4_2 > 3 then
-    L5_2 = L9_1
-    L6_2 = L2_2
-    L7_2 = "Lv not valid. 1 (Super admin), 2 (Admin), 3 (Mod)."
-    L5_2(L6_2, L7_2)
-    return
-  end
-  L5_2 = L5_1
-  L6_2 = L3_2
-  L5_2 = L5_2(L6_2)
-  if not L5_2 then
-    L6_2 = L9_1
-    L7_2 = L2_2
-    L8_2 = "Identifier not found."
-    L6_2(L7_2, L8_2)
-    return
-  end
-  L6_2 = L1_1
-  L6_2[L5_2] = L4_2
-  L6_2 = L3_1
-  L6_2()
-  L6_2 = L8_1
-  L7_2 = L3_2
-  L6_2 = L6_2(L7_2)
-  L7_2 = L9_1
-  L8_2 = L2_2
-  L9_2 = "Admin added %s[ID %d] LV: %d. Identifier: %s"
-  L10_2 = L9_2
-  L9_2 = L9_2.format
-  L11_2 = GetPlayerName
-  L12_2 = L3_2
-  L11_2 = L11_2(L12_2)
-  if not L11_2 then
-    L11_2 = "Unknow"
-  end
-  L12_2 = L3_2
-  L13_2 = L6_2
-  L14_2 = L5_2
-  L9_2, L10_2, L11_2, L12_2, L13_2, L14_2, L15_2 = L9_2(L10_2, L11_2, L12_2, L13_2, L14_2)
-  L7_2(L8_2, L9_2, L10_2, L11_2, L12_2, L13_2, L14_2, L15_2)
-  L7_2 = L9_1
-  L8_2 = L3_2
-  L9_2 = "You are admin lv %d now."
-  L10_2 = L9_2
-  L9_2 = L9_2.format
-  L11_2 = L6_2
-  L9_2, L10_2, L11_2, L12_2, L13_2, L14_2, L15_2 = L9_2(L10_2, L11_2)
-  L7_2(L8_2, L9_2, L10_2, L11_2, L12_2, L13_2, L14_2, L15_2)
-  L7_2 = print
-  L8_2 = "[striano_admin] %s[%d] new Admin added %s[%d] (LV: %d) (%s)"
-  L9_2 = L8_2
-  L8_2 = L8_2.format
-  L10_2 = GetPlayerName
-  L11_2 = L2_2
-  L10_2 = L10_2(L11_2)
-  if not L10_2 then
-    L10_2 = "Unknown"
-  end
-  L11_2 = L2_2
-  L12_2 = GetPlayerName
-  L13_2 = L3_2
-  L12_2 = L12_2(L13_2)
-  if not L12_2 then
-    L12_2 = "Unknown"
-  end
-  L13_2 = L3_2
-  L14_2 = L6_2
-  L15_2 = L5_2
-  L8_2, L9_2, L10_2, L11_2, L12_2, L13_2, L14_2, L15_2 = L8_2(L9_2, L10_2, L11_2, L12_2, L13_2, L14_2, L15_2)
-  L7_2(L8_2, L9_2, L10_2, L11_2, L12_2, L13_2, L14_2, L15_2)
-end
-L14_1 = false
-L11_1(L12_1, L13_1, L14_1)
-L11_1 = RegisterCommand
-L12_1 = "removeadmin"
-function L13_1(A0_2, A1_2)
-  local L2_2, L3_2, L4_2, L5_2, L6_2, L7_2, L8_2, L9_2, L10_2, L11_2, L12_2, L13_2
-  L2_2 = A0_2
-  L3_2 = IsAdmin
-  L4_2 = L2_2
-  L5_2 = 1
-  L3_2 = L3_2(L4_2, L5_2)
-  if not L3_2 then
-    L3_2 = L9_1
-    L4_2 = L2_2
-    L5_2 = "No permission."
-    L3_2(L4_2, L5_2)
-    return
-  end
-  L3_2 = tonumber
-  L4_2 = A1_2[1]
-  if not L4_2 then
-    L4_2 = 0
-  end
-  L3_2 = L3_2(L4_2)
-  if not (L3_2 <= 0) then
-    L4_2 = GetPlayerName
-    L5_2 = L3_2
-    L4_2 = L4_2(L5_2)
-    if L4_2 then
-      goto lbl_31
+
+    local lines = { "^3==== ADMIN LIST ====" }
+
+    -- Admins da configuração base
+    table.insert(lines, "^5[CONFIG BASE]^7")
+    local hasBase = false
+    for id, lv in pairs(ADMIN_BY_IDENTIFIER or {}) do
+        hasBase = true
+        table.insert(lines, string.format("- %s | lv %s (%s)", id, tostring(lv), adminLevelName(lv)))
     end
-  end
-  L4_2 = L9_1
-  L5_2 = L2_2
-  L6_2 = "/removeadmin [id]"
-  L4_2(L5_2, L6_2)
-  do return end
-  ::lbl_31::
-  L4_2 = L5_1
-  L5_2 = L3_2
-  L4_2 = L4_2(L5_2)
-  if not L4_2 then
-    L5_2 = L9_1
-    L6_2 = L2_2
-    L7_2 = "Identifier not found."
-    L5_2(L6_2, L7_2)
-    return
-  end
-  L5_2 = L1_1
-  L5_2 = L5_2[L4_2]
-  if nil == L5_2 then
-    L5_2 = ADMIN_BY_IDENTIFIER
-    L5_2 = L5_2[L4_2]
-    if nil == L5_2 then
-      L5_2 = L9_1
-      L6_2 = L2_2
-      L7_2 = "This player is not an admin."
-      L5_2(L6_2, L7_2)
-      return
+    if not hasBase then table.insert(lines, "- No admins in list.") end
+
+    -- Admins persistidos no JSON
+    table.insert(lines, "^2[ADMINS SAVED]^7")
+    local hasSaved = false
+    for id, lv in pairs(savedAdmins or {}) do
+        hasSaved = true
+        table.insert(lines, string.format("- %s | lv %s (%s)", id, tostring(lv), adminLevelName(lv)))
     end
-  end
-  L5_2 = L1_1
-  L5_2[L4_2] = nil
-  L5_2 = L3_1
-  L5_2()
-  L5_2 = L8_1
-  L6_2 = L3_2
-  L5_2 = L5_2(L6_2)
-  L6_2 = L9_1
-  L7_2 = L2_2
-  L8_2 = "Admin removed %s [ID %d]. LV: %d"
-  L9_2 = L8_2
-  L8_2 = L8_2.format
-  L10_2 = GetPlayerName
-  L11_2 = L3_2
-  L10_2 = L10_2(L11_2)
-  if not L10_2 then
-    L10_2 = "Unknow"
-  end
-  L11_2 = L3_2
-  L12_2 = L5_2
-  L8_2, L9_2, L10_2, L11_2, L12_2, L13_2 = L8_2(L9_2, L10_2, L11_2, L12_2)
-  L6_2(L7_2, L8_2, L9_2, L10_2, L11_2, L12_2, L13_2)
-  L6_2 = L9_1
-  L7_2 = L3_2
-  L8_2 = "Admin rule removed."
-  L6_2(L7_2, L8_2)
-  L6_2 = print
-  L7_2 = "[striano_admin] %s[%d] remove %s[%d] (%s) from admin"
-  L8_2 = L7_2
-  L7_2 = L7_2.format
-  L9_2 = GetPlayerName
-  L10_2 = L2_2
-  L9_2 = L9_2(L10_2)
-  if not L9_2 then
-    L9_2 = "Unknown"
-  end
-  L10_2 = L2_2
-  L11_2 = GetPlayerName
-  L12_2 = L3_2
-  L11_2 = L11_2(L12_2)
-  if not L11_2 then
-    L11_2 = "Unknown"
-  end
-  L12_2 = L3_2
-  L13_2 = L4_2
-  L7_2, L8_2, L9_2, L10_2, L11_2, L12_2, L13_2 = L7_2(L8_2, L9_2, L10_2, L11_2, L12_2, L13_2)
-  L6_2(L7_2, L8_2, L9_2, L10_2, L11_2, L12_2, L13_2)
-end
-L14_1 = false
-L11_1(L12_1, L13_1, L14_1)
-L11_1 = GROUPS
-if not L11_1 then
-  L11_1 = {}
-end
-GROUPS = L11_1
-L11_1 = GROUPS
-L11_1.player = 2
-L11_1 = GROUPS
-L11_1.world = 2
-L11_1 = GROUPS
-L11_1.vehicles = 2
-L11_1 = GROUPS
-L11_1.weapons = 2
-L11_1 = GROUPS
-L11_1.time_weather = 2
-L11_1 = GROUPS
-L11_1.misc = 2
-L11_1 = GROUPS
-L11_1.appearance = 2
-L11_1 = GROUPS
-L11_1.debug = 1
-function L11_1(A0_2)
-  local L1_2, L2_2
-  L1_2 = tonumber
-  L2_2 = A0_2
-  L1_2 = L1_2(L2_2)
-  A0_2 = L1_2 or A0_2
-  if not L1_2 then
-    A0_2 = 0
-  end
-  if A0_2 <= 0 then
-    L1_2 = 0
-    return L1_2
-  end
-  L1_2 = AdminLevel
-  L1_2 = L1_2[A0_2]
-  if not L1_2 then
-    L1_2 = L8_1
-    L2_2 = A0_2
-    L1_2 = L1_2(L2_2)
-    if not L1_2 then
-      L1_2 = 0
+    if not hasSaved then table.insert(lines, "- No saved admins.") end
+
+    -- Enviar ao cliente linha a linha
+    for _, line in ipairs(lines) do
+        TriggerClientEvent("chat:addMessage", src, {
+            color     = { 255, 180, 80 },
+            multiline = true,
+            args      = { "ADMIN", line },
+        })
     end
-  end
-  return L1_2
-end
-GetAdminLevel = L11_1
-function L11_1(A0_2, A1_2)
-  local L2_2
-  L2_2 = true
-  return L2_2
-end
-IsAdmin = L11_1
-L11_1 = exports
-L12_1 = "GetAdminLevel"
-L13_1 = GetAdminLevel
-L11_1(L12_1, L13_1)
-L11_1 = exports
-L12_1 = "IsAdmin"
-L13_1 = IsAdmin
-L11_1(L12_1, L13_1)
-L11_1 = AddEventHandler
-L12_1 = "playerDropped"
-function L13_1()
-  local L0_2, L1_2
-  L0_2 = source
-  L1_2 = AdminLevel
-  L1_2[L0_2] = nil
-end
-L11_1(L12_1, L13_1)
-L11_1 = {}
-L12_1 = GetConvarInt
-L13_1 = "cqadmin_open_menu_window_ms"
-L14_1 = 1000
-L12_1 = L12_1(L13_1, L14_1)
-L13_1 = GetConvarInt
-L14_1 = "cqadmin_cap_open_window_ms"
-L15_1 = 300000
-L13_1 = L13_1(L14_1, L15_1)
-L14_1 = {}
-L15_1 = RegisterNetEvent
-L16_1 = "striano_admin:sv:openMenuRequest"
-function L17_1(A0_2)
-  local L1_2, L2_2, L3_2, L4_2, L5_2, L6_2, L7_2, L8_2, L9_2
-  L1_2 = source
-  if not L1_2 or L1_2 <= 0 then
-    L2_2 = tonumber
-    L3_2 = A0_2
-    L2_2 = L2_2(L3_2)
-    L1_2 = L2_2 or L1_2
-    if not L2_2 then
-      L1_2 = 0
+
+    print("[striano_admin] /adminlist requested by", GetPlayerName(src) or "Unknown", src)
+end, false)
+
+--- /setadmin [id] [lv] — adiciona ou atualiza nível de admin
+RegisterCommand("setadmin", function(src, args)
+    if not IsAdmin(src, 1) then
+        sendAnimCmd(src, "No permission.")
+        return
     end
-  end
-  if not L1_2 or L1_2 <= 0 then
-    return
-  end
-  L2_2 = GetGameTimer
-  L2_2 = L2_2()
-  L3_2 = L11_1
-  L3_2 = L3_2[L1_2]
-  if not L3_2 then
-    L3_2 = 0
-  end
-  L4_2 = L2_2 - L3_2
-  L5_2 = L12_1
-  if L4_2 < L5_2 then
-    return
-  end
-  L4_2 = L11_1
-  L4_2[L1_2] = L2_2
-  L4_2 = GetAdminLevel
-  L5_2 = L1_2
-  L4_2 = L4_2(L5_2)
-  if L4_2 <= 0 then
-    return
-  end
-  L5_2 = L14_1
-  L6_2 = L13_1
-  L6_2 = L2_2 + L6_2
-  L5_2[L1_2] = L6_2
-  L5_2 = "open-%d-%d"
-  L6_2 = L5_2
-  L5_2 = L5_2.format
-  L7_2 = L1_2
-  L8_2 = L2_2
-  L5_2 = L5_2(L6_2, L7_2, L8_2)
-  L6_2 = TriggerClientEvent
-  L7_2 = "striano_admin:cl:open"
-  L8_2 = L1_2
-  L9_2 = L5_2
-  L6_2(L7_2, L8_2, L9_2)
-end
-L15_1(L16_1, L17_1)
-L15_1 = RegisterNetEvent
-L16_1 = "striano_admin:sv:requestCapabilities"
-function L17_1()
-  local L0_2, L1_2, L2_2, L3_2, L4_2, L5_2, L6_2, L7_2, L8_2, L9_2
-  L0_2 = source
-  L1_2 = GetAdminLevel
-  L2_2 = L0_2
-  L1_2 = L1_2(L2_2)
-  L2_2 = {}
-  L2_2.player = false
-  L2_2.world = false
-  L2_2.debug = false
-  L2_2.vehicles = false
-  L2_2.weapons = false
-  L2_2.time_weather = false
-  L2_2.misc = false
-  L2_2.appearance = false
-  if 1 == L1_2 then
-    L3_2 = pairs
-    L4_2 = L2_2
-    L3_2, L4_2, L5_2, L6_2 = L3_2(L4_2)
-    for L7_2 in L3_2, L4_2, L5_2, L6_2 do
-      L2_2[L7_2] = true
+
+    local targetId = tonumber(args[1] or 0)
+    local newLevel = tonumber(args[2] or 0)
+
+    if targetId <= 0 or not GetPlayerName(targetId) then
+        sendAnimCmd(src, "/setadmin [id] [lv]")
+        return
     end
-  elseif 2 == L1_2 then
-    L2_2.player = true
-    L2_2.world = true
-    L2_2.vehicles = true
-    L2_2.weapons = true
-    L2_2.time_weather = true
-    L2_2.misc = true
-    L2_2.appearance = true
-  elseif 3 == L1_2 then
-    L2_2.player = true
-    L2_2.misc = true
-  end
-  L3_2 = TriggerClientEvent
-  L4_2 = "striano_admin:cl:setCapabilities"
-  L5_2 = L0_2
-  L6_2 = L2_2
-  L3_2(L4_2, L5_2, L6_2)
-end
-L15_1(L16_1, L17_1)
-L15_1 = RegisterNetEvent
-L16_1 = "striano_admin:sv:reqItemsList"
-function L17_1()
-  local L0_2, L1_2, L2_2, L3_2, L4_2, L5_2
-  L0_2 = source
-  L1_2 = {}
-  L2_2 = exports
-  L2_2 = L2_2.striano_inventory
-  if L2_2 then
-    L2_2 = exports
-    L2_2 = L2_2.striano_inventory
-    L2_2 = L2_2.GetAllItems
-    if L2_2 then
-      L2_2 = exports
-      L2_2 = L2_2.striano_inventory
-      L3_2 = L2_2
-      L2_2 = L2_2.GetAllItems
-      L2_2 = L2_2(L3_2)
-      L1_2 = L2_2
+    if newLevel <= 0 or newLevel > 3 then
+        sendAnimCmd(src, "Lv not valid. 1 (Super admin), 2 (Admin), 3 (Mod).")
+        return
     end
-  end
-  L2_2 = TriggerClientEvent
-  L3_2 = "striano_admin:cl:setItemsList"
-  L4_2 = L0_2
-  L5_2 = L1_2
-  L2_2(L3_2, L4_2, L5_2)
-end
-L15_1(L16_1, L17_1)
-L15_1 = RegisterNetEvent
-L16_1 = "striano_admin:sv:reqPlayersList"
-function L17_1()
-  local L0_2, L1_2, L2_2, L3_2, L4_2, L5_2, L6_2, L7_2, L8_2, L9_2, L10_2, L11_2, L12_2
-  L0_2 = source
-  L1_2 = {}
-  L2_2 = ipairs
-  L3_2 = GetPlayers
-  L3_2, L4_2, L5_2, L6_2, L7_2, L8_2, L9_2, L10_2, L11_2, L12_2 = L3_2()
-  L2_2, L3_2, L4_2, L5_2 = L2_2(L3_2, L4_2, L5_2, L6_2, L7_2, L8_2, L9_2, L10_2, L11_2, L12_2)
-  for L6_2, L7_2 in L2_2, L3_2, L4_2, L5_2 do
-    L8_2 = #L1_2
-    L8_2 = L8_2 + 1
-    L9_2 = {}
-    L10_2 = tonumber
-    L11_2 = L7_2
-    L10_2 = L10_2(L11_2)
-    L9_2.id = L10_2
-    L10_2 = GetPlayerName
-    L11_2 = L7_2
-    L10_2 = L10_2(L11_2)
-    if not L10_2 then
-      L10_2 = "ID %s"
-      L11_2 = L10_2
-      L10_2 = L10_2.format
-      L12_2 = L7_2
-      L10_2 = L10_2(L11_2, L12_2)
+
+    local identifier = getPrimaryIdentifier(targetId)
+    if not identifier then
+        sendAnimCmd(src, "Identifier not found.")
+        return
     end
-    L9_2.name = L10_2
-    L1_2[L8_2] = L9_2
-  end
-  L2_2 = table
-  L2_2 = L2_2.sort
-  L3_2 = L1_2
-  function L4_2(A0_3, A1_3)
-    local L2_3, L3_3, L4_3
-    L2_3 = tostring
-    L3_3 = A0_3.name
-    L2_3 = L2_3(L3_3)
-    L3_3 = L2_3
-    L2_3 = L2_3.lower
-    L2_3 = L2_3(L3_3)
-    L3_3 = tostring
-    L4_3 = A1_3.name
-    L3_3 = L3_3(L4_3)
-    L4_3 = L3_3
-    L3_3 = L3_3.lower
-    L3_3 = L3_3(L4_3)
-    L2_3 = L2_3 < L3_3
-    return L2_3
-  end
-  L2_2(L3_2, L4_2)
-  L2_2 = TriggerClientEvent
-  L3_2 = "striano_admin:cl:setPlayersList"
-  L4_2 = L0_2
-  L5_2 = L1_2
-  L2_2(L3_2, L4_2, L5_2)
-end
-L15_1(L16_1, L17_1)
-L15_1 = RegisterNetEvent
-L16_1 = "sriano_admin:sv:reqItemsList"
-function L17_1()
-  local L0_2, L1_2, L2_2, L3_2, L4_2, L5_2
-  L0_2 = source
-  L1_2 = exports
-  L1_2 = L1_2.striano_inventory
-  L2_2 = L1_2
-  L1_2 = L1_2.GetAllItems
-  L1_2 = L1_2(L2_2)
-  if not L1_2 then
-    L1_2 = {}
-  end
-  L2_2 = TriggerClientEvent
-  L3_2 = "sriano_admin:cl:setItemsList"
-  L4_2 = L0_2
-  L5_2 = L1_2
-  L2_2(L3_2, L4_2, L5_2)
-end
-L15_1(L16_1, L17_1)
-L15_1 = RegisterNetEvent
-L16_1 = "sriano_admin:sv:giveItem"
-function L17_1(A0_2, A1_2)
-  local L2_2, L3_2, L4_2, L5_2, L6_2, L7_2, L8_2
-  L2_2 = source
-  L3_2 = math
-  L3_2 = L3_2.max
-  L4_2 = 1
-  L5_2 = tonumber
-  L6_2 = A1_2
-  L5_2 = L5_2(L6_2)
-  if not L5_2 then
-    L5_2 = 1
-  end
-  L3_2 = L3_2(L4_2, L5_2)
-  A1_2 = L3_2
-  L3_2 = TriggerEvent
-  L4_2 = "inv3d:serverGiveItem"
-  L5_2 = L2_2
-  L6_2 = "player"
-  L7_2 = A0_2
-  L8_2 = A1_2
-  L3_2(L4_2, L5_2, L6_2, L7_2, L8_2)
-end
-L15_1(L16_1, L17_1)
-function L15_1(A0_2)
-  local L1_2, L2_2, L3_2, L4_2, L5_2, L6_2, L7_2, L8_2, L9_2, L10_2, L11_2
-  L1_2 = GetPlayerIdentifiers
-  L2_2 = A0_2
-  L1_2 = L1_2(L2_2)
-  L2_2 = L1_2[1]
-  L3_2 = ipairs
-  L4_2 = L1_2
-  L3_2, L4_2, L5_2, L6_2 = L3_2(L4_2)
-  for L7_2, L8_2 in L3_2, L4_2, L5_2, L6_2 do
-    L10_2 = L8_2
-    L9_2 = L8_2.find
-    L11_2 = "license:"
-    L9_2 = L9_2(L10_2, L11_2)
-    if 1 == L9_2 then
-      L2_2 = L8_2
-      break
+
+    savedAdmins[identifier] = newLevel
+    saveAdmins()
+
+    local finalLevel = refreshAdminLevel(targetId)
+
+    sendAnimCmd(src, string.format(
+        "Admin added %s[ID %d] LV: %d. Identifier: %s",
+        GetPlayerName(targetId) or "Unknow", targetId, finalLevel, identifier
+    ))
+    sendAnimCmd(targetId, string.format("You are admin lv %d now.", finalLevel))
+
+    print(string.format(
+        "[striano_admin] %s[%d] new Admin added %s[%d] (LV: %d) (%s)",
+        GetPlayerName(src) or "Unknown", src,
+        GetPlayerName(targetId) or "Unknown", targetId,
+        finalLevel, identifier
+    ))
+end, false)
+
+--- /removeadmin [id] — remove o admin de um jogador
+RegisterCommand("removeadmin", function(src, args)
+    if not IsAdmin(src, 1) then
+        sendAnimCmd(src, "No permission.")
+        return
     end
-  end
-  L3_2 = exports
-  L3_2 = L3_2.striano_core
-  L4_2 = L3_2
-  L3_2 = L3_2.KeysListHeld
-  L5_2 = L2_2
-  L3_2 = L3_2(L4_2, L5_2)
-  L4_2 = L3_2 or L4_2
-  if not L3_2 then
-    L4_2 = {}
-  end
-  return L4_2
-end
-GetPlayerKeysFromSource = L15_1
-L15_1 = RegisterNetEvent
-L16_1 = "striano_admin:getPlayerKeys"
-function L17_1(A0_2)
-  local L1_2, L2_2, L3_2, L4_2, L5_2, L6_2, L7_2, L8_2, L9_2, L10_2, L11_2, L12_2
-  L1_2 = source
-  L2_2 = GetPlayerIdentifiers
-  L3_2 = A0_2
-  L2_2 = L2_2(L3_2)
-  L3_2 = L2_2[1]
-  L4_2 = ipairs
-  L5_2 = L2_2
-  L4_2, L5_2, L6_2, L7_2 = L4_2(L5_2)
-  for L8_2, L9_2 in L4_2, L5_2, L6_2, L7_2 do
-    L11_2 = L9_2
-    L10_2 = L9_2.find
-    L12_2 = "license:"
-    L10_2 = L10_2(L11_2, L12_2)
-    if 1 == L10_2 then
-      L3_2 = L9_2
-      break
+
+    local targetId = tonumber(args[1] or 0)
+    if targetId <= 0 or not GetPlayerName(targetId) then
+        sendAnimCmd(src, "/removeadmin [id]")
+        return
     end
-  end
-  L4_2 = exports
-  L4_2 = L4_2.striano_core
-  L5_2 = L4_2
-  L4_2 = L4_2.KeysListHeld
-  L6_2 = L3_2
-  L4_2 = L4_2(L5_2, L6_2)
-  L5_2 = TriggerClientEvent
-  L6_2 = "striano_admin:receivePlayerKeys"
-  L7_2 = L1_2
-  L8_2 = A0_2
-  L9_2 = L4_2 or L9_2
-  if not L4_2 then
-    L9_2 = {}
-  end
-  L5_2(L6_2, L7_2, L8_2, L9_2)
-end
-L15_1(L16_1, L17_1)
-L15_1 = RegisterNetEvent
-L16_1 = "setMaxHP"
-function L17_1(A0_2, A1_2)
-  local L2_2, L3_2, L4_2, L5_2, L6_2
-  L2_2 = A0_2
-  L3_2 = TriggerClientEvent
-  L4_2 = "setMaxHP"
-  L5_2 = L2_2
-  L6_2 = A1_2
-  L3_2(L4_2, L5_2, L6_2)
-end
-L15_1(L16_1, L17_1)
-L15_1 = RegisterNetEvent
-L16_1 = "setMaxMana"
-function L17_1(A0_2, A1_2)
-  local L2_2, L3_2, L4_2, L5_2, L6_2
-  L2_2 = A0_2
-  L3_2 = TriggerClientEvent
-  L4_2 = "setMaxMana"
-  L5_2 = L2_2
-  L6_2 = A1_2
-  L3_2(L4_2, L5_2, L6_2)
-end
-L15_1(L16_1, L17_1)
-L15_1 = RegisterNetEvent
-L16_1 = "striano_admin:sv:adminDestroyKey"
-function L17_1(A0_2)
-  local L1_2, L2_2, L3_2, L4_2, L5_2, L6_2, L7_2, L8_2, L9_2
-  L1_2 = source
-  L2_2 = IsAdmin
-  L3_2 = L1_2
-  L2_2 = L2_2(L3_2)
-  if not L2_2 then
-    return
-  end
-  L2_2 = type
-  L3_2 = A0_2
-  L2_2 = L2_2(L3_2)
-  if "string" ~= L2_2 then
-    return
-  end
-  L3_2 = A0_2
-  L2_2 = A0_2.sub
-  L4_2 = 1
-  L5_2 = 4
-  L2_2 = L2_2(L3_2, L4_2, L5_2)
-  if "TMP_" == L2_2 then
-    L2_2 = exports
-    L2_2 = L2_2.striano_core
-    L3_2 = L2_2
-    L2_2 = L2_2.TempKeyDestroy
-    L4_2 = A0_2
-    L2_2, L3_2 = L2_2(L3_2, L4_2)
-    L4_2 = TriggerClientEvent
-    L5_2 = "striano_keys:cl:notify"
-    L6_2 = L1_2
-    if L2_2 then
-      L7_2 = "Temp key destroyed"
-      if L7_2 then
-        goto lbl_38
-      end
+
+    local identifier = getPrimaryIdentifier(targetId)
+    if not identifier then
+        sendAnimCmd(src, "Identifier not found.")
+        return
     end
-    L7_2 = "Failed: "
-    L8_2 = tostring
-    L9_2 = L3_2
-    L8_2 = L8_2(L9_2)
-    L7_2 = L7_2 .. L8_2
-    ::lbl_38::
-    L4_2(L5_2, L6_2, L7_2)
-    return
-  end
-  L2_2 = exports
-  L2_2 = L2_2.striano_core
-  L3_2 = L2_2
-  L2_2 = L2_2.KeysDestroyAny
-  L4_2 = A0_2
-  L2_2, L3_2 = L2_2(L3_2, L4_2)
-  L4_2 = TriggerClientEvent
-  L5_2 = "striano_keys:cl:notify"
-  L6_2 = L1_2
-  if L2_2 then
-    L7_2 = "Key destroyed"
-    if L7_2 then
-      goto lbl_58
+
+    -- Verificar se é admin em alguma das listas
+    if not savedAdmins[identifier] and not ADMIN_BY_IDENTIFIER[identifier] then
+        sendAnimCmd(src, "This player is not an admin.")
+        return
     end
-  end
-  L7_2 = "Failed: "
-  L8_2 = tostring
-  L9_2 = L3_2
-  L8_2 = L8_2(L9_2)
-  L7_2 = L7_2 .. L8_2
-  ::lbl_58::
-  L4_2(L5_2, L6_2, L7_2)
-end
-L15_1(L16_1, L17_1)
-L15_1 = RegisterNetEvent
-L16_1 = "striano_admin:sv:getPlayerKeys"
-function L17_1(A0_2)
-  local L1_2, L2_2, L3_2, L4_2, L5_2, L6_2, L7_2, L8_2
-  L1_2 = source
-  L2_2 = IsAdmin
-  L3_2 = L1_2
-  L2_2 = L2_2(L3_2)
-  if not L2_2 then
-    return
-  end
-  L2_2 = tonumber
-  L3_2 = A0_2
-  L2_2 = L2_2(L3_2)
-  A0_2 = L2_2
-  if A0_2 then
-    L2_2 = GetPlayerName
-    L3_2 = A0_2
-    L2_2 = L2_2(L3_2)
-    if L2_2 then
-      goto lbl_29
+
+    savedAdmins[identifier] = nil
+    saveAdmins()
+
+    local finalLevel = refreshAdminLevel(targetId)
+
+    sendAnimCmd(src, string.format(
+        "Admin removed %s [ID %d]. LV: %d",
+        GetPlayerName(targetId) or "Unknow", targetId, finalLevel
+    ))
+    sendAnimCmd(targetId, "Admin rule removed.")
+
+    print(string.format(
+        "[striano_admin] %s[%d] remove %s[%d] (%s) from admin",
+        GetPlayerName(src) or "Unknown", src,
+        GetPlayerName(targetId) or "Unknown", targetId,
+        identifier
+    ))
+end, false)
+
+-- ------------------------------------------------------------
+-- Eventos de rede: menu de admin
+-- ------------------------------------------------------------
+
+--- Pedido de abertura do menu de admin (com anti-spam)
+RegisterNetEvent("striano_admin:sv:openMenuRequest")
+AddEventHandler("striano_admin:sv:openMenuRequest", function(altSrc)
+    local src = source
+    if not src or src <= 0 then
+        src = tonumber(altSrc) or 0
     end
-  end
-  L2_2 = TriggerClientEvent
-  L3_2 = "striano_admin:cl:receivePlayerKeys"
-  L4_2 = L1_2
-  L5_2 = A0_2 or L5_2
-  if not A0_2 then
-    L5_2 = -1
-  end
-  L6_2 = {}
-  L2_2(L3_2, L4_2, L5_2, L6_2)
-  do return end
-  ::lbl_29::
-  L2_2 = exports
-  L2_2 = L2_2.phar
-  L3_2 = L2_2
-  L2_2 = L2_2.identOf
-  L4_2 = A0_2
-  L2_2 = L2_2(L3_2, L4_2)
-  L3_2 = exports
-  L3_2 = L3_2.striano_core
-  L4_2 = L3_2
-  L3_2 = L3_2.KeysListHeld
-  L5_2 = L2_2
-  L3_2 = L3_2(L4_2, L5_2)
-  if not L3_2 then
-    L3_2 = {}
-  end
-  L4_2 = TriggerClientEvent
-  L5_2 = "striano_admin:cl:receivePlayerKeys"
-  L6_2 = L1_2
-  L7_2 = A0_2
-  L8_2 = L3_2
-  L4_2(L5_2, L6_2, L7_2, L8_2)
+    if not src or src <= 0 then return end
+
+    local now      = GetGameTimer()
+    local lastOpen = menuOpenTimestamps[src] or 0
+
+    if now - lastOpen < MENU_OPEN_COOLDOWN_MS then return end
+
+    menuOpenTimestamps[src] = now
+
+    if GetAdminLevel(src) <= 0 then return end
+
+    menuOpenWindowEnd[src] = now + MENU_WINDOW_MS
+    local token = string.format("open-%d-%d", src, now)
+    TriggerClientEvent("striano_admin:cl:open", src, token)
+end)
+
+--- Pedido de capacidades disponíveis para este admin
+RegisterNetEvent("striano_admin:sv:requestCapabilities")
+AddEventHandler("striano_admin:sv:requestCapabilities", function()
+    local src   = source
+    local level = GetAdminLevel(src)
+
+    local caps = {
+        player       = false,
+        world        = false,
+        debug        = false,
+        vehicles     = false,
+        weapons      = false,
+        time_weather = false,
+        misc         = false,
+        appearance   = false,
+    }
+
+    if level == 1 then
+        -- SuperAdmin: tudo
+        for k in pairs(caps) do caps[k] = true end
+    elseif level == 2 then
+        -- Admin: tudo menos debug
+        caps.player       = true
+        caps.world        = true
+        caps.vehicles     = true
+        caps.weapons      = true
+        caps.time_weather = true
+        caps.misc         = true
+        caps.appearance   = true
+    elseif level == 3 then
+        -- Mod: apenas player e misc
+        caps.player = true
+        caps.misc   = true
+    end
+
+    TriggerClientEvent("striano_admin:cl:setCapabilities", src, caps)
+end)
+
+--- Pedido de lista de itens do inventário
+RegisterNetEvent("striano_admin:sv:reqItemsList")
+AddEventHandler("striano_admin:sv:reqItemsList", function()
+    local src   = source
+    local items = {}
+
+    local inv = exports.striano_inventory
+    if inv and inv.GetAllItems then
+        items = exports.striano_inventory:GetAllItems() or {}
+    end
+
+    TriggerClientEvent("striano_admin:cl:setItemsList", src, items)
+end)
+
+--- Pedido de lista de jogadores online (ordenada por nome)
+RegisterNetEvent("striano_admin:sv:reqPlayersList")
+AddEventHandler("striano_admin:sv:reqPlayersList", function()
+    local src     = source
+    local players = {}
+
+    for _, srcStr in ipairs(GetPlayers()) do
+        local id   = tonumber(srcStr)
+        local name = GetPlayerName(srcStr)
+        if not name then name = string.format("ID %s", srcStr) end
+        table.insert(players, { id = id, name = name })
+    end
+
+    table.sort(players, function(a, b)
+        return tostring(a.name):lower() < tostring(b.name):lower()
+    end)
+
+    TriggerClientEvent("striano_admin:cl:setPlayersList", src, players)
+end)
+
+--- Versão alternativa do pedido de itens (typo "sriano" mantido por compatibilidade)
+RegisterNetEvent("sriano_admin:sv:reqItemsList")
+AddEventHandler("sriano_admin:sv:reqItemsList", function()
+    local src   = source
+    local items = exports.striano_inventory:GetAllItems() or {}
+    TriggerClientEvent("sriano_admin:cl:setItemsList", src, items)
+end)
+
+--- Dar item a si mesmo via admin
+RegisterNetEvent("sriano_admin:sv:giveItem")
+AddEventHandler("sriano_admin:sv:giveItem", function(itemName, quantity)
+    local src = source
+    quantity  = math.max(1, tonumber(quantity) or 1)
+    TriggerEvent("inv3d:serverGiveItem", src, "player", itemName, quantity)
+end)
+
+-- ------------------------------------------------------------
+-- Chaves de veículos
+-- ------------------------------------------------------------
+
+--- Retorna as chaves detidas por um jogador a partir do source
+function GetPlayerKeysFromSource(src)
+    local ids   = GetPlayerIdentifiers(src)
+    local ident = ids[1]
+    for _, id in ipairs(ids) do
+        if id:find("license:", 1, true) == 1 then
+            ident = id
+            break
+        end
+    end
+    local keys = exports.striano_core:KeysListHeld(ident)
+    return keys or {}
 end
-L15_1(L16_1, L17_1)
+
+--- Pedido de chaves de um jogador (via evento antigo)
+RegisterNetEvent("striano_admin:getPlayerKeys")
+AddEventHandler("striano_admin:getPlayerKeys", function(targetSrc)
+    local src   = source
+    local ids   = GetPlayerIdentifiers(targetSrc)
+    local ident = ids[1]
+    for _, id in ipairs(ids) do
+        if id:find("license:", 1, true) == 1 then
+            ident = id
+            break
+        end
+    end
+    local keys = exports.striano_core:KeysListHeld(ident) or {}
+    TriggerClientEvent("striano_admin:receivePlayerKeys", src, targetSrc, keys)
+end)
+
+--- Pedido de chaves de um jogador (via evento novo)
+RegisterNetEvent("striano_admin:sv:getPlayerKeys")
+AddEventHandler("striano_admin:sv:getPlayerKeys", function(targetSrc)
+    local src = source
+    if not IsAdmin(src) then return end
+
+    targetSrc = tonumber(targetSrc)
+    if not targetSrc or not GetPlayerName(targetSrc) then
+        TriggerClientEvent("striano_admin:cl:receivePlayerKeys", src, targetSrc or -1, {})
+        return
+    end
+
+    local ident = exports.phar:identOf(targetSrc)
+    local keys  = exports.striano_core:KeysListHeld(ident) or {}
+    TriggerClientEvent("striano_admin:cl:receivePlayerKeys", src, targetSrc, keys)
+end)
+
+--- Destruir uma chave específica (admin)
+RegisterNetEvent("striano_admin:sv:adminDestroyKey")
+AddEventHandler("striano_admin:sv:adminDestroyKey", function(keyId)
+    local src = source
+    if not IsAdmin(src) then return end
+    if type(keyId) ~= "string" then return end
+
+    local ok, errMsg
+
+    if keyId:sub(1, 4) == "TMP_" then
+        -- Chave temporária
+        ok, errMsg = exports.striano_core:TempKeyDestroy(keyId)
+        local msg  = ok and "Temp key destroyed" or ("Failed: " .. tostring(errMsg))
+        TriggerClientEvent("striano_keys:cl:notify", src, msg)
+    else
+        -- Chave permanente
+        ok, errMsg = exports.striano_core:KeysDestroyAny(keyId)
+        local msg  = ok and "Key destroyed" or ("Failed: " .. tostring(errMsg))
+        TriggerClientEvent("striano_keys:cl:notify", src, msg)
+    end
+end)
+
+-- ------------------------------------------------------------
+-- Relay de HP / Mana máximos
+-- ------------------------------------------------------------
+
+RegisterNetEvent("setMaxHP")
+AddEventHandler("setMaxHP", function(targetSrc, value)
+    TriggerClientEvent("setMaxHP", targetSrc, value)
+end)
+
+RegisterNetEvent("setMaxMana")
+AddEventHandler("setMaxMana", function(targetSrc, value)
+    TriggerClientEvent("setMaxMana", targetSrc, value)
+end)

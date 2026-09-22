@@ -1,193 +1,107 @@
-local L0_1, L1_1, L2_1
-L0_1 = exports
-L1_1 = "resetbasket"
-function L2_1()
-  local L0_2, L1_2
-  L0_2 = ResettaTuttoBasket
-  L0_2()
-end
-L0_1(L1_1, L2_1)
-L0_1 = exports
-L1_1 = "canestro"
-function L2_1(A0_2, A1_2, A2_2, A3_2, A4_2, A5_2)
-  local L6_2, L7_2, L8_2, L9_2, L10_2, L11_2, L12_2
-  L6_2 = CanestroMappa
-  L7_2 = A0_2
-  L8_2 = A1_2
-  L9_2 = A2_2
-  L10_2 = A3_2
-  L11_2 = A4_2
-  L12_2 = A5_2
-  L6_2(L7_2, L8_2, L9_2, L10_2, L11_2, L12_2)
-end
-L0_1(L1_1, L2_1)
-L0_1 = exports
-L1_1 = "rimettitorcialuce"
-function L2_1()
-  local L0_2, L1_2, L2_2, L3_2, L4_2, L5_2, L6_2, L7_2, L8_2
-  L0_2 = TorciaLavoro
-  if L0_2 then
-    L0_2 = SetEntityAsMissionEntity
-    L1_2 = TorciaLavoro
-    L0_2(L1_2)
-    L0_2 = DeleteEntity
-    L1_2 = TorciaLavoro
-    L0_2(L1_2)
-    L0_2 = AddPropToPlayer
-    L1_2 = "xm_base_cia_lamp_floor_01a"
-    L2_2 = 31086
-    L3_2 = -0.19
-    L4_2 = 0.0
-    L5_2 = 0.0
-    L6_2 = -76.5
-    L7_2 = -3.5
-    L8_2 = 8.0
-    L0_2 = L0_2(L1_2, L2_2, L3_2, L4_2, L5_2, L6_2, L7_2, L8_2)
-    TorciaLavoro = L0_2
-  end
-end
-L0_1(L1_1, L2_1)
-L0_1 = exports
-L1_1 = "eliminatorcialuce"
-function L2_1()
-  local L0_2, L1_2
-  L0_2 = TorciaLavoro
-  if L0_2 then
-    L0_2 = SetEntityAsMissionEntity
-    L1_2 = TorciaLavoro
-    L0_2(L1_2)
-    L0_2 = DeleteEntity
-    L1_2 = TorciaLavoro
-    L0_2(L1_2)
-  end
-end
-L0_1(L1_1, L2_1)
-L0_1 = exports
-L1_1 = "msglegacy"
-function L2_1(A0_2)
-  local L1_2, L2_2
-  timerMex = 0
-  L1_2 = Wait
-  L2_2 = 200
-  L1_2(L2_2)
-  L1_2 = timerMsgLegacyPhar
-  L1_2()
-  timerMex = 20
-  L1_2 = loopMessaggioLegacy
-  L1_2()
-  msglegacyUltimo = A0_2
-end
-L0_1(L1_1, L2_1)
-L0_1 = exports
-L1_1 = "msglegacy2"
-function L2_1(A0_2, A1_2)
-  local L2_2, L3_2
-  timerMex = 0
-  L2_2 = Wait
-  L3_2 = 200
-  L2_2(L3_2)
-  timerMex = A1_2
-  L2_2 = timerMsgLegacyPhar
-  L2_2()
-end
-L0_1(L1_1, L2_1)
-L0_1 = exports
-L1_1 = "msglegacypiazza"
-function L2_1(A0_2)
-  local L1_2
-  L1_2 = mostraMsgPiazza
-  L1_2()
-  msglegacyPiazza = A0_2
-end
-L0_1(L1_1, L2_1)
-L0_1 = exports
-L1_1 = "stopmsgpiazza"
-function L2_1()
-  local L0_2, L1_2
-  msglegacyPiazza = ""
-end
-L0_1(L1_1, L2_1)
-L0_1 = exports
-L1_1 = "vicinoNPC"
-function L2_1()
-  local L0_2, L1_2, L2_2, L3_2, L4_2, L5_2, L6_2, L7_2, L8_2, L9_2, L10_2, L11_2
-  L0_2 = false
-  L1_2 = pairs
-  L2_2 = NPC_Povero
-  L1_2, L2_2, L3_2, L4_2 = L1_2(L2_2)
-  for L5_2, L6_2 in L1_2, L2_2, L3_2, L4_2 do
-    L7_2 = GetEntityCoords
-    L8_2 = PlayerPedId
-    L8_2, L9_2, L10_2, L11_2 = L8_2()
-    L7_2 = L7_2(L8_2, L9_2, L10_2, L11_2)
-    L8_2 = vector3
-    L9_2 = L6_2.x
-    L10_2 = L6_2.y
-    L11_2 = L6_2.z
-    L8_2 = L8_2(L9_2, L10_2, L11_2)
-    L7_2 = L7_2 - L8_2
-    L7_2 = #L7_2
-    if L7_2 < 10.0 then
-      L0_2 = true
+-- ============================================================
+--  striano_core - client/[phar client]/exportsclient.lua
+--  Exports do módulo phar (basket, lanterna, mensagens, etc.)
+-- ============================================================
+
+--- Resetar o sistema de basquete
+exports("resetbasket", function()
+    ResettaTuttoBasket()
+end)
+
+--- Marcar uma cesta no mapa
+exports("canestro", function(p1, p2, p3, p4, p5, p6)
+    CanestroMappa(p1, p2, p3, p4, p5, p6)
+end)
+
+--- Recolocar a lanterna de trabalho na mão
+exports("rimettitorcialuce", function()
+    if TorciaLavoro then
+        SetEntityAsMissionEntity(TorciaLavoro)
+        DeleteEntity(TorciaLavoro)
+        TorciaLavoro = AddPropToPlayer(
+            "xm_base_cia_lamp_floor_01a",
+            31086,
+            -0.19, 0.0, 0.0,
+            -76.5, -3.5, 8.0
+        )
     end
-  end
-  return L0_2
-end
-L0_1(L1_1, L2_1)
-L0_1 = exports
-L1_1 = "subtitle"
-function L2_1(A0_2)
-  local L1_2, L2_2, L3_2
-  L1_2 = exports
-  L1_2 = L1_2.striano_combat
-  L2_2 = L1_2
-  L1_2 = L1_2.submex
-  L3_2 = A0_2
-  L1_2(L2_2, L3_2)
-end
-L0_1(L1_1, L2_1)
-L0_1 = exports
-L1_1 = "updateVoce"
-function L2_1(A0_2)
-  local L1_2
-  GraduazioneVoce = A0_2
-end
-L0_1(L1_1, L2_1)
-L0_1 = exports
-L1_1 = "ineditfreecam"
-function L2_1()
-  local L0_2, L1_2
-  L0_2 = camFRC
-  return L0_2
-end
-L0_1(L1_1, L2_1)
-L0_1 = exports
-L1_1 = "secondarioattivo"
-function L2_1()
-  local L0_2, L1_2
-  L0_2 = SkinPrimaSecondario
-  return L0_2
-end
-L0_1(L1_1, L2_1)
-L0_1 = exports
-L1_1 = "editmakeup"
-function L2_1(A0_2)
-  local L1_2, L2_2, L3_2
-  L1_2 = exports
-  L1_2 = L1_2.striano_core
-  L2_2 = L1_2
-  L1_2 = L1_2.secondarioattivo
-  L1_2 = L1_2(L2_2)
-  if nil == L1_2 then
-    L1_2 = editMakeup
-    L1_2()
-  else
-    L1_2 = exports
-    L1_2 = L1_2.striano_combat
-    L2_2 = L1_2
-    L1_2 = L1_2.submex
-    L3_2 = "Delete first secondary outfit with ~q~~h~/secno~h~~w~."
-    L1_2(L2_2, L3_2)
-  end
-end
-L0_1(L1_1, L2_1)
+end)
+
+--- Eliminar a lanterna de trabalho
+exports("eliminatorcialuce", function()
+    if TorciaLavoro then
+        SetEntityAsMissionEntity(TorciaLavoro)
+        DeleteEntity(TorciaLavoro)
+    end
+end)
+
+--- Mostrar mensagem legada (legacy)
+exports("msglegacy", function(text)
+    timerMex = 0
+    Wait(200)
+    timerMsgLegacyPhar()
+    timerMex = 20
+    loopMessaggioLegacy()
+    msglegacyUltimo = text
+end)
+
+--- Mostrar mensagem legada com timer personalizado
+exports("msglegacy2", function(text, timer)
+    timerMex = 0
+    Wait(200)
+    timerMex = timer
+    timerMsgLegacyPhar()
+end)
+
+--- Mostrar mensagem na praça
+exports("msglegacypiazza", function(text)
+    mostraMsgPiazza()
+    msglegacyPiazza = text
+end)
+
+--- Parar mensagem da praça
+exports("stopmsgpiazza", function()
+    msglegacyPiazza = ""
+end)
+
+--- Verificar se o jogador está perto de algum NPC pobre
+exports("vicinoNPC", function()
+    local playerPos = GetEntityCoords(PlayerPedId())
+    local found     = false
+    for _, npc in pairs(NPC_Povero) do
+        local dist = #(playerPos - vector3(npc.x, npc.y, npc.z))
+        if dist < 10.0 then
+            found = true
+        end
+    end
+    return found
+end)
+
+--- Mostrar subtítulo via striano_combat
+exports("subtitle", function(text)
+    exports.striano_combat:submex(text)
+end)
+
+--- Actualizar graduação de voz
+exports("updateVoce", function(level)
+    GraduazioneVoce = level
+end)
+
+--- Verificar se está em freecam de edição
+exports("ineditfreecam", function()
+    return camFRC
+end)
+
+--- Verificar se outfit secundário está ativo
+exports("secondarioattivo", function()
+    return SkinPrimaSecondario
+end)
+
+--- Editar maquilhagem (apenas sem outfit secundário ativo)
+exports("editmakeup", function(data)
+    if exports.striano_core:secondarioattivo() == nil then
+        editMakeup()
+    else
+        exports.striano_combat:submex("Delete first secondary outfit with ~q~~h~/secno~h~~w~.")
+    end
+end)

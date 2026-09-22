@@ -1,276 +1,96 @@
-local L0_1, L1_1, L2_1
-tiempo = 1000
-function L0_1(A0_2, A1_2, A2_2, A3_2)
-  local L4_2, L5_2, L6_2, L7_2, L8_2, L9_2, L10_2, L11_2
-  L4_2 = World3dToScreen2d
-  L5_2 = A0_2
-  L6_2 = A1_2
-  L7_2 = A2_2 - 0.5
-  L4_2, L5_2, L6_2 = L4_2(L5_2, L6_2, L7_2)
-  if L4_2 then
-    L7_2 = SetTextScale
-    L8_2 = 0.9
-    L9_2 = 0.0
-    L7_2(L8_2, L9_2)
-    L7_2 = SetTextFont
-    L8_2 = 6
-    L7_2(L8_2)
-    L7_2 = SetTextProportional
-    L8_2 = 1
-    L7_2(L8_2)
-    L7_2 = SetTextColour
-    L8_2 = 255
-    L9_2 = 255
-    L10_2 = 255
-    L11_2 = 150
-    L7_2(L8_2, L9_2, L10_2, L11_2)
-    L7_2 = SetTextEntry
-    L8_2 = "STRING"
-    L7_2(L8_2)
-    L7_2 = SetTextCentre
-    L8_2 = 1
-    L7_2(L8_2)
-    L7_2 = SetTextOutline
-    L7_2()
-    L7_2 = AddTextComponentString
-    L8_2 = A3_2
-    L7_2(L8_2)
-    L7_2 = DrawText
-    L8_2 = L5_2
-    L9_2 = L6_2
-    L7_2(L8_2, L9_2)
-  end
+-- rufiseatclient.lua
+-- Proximity Vehicle Seat Entry — shows "." dot prompt at empty door windows,
+-- G key (49) enters that seat
+
+local pollInterval = 1000  -- dynamic wait: 7ms when near a valid vehicle, 1000ms otherwise
+
+-- ─────────────────────────────────────────────
+-- 3D World Text Helper
+-- ─────────────────────────────────────────────
+
+local function DrawTextAt3D(x, y, z, text)
+    local onScreen, screenX, screenY = World3dToScreen2d(x, y, z)
+    if not onScreen then return end
+
+    SetTextScale(0.35, 0.35)
+    SetTextFont(4)
+    SetTextProportional(1)
+    SetTextColour(255, 255, 255, 215)
+    SetTextDropshadow(0, 0, 0, 0, 255)
+    SetTextEdge(2, 0, 0, 0, 150)
+    SetTextDropShadow()
+    SetTextOutline()
+    SetTextEntry("STRING")
+    SetTextCentre(true)
+    AddTextComponentString(text)
+    DrawText(screenX, screenY)
 end
-L1_1 = CreateThread
-function L2_1()
-  local L0_2, L1_2, L2_2, L3_2, L4_2, L5_2, L6_2, L7_2, L8_2, L9_2, L10_2, L11_2, L12_2, L13_2, L14_2, L15_2, L16_2, L17_2
-  while true do
-    L0_2 = Wait
-    L1_2 = tiempo
-    L0_2(L1_2)
-    tiempo = 1000
-    L0_2 = PlayerPedId
-    L0_2 = L0_2()
-    L1_2 = GetEntityCoords
-    L2_2 = L0_2
-    L1_2 = L1_2(L2_2)
-    L2_2 = GetClosestVehicle
-    L3_2 = L1_2
-    L4_2 = 5.0
-    L5_2 = 0
-    L6_2 = 71
-    L2_2 = L2_2(L3_2, L4_2, L5_2, L6_2)
-    L3_2 = DoesEntityExist
-    L4_2 = L2_2
-    L3_2 = L3_2(L4_2)
-    if L3_2 then
-      L3_2 = IsEntityAVehicle
-      L4_2 = L2_2
-      L3_2 = L3_2(L4_2)
-      if L3_2 then
-        L3_2 = IsPedAPlayer
-        L4_2 = GetPedInVehicleSeat
-        L5_2 = L2_2
-        L6_2 = -1
-        L4_2, L5_2, L6_2, L7_2, L8_2, L9_2, L10_2, L11_2, L12_2, L13_2, L14_2, L15_2, L16_2, L17_2 = L4_2(L5_2, L6_2)
-        L3_2 = L3_2(L4_2, L5_2, L6_2, L7_2, L8_2, L9_2, L10_2, L11_2, L12_2, L13_2, L14_2, L15_2, L16_2, L17_2)
-        if L3_2 then
-          goto lbl_55
-        end
-      end
-    end
-    L3_2 = DoesEntityExist
-    L4_2 = L2_2
-    L3_2 = L3_2(L4_2)
-    if L3_2 then
-      L3_2 = IsEntityAVehicle
-      L4_2 = L2_2
-      L3_2 = L3_2(L4_2)
-      if L3_2 then
-        L3_2 = GetPedInVehicleSeat
-        L4_2 = L2_2
-        L5_2 = -1
-        L3_2 = L3_2(L4_2, L5_2)
-        if 0 == L3_2 then
-          L3_2 = GetVehicleDoorLockStatus
-          L4_2 = L2_2
-          L3_2 = L3_2(L4_2)
-          ::lbl_55::
-          if 2 ~= L3_2 then
-            tiempo = 7
-            L3_2 = GetWorldPositionOfEntityBone
-            L4_2 = L2_2
-            L5_2 = GetEntityBoneIndexByName
-            L6_2 = L2_2
-            L7_2 = "window_lr"
-            L5_2, L6_2, L7_2, L8_2, L9_2, L10_2, L11_2, L12_2, L13_2, L14_2, L15_2, L16_2, L17_2 = L5_2(L6_2, L7_2)
-            L3_2 = L3_2(L4_2, L5_2, L6_2, L7_2, L8_2, L9_2, L10_2, L11_2, L12_2, L13_2, L14_2, L15_2, L16_2, L17_2)
-            L4_2 = GetWorldPositionOfEntityBone
-            L5_2 = L2_2
-            L6_2 = GetEntityBoneIndexByName
-            L7_2 = L2_2
-            L8_2 = "window_rr"
-            L6_2, L7_2, L8_2, L9_2, L10_2, L11_2, L12_2, L13_2, L14_2, L15_2, L16_2, L17_2 = L6_2(L7_2, L8_2)
-            L4_2 = L4_2(L5_2, L6_2, L7_2, L8_2, L9_2, L10_2, L11_2, L12_2, L13_2, L14_2, L15_2, L16_2, L17_2)
-            L5_2 = GetWorldPositionOfEntityBone
-            L6_2 = L2_2
-            L7_2 = GetEntityBoneIndexByName
-            L8_2 = L2_2
-            L9_2 = "window_rf"
-            L7_2, L8_2, L9_2, L10_2, L11_2, L12_2, L13_2, L14_2, L15_2, L16_2, L17_2 = L7_2(L8_2, L9_2)
-            L5_2 = L5_2(L6_2, L7_2, L8_2, L9_2, L10_2, L11_2, L12_2, L13_2, L14_2, L15_2, L16_2, L17_2)
-            L6_2 = GetEntityCoords
-            L7_2 = L0_2
-            L8_2 = 1
-            L6_2 = L6_2(L7_2, L8_2)
-            L7_2 = L4_2 - L6_2
-            L7_2 = #L7_2
-            L8_2 = L3_2 - L6_2
-            L8_2 = #L8_2
-            L9_2 = L5_2 - L6_2
-            L9_2 = #L9_2
-            L10_2 = 0.8
-            if L7_2 < L10_2 then
-              L10_2 = DoesVehicleHaveDoor
-              L11_2 = L2_2
-              L12_2 = 3
-              L10_2 = L10_2(L11_2, L12_2)
-              if L10_2 then
-                L10_2 = DoesEntityExist
-                L11_2 = GetPedInVehicleSeat
-                L12_2 = L2_2
-                L13_2 = 2
-                L11_2, L12_2, L13_2, L14_2, L15_2, L16_2, L17_2 = L11_2(L12_2, L13_2)
-                L10_2 = L10_2(L11_2, L12_2, L13_2, L14_2, L15_2, L16_2, L17_2)
-                if not L10_2 then
-                  L10_2 = GetVehicleDoorLockStatus
-                  L11_2 = L2_2
-                  L10_2 = L10_2(L11_2)
-                  if 2 ~= L10_2 then
-                    L10_2 = L0_1
-                    L11_2 = L4_2.x
-                    L12_2 = L4_2.y
-                    L13_2 = L4_2.z
-                    L13_2 = L13_2 + 0.3
-                    L14_2 = "."
-                    L10_2(L11_2, L12_2, L13_2, L14_2)
-                    L10_2 = IsControlJustPressed
-                    L11_2 = 1
-                    L12_2 = 49
-                    L10_2 = L10_2(L11_2, L12_2)
-                    if L10_2 then
-                      L10_2 = TaskEnterVehicle
-                      L11_2 = L0_2
-                      L12_2 = L2_2
-                      L13_2 = 10000
-                      L14_2 = 2
-                      L15_2 = 1.0
-                      L16_2 = 1
-                      L17_2 = 0
-                      L10_2(L11_2, L12_2, L13_2, L14_2, L15_2, L16_2, L17_2)
+
+-- ─────────────────────────────────────────────
+-- Door Window Bone Definitions
+-- seat 0 = front-right  (window_rf)
+-- seat 1 = rear-right   (window_rr)
+-- seat 2 = rear-left    (window_lr)
+-- ─────────────────────────────────────────────
+
+local doorWindows = {
+    { bone = "window_lr", seatId = 2,  minDist = 0.62, maxDist = 0.80 },
+    { bone = "window_rr", seatId = 1,  minDist = 0.62, maxDist = 0.80 },
+    { bone = "window_rf", seatId = 0,  minDist = 0.62, maxDist = 0.80 },
+}
+
+-- ─────────────────────────────────────────────
+-- Main Proximity Polling Thread
+-- ─────────────────────────────────────────────
+
+CreateThread(function()
+    while true do
+        Wait(pollInterval)
+        pollInterval = 1000  -- reset to slow poll; set to 7 when actively near vehicle
+
+        local myPed = PlayerPedId()
+        local myPos = GetEntityCoords(myPed)
+
+        -- Find closest vehicle within 5 metres
+        local closestVehicle = GetClosestVehicle(myPos.x, myPos.y, myPos.z, 5.0, 0, 71)
+        if not closestVehicle or closestVehicle == 0 then goto continue end
+
+        -- Skip if driver seat is occupied by a player (let normal entry handle it)
+        local driverPed = GetPedInVehicleSeat(closestVehicle, -1)
+        if DoesEntityExist(driverPed) and IsPedAPlayer(driverPed) then goto continue end
+
+        -- Check each door window bone
+        for _, door in ipairs(doorWindows) do
+            local boneIndex = GetEntityBoneIndexByName(closestVehicle, door.bone)
+            if boneIndex == -1 then goto nextDoor end
+
+            local bonePos = GetWorldPositionOfEntityBone(closestVehicle, boneIndex)
+            local distToDoor = #(myPos - bonePos)
+
+            if distToDoor >= door.minDist and distToDoor <= door.maxDist then
+                -- Check seat is empty
+                local pedInSeat = GetPedInVehicleSeat(closestVehicle, door.seatId)
+                local seatEmpty = not DoesEntityExist(pedInSeat) or pedInSeat == 0
+
+                -- Check vehicle is not locked
+                local lockState = GetVehicleDoorLockStatus(closestVehicle)
+                local isUnlocked = lockState == 0 or lockState == 1
+
+                if seatEmpty and isUnlocked then
+                    -- Draw entry prompt dot slightly above bone
+                    DrawTextAt3D(bonePos.x, bonePos.y, bonePos.z + 0.3, ".")
+                    pollInterval = 7  -- stay in fast-poll mode
+
+                    -- G key (49) — enter vehicle at this seat
+                    if IsControlJustPressed(0, 49) then
+                        TaskEnterVehicle(myPed, closestVehicle, 10000, door.seatId, 1.0, 1, 0)
                     end
                 end
-              end
             end
-            else
-              L10_2 = 0.62
-              if L8_2 < L10_2 then
-                L10_2 = DoesVehicleHaveDoor
-                L11_2 = L2_2
-                L12_2 = 2
-                L10_2 = L10_2(L11_2, L12_2)
-                if L10_2 then
-                  L10_2 = DoesEntityExist
-                  L11_2 = GetPedInVehicleSeat
-                  L12_2 = L2_2
-                  L13_2 = 1
-                  L11_2, L12_2, L13_2, L14_2, L15_2, L16_2, L17_2 = L11_2(L12_2, L13_2)
-                  L10_2 = L10_2(L11_2, L12_2, L13_2, L14_2, L15_2, L16_2, L17_2)
-                  if not L10_2 then
-                    L10_2 = GetVehicleDoorLockStatus
-                    L11_2 = L2_2
-                    L10_2 = L10_2(L11_2)
-                    if 2 ~= L10_2 then
-                      L10_2 = L0_1
-                      L11_2 = L3_2.x
-                      L12_2 = L3_2.y
-                      L13_2 = L3_2.z
-                      L13_2 = L13_2 + 0.3
-                      L14_2 = "."
-                      L10_2(L11_2, L12_2, L13_2, L14_2)
-                      L10_2 = IsControlJustPressed
-                      L11_2 = 1
-                      L12_2 = 49
-                      L10_2 = L10_2(L11_2, L12_2)
-                      if L10_2 then
-                        L10_2 = TaskEnterVehicle
-                        L11_2 = L0_2
-                        L12_2 = L2_2
-                        L13_2 = 10000
-                        L14_2 = 1
-                        L15_2 = 1.0
-                        L16_2 = 1
-                        L17_2 = 0
-                        L10_2(L11_2, L12_2, L13_2, L14_2, L15_2, L16_2, L17_2)
-                      end
-                  end
-                end
-              end
-              else
-                L10_2 = 0.8
-                if L9_2 < L10_2 then
-                  L10_2 = DoesVehicleHaveDoor
-                  L11_2 = L2_2
-                  L12_2 = 1
-                  L10_2 = L10_2(L11_2, L12_2)
-                  if L10_2 then
-                    L10_2 = DoesEntityExist
-                    L11_2 = GetPedInVehicleSeat
-                    L12_2 = L2_2
-                    L13_2 = 0
-                    L11_2, L12_2, L13_2, L14_2, L15_2, L16_2, L17_2 = L11_2(L12_2, L13_2)
-                    L10_2 = L10_2(L11_2, L12_2, L13_2, L14_2, L15_2, L16_2, L17_2)
-                    if not L10_2 then
-                      L10_2 = GetVehicleDoorLockStatus
-                      L11_2 = L2_2
-                      L10_2 = L10_2(L11_2)
-                      if 2 ~= L10_2 then
-                        L10_2 = L0_1
-                        L11_2 = L5_2.x
-                        L12_2 = L5_2.y
-                        L13_2 = L5_2.z
-                        L13_2 = L13_2 + 0.3
-                        L14_2 = "."
-                        L10_2(L11_2, L12_2, L13_2, L14_2)
-                        L10_2 = IsControlJustPressed
-                        L11_2 = 1
-                        L12_2 = 49
-                        L10_2 = L10_2(L11_2, L12_2)
-                        if L10_2 then
-                          L10_2 = TaskEnterVehicle
-                          L11_2 = L0_2
-                          L12_2 = L2_2
-                          L13_2 = 10000
-                          L14_2 = 0
-                          L15_2 = 1.0
-                          L16_2 = 1
-                          L17_2 = 0
-                          L10_2(L11_2, L12_2, L13_2, L14_2, L15_2, L16_2, L17_2)
-                        end
-                    end
-                  end
-                end
-                else
-                  L10_2 = Wait
-                  L11_2 = 1000
-                  L10_2(L11_2)
-                end
-              end
-            end
-          end
+
+            ::nextDoor::
         end
-      end
+
+        ::continue::
     end
-  end
-end
-L1_1(L2_1)
+end)

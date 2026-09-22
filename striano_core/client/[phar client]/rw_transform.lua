@@ -1,828 +1,329 @@
-local L0_1, L1_1, L2_1, L3_1, L4_1
-L0_1 = {}
-Transition = L0_1
-L0_1 = Transition
-function L1_1(A0_2)
-  local L1_2
-  return A0_2
+-- rw_transform.lua
+-- Entity Transition/Animation Library — easing functions, move/rotate/transition with various curves
+
+-- ─────────────────────────────────────────────
+-- Transition Easing Functions
+-- ─────────────────────────────────────────────
+
+Transition = {}
+
+-- Linear: no easing
+Transition.Linear = function(t)
+    return t
 end
-L0_1.Linear = L1_1
-L0_1 = Transition
-function L1_1(A0_2)
-  local L1_2
-  L1_2 = A0_2 * A0_2
-  return L1_2
+
+-- Quadratic ease in: accelerates from zero velocity
+Transition.EaseIn = function(t)
+    return t * t
 end
-L0_1.EaseIn = L1_1
-L0_1 = Transition
-function L1_1(A0_2)
-  local L1_2
-  L1_2 = 2
-  L1_2 = L1_2 - A0_2
-  L1_2 = A0_2 * L1_2
-  return L1_2
+
+-- Quadratic ease out: decelerates to zero velocity
+Transition.EaseOut = function(t)
+    return t * (2.0 - t)
 end
-L0_1.EaseOut = L1_1
-L0_1 = Transition
-function L1_1(A0_2)
-  local L1_2, L2_2
-  L1_2 = 0.5
-  if A0_2 < L1_2 then
-    L1_2 = 2 * A0_2
-    L1_2 = L1_2 * A0_2
-    return L1_2
-  else
-    L1_2 = 2 * A0_2
-    L2_2 = 4
-    L1_2 = L2_2 - L1_2
-    L1_2 = L1_2 * A0_2
-    L1_2 = -1 + L1_2
-    return L1_2
-  end
-end
-L0_1.EaseInOut = L1_1
-L0_1 = Transition
-function L1_1(A0_2)
-  local L1_2
-  L1_2 = A0_2 * A0_2
-  L1_2 = L1_2 * A0_2
-  return L1_2
-end
-L0_1.EaseInCubic = L1_1
-L0_1 = Transition
-function L1_1(A0_2)
-  local L1_2, L2_2
-  L1_2 = A0_2 - 1
-  L2_2 = L1_2 * L1_2
-  L2_2 = L2_2 * L1_2
-  L2_2 = L2_2 + 1
-  return L2_2
-end
-L0_1.EaseOutCubic = L1_1
-L0_1 = Transition
-function L1_1(A0_2)
-  local L1_2, L2_2
-  L1_2 = 0.5
-  if A0_2 < L1_2 then
-    L1_2 = 4 * A0_2
-    L1_2 = L1_2 * A0_2
-    L1_2 = L1_2 * A0_2
-    return L1_2
-  else
-    L1_2 = 2 * A0_2
-    L1_2 = L1_2 - 2
-    L2_2 = 0.5 * L1_2
-    L2_2 = L2_2 * L1_2
-    L2_2 = L2_2 * L1_2
-    L2_2 = L2_2 + 1
-    return L2_2
-  end
-end
-L0_1.EaseInOutCubic = L1_1
-L0_1 = Transition
-function L1_1(A0_2)
-  local L1_2, L2_2, L3_2, L4_2, L5_2
-  L1_2 = math
-  L1_2 = L1_2.pi
-  L1_2 = 2 * L1_2
-  L1_2 = L1_2 / 3
-  if 0 == A0_2 then
-    L2_2 = 0
-    if L2_2 then
-      goto lbl_44
-    end
-  end
-  if 1 == A0_2 then
-    L2_2 = 1
-    if L2_2 then
-      goto lbl_44
-    end
-  end
-  L2_2 = A0_2 - 1
-  L2_2 = 10 * L2_2
-  L3_2 = 2
-  L2_2 = L3_2 ^ L2_2
-  L2_2 = -L2_2
-  L3_2 = math
-  L3_2 = L3_2.sin
-  L4_2 = A0_2 - 1
-  L5_2 = L1_2 / 4
-  L4_2 = L4_2 - L5_2
-  L5_2 = math
-  L5_2 = L5_2.pi
-  L5_2 = 2 * L5_2
-  L4_2 = L4_2 * L5_2
-  L4_2 = L4_2 / L1_2
-  L3_2 = L3_2(L4_2)
-  L2_2 = L2_2 * L3_2
-  ::lbl_44::
-  return L2_2
-end
-L0_1.ElasticIn = L1_1
-L0_1 = Transition
-function L1_1(A0_2)
-  local L1_2, L2_2, L3_2, L4_2, L5_2
-  L1_2 = math
-  L1_2 = L1_2.pi
-  L1_2 = 2 * L1_2
-  L1_2 = L1_2 / 3
-  if 0 == A0_2 then
-    L2_2 = 0
-    if L2_2 then
-      goto lbl_41
-    end
-  end
-  if 1 == A0_2 then
-    L2_2 = 1
-    if L2_2 then
-      goto lbl_41
-    end
-  end
-  L2_2 = -10 * A0_2
-  L3_2 = 2
-  L2_2 = L3_2 ^ L2_2
-  L3_2 = math
-  L3_2 = L3_2.sin
-  L4_2 = L1_2 / 4
-  L4_2 = A0_2 - L4_2
-  L5_2 = math
-  L5_2 = L5_2.pi
-  L5_2 = 2 * L5_2
-  L4_2 = L4_2 * L5_2
-  L4_2 = L4_2 / L1_2
-  L3_2 = L3_2(L4_2)
-  L2_2 = L2_2 * L3_2
-  L2_2 = L2_2 + 1
-  ::lbl_41::
-  return L2_2
-end
-L0_1.ElasticOut = L1_1
-L0_1 = Transition
-function L1_1(A0_2)
-  local L1_2, L2_2, L3_2, L4_2
-  L1_2 = math
-  L1_2 = L1_2.pi
-  L1_2 = 2 * L1_2
-  L1_2 = L1_2 / 4.5
-  if 0 == A0_2 then
-    L2_2 = 0
-    if L2_2 then
-      goto lbl_64
-    end
-  end
-  if 1 == A0_2 then
-    L2_2 = 1
-    if L2_2 then
-      goto lbl_64
-    end
-  end
-  L2_2 = 0.5
-  if A0_2 < L2_2 then
-    L2_2 = 20 * A0_2
-    L2_2 = L2_2 - 10
-    L3_2 = 2
-    L2_2 = L3_2 ^ L2_2
-    L2_2 = -0.5 * L2_2
-    L3_2 = math
-    L3_2 = L3_2.sin
-    L4_2 = 20 * A0_2
-    L4_2 = L4_2 - 11.125
-    L4_2 = L4_2 * L1_2
-    L3_2 = L3_2(L4_2)
-    L2_2 = L2_2 * L3_2
-    if L2_2 then
-      goto lbl_64
-    end
-  end
-  L2_2 = -20 * A0_2
-  L2_2 = L2_2 + 10
-  L3_2 = 2
-  L2_2 = L3_2 ^ L2_2
-  L2_2 = 0.5 * L2_2
-  L3_2 = math
-  L3_2 = L3_2.sin
-  L4_2 = 20 * A0_2
-  L4_2 = L4_2 - 11.125
-  L4_2 = L4_2 * L1_2
-  L3_2 = L3_2(L4_2)
-  L2_2 = L2_2 * L3_2
-  L2_2 = L2_2 + 1
-  ::lbl_64::
-  return L2_2
-end
-L0_1.ElasticInOut = L1_1
-L0_1 = Transition
-function L1_1(A0_2)
-  local L1_2, L2_2
-  L1_2 = Transition
-  L1_2 = L1_2.BounceOut
-  L2_2 = 1
-  L2_2 = L2_2 - A0_2
-  L1_2 = L1_2(L2_2)
-  L2_2 = 1
-  L1_2 = L2_2 - L1_2
-  return L1_2
-end
-L0_1.BounceIn = L1_1
-L0_1 = Transition
-function L1_1(A0_2)
-  local L1_2, L2_2, L3_2
-  L1_2 = 7.5625
-  L2_2 = 2.75
-  L3_2 = 1
-  L3_2 = L3_2 / L2_2
-  if A0_2 < L3_2 then
-    L3_2 = L1_2 * A0_2
-    L3_2 = L3_2 * A0_2
-    return L3_2
-  else
-    L3_2 = 2
-    L3_2 = L3_2 / L2_2
-    if A0_2 < L3_2 then
-      L3_2 = 1.5
-      L3_2 = L3_2 / L2_2
-      A0_2 = A0_2 - L3_2
-      L3_2 = L1_2 * A0_2
-      L3_2 = L3_2 * A0_2
-      L3_2 = L3_2 + 0.75
-      return L3_2
+
+-- Quadratic ease in-out: acceleration then deceleration
+Transition.EaseInOut = function(t)
+    if t < 0.5 then
+        return 2.0 * t * t
     else
-      L3_2 = 2.5
-      L3_2 = L3_2 / L2_2
-      if A0_2 < L3_2 then
-        L3_2 = 2.25
-        L3_2 = L3_2 / L2_2
-        A0_2 = A0_2 - L3_2
-        L3_2 = L1_2 * A0_2
-        L3_2 = L3_2 * A0_2
-        L3_2 = L3_2 + 0.9375
-        return L3_2
-      else
-        L3_2 = 2.625
-        L3_2 = L3_2 / L2_2
-        A0_2 = A0_2 - L3_2
-        L3_2 = L1_2 * A0_2
-        L3_2 = L3_2 * A0_2
-        L3_2 = L3_2 + 0.984375
-        return L3_2
-      end
+        return -1.0 + (4.0 - 2.0 * t) * t
     end
-  end
 end
-L0_1.BounceOut = L1_1
-L0_1 = Transition
-function L1_1(A0_2)
-  local L1_2, L2_2
-  L1_2 = 0.5
-  if A0_2 < L1_2 then
-    L1_2 = Transition
-    L1_2 = L1_2.BounceIn
-    L2_2 = A0_2 * 2
-    L1_2 = L1_2(L2_2)
-    L1_2 = L1_2 * 0.5
-    return L1_2
-  else
-    L1_2 = Transition
-    L1_2 = L1_2.BounceOut
-    L2_2 = A0_2 * 2
-    L2_2 = L2_2 - 1
-    L1_2 = L1_2(L2_2)
-    L1_2 = L1_2 * 0.5
-    L1_2 = L1_2 + 0.5
-    return L1_2
-  end
+
+-- Cubic ease in
+Transition.EaseInCubic = function(t)
+    return t * t * t
 end
-L0_1.BounceInOut = L1_1
-function L0_1(A0_2, A1_2)
-  local L2_2, L3_2, L4_2, L5_2, L6_2, L7_2, L8_2, L9_2
-  function L2_2(A0_3, A1_3, A2_3, A3_3, A4_3)
-    local L5_3, L6_3, L7_3, L8_3
-    L5_3 = 1
-    L5_3 = L5_3 - A4_3
-    L6_3 = L5_3 ^ 3
-    L6_3 = L6_3 * A0_3
-    L7_3 = L5_3 ^ 2
-    L7_3 = 3 * L7_3
-    L7_3 = L7_3 * A4_3
-    L7_3 = L7_3 * A1_3
-    L6_3 = L6_3 + L7_3
-    L7_3 = 3 * L5_3
-    L8_3 = A4_3 ^ 2
-    L7_3 = L7_3 * L8_3
-    L7_3 = L7_3 * A2_3
-    L6_3 = L6_3 + L7_3
-    L7_3 = A4_3 ^ 3
-    L7_3 = L7_3 * A3_3
-    L6_3 = L6_3 + L7_3
-    return L6_3
-  end
-  L3_2 = L2_2
-  L4_2 = 0
-  L5_2 = A1_2.x1
-  L6_2 = A1_2.x2
-  L7_2 = 1
-  L8_2 = A0_2
-  L3_2 = L3_2(L4_2, L5_2, L6_2, L7_2, L8_2)
-  L4_2 = L2_2
-  L5_2 = 0
-  L6_2 = A1_2.y1
-  L7_2 = A1_2.y2
-  L8_2 = 1
-  L9_2 = A0_2
-  L4_2 = L4_2(L5_2, L6_2, L7_2, L8_2, L9_2)
-  return L4_2
+
+-- Cubic ease out
+Transition.EaseOutCubic = function(t)
+    local u = t - 1.0
+    return u * u * u + 1.0
 end
-CubicBezier = L0_1
-L0_1 = Transition
-L1_1 = {}
-L2_1 = Transition
-L2_1 = L2_1.Linear
-L1_1.Linear = L2_1
-L2_1 = Transition
-L2_1 = L2_1.EaseIn
-L1_1.EaseIn = L2_1
-L2_1 = Transition
-L2_1 = L2_1.EaseOut
-L1_1.EaseOut = L2_1
-L2_1 = Transition
-L2_1 = L2_1.EaseInOut
-L1_1.EaseInOut = L2_1
-L2_1 = Transition
-L2_1 = L2_1.EaseInCubic
-L1_1.EaseInCubic = L2_1
-L2_1 = Transition
-L2_1 = L2_1.EaseOutCubic
-L1_1.EaseOutCubic = L2_1
-L2_1 = Transition
-L2_1 = L2_1.EaseInOutCubic
-L1_1.EaseInOutCubic = L2_1
-L2_1 = Transition
-L2_1 = L2_1.ElasticIn
-L1_1.ElasticIn = L2_1
-L2_1 = Transition
-L2_1 = L2_1.ElasticOut
-L1_1.ElasticOut = L2_1
-L2_1 = Transition
-L2_1 = L2_1.ElasticInOut
-L1_1.ElasticInOut = L2_1
-L2_1 = Transition
-L2_1 = L2_1.BounceIn
-L1_1.BounceIn = L2_1
-L2_1 = Transition
-L2_1 = L2_1.BounceOut
-L1_1.BounceOut = L2_1
-L2_1 = Transition
-L2_1 = L2_1.BounceInOut
-L1_1.BounceInOut = L2_1
-L0_1.Functions = L1_1
-function L0_1(A0_2, A1_2, A2_2, A3_2, A4_2, A5_2, A6_2)
-  local L7_2, L8_2, L9_2, L10_2, L11_2, L12_2, L13_2, L14_2, L15_2, L16_2, L17_2, L18_2, L19_2, L20_2
-  L7_2 = 0.0
-  L8_2 = IsEntityPositionFrozen
-  L9_2 = A0_2
-  L8_2 = L8_2(L9_2)
-  L9_2 = FreezeEntityPosition
-  L10_2 = A0_2
-  L11_2 = true
-  L9_2(L10_2, L11_2)
-  while A5_2 > L7_2 do
-    L9_2 = GetFrameTime
-    L9_2 = L9_2()
-    L7_2 = L7_2 + L9_2
-    L9_2 = math
-    L9_2 = L9_2.min
-    L10_2 = math
-    L10_2 = L10_2.max
-    L11_2 = L7_2 / A5_2
-    L12_2 = 0
-    L10_2 = L10_2(L11_2, L12_2)
-    L11_2 = 1
-    L9_2 = L9_2(L10_2, L11_2)
-    L10_2 = A6_2
-    L11_2 = L9_2
-    L10_2 = L10_2(L11_2)
-    if A1_2 and A2_2 then
-      L11_2 = LerpVec3
-      L12_2 = A1_2
-      L13_2 = A2_2
-      L14_2 = L10_2
-      L11_2 = L11_2(L12_2, L13_2, L14_2)
-      L12_2 = SetEntityRotation
-      L13_2 = A0_2
-      L14_2 = L11_2.x
-      L15_2 = L11_2.y
-      L16_2 = L11_2.z
-      L17_2 = 2
-      L18_2 = true
-      L12_2(L13_2, L14_2, L15_2, L16_2, L17_2, L18_2)
+
+-- Cubic ease in-out
+Transition.EaseInOutCubic = function(t)
+    if t < 0.5 then
+        return 4.0 * t * t * t
+    else
+        local u = (2.0 * t) - 2.0
+        return 0.5 * u * u * u + 1.0
     end
-    if A3_2 and A4_2 then
-      L11_2 = LerpVec3
-      L12_2 = A3_2
-      L13_2 = A4_2
-      L14_2 = L10_2
-      L11_2 = L11_2(L12_2, L13_2, L14_2)
-      L12_2 = SetEntityCoords
-      L13_2 = A0_2
-      L14_2 = L11_2.x
-      L15_2 = L11_2.y
-      L16_2 = L11_2.z
-      L17_2 = true
-      L18_2 = true
-      L19_2 = true
-      L20_2 = false
-      L12_2(L13_2, L14_2, L15_2, L16_2, L17_2, L18_2, L19_2, L20_2)
+end
+
+-- Elastic ease in: overshoot spring oscillation at start
+Transition.ElasticIn = function(t)
+    if t == 0.0 then return 0.0 end
+    if t == 1.0 then return 1.0 end
+    local period = (2.0 * math.pi) / 3.0
+    return -(math.pow(2.0, 10.0 * t - 10.0) * math.sin((t * 10.0 - 10.75) * period))
+end
+
+-- Elastic ease out: overshoot spring oscillation at end
+Transition.ElasticOut = function(t)
+    if t == 0.0 then return 0.0 end
+    if t == 1.0 then return 1.0 end
+    local period = (2.0 * math.pi) / 3.0
+    return math.pow(2.0, -10.0 * t) * math.sin((t * 10.0 - 0.75) * period) + 1.0
+end
+
+-- Elastic ease in-out
+Transition.ElasticInOut = function(t)
+    if t == 0.0 then return 0.0 end
+    if t == 1.0 then return 1.0 end
+    local period = (2.0 * math.pi) / 4.5
+    if t < 0.5 then
+        return -(math.pow(2.0, 20.0 * t - 10.0) * math.sin((20.0 * t - 11.125) * period)) / 2.0
+    else
+        return (math.pow(2.0, -20.0 * t + 10.0) * math.sin((20.0 * t - 11.125) * period)) / 2.0 + 1.0
     end
-    L11_2 = Wait
-    L12_2 = 0
-    L11_2(L12_2)
-  end
-  if A2_2 then
-    L9_2 = SetEntityRotation
-    L10_2 = A0_2
-    L11_2 = A2_2.x
-    L12_2 = A2_2.y
-    L13_2 = A2_2.z
-    L14_2 = 2
-    L15_2 = true
-    L9_2(L10_2, L11_2, L12_2, L13_2, L14_2, L15_2)
-  end
-  if A4_2 then
-    L9_2 = SetEntityCoords
-    L10_2 = A0_2
-    L11_2 = A4_2.x
-    L12_2 = A4_2.y
-    L13_2 = A4_2.z
-    L14_2 = true
-    L15_2 = true
-    L16_2 = true
-    L17_2 = false
-    L9_2(L10_2, L11_2, L12_2, L13_2, L14_2, L15_2, L16_2, L17_2)
-  end
-  L9_2 = FreezeEntityPosition
-  L10_2 = A0_2
-  L11_2 = L8_2
-  L9_2(L10_2, L11_2)
 end
-function L1_1(A0_2, A1_2, A2_2, A3_2)
-  local L4_2, L5_2, L6_2, L7_2, L8_2, L9_2, L10_2, L11_2, L12_2, L13_2
-  L4_2 = Transition
-  L4_2 = L4_2.Functions
-  L4_2 = L4_2[A0_2]
-  if not L4_2 then
-    L5_2 = print
-    L6_2 = "^1Invalid transition name provided: ^7"
-    L7_2 = tostring
-    L8_2 = A0_2
-    L7_2 = L7_2(L8_2)
-    L6_2 = L6_2 .. L7_2
-    L5_2(L6_2)
-    return
-  end
-  L5_2 = GetEntityRotation
-  L6_2 = A1_2
-  L7_2 = 2
-  L5_2 = L5_2(L6_2, L7_2)
-  L6_2 = L0_1
-  L7_2 = A1_2
-  L8_2 = L5_2
-  L9_2 = A2_2
-  L10_2 = nil
-  L11_2 = nil
-  L12_2 = A3_2
-  L13_2 = L4_2
-  L6_2(L7_2, L8_2, L9_2, L10_2, L11_2, L12_2, L13_2)
-end
-RotateEntity = L1_1
-L1_1 = exports
-L2_1 = "RotateEntity"
-L3_1 = RotateEntity
-L1_1(L2_1, L3_1)
-function L1_1(A0_2, A1_2, A2_2, A3_2)
-  local L4_2, L5_2, L6_2, L7_2, L8_2, L9_2, L10_2, L11_2, L12_2, L13_2
-  L4_2 = Transition
-  L4_2 = L4_2.Functions
-  L4_2 = L4_2[A0_2]
-  if not L4_2 then
-    L5_2 = print
-    L6_2 = "^1Invalid transition name provided: ^7"
-    L7_2 = tostring
-    L8_2 = A0_2
-    L7_2 = L7_2(L8_2)
-    L6_2 = L6_2 .. L7_2
-    L5_2(L6_2)
-    return
-  end
-  L5_2 = GetEntityCoords
-  L6_2 = A1_2
-  L7_2 = true
-  L5_2 = L5_2(L6_2, L7_2)
-  L6_2 = L0_1
-  L7_2 = A1_2
-  L8_2 = nil
-  L9_2 = nil
-  L10_2 = L5_2
-  L11_2 = A2_2
-  L12_2 = A3_2
-  L13_2 = L4_2
-  L6_2(L7_2, L8_2, L9_2, L10_2, L11_2, L12_2, L13_2)
-end
-MoveEntity = L1_1
-L1_1 = exports
-L2_1 = "MoveEntity"
-L3_1 = MoveEntity
-L1_1(L2_1, L3_1)
-function L1_1(A0_2, A1_2, A2_2, A3_2, A4_2)
-  local L5_2, L6_2, L7_2, L8_2, L9_2, L10_2, L11_2, L12_2, L13_2, L14_2, L15_2
-  L5_2 = Transition
-  L5_2 = L5_2.Functions
-  L5_2 = L5_2[A0_2]
-  if not L5_2 then
-    L6_2 = print
-    L7_2 = "^1Invalid transition name provided: ^7"
-    L8_2 = tostring
-    L9_2 = A0_2
-    L8_2 = L8_2(L9_2)
-    L7_2 = L7_2 .. L8_2
-    L6_2(L7_2)
-    return
-  end
-  if A2_2 then
-    L6_2 = GetEntityRotation
-    L7_2 = A1_2
-    L8_2 = 2
-    L6_2 = L6_2(L7_2, L8_2)
-    if L6_2 then
-      goto lbl_23
+
+-- Bounce ease out helper
+local function BounceEaseOut(t)
+    local n1 = 7.5625
+    local d1 = 2.75
+    if t < 1.0 / d1 then
+        return n1 * t * t
+    elseif t < 2.0 / d1 then
+        t = t - (1.5 / d1)
+        return n1 * t * t + 0.75
+    elseif t < 2.5 / d1 then
+        t = t - (2.25 / d1)
+        return n1 * t * t + 0.9375
+    else
+        t = t - (2.625 / d1)
+        return n1 * t * t + 0.984375
     end
-  end
-  L6_2 = nil
-  ::lbl_23::
-  if A3_2 then
-    L7_2 = GetEntityCoords
-    L8_2 = A1_2
-    L9_2 = true
-    L7_2 = L7_2(L8_2, L9_2)
-    if L7_2 then
-      goto lbl_32
+end
+
+-- Bounce ease in
+Transition.BounceIn = function(t)
+    return 1.0 - BounceEaseOut(1.0 - t)
+end
+
+-- Bounce ease out
+Transition.BounceOut = BounceEaseOut
+
+-- Bounce ease in-out
+Transition.BounceInOut = function(t)
+    if t < 0.5 then
+        return (1.0 - BounceEaseOut(1.0 - 2.0 * t)) / 2.0
+    else
+        return (1.0 + BounceEaseOut(2.0 * t - 1.0)) / 2.0
     end
-  end
-  L7_2 = nil
-  ::lbl_32::
-  L8_2 = L0_1
-  L9_2 = A1_2
-  L10_2 = L6_2
-  L11_2 = A2_2
-  L12_2 = L7_2
-  L13_2 = A3_2
-  L14_2 = A4_2
-  L15_2 = L5_2
-  L8_2(L9_2, L10_2, L11_2, L12_2, L13_2, L14_2, L15_2)
 end
-TransitionEntity = L1_1
-L1_1 = exports
-L2_1 = "TransitionEntity"
-L3_1 = TransitionEntity
-L1_1(L2_1, L3_1)
-function L1_1(A0_2, A1_2, A2_2)
-  local L3_2, L4_2, L5_2, L6_2, L7_2, L8_2
-  L3_2 = vec3
-  L4_2 = A0_2.x
-  L5_2 = A1_2.x
-  L6_2 = A0_2.x
-  L5_2 = L5_2 - L6_2
-  L5_2 = L5_2 * A2_2
-  L4_2 = L4_2 + L5_2
-  L5_2 = A0_2.y
-  L6_2 = A1_2.y
-  L7_2 = A0_2.y
-  L6_2 = L6_2 - L7_2
-  L6_2 = L6_2 * A2_2
-  L5_2 = L5_2 + L6_2
-  L6_2 = A0_2.z
-  L7_2 = A1_2.z
-  L8_2 = A0_2.z
-  L7_2 = L7_2 - L8_2
-  L7_2 = L7_2 * A2_2
-  L6_2 = L6_2 + L7_2
-  return L3_2(L4_2, L5_2, L6_2)
-end
-LerpVec3 = L1_1
-function L1_1(A0_2, A1_2, A2_2, A3_2)
-  local L4_2
-  L4_2 = {}
-  L4_2.x1 = A0_2
-  L4_2.y1 = A1_2
-  L4_2.x2 = A2_2
-  L4_2.y2 = A3_2
-  return L4_2
-end
-Bezier = L1_1
-function L1_1(A0_2, A1_2, A2_2, A3_2, A4_2, A5_2, A6_2)
-  local L7_2, L8_2, L9_2, L10_2, L11_2, L12_2, L13_2, L14_2, L15_2, L16_2, L17_2, L18_2, L19_2, L20_2
-  L7_2 = 0.0
-  L8_2 = IsEntityPositionFrozen
-  L9_2 = A0_2
-  L8_2 = L8_2(L9_2)
-  L9_2 = FreezeEntityPosition
-  L10_2 = A0_2
-  L11_2 = true
-  L9_2(L10_2, L11_2)
-  while A5_2 > L7_2 do
-    L9_2 = GetFrameTime
-    L9_2 = L9_2()
-    L7_2 = L7_2 + L9_2
-    L9_2 = math
-    L9_2 = L9_2.min
-    L10_2 = math
-    L10_2 = L10_2.max
-    L11_2 = L7_2 / A5_2
-    L12_2 = 0
-    L10_2 = L10_2(L11_2, L12_2)
-    L11_2 = 1
-    L9_2 = L9_2(L10_2, L11_2)
-    L10_2 = CubicBezier
-    L11_2 = L9_2
-    L12_2 = A6_2
-    L10_2 = L10_2(L11_2, L12_2)
-    if A1_2 and A2_2 then
-      L11_2 = LerpVec3
-      L12_2 = A1_2
-      L13_2 = A2_2
-      L14_2 = L10_2
-      L11_2 = L11_2(L12_2, L13_2, L14_2)
-      L12_2 = SetEntityRotation
-      L13_2 = A0_2
-      L14_2 = L11_2.x
-      L15_2 = L11_2.y
-      L16_2 = L11_2.z
-      L17_2 = 2
-      L18_2 = true
-      L12_2(L13_2, L14_2, L15_2, L16_2, L17_2, L18_2)
+
+-- Named alias lookup table
+Transition.Functions = {
+    Linear         = Transition.Linear,
+    EaseIn         = Transition.EaseIn,
+    EaseOut        = Transition.EaseOut,
+    EaseInOut      = Transition.EaseInOut,
+    EaseInCubic    = Transition.EaseInCubic,
+    EaseOutCubic   = Transition.EaseOutCubic,
+    EaseInOutCubic = Transition.EaseInOutCubic,
+    ElasticIn      = Transition.ElasticIn,
+    ElasticOut     = Transition.ElasticOut,
+    ElasticInOut   = Transition.ElasticInOut,
+    BounceIn       = Transition.BounceIn,
+    BounceOut      = Transition.BounceOut,
+    BounceInOut    = Transition.BounceInOut,
+}
+
+-- ─────────────────────────────────────────────
+-- Cubic Bézier Interpolation
+-- ─────────────────────────────────────────────
+
+-- Evaluates a cubic Bézier curve at parameter t using a bezierDef = {x1, y1, x2, y2}
+function CubicBezier(t, bezierDef)
+    local x1, y1, x2, y2 = bezierDef[1], bezierDef[2], bezierDef[3], bezierDef[4]
+    -- Newton–Raphson solver to find the x(t) → y(t) mapping
+    local function bezierX(s)
+        return 3.0 * s * (1.0 - s)^2 * x1 + 3.0 * s^2 * (1.0 - s) * x2 + s^3
     end
-    if A3_2 and A4_2 then
-      L11_2 = LerpVec3
-      L12_2 = A3_2
-      L13_2 = A4_2
-      L14_2 = L10_2
-      L11_2 = L11_2(L12_2, L13_2, L14_2)
-      L12_2 = SetEntityCoords
-      L13_2 = A0_2
-      L14_2 = L11_2.x
-      L15_2 = L11_2.y
-      L16_2 = L11_2.z
-      L17_2 = true
-      L18_2 = true
-      L19_2 = true
-      L20_2 = false
-      L12_2(L13_2, L14_2, L15_2, L16_2, L17_2, L18_2, L19_2, L20_2)
+    local function bezierY(s)
+        return 3.0 * s * (1.0 - s)^2 * y1 + 3.0 * s^2 * (1.0 - s) * y2 + s^3
     end
-    L11_2 = Wait
-    L12_2 = 0
-    L11_2(L12_2)
-  end
-  if A2_2 then
-    L9_2 = SetEntityRotation
-    L10_2 = A0_2
-    L11_2 = A2_2.x
-    L12_2 = A2_2.y
-    L13_2 = A2_2.z
-    L14_2 = 2
-    L15_2 = true
-    L9_2(L10_2, L11_2, L12_2, L13_2, L14_2, L15_2)
-  end
-  if A4_2 then
-    L9_2 = SetEntityCoords
-    L10_2 = A0_2
-    L11_2 = A4_2.x
-    L12_2 = A4_2.y
-    L13_2 = A4_2.z
-    L14_2 = true
-    L15_2 = true
-    L16_2 = true
-    L17_2 = false
-    L9_2(L10_2, L11_2, L12_2, L13_2, L14_2, L15_2, L16_2, L17_2)
-  end
-  L9_2 = FreezeEntityPosition
-  L10_2 = A0_2
-  L11_2 = L8_2
-  L9_2(L10_2, L11_2)
-end
-function L2_1(A0_2, A1_2, A2_2, A3_2, A4_2, A5_2, A6_2)
-  local L7_2, L8_2, L9_2, L10_2, L11_2, L12_2, L13_2, L14_2, L15_2, L16_2, L17_2, L18_2, L19_2
-  L7_2 = GetEntityRotation
-  L8_2 = A4_2
-  L9_2 = 2
-  L7_2 = L7_2(L8_2, L9_2)
-  L8_2 = L1_1
-  L9_2 = A4_2
-  L10_2 = L7_2
-  L11_2 = A5_2
-  L12_2 = nil
-  L13_2 = nil
-  L14_2 = A6_2
-  L15_2 = Bezier
-  L16_2 = A0_2
-  L17_2 = A1_2
-  L18_2 = A2_2
-  L19_2 = A3_2
-  L15_2, L16_2, L17_2, L18_2, L19_2 = L15_2(L16_2, L17_2, L18_2, L19_2)
-  L8_2(L9_2, L10_2, L11_2, L12_2, L13_2, L14_2, L15_2, L16_2, L17_2, L18_2, L19_2)
-end
-BezierRotateEntity = L2_1
-L2_1 = exports
-L3_1 = "BezierRotateEntity"
-L4_1 = BezierRotateEntity
-L2_1(L3_1, L4_1)
-function L2_1(A0_2, A1_2, A2_2, A3_2, A4_2, A5_2, A6_2)
-  local L7_2, L8_2, L9_2, L10_2, L11_2, L12_2, L13_2, L14_2, L15_2, L16_2, L17_2, L18_2, L19_2
-  L7_2 = GetEntityCoords
-  L8_2 = A4_2
-  L9_2 = true
-  L7_2 = L7_2(L8_2, L9_2)
-  L8_2 = L1_1
-  L9_2 = A4_2
-  L10_2 = nil
-  L11_2 = nil
-  L12_2 = L7_2
-  L13_2 = A5_2
-  L14_2 = A6_2
-  L15_2 = Bezier
-  L16_2 = A0_2
-  L17_2 = A1_2
-  L18_2 = A2_2
-  L19_2 = A3_2
-  L15_2, L16_2, L17_2, L18_2, L19_2 = L15_2(L16_2, L17_2, L18_2, L19_2)
-  L8_2(L9_2, L10_2, L11_2, L12_2, L13_2, L14_2, L15_2, L16_2, L17_2, L18_2, L19_2)
-end
-BezierMoveEntity = L2_1
-L2_1 = exports
-L3_1 = "BezierMoveEntity"
-L4_1 = BezierMoveEntity
-L2_1(L3_1, L4_1)
-function L2_1(A0_2, A1_2, A2_2, A3_2, A4_2, A5_2, A6_2, A7_2)
-  local L8_2, L9_2, L10_2, L11_2, L12_2, L13_2, L14_2, L15_2, L16_2, L17_2, L18_2, L19_2, L20_2, L21_2
-  if not (A0_2 and A1_2 and A2_2) or not A3_2 then
-    L8_2 = print
-    L9_2 = "^1Invalid CubicBezier provided: ^7"
-    L10_2 = tostring
-    L11_2 = A0_2
-    L10_2 = L10_2(L11_2)
-    L11_2 = ", "
-    L12_2 = tostring
-    L13_2 = A1_2
-    L12_2 = L12_2(L13_2)
-    L13_2 = ", "
-    L14_2 = tostring
-    L15_2 = A2_2
-    L14_2 = L14_2(L15_2)
-    L15_2 = ", "
-    L16_2 = tostring
-    L17_2 = A3_2
-    L16_2 = L16_2(L17_2)
-    L9_2 = L9_2 .. L10_2 .. L11_2 .. L12_2 .. L13_2 .. L14_2 .. L15_2 .. L16_2
-    L8_2(L9_2)
-    return
-  end
-  if A5_2 then
-    L8_2 = GetEntityRotation
-    L9_2 = A4_2
-    L10_2 = 2
-    L8_2 = L8_2(L9_2, L10_2)
-    if L8_2 then
-      goto lbl_38
+
+    -- Solve for s such that bezierX(s) ≈ t (binary search)
+    local lo, hi = 0.0, 1.0
+    for _ = 1, 20 do
+        local mid = (lo + hi) * 0.5
+        local xMid = bezierX(mid)
+        if math.abs(xMid - t) < 0.0001 then
+            return bezierY(mid)
+        elseif xMid < t then
+            lo = mid
+        else
+            hi = mid
+        end
     end
-  end
-  L8_2 = nil
-  ::lbl_38::
-  if A6_2 then
-    L9_2 = GetEntityCoords
-    L10_2 = A4_2
-    L11_2 = true
-    L9_2 = L9_2(L10_2, L11_2)
-    if L9_2 then
-      goto lbl_47
-    end
-  end
-  L9_2 = nil
-  ::lbl_47::
-  L10_2 = L1_1
-  L11_2 = A4_2
-  L12_2 = L8_2
-  L13_2 = A5_2
-  L14_2 = L9_2
-  L15_2 = A6_2
-  L16_2 = A7_2
-  L17_2 = Bezier
-  L18_2 = A0_2
-  L19_2 = A1_2
-  L20_2 = A2_2
-  L21_2 = A3_2
-  L17_2, L18_2, L19_2, L20_2, L21_2 = L17_2(L18_2, L19_2, L20_2, L21_2)
-  L10_2(L11_2, L12_2, L13_2, L14_2, L15_2, L16_2, L17_2, L18_2, L19_2, L20_2, L21_2)
+    return bezierY((lo + hi) * 0.5)
 end
-BezierTransitionCubicBezier = L2_1
-L2_1 = exports
-L3_1 = "BezierTransitionCubicBezier"
-L4_1 = BezierTransitionCubicBezier
-L2_1(L3_1, L4_1)
+
+-- Creates a Bézier definition table from control point coordinates
+function Bezier(x1, y1, x2, y2)
+    return { x1, y1, x2, y2 }
+end
+
+-- ─────────────────────────────────────────────
+-- Vector3 Linear Interpolation
+-- ─────────────────────────────────────────────
+
+function LerpVec3(a, b, t)
+    return vector3(
+        a.x + (b.x - a.x) * t,
+        a.y + (b.y - a.y) * t,
+        a.z + (b.z - a.z) * t
+    )
+end
+
+-- ─────────────────────────────────────────────
+-- Internal Animator (shared by all entity movers)
+-- ─────────────────────────────────────────────
+-- Freezes the entity, accumulates frame time, lerps rotation and/or position,
+-- then restores the entity's frozen state on completion.
+
+local function RunEntityAnimation(easingFn, entity, startRot, targetRot, startPos, targetPos, duration)
+    local wasFrozen = IsEntityPositionFrozen(entity)
+    FreezeEntityPosition(entity, true)
+
+    local elapsed = 0.0
+    while elapsed < duration do
+        local dt = GetFrameTime()
+        elapsed = elapsed + dt
+        local rawT = math.min(elapsed / duration, 1.0)
+        local easedT = easingFn(rawT)
+
+        if targetRot then
+            local newRot = LerpVec3(startRot, targetRot, easedT)
+            SetEntityRotation(entity, newRot.x, newRot.y, newRot.z, 2, true)
+        end
+
+        if targetPos then
+            local newPos = LerpVec3(startPos, targetPos, easedT)
+            SetEntityCoords(entity, newPos.x, newPos.y, newPos.z, false, false, false, false)
+        end
+
+        Wait(0)
+    end
+
+    -- Apply final exact values
+    if targetRot then
+        SetEntityRotation(entity, targetRot.x, targetRot.y, targetRot.z, 2, true)
+    end
+    if targetPos then
+        SetEntityCoords(entity, targetPos.x, targetPos.y, targetPos.z, false, false, false, false)
+    end
+
+    FreezeEntityPosition(entity, wasFrozen)
+end
+
+-- ─────────────────────────────────────────────
+-- Easing-based Entity Transformers
+-- ─────────────────────────────────────────────
+
+-- Rotate entity to targetRotVec over duration (seconds) using named easing
+function RotateEntity(transitionName, entity, targetRotVec, duration)
+    local easingFn = Transition.Functions[transitionName] or Transition.Linear
+    local startRot = GetEntityRotation(entity, 2)
+    CreateThread(function()
+        RunEntityAnimation(easingFn, entity, startRot, targetRotVec, nil, nil, duration)
+    end)
+end
+
+-- Move entity to targetPosVec over duration (seconds) using named easing
+function MoveEntity(transitionName, entity, targetPosVec, duration)
+    local easingFn = Transition.Functions[transitionName] or Transition.Linear
+    local startPos = GetEntityCoords(entity)
+    CreateThread(function()
+        RunEntityAnimation(easingFn, entity, nil, nil, startPos, targetPosVec, duration)
+    end)
+end
+
+-- Rotate AND move entity simultaneously over duration using named easing
+function TransitionEntity(transitionName, entity, targetRot, targetPos, duration)
+    local easingFn = Transition.Functions[transitionName] or Transition.Linear
+    local startRot = GetEntityRotation(entity, 2)
+    local startPos = GetEntityCoords(entity)
+    CreateThread(function()
+        RunEntityAnimation(easingFn, entity, startRot, targetRot, startPos, targetPos, duration)
+    end)
+end
+
+exports("RotateEntity",    RotateEntity)
+exports("MoveEntity",      MoveEntity)
+exports("TransitionEntity", TransitionEntity)
+
+-- ─────────────────────────────────────────────
+-- Bézier Curve-based Animator (uses CubicBezier for t-mapping)
+-- ─────────────────────────────────────────────
+
+local function RunBezierAnimation(bezierDef, entity, startRot, targetRot, startPos, targetPos, duration)
+    local wasFrozen = IsEntityPositionFrozen(entity)
+    FreezeEntityPosition(entity, true)
+
+    local elapsed = 0.0
+    while elapsed < duration do
+        local dt = GetFrameTime()
+        elapsed = elapsed + dt
+        local rawT = math.min(elapsed / duration, 1.0)
+        local easedT = CubicBezier(rawT, bezierDef)
+
+        if targetRot then
+            local newRot = LerpVec3(startRot, targetRot, easedT)
+            SetEntityRotation(entity, newRot.x, newRot.y, newRot.z, 2, true)
+        end
+
+        if targetPos then
+            local newPos = LerpVec3(startPos, targetPos, easedT)
+            SetEntityCoords(entity, newPos.x, newPos.y, newPos.z, false, false, false, false)
+        end
+
+        Wait(0)
+    end
+
+    if targetRot then
+        SetEntityRotation(entity, targetRot.x, targetRot.y, targetRot.z, 2, true)
+    end
+    if targetPos then
+        SetEntityCoords(entity, targetPos.x, targetPos.y, targetPos.z, false, false, false, false)
+    end
+
+    FreezeEntityPosition(entity, wasFrozen)
+end
+
+-- Rotate entity using a cubic Bézier curve for easing
+function BezierRotateEntity(x1, y1, x2, y2, entity, targetRot, duration)
+    local bezierDef = Bezier(x1, y1, x2, y2)
+    local startRot = GetEntityRotation(entity, 2)
+    CreateThread(function()
+        RunBezierAnimation(bezierDef, entity, startRot, targetRot, nil, nil, duration)
+    end)
+end
+
+-- Move entity using a cubic Bézier curve for easing
+function BezierMoveEntity(x1, y1, x2, y2, entity, targetPos, duration)
+    local bezierDef = Bezier(x1, y1, x2, y2)
+    local startPos = GetEntityCoords(entity)
+    CreateThread(function()
+        RunBezierAnimation(bezierDef, entity, nil, nil, startPos, targetPos, duration)
+    end)
+end
+
+-- Rotate AND move entity using a cubic Bézier curve for easing
+function BezierTransitionCubicBezier(x1, y1, x2, y2, entity, targetRot, targetPos, duration, bezierDef)
+    -- bezierDef may override the x1/y1/x2/y2 when supplied
+    local activeBezier = bezierDef or Bezier(x1, y1, x2, y2)
+    local startRot = GetEntityRotation(entity, 2)
+    local startPos = GetEntityCoords(entity)
+    CreateThread(function()
+        RunBezierAnimation(activeBezier, entity, startRot, targetRot, startPos, targetPos, duration)
+    end)
+end
+
+exports("BezierRotateEntity",           BezierRotateEntity)
+exports("BezierMoveEntity",             BezierMoveEntity)
+exports("BezierTransitionCubicBezier",  BezierTransitionCubicBezier)

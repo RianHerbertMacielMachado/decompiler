@@ -1,1 +1,4 @@
-local L0_1, L1_1
+-- ============================================================
+--  striano_fastmenu - server/main.lua
+--  (arquivo de servidor — sem lógica, apenas placeholder)
+-- ============================================================

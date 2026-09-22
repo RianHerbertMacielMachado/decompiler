@@ -1,256 +1,116 @@
-local L0_1, L1_1, L2_1, L3_1, L4_1, L5_1, L6_1, L7_1
-L0_1 = {}
-L1_1 = nil
-L2_1 = nil
-L3_1 = nil
-function L4_1(A0_2, A1_2)
-  local L2_2, L3_2, L4_2, L5_2, L6_2, L7_2, L8_2, L9_2, L10_2, L11_2, L12_2, L13_2, L14_2
-  if not A1_2 then
-    A1_2 = ""
-  end
-  L2_2 = pairs
-  L3_2 = A0_2
-  L2_2, L3_2, L4_2, L5_2 = L2_2(L3_2)
-  for L6_2, L7_2 in L2_2, L3_2, L4_2, L5_2 do
-    if "skin" ~= L6_2 then
-      L8_2 = A1_2
-      L9_2 = tostring
-      L10_2 = L6_2
-      L9_2 = L9_2(L10_2)
-      L8_2 = L8_2 .. L9_2
-      L9_2 = type
-      L10_2 = L7_2
-      L9_2 = L9_2(L10_2)
-      if "table" == L9_2 then
-        L9_2 = next
-        L10_2 = L7_2
-        L9_2 = L9_2(L10_2)
-        if nil == L9_2 then
-          L9_2 = exports
-          L9_2 = L9_2.striano_fastmenu
-          L10_2 = L9_2
-          L9_2 = L9_2.addMenuItem
-          L11_2 = L8_2
-          L12_2 = " = []"
-          L11_2 = L11_2 .. L12_2
-          function L12_2()
-            local L0_3, L1_3
-          end
-          L13_2 = false
-          L9_2(L10_2, L11_2, L12_2, L13_2)
-        else
-          L9_2 = L4_1
-          L10_2 = L7_2
-          L11_2 = L8_2
-          L12_2 = "."
-          L11_2 = L11_2 .. L12_2
-          L9_2(L10_2, L11_2)
-        end
-      else
-        L9_2 = exports
-        L9_2 = L9_2.striano_fastmenu
-        L10_2 = L9_2
-        L9_2 = L9_2.addMenuItem
-        L11_2 = L8_2
-        L12_2 = " = "
-        L13_2 = tostring
-        L14_2 = L7_2
-        L13_2 = L13_2(L14_2)
-        L11_2 = L11_2 .. L12_2 .. L13_2
-        function L12_2()
-          local L0_3, L1_3
-        end
-        L13_2 = false
-        L9_2(L10_2, L11_2, L12_2, L13_2)
-      end
-    end
-  end
-end
+-- user_manager_client.lua
+-- Client-side User Manager: shows a radial fast-menu with the players list
+-- and allows admins to inspect user data and delete players.
+-- Uses striano_fastmenu exports for all menu building.
+
+local playersList = {}   -- cache of player entries sent from the server
+local openMainMenu       -- forward declaration
+local openUserDetail     -- forward declaration
+local openDeleteConfirm  -- forward declaration
+
+-- ─── Safety toggle: must run /icanDeleteUser before deletes are allowed ───
 icanDeleteUser = false
-L5_1 = RegisterCommand
-L6_1 = "icanDeleteUser"
-function L7_1()
-  local L0_2, L1_2
-  L0_2 = icanDeleteUser
-  L0_2 = not L0_2
-  icanDeleteUser = L0_2
-end
-L5_1(L6_1, L7_1)
-function L5_1(A0_2)
-  local L1_2, L2_2, L3_2, L4_2, L5_2
-  L1_2 = exports
-  L1_2 = L1_2.striano_fastmenu
-  L2_2 = L1_2
-  L1_2 = L1_2.clearMenu
-  L1_2(L2_2)
-  L1_2 = exports
-  L1_2 = L1_2.striano_fastmenu
-  L2_2 = L1_2
-  L1_2 = L1_2.addMenuItem
-  L3_2 = "Are you sure you want to delete "
-  L4_2 = A0_2.name
-  L5_2 = "?"
-  L3_2 = L3_2 .. L4_2 .. L5_2
-  function L4_2()
-    local L0_3, L1_3
-  end
-  L5_2 = false
-  L1_2(L2_2, L3_2, L4_2, L5_2)
-  L1_2 = exports
-  L1_2 = L1_2.striano_fastmenu
-  L2_2 = L1_2
-  L1_2 = L1_2.addMenuItemAdvanced
-  L3_2 = {}
-  L3_2.label = "[ YES, DELETE USER ]"
-  L3_2.color = "#ff3b3b"
-  L3_2.autoClose = false
-  function L4_2()
-    local L0_3, L1_3, L2_3
-    L0_3 = icanDeleteUser
-    if L0_3 then
-      L0_3 = TriggerServerEvent
-      L1_3 = "striano:deleteUserFromAdmin"
-      L2_3 = A0_2.identifier
-      L0_3(L1_3, L2_3)
-    else
-      L0_3 = print
-      L1_3 = "You can't delete user."
-      L0_3(L1_3)
+RegisterCommand("icanDeleteUser", function()
+    icanDeleteUser = not icanDeleteUser
+end)
+
+-- ─── Recursive helper: populate menu with key=value entries from a table ──
+-- Skips the "skin" key (too verbose).
+-- Nested tables are expanded with dot-notation prefixes.
+local function populateDataEntries(dataTable, prefix)
+    prefix = prefix or ""
+    for key, value in pairs(dataTable) do
+        if key ~= "skin" then
+            local label = prefix .. tostring(key)
+            if type(value) == "table" then
+                if next(value) == nil then
+                    -- Empty table: show as []
+                    exports.striano_fastmenu:addMenuItem(label .. " = []", function() end, false)
+                else
+                    -- Recurse with dot prefix
+                    populateDataEntries(value, label .. ".")
+                end
+            else
+                exports.striano_fastmenu:addMenuItem(label .. " = " .. tostring(value), function() end, false)
+            end
+        end
     end
-    L0_3 = exports
-    L0_3 = L0_3.striano_fastmenu
-    L1_3 = L0_3
-    L0_3 = L0_3.close
-    L0_3(L1_3)
-  end
-  L3_2.onClick = L4_2
-  L1_2(L2_2, L3_2)
-  L1_2 = exports
-  L1_2 = L1_2.striano_fastmenu
-  L2_2 = L1_2
-  L1_2 = L1_2.addMenuItem
-  L3_2 = "[ NO, GO BACK ]"
-  function L4_2()
-    local L0_3, L1_3
-    L0_3 = L2_1
-    L1_3 = A0_2
-    L0_3(L1_3)
-  end
-  L5_2 = false
-  L1_2(L2_2, L3_2, L4_2, L5_2)
 end
-L3_1 = L5_1
-function L5_1(A0_2)
-  local L1_2, L2_2, L3_2, L4_2, L5_2
-  L1_2 = exports
-  L1_2 = L1_2.striano_fastmenu
-  L2_2 = L1_2
-  L1_2 = L1_2.clearMenu
-  L1_2(L2_2)
-  L1_2 = exports
-  L1_2 = L1_2.striano_fastmenu
-  L2_2 = L1_2
-  L1_2 = L1_2.addMenuItem
-  L3_2 = "\226\134\144 Back"
-  function L4_2()
-    local L0_3, L1_3
-    L0_3 = L1_1
-    L0_3()
-  end
-  L5_2 = false
-  L1_2(L2_2, L3_2, L4_2, L5_2)
-  L1_2 = exports
-  L1_2 = L1_2.striano_fastmenu
-  L2_2 = L1_2
-  L1_2 = L1_2.addMenuItem
-  L3_2 = "[ USER: "
-  L4_2 = A0_2.name
-  L5_2 = " ]"
-  L3_2 = L3_2 .. L4_2 .. L5_2
-  function L4_2()
-    local L0_3, L1_3
-  end
-  L5_2 = false
-  L1_2(L2_2, L3_2, L4_2, L5_2)
-  L1_2 = L4_1
-  L2_2 = A0_2.data
-  L1_2(L2_2)
-  L1_2 = exports
-  L1_2 = L1_2.striano_fastmenu
-  L2_2 = L1_2
-  L1_2 = L1_2.addMenuItemAdvanced
-  L3_2 = {}
-  L4_2 = "[ DELETE USER ] "
-  L5_2 = A0_2.name
-  L4_2 = L4_2 .. L5_2
-  L3_2.label = L4_2
-  L3_2.color = "#ff3b3b"
-  L3_2.autoClose = false
-  function L4_2()
-    local L0_3, L1_3
-    L0_3 = L3_1
-    L1_3 = A0_2
-    L0_3(L1_3)
-  end
-  L3_2.onClick = L4_2
-  L1_2(L2_2, L3_2)
+
+-- ─── Delete Confirmation menu ─────────────────────────────────────────────
+openDeleteConfirm = function(userData)
+    exports.striano_fastmenu:clearMenu()
+
+    exports.striano_fastmenu:addMenuItem(
+        "Are you sure you want to delete " .. userData.name .. "?",
+        function() end,
+        false
+    )
+
+    exports.striano_fastmenu:addMenuItemAdvanced({
+        label     = "[ YES, DELETE USER ]",
+        color     = "#ff3b3b",
+        autoClose = false,
+        onClick   = function()
+            if icanDeleteUser then
+                TriggerServerEvent("striano:deleteUserFromAdmin", userData.identifier)
+            else
+                print("You can't delete user.")
+            end
+            exports.striano_fastmenu:close()
+        end,
+    })
+
+    exports.striano_fastmenu:addMenuItem("[ NO, GO BACK ]", function()
+        openUserDetail(userData)
+    end, false)
 end
-L2_1 = L5_1
-function L5_1()
-  local L0_2, L1_2, L2_2, L3_2, L4_2, L5_2, L6_2, L7_2, L8_2, L9_2, L10_2, L11_2
-  L0_2 = exports
-  L0_2 = L0_2.striano_fastmenu
-  L1_2 = L0_2
-  L0_2 = L0_2.clearMenu
-  L0_2(L1_2)
-  L0_2 = exports
-  L0_2 = L0_2.striano_fastmenu
-  L1_2 = L0_2
-  L0_2 = L0_2.addMenuItem
-  L2_2 = "[ PLAYERS LIST ]"
-  function L3_2()
-    local L0_3, L1_3
-  end
-  L4_2 = false
-  L0_2(L1_2, L2_2, L3_2, L4_2)
-  L0_2 = ipairs
-  L1_2 = L0_1
-  L0_2, L1_2, L2_2, L3_2 = L0_2(L1_2)
-  for L4_2, L5_2 in L0_2, L1_2, L2_2, L3_2 do
-    L6_2 = L5_2
-    L7_2 = exports
-    L7_2 = L7_2.striano_fastmenu
-    L8_2 = L7_2
-    L7_2 = L7_2.addMenuItem
-    L9_2 = "\226\128\162 "
-    L10_2 = L6_2.name
-    L9_2 = L9_2 .. L10_2
-    function L10_2()
-      local L0_3, L1_3
-      L0_3 = L2_1
-      L1_3 = L6_2
-      L0_3(L1_3)
+
+-- ─── User Detail menu ────────────────────────────────────────────────────
+openUserDetail = function(userData)
+    exports.striano_fastmenu:clearMenu()
+
+    -- Back button
+    exports.striano_fastmenu:addMenuItem("↑ Back", function()
+        openMainMenu()
+    end, false)
+
+    -- Header
+    exports.striano_fastmenu:addMenuItem("[ USER: " .. userData.name .. " ]", function() end, false)
+
+    -- Enumerate all stored data keys
+    populateDataEntries(userData.data)
+
+    -- Delete button
+    exports.striano_fastmenu:addMenuItemAdvanced({
+        label     = "[ DELETE USER ] " .. userData.name,
+        color     = "#ff3b3b",
+        autoClose = false,
+        onClick   = function()
+            openDeleteConfirm(userData)
+        end,
+    })
+end
+
+-- ─── Main (players list) menu ─────────────────────────────────────────────
+openMainMenu = function()
+    exports.striano_fastmenu:clearMenu()
+
+    exports.striano_fastmenu:addMenuItem("[ PLAYERS LIST ]", function() end, false)
+
+    for _, userData in ipairs(playersList) do
+        local entry = userData  -- capture for closure
+        exports.striano_fastmenu:addMenuItem("• " .. entry.name, function()
+            openUserDetail(entry)
+        end, false)
     end
-    L11_2 = false
-    L7_2(L8_2, L9_2, L10_2, L11_2)
-  end
-  L0_2 = exports
-  L0_2 = L0_2.striano_fastmenu
-  L1_2 = L0_2
-  L0_2 = L0_2.openMenu
-  L0_2(L1_2)
+
+    exports.striano_fastmenu:openMenu()
 end
-L1_1 = L5_1
-L5_1 = RegisterNetEvent
-L6_1 = "striano:openUsersMenu"
-function L7_1(A0_2)
-  local L1_2
-  L1_2 = A0_2 or nil
-  if not A0_2 then
-    L1_2 = {}
-  end
-  L0_1 = L1_2
-  L1_2 = L1_1
-  L1_2()
-end
-L5_1(L6_1, L7_1)
+
+-- ─── Network event: server sends updated player list and opens menu ────────
+RegisterNetEvent("striano:openUsersMenu")
+AddEventHandler("striano:openUsersMenu", function(list)
+    playersList = list or {}
+    openMainMenu()
+end)

@@ -1,258 +1,146 @@
-local L0_1, L1_1, L2_1, L3_1
-function L0_1(A0_2, A1_2)
-  local L2_2, L3_2, L4_2, L5_2
-  if not A0_2 then
-    L2_2 = false
-    return L2_2
-  end
-  L2_2 = SetVarDB
-  L3_2 = A0_2
-  L4_2 = "ped"
-  L5_2 = A1_2
-  return L2_2(L3_2, L4_2, L5_2)
-end
-L1_1 = RegisterNetEvent
-L2_1 = "tornaUmano"
-L1_1(L2_1)
-L1_1 = AddEventHandler
-L2_1 = "tornaUmano"
-function L3_1(A0_2, A1_2)
-  local L2_2, L3_2, L4_2, L5_2, L6_2, L7_2
-  L2_2 = A0_2 or nil
-  if not A0_2 then
-    L2_2 = "none"
-  end
-  L3_2 = identOf
-  L4_2 = A1_2
-  L3_2 = L3_2(L4_2)
-  if not L3_2 then
-    L4_2 = print
-    L5_2 = "^1[tornaUmano]^7 Identifier not found for ID:"
-    L6_2 = A1_2
-    L4_2(L5_2, L6_2)
-    return
-  end
-  L4_2 = L0_1
-  L5_2 = L3_2
-  L6_2 = L2_2
-  L4_2(L5_2, L6_2)
-  if "none" == L2_2 then
-    L4_2 = TriggerClientEvent
-    L5_2 = "no1-playerped:client:ResetPlayerPed"
-    L6_2 = A1_2
-    L4_2(L5_2, L6_2)
-  else
-    L4_2 = TriggerClientEvent
-    L5_2 = "no1-playerped:client:SetPlayerPed"
-    L6_2 = A1_2
-    L7_2 = L2_2
-    L4_2(L5_2, L6_2, L7_2)
-  end
-end
-L1_1(L2_1, L3_1)
-L1_1 = RegisterNetEvent
-L2_1 = "myskinped:applyPed"
-L1_1(L2_1)
-L1_1 = AddEventHandler
-L2_1 = "myskinped:applyPed"
-function L3_1(A0_2, A1_2)
-  local L2_2, L3_2, L4_2, L5_2
-  L2_2 = TriggerClientEvent
-  L3_2 = "no1-playerped:client:SetPlayerPed"
-  L4_2 = A1_2
-  L5_2 = A0_2
-  L2_2(L3_2, L4_2, L5_2)
-end
-L1_1(L2_1, L3_1)
-L1_1 = RegisterNetEvent
-L2_1 = "myskinped:resetPed"
-L1_1(L2_1)
-L1_1 = AddEventHandler
-L2_1 = "myskinped:resetPed"
-function L3_1(A0_2)
-  local L1_2, L2_2, L3_2
-  L1_2 = TriggerClientEvent
-  L2_2 = "no1-playerped:client:ResetPlayerPed"
-  L3_2 = A0_2
-  L1_2(L2_2, L3_2)
-end
-L1_1(L2_1, L3_1)
-L1_1 = RegisterCommand
-L2_1 = "setped"
-function L3_1(A0_2, A1_2)
-  local L2_2, L3_2, L4_2, L5_2, L6_2, L7_2, L8_2
-  L2_2 = exports
-  L2_2 = L2_2.striano_core
-  L3_2 = L2_2
-  L2_2 = L2_2.IsAdmin
-  L4_2 = A0_2
-  L2_2 = L2_2(L3_2, L4_2)
-  if not L2_2 then
-    return
-  end
-  L2_2 = tonumber
-  L3_2 = A1_2[1]
-  L2_2 = L2_2(L3_2)
-  if L2_2 then
-    L3_2 = GetPlayerName
-    L4_2 = L2_2
-    L3_2 = L3_2(L4_2)
-    if L3_2 then
-      goto lbl_20
+-- myskinpedserver.lua
+-- Server-side handler for custom player ped (model) system.
+-- Manages saving/loading custom ped models per player identifier,
+-- and syncing the applied ped to the client via no1-playerped events.
+
+--- Save a ped model to the player's database entry.
+--- @param identifier string  Player identifier
+--- @param pedModel string    Ped model name (or "none")
+--- @return boolean           false if identifier is nil
+local function savePedToDB(identifier, pedModel)
+    if not identifier then
+        return false
     end
-  end
-  do return end
-  ::lbl_20::
-  L3_2 = tostring
-  L4_2 = A1_2[2]
-  if not L4_2 then
-    L4_2 = ""
-  end
-  L3_2 = L3_2(L4_2)
-  if "" == L3_2 then
-    return
-  end
-  L4_2 = identOf
-  L5_2 = L2_2
-  L4_2 = L4_2(L5_2)
-  if not L4_2 then
-    return
-  end
-  if "mp_m_freemode_01" == L3_2 or "mp_f_freemode_01" == L3_2 or "none" == L3_2 or "no" == L3_2 or "nessuno" == L3_2 then
-    L5_2 = L0_1
-    L6_2 = L4_2
-    L7_2 = "none"
-    L5_2(L6_2, L7_2)
-    L5_2 = TriggerClientEvent
-    L6_2 = "no1-playerped:client:ResetPlayerPed"
-    L7_2 = L2_2
-    L5_2(L6_2, L7_2)
-  else
-    L5_2 = L0_1
-    L6_2 = L4_2
-    L7_2 = L3_2
-    L5_2(L6_2, L7_2)
-    L5_2 = TriggerClientEvent
-    L6_2 = "no1-playerped:client:SetPlayerPed"
-    L7_2 = L2_2
-    L8_2 = L3_2
-    L5_2(L6_2, L7_2, L8_2)
-  end
+    return SetVarDB(identifier, "ped", pedModel)
 end
-L1_1(L2_1, L3_1)
-L1_1 = RegisterCommand
-L2_1 = "editped"
-function L3_1(A0_2, A1_2)
-  local L2_2, L3_2, L4_2, L5_2
-  L2_2 = exports
-  L2_2 = L2_2.striano_core
-  L3_2 = L2_2
-  L2_2 = L2_2.IsAdmin
-  L4_2 = A0_2
-  L2_2 = L2_2(L3_2, L4_2)
-  if not L2_2 then
-    return
-  end
-  L2_2 = tonumber
-  L3_2 = A1_2[1]
-  L2_2 = L2_2(L3_2)
-  if L2_2 then
-    L3_2 = GetPlayerName
-    L4_2 = L2_2
-    L3_2 = L3_2(L4_2)
-    if L3_2 then
-      goto lbl_20
+
+-- ─── tornaUmano (revert to human / set ped) ───────────────────────────────
+RegisterNetEvent("tornaUmano")
+AddEventHandler("tornaUmano", function(pedModel, targetId)
+    local model = pedModel or "none"
+    if not pedModel then
+        model = "none"
     end
-  end
-  do return end
-  ::lbl_20::
-  L3_2 = TriggerClientEvent
-  L4_2 = "no1-playerped:client:ModificaSkin"
-  L5_2 = L2_2
-  L3_2(L4_2, L5_2)
-end
-L1_1(L2_1, L3_1)
-L1_1 = RegisterServerCallback
-L2_1 = "no1-playerped:server:GetPlayerPed"
-function L3_1(A0_2, A1_2)
-  local L2_2, L3_2, L4_2, L5_2, L6_2
-  L2_2 = identOf
-  L3_2 = A0_2
-  L2_2 = L2_2(L3_2)
-  if not L2_2 then
-    L3_2 = A1_2
-    L4_2 = nil
-    L3_2(L4_2)
-    return
-  end
-  L3_2 = A1_2
-  L4_2 = UserData
-  L4_2 = L4_2.GetValue
-  L5_2 = L2_2
-  L6_2 = "ped"
-  L4_2, L5_2, L6_2 = L4_2(L5_2, L6_2)
-  L3_2(L4_2, L5_2, L6_2)
-end
-L1_1(L2_1, L3_1)
-L1_1 = RegisterNetEvent
-L2_1 = "myskinped:updatePlayerSkin"
-L1_1(L2_1)
-L1_1 = AddEventHandler
-L2_1 = "myskinped:updatePlayerSkin"
-function L3_1(A0_2)
-  local L1_2, L2_2, L3_2, L4_2, L5_2
-  L1_2 = identOf
-  L2_2 = source
-  L1_2 = L1_2(L2_2)
-  if not L1_2 then
-    return
-  end
-  L2_2 = SetVarDB
-  L3_2 = L1_2
-  L4_2 = "myskinped"
-  L5_2 = A0_2
-  L2_2(L3_2, L4_2, L5_2)
-end
-L1_1(L2_1, L3_1)
-L1_1 = RegisterNetEvent
-L2_1 = "myskinped:resetPlayerSkin"
-L1_1(L2_1)
-L1_1 = AddEventHandler
-L2_1 = "myskinped:resetPlayerSkin"
-function L3_1(A0_2)
-  local L1_2, L2_2, L3_2, L4_2, L5_2
-  L1_2 = identOf
-  L2_2 = A0_2
-  L1_2 = L1_2(L2_2)
-  if not L1_2 then
-    return
-  end
-  L2_2 = SetVarDB
-  L3_2 = L1_2
-  L4_2 = "myskinped"
-  L5_2 = "none"
-  L2_2(L3_2, L4_2, L5_2)
-end
-L1_1(L2_1, L3_1)
-L1_1 = RegisterServerCallback
-L2_1 = "myskinped:GETSKIN"
-function L3_1(A0_2, A1_2)
-  local L2_2, L3_2, L4_2, L5_2, L6_2
-  L2_2 = identOf
-  L3_2 = A0_2
-  L2_2 = L2_2(L3_2)
-  if not L2_2 then
-    L3_2 = A1_2
-    L4_2 = nil
-    L3_2(L4_2)
-    return
-  end
-  L3_2 = A1_2
-  L4_2 = UserData
-  L4_2 = L4_2.GetValue
-  L5_2 = L2_2
-  L6_2 = "myskinped"
-  L4_2, L5_2, L6_2 = L4_2(L5_2, L6_2)
-  L3_2(L4_2, L5_2, L6_2)
-end
-L1_1(L2_1, L3_1)
+
+    local identifier = identOf(targetId)
+    if not identifier then
+        print("^1[tornaUmano]^7 Identifier not found for ID:", targetId)
+        return
+    end
+
+    savePedToDB(identifier, model)
+
+    if model == "none" then
+        TriggerClientEvent("no1-playerped:client:ResetPlayerPed", targetId)
+    else
+        TriggerClientEvent("no1-playerped:client:SetPlayerPed", targetId, model)
+    end
+end)
+
+-- ─── myskinped:applyPed ───────────────────────────────────────────────────
+-- Apply a specific ped model to a target player (called by another server resource).
+RegisterNetEvent("myskinped:applyPed")
+AddEventHandler("myskinped:applyPed", function(pedModel, targetId)
+    TriggerClientEvent("no1-playerped:client:SetPlayerPed", targetId, pedModel)
+end)
+
+-- ─── myskinped:resetPed ───────────────────────────────────────────────────
+-- Reset a target player's ped back to their default.
+RegisterNetEvent("myskinped:resetPed")
+AddEventHandler("myskinped:resetPed", function(targetId)
+    TriggerClientEvent("no1-playerped:client:ResetPlayerPed", targetId)
+end)
+
+-- ─── /setped [id] [pedModel] (admin command) ─────────────────────────────
+RegisterCommand("setped", function(source, args)
+    if not exports.striano_core:IsAdmin(source) then
+        return
+    end
+
+    local targetId = tonumber(args[1])
+    if not targetId or not GetPlayerName(targetId) then
+        return
+    end
+
+    local pedModel = tostring(args[2] or "")
+    if pedModel == "" then
+        return
+    end
+
+    local identifier = identOf(targetId)
+    if not identifier then
+        return
+    end
+
+    -- Treat freemode/none/nessuno as a reset to default appearance
+    if pedModel == "mp_m_freemode_01"
+    or pedModel == "mp_f_freemode_01"
+    or pedModel == "none"
+    or pedModel == "no"
+    or pedModel == "nessuno" then
+        savePedToDB(identifier, "none")
+        TriggerClientEvent("no1-playerped:client:ResetPlayerPed", targetId)
+    else
+        savePedToDB(identifier, pedModel)
+        TriggerClientEvent("no1-playerped:client:SetPlayerPed", targetId, pedModel)
+    end
+end)
+
+-- ─── /editped [id] (admin command) ───────────────────────────────────────
+-- Open the ped skin editor for a target player.
+RegisterCommand("editped", function(source, args)
+    if not exports.striano_core:IsAdmin(source) then
+        return
+    end
+
+    local targetId = tonumber(args[1])
+    if not targetId or not GetPlayerName(targetId) then
+        return
+    end
+
+    TriggerClientEvent("no1-playerped:client:ModificaSkin", targetId)
+end)
+
+-- ─── no1-playerped:server:GetPlayerPed (server callback) ─────────────────
+-- Returns the stored ped model for the requesting player.
+RegisterServerCallback("no1-playerped:server:GetPlayerPed", function(source, cb)
+    local identifier = identOf(source)
+    if not identifier then
+        cb(nil)
+        return
+    end
+    cb(UserData.GetValue(identifier, "ped"))
+end)
+
+-- ─── myskinped:updatePlayerSkin ──────────────────────────────────────────
+-- Player reports their current MySkinPed skin data; store it.
+RegisterNetEvent("myskinped:updatePlayerSkin")
+AddEventHandler("myskinped:updatePlayerSkin", function(skinData)
+    local identifier = identOf(source)
+    if not identifier then
+        return
+    end
+    SetVarDB(identifier, "myskinped", skinData)
+end)
+
+-- ─── myskinped:resetPlayerSkin ───────────────────────────────────────────
+-- Reset a player's MySkinPed skin data.
+RegisterNetEvent("myskinped:resetPlayerSkin")
+AddEventHandler("myskinped:resetPlayerSkin", function(targetId)
+    local identifier = identOf(targetId)
+    if not identifier then
+        return
+    end
+    SetVarDB(identifier, "myskinped", "none")
+end)
+
+-- ─── myskinped:GETSKIN (server callback) ─────────────────────────────────
+-- Returns the stored MySkinPed skin data for the requesting player.
+RegisterServerCallback("myskinped:GETSKIN", function(source, cb)
+    local identifier = identOf(source)
+    if not identifier then
+        cb(nil)
+        return
+    end
+    cb(UserData.GetValue(identifier, "myskinped"))
+end)

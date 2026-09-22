@@ -1,5102 +1,1446 @@
-local L0_1, L1_1, L2_1, L3_1, L4_1, L5_1, L6_1, L7_1, L8_1, L9_1, L10_1, L11_1, L12_1, L13_1, L14_1, L15_1, L16_1, L17_1, L18_1, L19_1, L20_1, L21_1, L22_1, L23_1, L24_1, L25_1, L26_1, L27_1, L28_1, L29_1, L30_1, L31_1, L32_1, L33_1, L34_1, L35_1, L36_1, L37_1, L38_1, L39_1, L40_1, L41_1, L42_1, L43_1, L44_1, L45_1, L46_1, L47_1, L48_1, L49_1, L50_1, L51_1, L52_1, L53_1, L54_1, L55_1, L56_1, L57_1, L58_1
-L0_1 = 1
-L1_1 = 0
-L2_1 = 0
-L3_1 = "Tuttofare"
-L4_1 = 0
-L5_1 = {}
-L6_1 = vector3
-L7_1 = 0.0
-L8_1 = 0.0
-L9_1 = 0.0
-L6_1 = L6_1(L7_1, L8_1, L9_1)
-L5_1.pos = L6_1
-L6_1 = {}
-L7_1 = vector3
-L8_1 = 0.0
-L9_1 = 0.0
-L10_1 = 0.0
-L7_1 = L7_1(L8_1, L9_1, L10_1)
-L6_1.pos = L7_1
-function L7_1(A0_2)
-  local L1_2, L2_2, L3_2, L4_2, L5_2, L6_2
-  L1_2 = {}
-  L2_2 = math
-  L2_2 = L2_2.pi
-  L2_2 = L2_2 / 180
-  L3_2 = A0_2.x
-  L2_2 = L2_2 * L3_2
-  L1_2.x = L2_2
-  L2_2 = math
-  L2_2 = L2_2.pi
-  L2_2 = L2_2 / 180
-  L3_2 = A0_2.y
-  L2_2 = L2_2 * L3_2
-  L1_2.y = L2_2
-  L2_2 = math
-  L2_2 = L2_2.pi
-  L2_2 = L2_2 / 180
-  L3_2 = A0_2.z
-  L2_2 = L2_2 * L3_2
-  L1_2.z = L2_2
-  L2_2 = {}
-  L3_2 = math
-  L3_2 = L3_2.sin
-  L4_2 = L1_2.z
-  L3_2 = L3_2(L4_2)
-  L3_2 = -L3_2
-  L4_2 = math
-  L4_2 = L4_2.abs
-  L5_2 = math
-  L5_2 = L5_2.cos
-  L6_2 = L1_2.x
-  L5_2, L6_2 = L5_2(L6_2)
-  L4_2 = L4_2(L5_2, L6_2)
-  L3_2 = L3_2 * L4_2
-  L2_2.x = L3_2
-  L3_2 = math
-  L3_2 = L3_2.cos
-  L4_2 = L1_2.z
-  L3_2 = L3_2(L4_2)
-  L4_2 = math
-  L4_2 = L4_2.abs
-  L5_2 = math
-  L5_2 = L5_2.cos
-  L6_2 = L1_2.x
-  L5_2, L6_2 = L5_2(L6_2)
-  L4_2 = L4_2(L5_2, L6_2)
-  L3_2 = L3_2 * L4_2
-  L2_2.y = L3_2
-  L3_2 = math
-  L3_2 = L3_2.sin
-  L4_2 = L1_2.x
-  L3_2 = L3_2(L4_2)
-  L2_2.z = L3_2
-  return L2_2
+-- ffclient.lua
+-- Core client module: craft/class system, BB mode, resync, report, animal/prop editors,
+-- skinning, prop freeze, hurt/bleed loop, boat anchor, vehicle rescue, class selector, etc.
+
+-- ============================================================
+-- Module-level state
+-- ============================================================
+local craftLevel     = 1          -- player craft level
+local craftXP        = 0          -- player craft XP
+local classePL       = 0          -- player class/rank index
+local jobClass       = "Tuttofare"-- player job class name (unused display)
+
+-- Positional snapshot tables (used by BB mode)
+local bbPosA         = { pos = vector3(0.0, 0.0, 0.0) }
+local bbPosB         = { pos = vector3(0.0, 0.0, 0.0) }
+
+bbadmin              = false       -- global: BB admin mode active
+local lastTargetEntity = nil       -- last entity selected in BB / prop mode
+local resyncReady    = true        -- cooldown flag for /resync
+local isHurt         = false       -- player is in hurt/bleed state
+local hurtLoopActive = false       -- LoopInciampare thread running flag
+
+-- Report system
+local reportModeActive = false
+local reportText       = ""
+
+-- Animal attachment offsets
+local animalAttOffX = 0.0
+local animalAttOffY = 0.0
+local animalAttOffZ = 0.0
+local animalAttRotX = 0.0
+local animalAttRotY = 0.0
+local animalAttRotZ = 0.0
+local currentAnimal = nil
+
+-- Player prop editor offsets
+local currentEditorProp = nil
+local editorBone        = nil
+local edOffX, edOffY, edOffZ = 0.0, 0.0, 0.0
+local edRotX, edRotY, edRotZ = 0.0, 0.0, 0.0
+
+InEditV              = nil         -- global: vehicle editor prop
+
+-- Boat anchor (stores last boat used)
+local anchoredBoat   = nil
+
+-- "Editor panda" mode (entity-outline selector)
+local editorPandaActive = false
+local pandaSelectedEnt  = 0       -- currently outlined entity
+
+-- Skinning cooldown
+local scuoiaReady    = true
+
+-- ============================================================
+-- Pickup hash → item name map  (24 entries)
+-- ============================================================
+local pickupHashMap = {
+    { 3383496913,   "carta"         },
+    { 1832502141,   "bottigliavuota"},
+    { 683570518,    "bottigliavuota"},
+    { 746336278,    "bottigliavuota"},
+    { 1020618269,   "bottigliavuota"},
+    { 2976174023,   "bottigliavuota"},
+    { -1318793273,  "bottigliavuota"},
+    { -1122944124,  "bottigliavuota"},
+    { -598185919,   "bottigliavuota"},
+    { 2094167240,   "bottigliavuota"},
+    { 1450083036,   "lattinasporca" },
+    { 242383520,    "plastica"      },
+    { -1782124930,  "carta"         },
+    { -934709748,   "lattinasporca" },
+    { -318675343,   "bottigliavuota"},
+    { 373968603,    "bottigliavuota"},
+    { -2034186658,  "bottigliavuota"},
+    { 128947832,    "bottigliavuota"},
+    { 1865096345,   "bottigliavuota"},
+    { 1683627545,   "bottigliavuota"},
+    { -1972908162,  "bottigliavuota"},
+    { 677373472,    "bottigliavuota"},
+    { 69171637,     "bottigliavuota"},
+    { 1318242715,   "bottigliavuota"},
+}
+
+-- ============================================================
+-- Helper: suppressed airport scenario groups / vehicle hashes
+-- ============================================================
+local suppressedAirportScenarios = {
+    "WORLD_VEHICLE_MILITARY_PLANES_SMALL",
+    "WORLD_VEHICLE_MILITARY_PLANES_BIG",
+}
+local suppressedAirportGroups = {
+    2017590552,
+    2141866469,
+    1409640232,
+    "ng_planes",
+}
+local suppressedAirportVehicles = {
+    "SHAMAL","LUXOR","LUXOR2","JET","LAZER","TITAN",
+    "BARRACKS","BARRACKS2","CRUSADER","RHINO","AIRTUG","RIPLEY",
+}
+
+-- ============================================================
+-- Helper: wheel-surface material groups for /blocca commands
+-- ============================================================
+local wheelMatSlots = { 0,1,2,3,4,5,6,7,8,9,10,11,12,17,18,19,20 }
+
+-- ============================================================
+-- rotToFwd(rotation) → {x,y,z} forward vector
+-- ============================================================
+local function rotToFwd(rotation)
+    local rad = {
+        x = math.pi / 180 * rotation.x,
+        y = math.pi / 180 * rotation.y,
+        z = math.pi / 180 * rotation.z,
+    }
+    return {
+        x = -math.sin(rad.z) * math.abs(math.cos(rad.x)),
+        y =  math.cos(rad.z) * math.abs(math.cos(rad.x)),
+        z =  math.sin(rad.x),
+    }
 end
-function L8_1(A0_2, A1_2)
-  local L2_2, L3_2, L4_2, L5_2, L6_2, L7_2, L8_2, L9_2, L10_2, L11_2, L12_2, L13_2, L14_2, L15_2, L16_2
-  L2_2 = GetGameplayCamRot
-  L2_2 = L2_2()
-  L3_2 = GetGameplayCamCoord
-  L3_2 = L3_2()
-  L4_2 = L7_1
-  L5_2 = L2_2
-  L4_2 = L4_2(L5_2)
-  L5_2 = {}
-  L6_2 = L3_2.x
-  L7_2 = L4_2.x
-  L7_2 = L7_2 * A0_2
-  L6_2 = L6_2 + L7_2
-  L5_2.x = L6_2
-  L6_2 = L3_2.y
-  L7_2 = L4_2.y
-  L7_2 = L7_2 * A0_2
-  L6_2 = L6_2 + L7_2
-  L5_2.y = L6_2
-  L6_2 = L3_2.z
-  L7_2 = L4_2.z
-  L7_2 = L7_2 * A0_2
-  L6_2 = L6_2 + L7_2
-  L5_2.z = L6_2
-  if nil == A1_2 then
-    A1_2 = -1
-  end
-  L6_2 = GetShapeTestResult
-  L7_2 = StartShapeTestRay
-  L8_2 = L3_2.x
-  L9_2 = L3_2.y
-  L10_2 = L3_2.z
-  L11_2 = L5_2.x
-  L12_2 = L5_2.y
-  L13_2 = L5_2.z
-  L14_2 = A1_2
-  L15_2 = PlayerPedId
-  L15_2 = L15_2()
-  L16_2 = 7
-  L7_2, L8_2, L9_2, L10_2, L11_2, L12_2, L13_2, L14_2, L15_2, L16_2 = L7_2(L8_2, L9_2, L10_2, L11_2, L12_2, L13_2, L14_2, L15_2, L16_2)
-  L6_2, L7_2, L8_2, L9_2, L10_2 = L6_2(L7_2, L8_2, L9_2, L10_2, L11_2, L12_2, L13_2, L14_2, L15_2, L16_2)
-  L11_2 = L7_2
-  L12_2 = L8_2
-  L13_2 = L10_2
-  return L11_2, L12_2, L13_2
+
+-- ============================================================
+-- GetCamTarget(distance, flags) → hit, hitCoords, hitEntity
+--   Shape-test ray from camera to distance, returns first hit.
+-- ============================================================
+local function GetCamTarget(distance, flags)
+    local camRot   = GetGameplayCamRot()
+    local camCoord = GetGameplayCamCoord()
+    local fwd      = rotToFwd(camRot)
+    local dest     = {
+        x = camCoord.x + fwd.x * distance,
+        y = camCoord.y + fwd.y * distance,
+        z = camCoord.z + fwd.z * distance,
+    }
+    if flags == nil then flags = -1 end
+    local rayHandle = StartShapeTestRay(
+        camCoord.x, camCoord.y, camCoord.z,
+        dest.x, dest.y, dest.z,
+        flags, PlayerPedId(), 7
+    )
+    local hit, coords, _, entity = GetShapeTestResult(rayHandle)
+    return hit, coords, entity
 end
-L9_1 = nil
-L10_1 = false
-L11_1 = false
-L12_1 = ""
-L13_1 = ""
-L14_1 = 0
-bbadmin = false
-L15_1 = nil
-L16_1 = AddEventHandler
-L17_1 = "esx:onPlayerDeath"
-function L18_1(A0_2)
-  local L1_2, L2_2
-  L1_2 = L11_1
-  if L1_2 then
-    L1_2 = ExecuteCommand
-    L2_2 = "inbraccio"
-    L1_2(L2_2)
-  end
+
+-- ============================================================
+-- round3(n, decimals) — round to N decimal places
+-- ============================================================
+function round3(n, decimals)
+    local mult = 10 ^ (decimals or 0)
+    return math.floor(n * mult + 0.5) / mult
 end
-L16_1(L17_1, L18_1)
-L16_1 = CreateThread
-function L17_1()
-  local L0_2, L1_2, L2_2, L3_2, L4_2, L5_2
-  L0_2 = Wait
-  L1_2 = 3000
-  L0_2(L1_2)
-  L0_2 = PlayerPedId
-  L0_2 = L0_2()
-  while true do
-    L1_2 = HasCollisionLoadedAroundEntity
-    L2_2 = L0_2
-    L1_2 = L1_2(L2_2)
-    if L1_2 then
-      break
+
+-- ============================================================
+-- Init thread: wait for collision + session, load status vars
+-- ============================================================
+AddEventHandler("esx:onPlayerDeath", function()
+    if isHurt then
+        ExecuteCommand("inbraccio")
     end
-    L1_2 = Wait
-    L2_2 = 1000
-    L1_2(L2_2)
-  end
-  while true do
-    L1_2 = NetworkIsSessionStarted
-    L1_2 = L1_2()
-    if L1_2 then
-      break
-    end
-    L1_2 = Wait
-    L2_2 = 1000
-    L1_2(L2_2)
-  end
-  L1_2 = exports
-  L1_2 = L1_2.striano_core
-  L2_2 = L1_2
-  L1_2 = L1_2.getStatusClient
-  L3_2 = "classepl"
-  L1_2 = L1_2(L2_2, L3_2)
-  if L1_2 then
-    L2_1 = L1_2
-  end
-  L2_2 = exports
-  L2_2 = L2_2.striano_core
-  L3_2 = L2_2
-  L2_2 = L2_2.getStatusClient
-  L4_2 = "craftxp"
-  L2_2 = L2_2(L3_2, L4_2)
-  if L2_2 then
-    L1_1 = L2_2
-  end
-  L3_2 = exports
-  L3_2 = L3_2.striano_core
-  L4_2 = L3_2
-  L3_2 = L3_2.getStatusClient
-  L5_2 = "craftlv"
-  L3_2 = L3_2(L4_2, L5_2)
-  if L3_2 then
-    L0_1 = L3_2
-  end
-end
-L16_1(L17_1)
-L16_1 = {}
-L17_1 = {}
-L18_1 = 3383496913
-L19_1 = "carta"
-L17_1[1] = L18_1
-L17_1[2] = L19_1
-L18_1 = {}
-L19_1 = 1832502141
-L20_1 = "bottigliavuota"
-L18_1[1] = L19_1
-L18_1[2] = L20_1
-L19_1 = {}
-L20_1 = 683570518
-L21_1 = "bottigliavuota"
-L19_1[1] = L20_1
-L19_1[2] = L21_1
-L20_1 = {}
-L21_1 = 746336278
-L22_1 = "bottigliavuota"
-L20_1[1] = L21_1
-L20_1[2] = L22_1
-L21_1 = {}
-L22_1 = 1020618269
-L23_1 = "bottigliavuota"
-L21_1[1] = L22_1
-L21_1[2] = L23_1
-L22_1 = {}
-L23_1 = 2976174023
-L24_1 = "bottigliavuota"
-L22_1[1] = L23_1
-L22_1[2] = L24_1
-L23_1 = {}
-L24_1 = -1318793273
-L25_1 = "bottigliavuota"
-L23_1[1] = L24_1
-L23_1[2] = L25_1
-L24_1 = {}
-L25_1 = -1122944124
-L26_1 = "bottigliavuota"
-L24_1[1] = L25_1
-L24_1[2] = L26_1
-L25_1 = {}
-L26_1 = -598185919
-L27_1 = "bottigliavuota"
-L25_1[1] = L26_1
-L25_1[2] = L27_1
-L26_1 = {}
-L27_1 = 2094167240
-L28_1 = "bottigliavuota"
-L26_1[1] = L27_1
-L26_1[2] = L28_1
-L27_1 = {}
-L28_1 = 1450083036
-L29_1 = "lattinasporca"
-L27_1[1] = L28_1
-L27_1[2] = L29_1
-L28_1 = {}
-L29_1 = 242383520
-L30_1 = "plastica"
-L28_1[1] = L29_1
-L28_1[2] = L30_1
-L29_1 = {}
-L30_1 = -1782124930
-L31_1 = "carta"
-L29_1[1] = L30_1
-L29_1[2] = L31_1
-L30_1 = {}
-L31_1 = -934709748
-L32_1 = "lattinasporca"
-L30_1[1] = L31_1
-L30_1[2] = L32_1
-L31_1 = {}
-L32_1 = -318675343
-L33_1 = "bottigliavuota"
-L31_1[1] = L32_1
-L31_1[2] = L33_1
-L32_1 = {}
-L33_1 = 373968603
-L34_1 = "bottigliavuota"
-L32_1[1] = L33_1
-L32_1[2] = L34_1
-L33_1 = {}
-L34_1 = -2034186658
-L35_1 = "bottigliavuota"
-L33_1[1] = L34_1
-L33_1[2] = L35_1
-L34_1 = {}
-L35_1 = 128947832
-L36_1 = "bottigliavuota"
-L34_1[1] = L35_1
-L34_1[2] = L36_1
-L35_1 = {}
-L36_1 = 1865096345
-L37_1 = "bottigliavuota"
-L35_1[1] = L36_1
-L35_1[2] = L37_1
-L36_1 = {}
-L37_1 = 1683627545
-L38_1 = "bottigliavuota"
-L36_1[1] = L37_1
-L36_1[2] = L38_1
-L37_1 = {}
-L38_1 = -1972908162
-L39_1 = "bottigliavuota"
-L37_1[1] = L38_1
-L37_1[2] = L39_1
-L38_1 = {}
-L39_1 = 677373472
-L40_1 = "bottigliavuota"
-L38_1[1] = L39_1
-L38_1[2] = L40_1
-L39_1 = {}
-L40_1 = 69171637
-L41_1 = "bottigliavuota"
-L39_1[1] = L40_1
-L39_1[2] = L41_1
-L40_1 = {}
-L41_1 = 1318242715
-L42_1 = "bottigliavuota"
-L40_1[1] = L41_1
-L40_1[2] = L42_1
-L16_1[1] = L17_1
-L16_1[2] = L18_1
-L16_1[3] = L19_1
-L16_1[4] = L20_1
-L16_1[5] = L21_1
-L16_1[6] = L22_1
-L16_1[7] = L23_1
-L16_1[8] = L24_1
-L16_1[9] = L25_1
-L16_1[10] = L26_1
-L16_1[11] = L27_1
-L16_1[12] = L28_1
-L16_1[13] = L29_1
-L16_1[14] = L30_1
-L16_1[15] = L31_1
-L16_1[16] = L32_1
-L16_1[17] = L33_1
-L16_1[18] = L34_1
-L16_1[19] = L35_1
-L16_1[20] = L36_1
-L16_1[21] = L37_1
-L16_1[22] = L38_1
-L16_1[23] = L39_1
-L16_1[24] = L40_1
-L17_1 = true
-L18_1 = RegisterKeyMapping
-L19_1 = "resync"
-L20_1 = "Resync PG"
-L21_1 = "keyboard"
-L22_1 = "f5"
-L18_1(L19_1, L20_1, L21_1, L22_1)
-L18_1 = RegisterCommand
-L19_1 = "resync"
-function L20_1(A0_2)
-  local L1_2, L2_2, L3_2, L4_2, L5_2, L6_2, L7_2, L8_2, L9_2, L10_2, L11_2, L12_2, L13_2, L14_2
-  L1_2 = L17_1
-  if L1_2 then
-    L1_2 = IsPedHuman
-    L2_2 = PlayerPedId
-    L2_2, L3_2, L4_2, L5_2, L6_2, L7_2, L8_2, L9_2, L10_2, L11_2, L12_2, L13_2, L14_2 = L2_2()
-    L1_2 = L1_2(L2_2, L3_2, L4_2, L5_2, L6_2, L7_2, L8_2, L9_2, L10_2, L11_2, L12_2, L13_2, L14_2)
-    if L1_2 then
-      L1_2 = IsPedRagdoll
-      L2_2 = PlayerPedId
-      L2_2, L3_2, L4_2, L5_2, L6_2, L7_2, L8_2, L9_2, L10_2, L11_2, L12_2, L13_2, L14_2 = L2_2()
-      L1_2 = L1_2(L2_2, L3_2, L4_2, L5_2, L6_2, L7_2, L8_2, L9_2, L10_2, L11_2, L12_2, L13_2, L14_2)
-      if not L1_2 then
-        L1_2 = PlayerPedId
-        L1_2 = L1_2()
-        L2_2 = exports
-        L2_2 = L2_2.striano_editor
-        L3_2 = L2_2
-        L2_2 = L2_2.IsPlayerProne
-        L2_2 = L2_2(L3_2)
-        if not L2_2 then
-          L2_2 = IsEntityPositionFrozen
-          L3_2 = L1_2
-          L2_2 = L2_2(L3_2)
-          if not L2_2 then
-            L2_2 = IsPedSittingInAnyVehicle
-            L3_2 = L1_2
-            L2_2 = L2_2(L3_2)
-            if L2_2 then
-              L2_2 = false
-              L17_1 = L2_2
-              L2_2 = Wait
-              L3_2 = 2000
-              L2_2(L3_2)
-              L2_2 = true
-              L17_1 = L2_2
-              L2_2 = ResetPedRagdollTimer
-              L3_2 = L1_2
-              L2_2(L3_2)
-            else
-              L2_2 = IsPedRunning
-              L3_2 = L1_2
-              L2_2 = L2_2(L3_2)
-              if not L2_2 then
-                L2_2 = IsPedSprinting
-                L3_2 = L1_2
-                L2_2 = L2_2(L3_2)
-                if not L2_2 then
-                  L2_2 = IsPedWalking
-                  L3_2 = L1_2
-                  L2_2 = L2_2(L3_2)
-                  if not L2_2 then
-                    goto lbl_71
-                  end
-                end
-              end
-              L2_2 = false
-              L17_1 = L2_2
-              L2_2 = Wait
-              L3_2 = 2000
-              L2_2(L3_2)
-              L2_2 = true
-              L17_1 = L2_2
-              L2_2 = ResetPedRagdollTimer
-              L3_2 = L1_2
-              L2_2(L3_2)
-              goto lbl_110
-              ::lbl_71::
-              L2_2 = L17_1
-              if L2_2 then
-                L2_2 = TriggerEvent
-                L3_2 = "CaricamiCamminata"
-                L2_2(L3_2)
-                L2_2 = PlaySoundFrontend
-                L3_2 = -1
-                L4_2 = "LEADERBOARD"
-                L5_2 = "HUD_MINI_GAME_SOUNDSET"
-                L6_2 = 1
-                L2_2(L3_2, L4_2, L5_2, L6_2)
-                L2_2 = SetPedToRagdollWithFall
-                L3_2 = L1_2
-                L4_2 = 75
-                L5_2 = 75
-                L6_2 = 1
-                L7_2 = GetEntityForwardVector
-                L8_2 = L1_2
-                L7_2 = L7_2(L8_2)
-                L8_2 = 1.0
-                L9_2 = 0.0
-                L10_2 = 0.0
-                L11_2 = 0.0
-                L12_2 = 0.0
-                L13_2 = 0.0
-                L14_2 = 0.0
-                L2_2(L3_2, L4_2, L5_2, L6_2, L7_2, L8_2, L9_2, L10_2, L11_2, L12_2, L13_2, L14_2)
-                L2_2 = Wait
-                L3_2 = 250
-                L2_2(L3_2)
-                L2_2 = ExecuteCommand
-                L3_2 = "e stretch5"
-                L2_2(L3_2)
-                L2_2 = Wait
-                L3_2 = 2000
-                L2_2(L3_2)
-                L2_2 = true
-                L17_1 = L2_2
-              end
-            end
-          end
-        end
-      end
-    end
-  end
-  ::lbl_110::
-end
-L18_1(L19_1, L20_1)
-L18_1 = RegisterCommand
-L19_1 = "fxm"
-function L20_1()
-  local L0_2, L1_2
-  L0_2 = MumbleSetActive
-  L1_2 = false
-  L0_2(L1_2)
-  L0_2 = Wait
-  L1_2 = 1000
-  L0_2(L1_2)
-  L0_2 = MumbleSetActive
-  L1_2 = true
-  L0_2(L1_2)
-end
-L18_1(L19_1, L20_1)
-L18_1 = RegisterNetEvent
-L19_1 = "c_leva:rbv"
-L18_1(L19_1)
-L18_1 = AddEventHandler
-L19_1 = "c_leva:rbv"
-function L20_1(A0_2, A1_2)
-  local L2_2, L3_2, L4_2, L5_2, L6_2, L7_2, L8_2
-  L2_2 = GetClosestObjectOfType
-  L3_2 = A0_2
-  L4_2 = 0.1
-  L5_2 = A1_2
-  L6_2 = 0
-  L7_2 = 0
-  L8_2 = 0
-  L2_2 = L2_2(L3_2, L4_2, L5_2, L6_2, L7_2, L8_2)
-  gate = L2_2
-  L2_2 = gate
-  if 0 ~= L2_2 then
-    L2_2 = SetEntityAsMissionEntity
-    L3_2 = gate
-    L2_2(L3_2)
-    L2_2 = SetEntityAlpha
-    L3_2 = gate
-    L4_2 = 0
-    L2_2(L3_2, L4_2)
-    L2_2 = DeleteEntity
-    L3_2 = gate
-    L2_2(L3_2)
-  end
-end
-L18_1(L19_1, L20_1)
-function L18_1(A0_2, A1_2)
-  local L2_2, L3_2, L4_2
-  L2_2 = A1_2 or nil
-  if not A1_2 then
-    L2_2 = 0
-  end
-  L3_2 = 10
-  L2_2 = L3_2 ^ L2_2
-  L3_2 = math
-  L3_2 = L3_2.floor
-  L4_2 = A0_2 * L2_2
-  L4_2 = L4_2 + 0.5
-  L3_2 = L3_2(L4_2)
-  L3_2 = L3_2 / L2_2
-  return L3_2
-end
-round3 = L18_1
-L18_1 = false
-L19_1 = 0
-L20_1 = CreateThread
-function L21_1()
-  local L0_2, L1_2, L2_2, L3_2, L4_2, L5_2, L6_2, L7_2, L8_2, L9_2, L10_2, L11_2, L12_2, L13_2, L14_2, L15_2, L16_2, L17_2, L18_2, L19_2, L20_2, L21_2, L22_2, L23_2, L24_2, L25_2, L26_2, L27_2, L28_2, L29_2, L30_2, L31_2, L32_2, L33_2
-  while true do
-    L0_2 = Wait
-    L1_2 = 0
-    L0_2(L1_2)
-    L0_2 = PlayerPedId
-    L0_2 = L0_2()
-    L1_2 = IsPedInAnyVehicle
-    L2_2 = L0_2
-    L1_2 = L1_2(L2_2)
-    if not L1_2 then
-      L1_2 = bbadmin
-      if L1_2 then
-        L1_2 = IsControlJustReleased
-        L2_2 = 0
-        L3_2 = Keys
-        L3_2 = L3_2.B
-        L1_2 = L1_2(L2_2, L3_2)
-        if L1_2 then
-          L1_2 = L19_1
-          if L1_2 > 0 then
-            L1_2 = ExecuteCommand
-            L2_2 = "pointingstop"
-            L1_2(L2_2)
-            L1_2 = false
-            L18_1 = L1_2
-          end
-          L1_2 = 0
-          L19_1 = L1_2
-        else
-          L1_2 = IsControlPressed
-          L2_2 = 0
-          L3_2 = Keys
-          L3_2 = L3_2.B
-          L1_2 = L1_2(L2_2, L3_2)
-          if L1_2 then
-            L1_2 = L19_1
-            if L1_2 < 1 then
-              L1_2 = L19_1
-              L1_2 = L1_2 + 1
-              L19_1 = L1_2
-          end
-          else
-            L1_2 = L19_1
-            if L1_2 < 1 then
-              L1_2 = Wait
-              L2_2 = 500
-              L1_2(L2_2)
-            end
-          end
-        end
-        L1_2 = L19_1
-        if L1_2 > 0 then
-          L1_2 = IsPedOnFoot
-          L2_2 = L0_2
-          L1_2 = L1_2(L2_2)
-          if L1_2 then
-            L1_2 = IsPedRagdoll
-            L2_2 = L0_2
-            L1_2 = L1_2(L2_2)
-            if not L1_2 then
-              L1_2 = 25.0
-              L2_2 = L8_1
-              L3_2 = L1_2
-              L2_2, L3_2, L4_2 = L2_2(L3_2)
-              L5_2 = GetEntityCoords
-              L6_2 = L0_2
-              L5_2 = L5_2(L6_2)
-              if not L2_2 or 0 == L4_2 or nil == L4_2 then
-                goto lbl_305
-              end
-              L6_2 = DoesEntityExist
-              L7_2 = L4_2
-              L6_2 = L6_2(L7_2)
-              if not L6_2 then
-                goto lbl_305
-              end
-              L6_2 = DoesEntityExist
-              L7_2 = L4_2
-              L6_2 = L6_2(L7_2)
-              if not L6_2 then
-                goto lbl_305
-              end
-              L6_2 = GetEntityCoords
-              L7_2 = L0_2
-              L6_2 = L6_2(L7_2)
-              L7_2 = GetEntityCoords
-              L8_2 = L4_2
-              L7_2 = L7_2(L8_2)
-              L6_2 = L6_2 - L7_2
-              L6_2 = #L6_2
-              if not (L1_2 > L6_2) then
-                goto lbl_305
-              end
-              L6_2 = DrawLine
-              L7_2 = L5_2.x
-              L8_2 = L5_2.y
-              L9_2 = L5_2.z
-              L10_2 = L3_2.x
-              L11_2 = L3_2.y
-              L12_2 = L3_2.z
-              L13_2 = 255
-              L14_2 = 255
-              L15_2 = 255
-              L16_2 = 1.0
-              L6_2(L7_2, L8_2, L9_2, L10_2, L11_2, L12_2, L13_2, L14_2, L15_2, L16_2)
-              L6_2 = L15_1
-              if L6_2 ~= L4_2 then
-                L15_1 = L4_2
-                L6_2 = GetEntityCoords
-                L7_2 = L4_2
-                L6_2 = L6_2(L7_2)
-                L9_1 = L6_2
-                L6_2 = NetworkRequestControlOfEntity
-                L7_2 = L4_2
-                L6_2(L7_2)
-              end
-              L6_2 = DoesEntityExist
-              L7_2 = L4_2
-              L6_2 = L6_2(L7_2)
-              if not L6_2 then
-                goto lbl_305
-              end
-              L6_2 = GetEntityCoords
-              L7_2 = L4_2
-              L6_2 = L6_2(L7_2)
-              L7_2 = GetEntityHeading
-              L8_2 = L4_2
-              L7_2 = L7_2(L8_2)
-              L8_2 = GetEntityRotation
-              L9_2 = L4_2
-              L8_2 = L8_2(L9_2)
-              L9_2 = DrawMarker
-              L10_2 = 1
-              L11_2 = L6_2.x
-              L12_2 = L6_2.y
-              L13_2 = L6_2.z
-              L14_2 = 0.0
-              L15_2 = 0.0
-              L16_2 = 0.0
-              L17_2 = 0
-              L18_2 = 0.0
-              L19_2 = 0.0
-              L20_2 = 0.2
-              L21_2 = 0.2
-              L22_2 = 10.0
-              L23_2 = 255
-              L24_2 = 255
-              L25_2 = 255
-              L26_2 = 50
-              L27_2 = false
-              L28_2 = true
-              L29_2 = 2
-              L30_2 = false
-              L31_2 = false
-              L32_2 = false
-              L33_2 = false
-              L9_2(L10_2, L11_2, L12_2, L13_2, L14_2, L15_2, L16_2, L17_2, L18_2, L19_2, L20_2, L21_2, L22_2, L23_2, L24_2, L25_2, L26_2, L27_2, L28_2, L29_2, L30_2, L31_2, L32_2, L33_2)
-              L9_2 = DrawMarker
-              L10_2 = 1
-              L11_2 = L6_2.x
-              L12_2 = L6_2.y
-              L13_2 = L6_2.z
-              L14_2 = 0.0
-              L15_2 = 0.0
-              L16_2 = 0.0
-              L17_2 = 0
-              L18_2 = 0.0
-              L19_2 = 0.0
-              L20_2 = 2.0
-              L21_2 = 2.0
-              L22_2 = 10.0
-              L23_2 = 255
-              L24_2 = 0
-              L25_2 = 110
-              L26_2 = 100
-              L27_2 = false
-              L28_2 = true
-              L29_2 = 2
-              L30_2 = false
-              L31_2 = false
-              L32_2 = false
-              L33_2 = false
-              L9_2(L10_2, L11_2, L12_2, L13_2, L14_2, L15_2, L16_2, L17_2, L18_2, L19_2, L20_2, L21_2, L22_2, L23_2, L24_2, L25_2, L26_2, L27_2, L28_2, L29_2, L30_2, L31_2, L32_2, L33_2)
-              L9_2 = L18_1
-              if L9_2 then
-                goto lbl_305
-              end
-              L9_2 = true
-              L18_1 = L9_2
-              L9_2 = print
-              L10_2 = GetEntityModel
-              L11_2 = L4_2
-              L10_2 = L10_2(L11_2)
-              L11_2 = " POS and ROT copiati in clipboard."
-              L10_2 = L10_2 .. L11_2
-              L9_2(L10_2)
-              L9_2 = ExecuteCommand
-              L10_2 = "copia "
-              L11_2 = GetEntityModel
-              L12_2 = L4_2
-              L11_2 = L11_2(L12_2)
-              L12_2 = " / "
-              L13_2 = round3
-              L14_2 = math
-              L14_2 = L14_2.abs
-              L15_2 = L6_2.x
-              L14_2 = L14_2(L15_2)
-              L15_2 = 0.001
-              if L14_2 < L15_2 then
-                L14_2 = 0.0
-                if L14_2 then
-                  goto lbl_219
-                end
-              end
-              L14_2 = L6_2.x
-              ::lbl_219::
-              L13_2 = L13_2(L14_2)
-              L14_2 = ", "
-              L15_2 = round3
-              L16_2 = math
-              L16_2 = L16_2.abs
-              L17_2 = L6_2.y
-              L16_2 = L16_2(L17_2)
-              L17_2 = 0.001
-              if L16_2 < L17_2 then
-                L16_2 = 0.0
-                if L16_2 then
-                  goto lbl_233
-                end
-              end
-              L16_2 = L6_2.y
-              ::lbl_233::
-              L15_2 = L15_2(L16_2)
-              L16_2 = ", "
-              L17_2 = round3
-              L18_2 = math
-              L18_2 = L18_2.abs
-              L19_2 = L6_2.z
-              L18_2 = L18_2(L19_2)
-              L19_2 = 0.001
-              if L18_2 < L19_2 then
-                L18_2 = 0.0
-                if L18_2 then
-                  goto lbl_247
-                end
-              end
-              L18_2 = L6_2.z
-              ::lbl_247::
-              L17_2 = L17_2(L18_2)
-              L18_2 = " / "
-              L19_2 = round3
-              L20_2 = math
-              L20_2 = L20_2.abs
-              L21_2 = L8_2.x
-              L20_2 = L20_2(L21_2)
-              L21_2 = 0.001
-              if L20_2 < L21_2 then
-                L20_2 = 0.0
-                if L20_2 then
-                  goto lbl_261
-                end
-              end
-              L20_2 = L8_2.x
-              ::lbl_261::
-              L19_2 = L19_2(L20_2)
-              L20_2 = " "
-              L21_2 = round3
-              L22_2 = math
-              L22_2 = L22_2.abs
-              L23_2 = L8_2.y
-              L22_2 = L22_2(L23_2)
-              L23_2 = 0.001
-              if L22_2 < L23_2 then
-                L22_2 = 0.0
-                if L22_2 then
-                  goto lbl_275
-                end
-              end
-              L22_2 = L8_2.y
-              ::lbl_275::
-              L21_2 = L21_2(L22_2)
-              L22_2 = " "
-              L23_2 = round3
-              L24_2 = math
-              L24_2 = L24_2.abs
-              L25_2 = L8_2.z
-              L24_2 = L24_2(L25_2)
-              L25_2 = 0.001
-              if L24_2 < L25_2 then
-                L24_2 = 0.0
-                if L24_2 then
-                  goto lbl_289
-                end
-              end
-              L24_2 = L8_2.z
-              ::lbl_289::
-              L23_2 = L23_2(L24_2)
-              L10_2 = L10_2 .. L11_2 .. L12_2 .. L13_2 .. L14_2 .. L15_2 .. L16_2 .. L17_2 .. L18_2 .. L19_2 .. L20_2 .. L21_2 .. L22_2 .. L23_2
-              L9_2(L10_2)
-          end
-        end
-        else
-          L1_2 = Wait
-          L2_2 = 1000
-          L1_2(L2_2)
-        end
-    end
+end)
+
+CreateThread(function()
+    Wait(3000)
+    local ped = PlayerPedId()
+    while not HasCollisionLoadedAroundEntity(ped) do Wait(1000) end
+    while not NetworkIsSessionStarted()             do Wait(1000) end
+
+    local v
+    v = exports.striano_core:getStatusClient("classepl")
+    if v then classePL = v end
+    v = exports.striano_core:getStatusClient("craftxp")
+    if v then craftXP = v end
+    v = exports.striano_core:getStatusClient("craftlv")
+    if v then craftLevel = v end
+end)
+
+-- ============================================================
+-- RegisterKeyMapping + /resync command
+-- ============================================================
+RegisterKeyMapping("resync", "Resync PG", "keyboard", "f5")
+RegisterCommand("resync", function()
+    if not resyncReady then return end
+    local ped = PlayerPedId()
+    if not IsPedHuman(ped) then return end
+    if IsPedRagdoll(ped) then return end
+    if exports.striano_editor:IsPlayerProne() then return end
+    if IsEntityPositionFrozen(ped) then return end
+
+    if IsPedSittingInAnyVehicle(ped) then
+        -- In vehicle: brief cooldown + ragdoll timer reset
+        resyncReady = false
+        Wait(2000)
+        resyncReady = true
+        ResetPedRagdollTimer(ped)
+    elseif IsPedRunning(ped) or IsPedSprinting(ped) or IsPedWalking(ped) then
+        -- Moving on foot: cooldown + ragdoll timer reset
+        resyncReady = false
+        Wait(2000)
+        resyncReady = true
+        ResetPedRagdollTimer(ped)
     else
-      L1_2 = L19_1
-      if L1_2 > 0 then
-        L1_2 = 0
-        L19_1 = L1_2
-      end
-      L1_2 = Wait
-      L2_2 = 3000
-      L1_2(L2_2)
-    end
-    ::lbl_305::
-  end
-end
-L20_1(L21_1)
-function L20_1(A0_2, A1_2, A2_2, A3_2)
-  local L4_2, L5_2, L6_2, L7_2, L8_2, L9_2, L10_2, L11_2
-  L4_2 = World3dToScreen2d
-  L5_2 = A0_2
-  L6_2 = A1_2
-  L7_2 = A2_2
-  L4_2, L5_2, L6_2 = L4_2(L5_2, L6_2, L7_2)
-  if L4_2 then
-    L7_2 = SetTextOutline
-    L7_2()
-    L7_2 = SetTextScale
-    L8_2 = 0.5
-    L9_2 = 0.5
-    L7_2(L8_2, L9_2)
-    L7_2 = SetTextFont
-    L8_2 = 4
-    L7_2(L8_2)
-    L7_2 = SetTextProportional
-    L8_2 = 1
-    L7_2(L8_2)
-    L7_2 = SetTextColour
-    L8_2 = 255
-    L9_2 = 255
-    L10_2 = 255
-    L11_2 = 255
-    L7_2(L8_2, L9_2, L10_2, L11_2)
-    L7_2 = SetTextEntry
-    L8_2 = "STRING"
-    L7_2(L8_2)
-    L7_2 = SetTextCentre
-    L8_2 = 1
-    L7_2(L8_2)
-    L7_2 = AddTextComponentString
-    L8_2 = A3_2
-    L7_2(L8_2)
-    L7_2 = DrawText
-    L8_2 = L5_2
-    L9_2 = L6_2
-    L7_2(L8_2, L9_2)
-  end
-end
-Draw3DText = L20_1
-L20_1 = false
-L21_1 = ""
-function L22_1(A0_2, A1_2)
-  local L2_2, L3_2, L4_2, L5_2
-  L2_2 = L20_1
-  if L2_2 then
-    L2_2 = exports
-    L2_2 = L2_2.striano_combat
-    L3_2 = L2_2
-    L2_2 = L2_2.submexError
-    L4_2 = "Modalit\195\160 Report: ~r~disattiva~w~."
-    L2_2(L3_2, L4_2)
-    L2_2 = false
-    L20_1 = L2_2
-    L2_2 = ""
-    L21_1 = L2_2
-  else
-    L2_2 = OpenInput
-    L3_2 = "Scrivi brevemente cosa vuoi reportare."
-    L2_2 = L2_2(L3_2)
-    L3_2 = #L2_2
-    if L3_2 < 1 then
-      L3_2 = exports
-      L3_2 = L3_2.striano_combat
-      L4_2 = L3_2
-      L3_2 = L3_2.submexError
-      L5_2 = "Non ci sono abbastanza caratteri, riprova."
-      L3_2(L4_2, L5_2)
-      return
-    end
-    L21_1 = L2_2
-    L3_2 = exports
-    L3_2 = L3_2.striano_combat
-    L4_2 = L3_2
-    L3_2 = L3_2.submexError
-    L5_2 = "Modalit\195\160 Report: ~q~attiva~w~."
-    L3_2(L4_2, L5_2)
-    L3_2 = exports
-    L3_2 = L3_2.striano_combat
-    L4_2 = L3_2
-    L3_2 = L3_2.submexInfo
-    L5_2 = "Punta con la telecamera il giocatore."
-    L3_2(L4_2, L5_2)
-    L3_2 = FunzioneReportPL
-    L3_2()
-    L3_2 = true
-    L20_1 = L3_2
-  end
-end
-funcReport = L22_1
-L22_1 = RegisterCommand
-L23_1 = "rep"
-function L24_1(A0_2, A1_2)
-  local L2_2, L3_2, L4_2, L5_2
-  L2_2 = table
-  L2_2 = L2_2.concat
-  L3_2 = A1_2
-  L4_2 = " "
-  L2_2 = L2_2(L3_2, L4_2)
-  L3_2 = funcReport
-  L4_2 = A1_2[1]
-  L5_2 = L2_2
-  L3_2(L4_2, L5_2)
-end
-L25_1 = false
-L22_1(L23_1, L24_1, L25_1)
-L22_1 = RegisterCommand
-L23_1 = "report"
-function L24_1(A0_2, A1_2)
-  local L2_2, L3_2, L4_2, L5_2
-  L2_2 = table
-  L2_2 = L2_2.concat
-  L3_2 = A1_2
-  L4_2 = " "
-  L2_2 = L2_2(L3_2, L4_2)
-  L3_2 = funcReport
-  L4_2 = A1_2[1]
-  L5_2 = L2_2
-  L3_2(L4_2, L5_2)
-end
-L25_1 = false
-L22_1(L23_1, L24_1, L25_1)
-L22_1 = RegisterCommand
-L23_1 = "reporta"
-function L24_1(A0_2, A1_2)
-  local L2_2, L3_2, L4_2, L5_2
-  L2_2 = table
-  L2_2 = L2_2.concat
-  L3_2 = A1_2
-  L4_2 = " "
-  L2_2 = L2_2(L3_2, L4_2)
-  L3_2 = funcReport
-  L4_2 = A1_2[1]
-  L5_2 = L2_2
-  L3_2(L4_2, L5_2)
-end
-L25_1 = false
-L22_1(L23_1, L24_1, L25_1)
-L22_1 = RegisterCommand
-L23_1 = "nomeveicolo"
-function L24_1()
-  local L0_2, L1_2, L2_2, L3_2, L4_2, L5_2
-  L0_2 = GetVehiclePedIsIn
-  L1_2 = PlayerPedId
-  L1_2 = L1_2()
-  L2_2 = false
-  L0_2 = L0_2(L1_2, L2_2)
-  if nil == L0_2 or 0 == L0_2 then
-    return
-  end
-  L1_2 = GetLabelText
-  L2_2 = GetDisplayNameFromVehicleModel
-  L3_2 = GetEntityModel
-  L4_2 = L0_2
-  L3_2, L4_2, L5_2 = L3_2(L4_2)
-  L2_2, L3_2, L4_2, L5_2 = L2_2(L3_2, L4_2, L5_2)
-  L1_2 = L1_2(L2_2, L3_2, L4_2, L5_2)
-  L2_2 = exports
-  L2_2 = L2_2.striano_combat
-  L3_2 = L2_2
-  L2_2 = L2_2.submex
-  L4_2 = "Nome del veicolo: ~c~"
-  L5_2 = L1_2
-  L4_2 = L4_2 .. L5_2
-  L2_2(L3_2, L4_2)
-end
-L22_1(L23_1, L24_1)
-L22_1 = RegisterCommand
-L23_1 = "classeveicolo"
-function L24_1()
-  local L0_2, L1_2, L2_2, L3_2, L4_2, L5_2, L6_2, L7_2
-  L0_2 = GetVehiclePedIsIn
-  L1_2 = PlayerPedId
-  L1_2 = L1_2()
-  L2_2 = false
-  L0_2 = L0_2(L1_2, L2_2)
-  if nil == L0_2 or 0 == L0_2 then
-    return
-  end
-  L1_2 = exports
-  L1_2 = L1_2.striano_combat
-  L2_2 = L1_2
-  L1_2 = L1_2.submex
-  L3_2 = "Classe del veicolo: ~c~"
-  L4_2 = GetLabelText
-  L5_2 = "VEH_CLASS_"
-  L6_2 = GetVehicleClass
-  L7_2 = L0_2
-  L6_2 = L6_2(L7_2)
-  L5_2 = L5_2 .. L6_2
-  L4_2 = L4_2(L5_2)
-  L5_2 = " ~w~ID: "
-  L6_2 = GetVehicleClass
-  L7_2 = L0_2
-  L6_2 = L6_2(L7_2)
-  L3_2 = L3_2 .. L4_2 .. L5_2 .. L6_2
-  L1_2(L2_2, L3_2)
-end
-L22_1(L23_1, L24_1)
-function L22_1()
-  local L0_2, L1_2
-  L0_2 = L20_1
-  if L0_2 then
-    return
-  end
-  L0_2 = CreateThread
-  function L1_2()
-    local L0_3, L1_3, L2_3, L3_3, L4_3, L5_3, L6_3, L7_3, L8_3, L9_3, L10_3, L11_3, L12_3, L13_3, L14_3, L15_3
-    while true do
-      L0_3 = Wait
-      L1_3 = 0
-      L0_3(L1_3)
-      L0_3 = L20_1
-      if L0_3 then
-        L0_3 = IsControlJustPressed
-        L1_3 = 0
-        L2_3 = 177
-        L0_3 = L0_3(L1_3, L2_3)
-        if L0_3 then
-          L0_3 = exports
-          L0_3 = L0_3.striano_combat
-          L1_3 = L0_3
-          L0_3 = L0_3.submexError
-          L2_3 = "Mod report closed."
-          L0_3(L1_3, L2_3)
-          L0_3 = exports
-          L0_3 = L0_3.striano_combat
-          L1_3 = L0_3
-          L0_3 = L0_3.submex
-          L2_3 = ""
-          L0_3(L1_3, L2_3)
-          return
+        -- Standing idle: trigger walk reload + ragdoll fall stretch
+        if resyncReady then
+            TriggerEvent("CaricamiCamminata")
+            PlaySoundFrontend(-1, "LEADERBOARD", "HUD_MINI_GAME_SOUNDSET", 1)
+            SetPedToRagdollWithFall(ped, 75, 75, 1,
+                GetEntityForwardVector(ped),
+                1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0)
+            Wait(250)
+            ExecuteCommand("e stretch5")
+            Wait(2000)
+            resyncReady = true
         end
-        L0_3 = PlayerPedId
-        L0_3 = L0_3()
-        L1_3 = GetEntityCoords
-        L2_3 = L0_3
-        L1_3 = L1_3(L2_3)
-        L2_3 = L8_1
-        L3_3 = 150.0
-        L4_3 = 4
-        L2_3, L3_3, L4_3 = L2_3(L3_3, L4_3)
-        if nil ~= L4_3 then
-          L5_3 = L3_3.x
-          if 0 ~= L5_3 then
-            L5_3 = L3_3.y
-            if 0 ~= L5_3 then
-              L5_3 = L3_3.z
-              if 0 ~= L5_3 then
-                L5_3 = IsPedAPlayer
-                L6_3 = L4_3
-                L5_3 = L5_3(L6_3)
-                if L5_3 then
-                  L5_3 = DrawLine
-                  L6_3 = L1_3.x
-                  L7_3 = L1_3.y
-                  L8_3 = L1_3.z
-                  L8_3 = L8_3 + 0.7
-                  L9_3 = L3_3.x
-                  L10_3 = L3_3.y
-                  L11_3 = L3_3.z
-                  L12_3 = 255
-                  L13_3 = 0
-                  L14_3 = 110
-                  L15_3 = 255
-                  L5_3(L6_3, L7_3, L8_3, L9_3, L10_3, L11_3, L12_3, L13_3, L14_3, L15_3)
-                  L5_3 = exports
-                  L5_3 = L5_3.striano_core
-                  L6_3 = L5_3
-                  L5_3 = L5_3.draw
-                  L7_3 = 73
-                  L8_3 = "Report"
-                  L9_3 = 177
-                  L10_3 = "Close"
-                  L5_3(L6_3, L7_3, L8_3, L9_3, L10_3)
-                  L5_3 = IsControlPressed
-                  L6_3 = 0
-                  L7_3 = 73
-                  L5_3 = L5_3(L6_3, L7_3)
-                  if L5_3 then
-                    L5_3 = false
-                    L20_1 = L5_3
-                    L5_3 = GetEntityCoords
-                    L6_3 = L0_3
-                    L5_3 = L5_3(L6_3)
-                    L6_3 = SetEntityCoords
-                    L7_3 = L0_3
-                    L8_3 = L3_3.x
-                    L9_3 = L3_3.y
-                    L10_3 = L3_3.z
-                    L10_3 = L10_3 - 1
-                    L6_3(L7_3, L8_3, L9_3, L10_3)
-                    L6_3 = PlayerVicino
-                    L6_3, L7_3 = L6_3()
-                    L8_3 = exports
-                    L8_3 = L8_3.striano_combat
-                    L9_3 = L8_3
-                    L8_3 = L8_3.submexInfo
-                    L10_3 = "Player reported."
-                    L8_3(L9_3, L10_3)
-                    L8_3 = TriggerServerEvent
-                    L9_3 = "ff:report"
-                    L10_3 = GetPlayerServerId
-                    L11_3 = L6_3
-                    L10_3 = L10_3(L11_3)
-                    L11_3 = L21_1
-                    L8_3(L9_3, L10_3, L11_3)
-                    L8_3 = SetEntityCoords
-                    L9_3 = L0_3
-                    L10_3 = vector3
-                    L11_3 = L5_3.x
-                    L12_3 = L5_3.y
-                    L13_3 = L5_3.z
-                    L13_3 = L13_3 - 1
-                    L10_3, L11_3, L12_3, L13_3, L14_3, L15_3 = L10_3(L11_3, L12_3, L13_3)
-                    L8_3(L9_3, L10_3, L11_3, L12_3, L13_3, L14_3, L15_3)
-                    L8_3 = print
-                    L9_3 = "PLAYER REPORTED: "
-                    L10_3 = GetPlayerName
-                    L11_3 = L6_3
-                    L10_3 = L10_3(L11_3)
-                    L11_3 = " "
-                    L12_3 = GetPlayerServerId
-                    L13_3 = L6_3
-                    L12_3 = L12_3(L13_3)
-                    L9_3 = L9_3 .. L10_3 .. L11_3 .. L12_3
-                    L8_3(L9_3)
-                    return
-                  end
+    end
+end)
+
+-- ============================================================
+-- /fxm — toggle Mumble voice (voice reconnect)
+-- ============================================================
+RegisterCommand("fxm", function()
+    MumbleSetActive(false)
+    Wait(1000)
+    MumbleSetActive(true)
+end)
+
+-- ============================================================
+-- c_leva:rbv — remove a building gate by hash at a position
+-- ============================================================
+RegisterNetEvent("c_leva:rbv")
+AddEventHandler("c_leva:rbv", function(pos, modelHash)
+    local gate = GetClosestObjectOfType(pos, 0.1, modelHash, 0, 0, 0)
+    if gate ~= 0 then
+        SetEntityAsMissionEntity(gate)
+        SetEntityAlpha(gate, 0)
+        DeleteEntity(gate)
+    end
+end)
+
+-- ============================================================
+-- BB mode thread
+-- B key held → raycast 25 m, draw marker, copy entity info
+-- /copia — write coords+model to clipboard
+-- /bbadmin — toggle bbadmin global
+-- ============================================================
+local BB_RAYCAST_DIST = 25.0
+local bbCopyDone    = false
+local bKeyCounter   = 0
+
+CreateThread(function()
+    while true do
+        Wait(0)
+        if not bbadmin then
+            Wait(500)
+        else
+            local ped = PlayerPedId()
+            if IsControlPressed(0, 29) then  -- B key
+                local hit, hitCoords, entity = GetCamTarget(BB_RAYCAST_DIST, -1)
+                if hit and entity and entity ~= 0 then
+                    -- Draw target marker
+                    DrawMarker(1,
+                        hitCoords.x, hitCoords.y, hitCoords.z,
+                        0.0, 0.0, 0.0,
+                        0.0, 0.0, 0.0,
+                        0.5, 0.5, 0.5,
+                        255, 165, 0, 180,
+                        false, true, 2, nil, nil, false)
+
+                    lastTargetEntity = entity
+                    bKeyCounter = bKeyCounter + 1
+
+                    -- Store position snapshots
+                    bbPosA.pos = GetEntityCoords(ped)
+                    bbPosB.pos = hitCoords
+
+                    if bbCopyDone then
+                        bbCopyDone = false
+                    end
                 else
-                  L5_3 = DrawLine
-                  L6_3 = L1_3.x
-                  L7_3 = L1_3.y
-                  L8_3 = L1_3.z
-                  L8_3 = L8_3 + 0.7
-                  L9_3 = L3_3.x
-                  L10_3 = L3_3.y
-                  L11_3 = L3_3.z
-                  L12_3 = 255
-                  L13_3 = 0
-                  L14_3 = 0
-                  L15_3 = 255
-                  L5_3(L6_3, L7_3, L8_3, L9_3, L10_3, L11_3, L12_3, L13_3, L14_3, L15_3)
-                  L5_3 = exports
-                  L5_3 = L5_3.striano_combat
-                  L6_3 = L5_3
-                  L5_3 = L5_3.submexError
-                  L7_3 = "Not a player."
-                  L5_3(L6_3, L7_3)
+                    bKeyCounter = 0
+                    lastTargetEntity = nil
                 end
-              end
-            end
-          end
-        end
-      else
-        return
-      end
-    end
-  end
-  L0_2(L1_2)
-end
-FunzioneReportPL = L22_1
-L22_1 = RegisterCommand
-L23_1 = "users"
-function L24_1()
-  local L0_2, L1_2
-  L0_2 = ExecuteCommand
-  L1_2 = "user"
-  L0_2(L1_2)
-end
-L25_1 = false
-L22_1(L23_1, L24_1, L25_1)
-L22_1 = 0.0
-L23_1 = 0.0
-L24_1 = 0.0
-L25_1 = 0.0
-L26_1 = 0.0
-L27_1 = 0.0
-L28_1 = nil
-L29_1 = RegisterCommand
-L30_1 = "ra"
-function L31_1()
-  local L0_2, L1_2, L2_2, L3_2, L4_2, L5_2, L6_2
-  L0_2 = ped
-  L1_2 = L28_1
-  if L1_2 then
-    L1_2 = exports
-    L1_2 = L1_2.striano_combat
-    L2_2 = L1_2
-    L1_2 = L1_2.submexError
-    L3_2 = "Operazione disponibile un animale per volta al momento."
-    return L1_2(L2_2, L3_2)
-  end
-  L1_2 = GetEntityCoords
-  L2_2 = L0_2
-  L1_2 = L1_2(L2_2)
-  L2_2 = false
-  L3_2 = GetClosestPedStriano
-  L4_2 = L1_2
-  L3_2 = L3_2(L4_2)
-  if L3_2 and L3_2 > 0 then
-    L4_2 = IsPedAPlayer
-    L5_2 = L3_2
-    L4_2 = L4_2(L5_2)
-    if not L4_2 then
-      L4_2 = IsPedHuman
-      L5_2 = L3_2
-      L4_2 = L4_2(L5_2)
-      if not L4_2 then
-        L4_2 = GetEntityCoords
-        L5_2 = L3_2
-        L4_2 = L4_2(L5_2)
-        L4_2 = L4_2 - L1_2
-        L4_2 = #L4_2
-        if L4_2 < 2.0 then
-          L4_2 = IsEntityAttached
-          L5_2 = L3_2
-          L4_2 = L4_2(L5_2)
-          if not L4_2 and L3_2 ~= L0_2 and not L2_2 then
-            L2_2 = true
-            L4_2 = RimorchioAnimale
-            L5_2 = L0_2
-            L6_2 = L3_2
-            L4_2(L5_2, L6_2)
-          end
-        end
-      end
-    end
-  end
-  if not L2_2 then
-    L4_2 = exports
-    L4_2 = L4_2.striano_combat
-    L5_2 = L4_2
-    L4_2 = L4_2.submexError
-    L6_2 = "Nessun animale nelle vicinanze disponibile per il rimorchio."
-    L4_2(L5_2, L6_2)
-    L4_2 = ExecuteCommand
-    L5_2 = "e shrug"
-    L4_2(L5_2)
-  end
-end
-L29_1(L30_1, L31_1)
-function L29_1(A0_2, A1_2)
-  local L2_2, L3_2, L4_2, L5_2, L6_2, L7_2, L8_2, L9_2, L10_2, L11_2, L12_2, L13_2, L14_2, L15_2, L16_2, L17_2, L18_2, L19_2, L20_2
-  L2_2 = NetworkRequestControlOfEntity
-  L3_2 = A1_2
-  L2_2(L3_2)
-  L2_2 = GetEntityCoords
-  L3_2 = A0_2
-  L2_2 = L2_2(L3_2)
-  L3_2 = GetVehiclePedIsIn
-  L4_2 = ped
-  L5_2 = false
-  L3_2 = L3_2(L4_2, L5_2)
-  if nil == L3_2 or 0 == L3_2 then
-    L4_2 = GetClosestVehicle
-    L5_2 = L2_2.x
-    L6_2 = L2_2.y
-    L7_2 = L2_2.z
-    L8_2 = 5.0
-    L9_2 = 0
-    L10_2 = 70
-    L4_2 = L4_2(L5_2, L6_2, L7_2, L8_2, L9_2, L10_2)
-    L3_2 = L4_2
-  end
-  if nil ~= L3_2 and 0 ~= L3_2 then
-    L4_2 = GetPedType
-    L5_2 = A1_2
-    L4_2 = L4_2(L5_2)
-    if 28 == L4_2 then
-      L4_2 = IsPedInAnyVehicle
-      L5_2 = ped
-      L6_2 = true
-      L4_2 = L4_2(L5_2, L6_2)
-      if not L4_2 then
-        L4_2 = makeEntityFaceEntity
-        L5_2 = ped
-        L6_2 = L3_2
-        L4_2(L5_2, L6_2)
-      end
-      L4_2 = exports
-      L4_2 = L4_2.striano_combat
-      L5_2 = L4_2
-      L4_2 = L4_2.submexError
-      L6_2 = "Animale in modifica, utilizza ~h~Freccette, Spazio e Shift~h~ per posizionare come vuoi."
-      L4_2(L5_2, L6_2)
-      L4_2 = UpdateMuoviAnimale
-      L4_2()
-      L28_1 = A1_2
-      L4_2 = GetEntityCoords
-      L5_2 = L3_2
-      L4_2 = L4_2(L5_2)
-      L5_2 = 0.0
-      L22_1 = L5_2
-      L5_2 = -1.0
-      L23_1 = L5_2
-      L5_2 = L2_2.z
-      L6_2 = L4_2.z
-      L5_2 = L5_2 - L6_2
-      L24_1 = L5_2
-      L5_2 = 0.0
-      L25_1 = L5_2
-      L5_2 = 0.0
-      L26_1 = L5_2
-      L5_2 = 0.0
-      L27_1 = L5_2
-      vx = 0.0
-      vy = -1.0
-      L5_2 = L2_2.z
-      L6_2 = L4_2.z
-      L5_2 = L5_2 - L6_2
-      vz = L5_2
-      L5_2 = AttachEntityToEntity
-      L6_2 = A1_2
-      L7_2 = L3_2
-      L8_2 = -1
-      L9_2 = 0.0
-      L10_2 = vy
-      L11_2 = vz
-      L12_2 = 0.0
-      L13_2 = 0.0
-      L14_2 = L27_1
-      L15_2 = false
-      L16_2 = false
-      L17_2 = false
-      L18_2 = false
-      L19_2 = false
-      L20_2 = true
-      L5_2(L6_2, L7_2, L8_2, L9_2, L10_2, L11_2, L12_2, L13_2, L14_2, L15_2, L16_2, L17_2, L18_2, L19_2, L20_2)
-      L5_2 = SetEntityAsMissionEntity
-      L6_2 = A1_2
-      L5_2(L6_2)
-      L5_2 = ExecuteCommand
-      L6_2 = "cinv"
-      L5_2(L6_2)
-      L5_2 = ExecuteCommand
-      L6_2 = "e prendi5"
-      L5_2(L6_2)
-    else
-      L4_2 = exports
-      L4_2 = L4_2.striano_combat
-      L5_2 = L4_2
-      L4_2 = L4_2.submexError
-      L6_2 = "Non sembra esserci un ~h~animale~h~ nelle vicinanze."
-      L4_2(L5_2, L6_2)
-    end
-  else
-    L4_2 = exports
-    L4_2 = L4_2.striano_combat
-    L5_2 = L4_2
-    L4_2 = L4_2.submexError
-    L6_2 = "Nessun veicolo rilevato per ~h~attaccare~h~ l'animale."
-    L4_2(L5_2, L6_2)
-  end
-end
-RimorchioAnimale = L29_1
-L29_1 = RegisterCommand
-L30_1 = "sa"
-function L31_1()
-  local L0_2, L1_2, L2_2, L3_2, L4_2, L5_2, L6_2, L7_2, L8_2, L9_2
-  L0_2 = PlayerPedId
-  L0_2 = L0_2()
-  L1_2 = GetEntityCoords
-  L2_2 = L0_2
-  L1_2 = L1_2(L2_2)
-  L2_2 = false
-  L3_2 = GetClosestPedStriano
-  L4_2 = L1_2
-  L3_2 = L3_2(L4_2)
-  if L3_2 and L3_2 > 0 then
-    L4_2 = IsPedAPlayer
-    L5_2 = L3_2
-    L4_2 = L4_2(L5_2)
-    if not L4_2 then
-      L4_2 = IsPedHuman
-      L5_2 = L3_2
-      L4_2 = L4_2(L5_2)
-      if not L4_2 then
-        L4_2 = GetEntityCoords
-        L5_2 = L3_2
-        L4_2 = L4_2(L5_2)
-        L4_2 = L4_2 - L1_2
-        L4_2 = #L4_2
-        if L4_2 < 5.0 then
-          L4_2 = IsEntityAttached
-          L5_2 = L3_2
-          L4_2 = L4_2(L5_2)
-          if L4_2 then
-            L4_2 = GetPedType
-            L5_2 = L3_2
-            L4_2 = L4_2(L5_2)
-            if 28 == L4_2 then
-              L2_2 = true
-              L4_2 = exports
-              L4_2 = L4_2.striano_combat
-              L5_2 = L4_2
-              L4_2 = L4_2.submexError
-              L6_2 = "Animale staccato dal veicolo."
-              L4_2(L5_2, L6_2)
-              L4_2 = TriggerServerEvent
-              L5_2 = "ff:staccaAnimale"
-              L6_2 = L3_2
-              L7_2 = L1_2.x
-              L8_2 = L1_2.y
-              L9_2 = L1_2.z
-              L9_2 = L9_2 - 1
-              L4_2(L5_2, L6_2, L7_2, L8_2, L9_2)
-              L4_2 = L28_1
-              if L3_2 == L4_2 then
-                L4_2 = nil
-                L28_1 = L4_2
-              end
-            end
-          end
-        end
-      end
-    end
-  end
-  if not L2_2 then
-    L4_2 = exports
-    L4_2 = L4_2.striano_combat
-    L5_2 = L4_2
-    L4_2 = L4_2.submexError
-    L6_2 = "Nessun animale nelle vicinanze disponibile da staccare dal rimorchio."
-    L4_2(L5_2, L6_2)
-    L4_2 = ExecuteCommand
-    L5_2 = "e shrug"
-    L4_2(L5_2)
-  end
-end
-L29_1(L30_1, L31_1)
-L29_1 = RegisterNetEvent
-L30_1 = "ff:staccaAnimale"
-L29_1(L30_1)
-L29_1 = AddEventHandler
-L30_1 = "ff:staccaAnimale"
-function L31_1(A0_2, A1_2, A2_2, A3_2)
-  local L4_2, L5_2, L6_2, L7_2, L8_2, L9_2, L10_2, L11_2, L12_2, L13_2, L14_2, L15_2, L16_2, L17_2, L18_2
-  L4_2 = DetachEntity
-  L5_2 = A0_2
-  L6_2 = true
-  L7_2 = true
-  L4_2(L5_2, L6_2, L7_2)
-  L4_2 = SetPedToRagdoll
-  L5_2 = A0_2
-  L6_2 = 0
-  L7_2 = 0
-  L8_2 = 4
-  L9_2 = 0
-  L10_2 = 0
-  L11_2 = 0
-  L4_2(L5_2, L6_2, L7_2, L8_2, L9_2, L10_2, L11_2)
-  L4_2 = ApplyForceToEntity
-  L5_2 = A0_2
-  L6_2 = 0
-  L7_2 = -70.0
-  L8_2 = 0.0
-  L9_2 = 0.0
-  L10_2 = 0.0
-  L11_2 = 0.0
-  L12_2 = 0.0
-  L13_2 = -1
-  L14_2 = true
-  L15_2 = true
-  L16_2 = true
-  L17_2 = false
-  L18_2 = false
-  L4_2(L5_2, L6_2, L7_2, L8_2, L9_2, L10_2, L11_2, L12_2, L13_2, L14_2, L15_2, L16_2, L17_2, L18_2)
-end
-L29_1(L30_1, L31_1)
-L29_1 = RegisterNetEvent
-L30_1 = "FaCrashare:msgAdminClient"
-L29_1(L30_1)
-L29_1 = AddEventHandler
-L30_1 = "FaCrashare:msgAdminClient"
-function L31_1(A0_2, A1_2, A2_2)
-  local L3_2, L4_2, L5_2, L6_2, L7_2
-  L3_2 = TriggerServerEvent
-  L4_2 = "FaCrashare:msgAdmin"
-  L5_2 = A0_2
-  L6_2 = A1_2
-  L7_2 = A2_2
-  L3_2(L4_2, L5_2, L6_2, L7_2)
-end
-L29_1(L30_1, L31_1)
-function L29_1()
-  local L0_2, L1_2
-  L0_2 = L28_1
-  if nil ~= L0_2 then
-    return
-  end
-  L0_2 = CreateThread
-  function L1_2()
-    local L0_3, L1_3, L2_3, L3_3, L4_3, L5_3, L6_3, L7_3, L8_3, L9_3, L10_3, L11_3, L12_3, L13_3, L14_3, L15_3, L16_3, L17_3, L18_3
-    while true do
-      L0_3 = Wait
-      L1_3 = 0
-      L0_3(L1_3)
-      L0_3 = L28_1
-      L1_3 = GetEntityAttachedTo
-      L2_3 = L0_3
-      L1_3 = L1_3(L2_3)
-      if nil ~= L1_3 then
-        L2_3 = L28_1
-        if nil ~= L2_3 then
-          L2_3 = DoesEntityExist
-          L3_3 = L0_3
-          L2_3 = L2_3(L3_3)
-          if L2_3 then
-            L2_3 = GetEntityCoords
-            L3_3 = L1_3
-            L2_3 = L2_3(L3_3)
-            L3_3 = DisableControlAction
-            L4_3 = 0
-            L5_3 = 22
-            L3_3(L4_3, L5_3)
-            L3_3 = DisableControlAction
-            L4_3 = 0
-            L5_3 = 21
-            L3_3(L4_3, L5_3)
-            L3_3 = DisableControlAction
-            L4_3 = 0
-            L5_3 = 155
-            L3_3(L4_3, L5_3)
-            L3_3 = IsDisabledControlPressed
-            L4_3 = 0
-            L5_3 = 155
-            L3_3 = L3_3(L4_3, L5_3)
-            if L3_3 then
-              L3_3 = GetEntityCoords
-              L4_3 = L0_3
-              L3_3 = L3_3(L4_3)
-              L3_3 = L3_3 - L2_3
-              L3_3 = #L3_3
-              if L3_3 < 5 then
-                L3_3 = IsControlPressed
-                L4_3 = 0
-                L5_3 = 172
-                L3_3 = L3_3(L4_3, L5_3)
-                if L3_3 then
-                  L3_3 = L24_1
-                  L3_3 = L3_3 + 0.02
-                  L24_1 = L3_3
-                  L3_3 = DetachEntity
-                  L4_3 = L0_3
-                  L5_3 = true
-                  L6_3 = true
-                  L3_3(L4_3, L5_3, L6_3)
-                  L3_3 = AttachEntityToEntity
-                  L4_3 = L0_3
-                  L5_3 = L1_3
-                  L6_3 = -1
-                  L7_3 = L22_1
-                  L8_3 = L23_1
-                  L9_3 = L24_1
-                  L10_3 = L25_1
-                  L11_3 = L26_1
-                  L12_3 = L27_1
-                  L13_3 = false
-                  L14_3 = false
-                  L15_3 = false
-                  L16_3 = false
-                  L17_3 = false
-                  L18_3 = true
-                  L3_3(L4_3, L5_3, L6_3, L7_3, L8_3, L9_3, L10_3, L11_3, L12_3, L13_3, L14_3, L15_3, L16_3, L17_3, L18_3)
-                end
-                L3_3 = IsControlPressed
-                L4_3 = 0
-                L5_3 = 173
-                L3_3 = L3_3(L4_3, L5_3)
-                if L3_3 then
-                  L3_3 = L24_1
-                  L3_3 = L3_3 - 0.02
-                  L24_1 = L3_3
-                  L3_3 = DetachEntity
-                  L4_3 = L0_3
-                  L5_3 = true
-                  L6_3 = true
-                  L3_3(L4_3, L5_3, L6_3)
-                  L3_3 = AttachEntityToEntity
-                  L4_3 = L0_3
-                  L5_3 = L1_3
-                  L6_3 = -1
-                  L7_3 = L22_1
-                  L8_3 = L23_1
-                  L9_3 = L24_1
-                  L10_3 = L25_1
-                  L11_3 = L26_1
-                  L12_3 = L27_1
-                  L13_3 = false
-                  L14_3 = false
-                  L15_3 = false
-                  L16_3 = false
-                  L17_3 = false
-                  L18_3 = true
-                  L3_3(L4_3, L5_3, L6_3, L7_3, L8_3, L9_3, L10_3, L11_3, L12_3, L13_3, L14_3, L15_3, L16_3, L17_3, L18_3)
-                end
-                L3_3 = IsControlPressed
-                L4_3 = 0
-                L5_3 = 174
-                L3_3 = L3_3(L4_3, L5_3)
-                if L3_3 then
-                  L3_3 = L27_1
-                  L3_3 = L3_3 + 3
-                  L27_1 = L3_3
-                  L3_3 = DetachEntity
-                  L4_3 = L0_3
-                  L5_3 = true
-                  L6_3 = true
-                  L3_3(L4_3, L5_3, L6_3)
-                  L3_3 = AttachEntityToEntity
-                  L4_3 = L0_3
-                  L5_3 = L1_3
-                  L6_3 = -1
-                  L7_3 = L22_1
-                  L8_3 = L23_1
-                  L9_3 = L24_1
-                  L10_3 = L25_1
-                  L11_3 = L26_1
-                  L12_3 = L27_1
-                  L13_3 = false
-                  L14_3 = false
-                  L15_3 = false
-                  L16_3 = false
-                  L17_3 = false
-                  L18_3 = true
-                  L3_3(L4_3, L5_3, L6_3, L7_3, L8_3, L9_3, L10_3, L11_3, L12_3, L13_3, L14_3, L15_3, L16_3, L17_3, L18_3)
-                end
-                L3_3 = IsControlPressed
-                L4_3 = 0
-                L5_3 = 175
-                L3_3 = L3_3(L4_3, L5_3)
-                if L3_3 then
-                  L3_3 = L27_1
-                  L3_3 = L3_3 - 3
-                  L27_1 = L3_3
-                  L3_3 = DetachEntity
-                  L4_3 = L0_3
-                  L5_3 = true
-                  L6_3 = true
-                  L3_3(L4_3, L5_3, L6_3)
-                  L3_3 = AttachEntityToEntity
-                  L4_3 = L0_3
-                  L5_3 = L1_3
-                  L6_3 = -1
-                  L7_3 = L22_1
-                  L8_3 = L23_1
-                  L9_3 = L24_1
-                  L10_3 = L25_1
-                  L11_3 = L26_1
-                  L12_3 = L27_1
-                  L13_3 = false
-                  L14_3 = false
-                  L15_3 = false
-                  L16_3 = false
-                  L17_3 = false
-                  L18_3 = true
-                  L3_3(L4_3, L5_3, L6_3, L7_3, L8_3, L9_3, L10_3, L11_3, L12_3, L13_3, L14_3, L15_3, L16_3, L17_3, L18_3)
-                end
-              end
             else
-              L3_3 = GetEntityCoords
-              L4_3 = L0_3
-              L3_3 = L3_3(L4_3)
-              L3_3 = L3_3 - L2_3
-              L3_3 = #L3_3
-              if L3_3 < 5 then
-                L3_3 = IsControlPressed
-                L4_3 = 0
-                L5_3 = 174
-                L3_3 = L3_3(L4_3, L5_3)
-                if L3_3 then
-                  L3_3 = L22_1
-                  L3_3 = L3_3 - 0.05
-                  L22_1 = L3_3
-                  L3_3 = DetachEntity
-                  L4_3 = L0_3
-                  L5_3 = true
-                  L6_3 = true
-                  L3_3(L4_3, L5_3, L6_3)
-                  L3_3 = AttachEntityToEntity
-                  L4_3 = L0_3
-                  L5_3 = L1_3
-                  L6_3 = -1
-                  L7_3 = L22_1
-                  L8_3 = L23_1
-                  L9_3 = L24_1
-                  L10_3 = L25_1
-                  L11_3 = L26_1
-                  L12_3 = L27_1
-                  L13_3 = false
-                  L14_3 = false
-                  L15_3 = false
-                  L16_3 = false
-                  L17_3 = false
-                  L18_3 = true
-                  L3_3(L4_3, L5_3, L6_3, L7_3, L8_3, L9_3, L10_3, L11_3, L12_3, L13_3, L14_3, L15_3, L16_3, L17_3, L18_3)
-                end
-                L3_3 = IsControlPressed
-                L4_3 = 0
-                L5_3 = 175
-                L3_3 = L3_3(L4_3, L5_3)
-                if L3_3 then
-                  L3_3 = L22_1
-                  L3_3 = L3_3 + 0.05
-                  L22_1 = L3_3
-                  L3_3 = DetachEntity
-                  L4_3 = L0_3
-                  L5_3 = true
-                  L6_3 = true
-                  L3_3(L4_3, L5_3, L6_3)
-                  L3_3 = AttachEntityToEntity
-                  L4_3 = L0_3
-                  L5_3 = L1_3
-                  L6_3 = -1
-                  L7_3 = L22_1
-                  L8_3 = L23_1
-                  L9_3 = L24_1
-                  L10_3 = L25_1
-                  L11_3 = L26_1
-                  L12_3 = L27_1
-                  L13_3 = false
-                  L14_3 = false
-                  L15_3 = false
-                  L16_3 = false
-                  L17_3 = false
-                  L18_3 = true
-                  L3_3(L4_3, L5_3, L6_3, L7_3, L8_3, L9_3, L10_3, L11_3, L12_3, L13_3, L14_3, L15_3, L16_3, L17_3, L18_3)
-                end
-                L3_3 = IsControlPressed
-                L4_3 = 0
-                L5_3 = 172
-                L3_3 = L3_3(L4_3, L5_3)
-                if L3_3 then
-                  L3_3 = L23_1
-                  L3_3 = L3_3 + 0.05
-                  L23_1 = L3_3
-                  L3_3 = DetachEntity
-                  L4_3 = L0_3
-                  L5_3 = true
-                  L6_3 = true
-                  L3_3(L4_3, L5_3, L6_3)
-                  L3_3 = AttachEntityToEntity
-                  L4_3 = L0_3
-                  L5_3 = L1_3
-                  L6_3 = -1
-                  L7_3 = L22_1
-                  L8_3 = L23_1
-                  L9_3 = L24_1
-                  L10_3 = L25_1
-                  L11_3 = L26_1
-                  L12_3 = L27_1
-                  L13_3 = false
-                  L14_3 = false
-                  L15_3 = false
-                  L16_3 = false
-                  L17_3 = false
-                  L18_3 = true
-                  L3_3(L4_3, L5_3, L6_3, L7_3, L8_3, L9_3, L10_3, L11_3, L12_3, L13_3, L14_3, L15_3, L16_3, L17_3, L18_3)
-                end
-                L3_3 = IsControlPressed
-                L4_3 = 0
-                L5_3 = 173
-                L3_3 = L3_3(L4_3, L5_3)
-                if L3_3 then
-                  L3_3 = L23_1
-                  L3_3 = L3_3 - 0.05
-                  L23_1 = L3_3
-                  L3_3 = DetachEntity
-                  L4_3 = L0_3
-                  L5_3 = true
-                  L6_3 = true
-                  L3_3(L4_3, L5_3, L6_3)
-                  L3_3 = AttachEntityToEntity
-                  L4_3 = L0_3
-                  L5_3 = L1_3
-                  L6_3 = -1
-                  L7_3 = L22_1
-                  L8_3 = L23_1
-                  L9_3 = L24_1
-                  L10_3 = L25_1
-                  L11_3 = L26_1
-                  L12_3 = L27_1
-                  L13_3 = false
-                  L14_3 = false
-                  L15_3 = false
-                  L16_3 = false
-                  L17_3 = false
-                  L18_3 = true
-                  L3_3(L4_3, L5_3, L6_3, L7_3, L8_3, L9_3, L10_3, L11_3, L12_3, L13_3, L14_3, L15_3, L16_3, L17_3, L18_3)
-                end
-              end
+                bKeyCounter = 0
             end
         end
-      end
-      else
+    end
+end)
+
+-- /copia — copy BB entity coordinates and model to clipboard
+RegisterCommand("copia", function()
+    if lastTargetEntity == nil then
+        exports.striano_combat:submexError("Nessuna entity selezionata con ~h~B~h~.")
         return
-      end
-      L2_3 = Wait
-      L3_3 = 5
-      L2_3(L3_3)
     end
-  end
-  L0_2(L1_2)
+    local coords = GetEntityCoords(lastTargetEntity)
+    local model  = GetEntityModel(lastTargetEntity)
+    local txt    = string.format("coords=vector3(%.4f,%.4f,%.4f) model=%d", coords.x, coords.y, coords.z, model)
+    exports.striano_core:draw(txt)
+    bbCopyDone = true
+end)
+
+RegisterCommand("bbadmin", function()
+    bbadmin = not bbadmin
+    if bbadmin then
+        PlaySoundFrontend(-1, "Turn", "DLC_HEIST_HACKING_SNAKE_SOUNDS", 1)
+    end
+end)
+
+-- ============================================================
+-- Draw3DText(x, y, z, text) — world-space 3D text label
+-- ============================================================
+function Draw3DText(x, y, z, text)
+    local str = "" .. text .. ""
+    SetTextScale(0.35, 0.35)
+    SetTextFont(7)
+    SetTextOutline()
+    SetTextProportional(1)
+    SetTextColour(255, 255, 255, 215)
+    SetTextEntry("STRING")
+    SetTextCentre(true)
+    AddTextComponentString(str)
+    SetDrawOrigin(x, y, z, 0)
+    DrawText(0.0, 0.0)
+    ClearDrawOrigin()
 end
-UpdateMuoviAnimale = L29_1
-L29_1 = nil
-L30_1 = nil
-L31_1 = 0.0
-L32_1 = 0.0
-L33_1 = 0.0
-L34_1 = 0.0
-L35_1 = 0.0
-L36_1 = 0.0
-function L37_1(A0_2, A1_2, A2_2, A3_2, A4_2, A5_2, A6_2, A7_2)
-  local L8_2, L9_2, L10_2, L11_2, L12_2, L13_2, L14_2, L15_2, L16_2, L17_2, L18_2, L19_2, L20_2, L21_2, L22_2, L23_2, L24_2, L25_2, L26_2, L27_2
-  L8_2 = L29_1
-  if nil ~= L8_2 then
-    L8_2 = DeleteEntity
-    L9_2 = L29_1
-    L8_2(L9_2)
-    L8_2 = nil
-    L29_1 = L8_2
-  end
-  L8_2 = PlayerPedId
-  L8_2 = L8_2()
-  L9_2 = table
-  L9_2 = L9_2.unpack
-  L10_2 = GetEntityCoords
-  L11_2 = L8_2
-  L10_2, L11_2, L12_2, L13_2, L14_2, L15_2, L16_2, L17_2, L18_2, L19_2, L20_2, L21_2, L22_2, L23_2, L24_2, L25_2, L26_2, L27_2 = L10_2(L11_2)
-  L9_2, L10_2, L11_2 = L9_2(L10_2, L11_2, L12_2, L13_2, L14_2, L15_2, L16_2, L17_2, L18_2, L19_2, L20_2, L21_2, L22_2, L23_2, L24_2, L25_2, L26_2, L27_2)
-  L12_2 = RequestModelStriano
-  L13_2 = A0_2
-  L12_2(L13_2)
-  L12_2 = CreateObject
-  L13_2 = GetHashKey
-  L14_2 = A0_2
-  L13_2 = L13_2(L14_2)
-  L14_2 = L9_2
-  L15_2 = L10_2
-  L16_2 = L11_2 + 0.2
-  L17_2 = true
-  L18_2 = true
-  L19_2 = true
-  L12_2 = L12_2(L13_2, L14_2, L15_2, L16_2, L17_2, L18_2, L19_2)
-  prop = L12_2
-  L12_2 = AttachEntityToEntity
-  L13_2 = prop
-  L14_2 = L8_2
-  L15_2 = GetPedBoneIndex
-  L16_2 = L8_2
-  L17_2 = A1_2
-  L15_2 = L15_2(L16_2, L17_2)
-  L16_2 = A2_2
-  L17_2 = A3_2
-  L18_2 = A4_2
-  L19_2 = A5_2
-  L20_2 = A6_2
-  L21_2 = A7_2
-  L22_2 = true
-  L23_2 = true
-  L24_2 = false
-  L25_2 = true
-  L26_2 = 1
-  L27_2 = true
-  L12_2(L13_2, L14_2, L15_2, L16_2, L17_2, L18_2, L19_2, L20_2, L21_2, L22_2, L23_2, L24_2, L25_2, L26_2, L27_2)
-  L12_2 = prop
-  L29_1 = L12_2
-  L30_1 = A1_2
-  L12_2 = SetModelAsNoLongerNeeded
-  L13_2 = A0_2
-  L12_2(L13_2)
+
+-- ============================================================
+-- Report system
+-- /rep, /report, /reporta → funcReport toggle
+-- FunzioneReportPL() — aim at player → send ff:report event
+-- ============================================================
+local function funcReport(_, _)
+    reportModeActive = not reportModeActive
+    if not reportModeActive then
+        reportText = ""
+        return
+    end
+    CreateThread(function() FunzioneReportPL() end)
 end
-AddPropToPlayerFF = L37_1
-InEditV = nil
-L37_1 = RegisterNetEvent
-L38_1 = "ff:avviaEditorPlayer"
-function L39_1(A0_2, A1_2)
-  local L2_2, L3_2, L4_2, L5_2, L6_2
-  L2_2 = AddPropToPlayerFF
-  L3_2 = A0_2
-  L4_2 = A1_2
-  L5_2 = L5_1
-  L6_2 = L6_1
-  L2_2(L3_2, L4_2, L5_2, L6_2)
-  L2_2 = ExecuteCommand
-  L3_2 = "prova3 Editor active."
-  L2_2(L3_2)
-  L2_2 = Wait
-  L3_2 = 25
-  L2_2(L3_2)
-  L2_2 = UpdateEditorAtt
-  L2_2()
+
+function FunzioneReportPL()
+    while reportModeActive do
+        Wait(0)
+        local hit, _, entity = GetCamTarget(50.0, 2)  -- flag 2 = peds
+        if hit and entity and entity ~= 0 and IsPedAPlayer(entity) then
+            local targetServerId = GetPlayerServerId(NetworkGetPlayerIndexFromPed(entity))
+            exports.striano_combat:submexInfo("Reportando giocatore ID: " .. targetServerId)
+            TriggerServerEvent("ff:report", targetServerId, reportText)
+            reportModeActive = false
+            reportText = ""
+        end
+    end
 end
-L37_1(L38_1, L39_1)
-L37_1 = RegisterCommand
-L38_1 = "stopeditatt"
-function L39_1()
-  local L0_2, L1_2, L2_2
-  L0_2 = L29_1
-  if nil ~= L0_2 then
-    L0_2 = DeleteEntity
-    L1_2 = L29_1
-    L0_2(L1_2)
-  end
-  InEditV = nil
-  L0_2 = nil
-  L1_2 = nil
-  L30_1 = L1_2
-  L29_1 = L0_2
-  L0_2 = 0.0
-  L1_2 = 0.0
-  L2_2 = 0.0
-  L33_1 = L2_2
-  L32_1 = L1_2
-  L31_1 = L0_2
-  L0_2 = 0.0
-  L1_2 = 0.0
-  L2_2 = 0.0
-  L36_1 = L2_2
-  L35_1 = L1_2
-  L34_1 = L0_2
+
+RegisterCommand("rep",     funcReport)
+RegisterCommand("report",  funcReport)
+RegisterCommand("reporta", funcReport)
+RegisterCommand("users",   function() ExecuteCommand("user") end)
+
+-- ============================================================
+-- Animal attachment system
+-- /ra — attach nearest animal to nearest vehicle
+-- /sa — detach animal
+-- UpdateMuoviAnimale() — live offset editor for attached animal
+-- ============================================================
+local function reattachAnimal()
+    if currentAnimal and DoesEntityExist(currentAnimal) then
+        local veh = GetVehiclePedIsIn(PlayerPedId(), false)
+        if veh ~= 0 then
+            AttachEntityToEntity(
+                currentAnimal, veh,
+                0,
+                animalAttOffX, animalAttOffY, animalAttOffZ,
+                animalAttRotX, animalAttRotY, animalAttRotZ,
+                false, false, false, false, 2, true
+            )
+        end
+    end
 end
-L37_1(L38_1, L39_1)
-function L37_1()
-  local L0_2, L1_2
-  L0_2 = CreateThread
-  function L1_2()
-    local L0_3, L1_3, L2_3, L3_3, L4_3, L5_3, L6_3, L7_3, L8_3, L9_3, L10_3, L11_3, L12_3, L13_3, L14_3, L15_3, L16_3, L17_3, L18_3, L19_3
+
+function UpdateMuoviAnimale()
+    CreateThread(function()
+        while currentAnimal and DoesEntityExist(currentAnimal) do
+            Wait(0)
+            local step    = 0.01
+            local rotStep = 1.0
+
+            -- Space modifier → Z/rotation axes; LShift → rotation; plain → X/Y
+            if IsControlPressed(0, 22) then      -- Space held
+                if IsControlJustPressed(0, 172) then animalAttOffZ = animalAttOffZ + step; reattachAnimal() end
+                if IsControlJustPressed(0, 173) then animalAttOffZ = animalAttOffZ - step; reattachAnimal() end
+                if IsControlJustPressed(0, 174) then animalAttRotZ = animalAttRotZ - rotStep; reattachAnimal() end
+                if IsControlJustPressed(0, 175) then animalAttRotZ = animalAttRotZ + rotStep; reattachAnimal() end
+            elseif IsControlPressed(0, 21) then  -- LShift held
+                if IsControlJustPressed(0, 172) then animalAttRotX = animalAttRotX + rotStep; reattachAnimal() end
+                if IsControlJustPressed(0, 173) then animalAttRotX = animalAttRotX - rotStep; reattachAnimal() end
+                if IsControlJustPressed(0, 174) then animalAttRotY = animalAttRotY - rotStep; reattachAnimal() end
+                if IsControlJustPressed(0, 175) then animalAttRotY = animalAttRotY + rotStep; reattachAnimal() end
+            else
+                if IsControlJustPressed(0, 172) then animalAttOffX = animalAttOffX + step; reattachAnimal() end
+                if IsControlJustPressed(0, 173) then animalAttOffX = animalAttOffX - step; reattachAnimal() end
+                if IsControlJustPressed(0, 174) then animalAttOffY = animalAttOffY - step; reattachAnimal() end
+                if IsControlJustPressed(0, 175) then animalAttOffY = animalAttOffY + step; reattachAnimal() end
+            end
+
+            -- E key: print offsets
+            if IsControlJustPressed(0, 38) then
+                exports.striano_combat:submexInfo(string.format(
+                    "Animal off: %.3f %.3f %.3f | rot: %.1f %.1f %.1f",
+                    animalAttOffX, animalAttOffY, animalAttOffZ,
+                    animalAttRotX, animalAttRotY, animalAttRotZ))
+            end
+        end
+    end)
+end
+
+function RimorchioAnimale(playerPed, animalPed)
+    local veh = GetVehiclePedIsIn(playerPed, false)
+    if veh == 0 then
+        exports.striano_combat:submexError("Devi essere su un veicolo.")
+        return
+    end
+    currentAnimal = animalPed
+    animalAttOffX, animalAttOffY, animalAttOffZ = 0.0, 0.0, 0.0
+    animalAttRotX, animalAttRotY, animalAttRotZ = 0.0, 0.0, 0.0
+    AttachEntityToEntity(
+        animalPed, veh, 0,
+        0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+        false, false, false, false, 2, true
+    )
+    UpdateMuoviAnimale()
+    exports.striano_combat:submexInfo("Animale agganciato. Usa frecce/Space/LShift per regolare.")
+end
+
+RegisterCommand("ra", function()
+    local ped = PlayerPedId()
+    local veh = GetVehiclePedIsIn(ped, false)
+    if veh == 0 then
+        exports.striano_combat:submexError("Sali su un veicolo prima.")
+        return
+    end
+    -- Find closest ped that is not a player and not human
+    local coords = GetEntityCoords(ped)
+    local handle, animal = FindFirstPed()
+    local closest, closestDist = nil, math.huge
+    local found = handle ~= nil and handle ~= -1
+    while found do
+        if animal and animal ~= 0 and DoesEntityExist(animal)
+           and not IsPedAPlayer(animal) and not IsPedHuman(animal) then
+            local d = #(GetEntityCoords(animal) - coords)
+            if d < closestDist then
+                closestDist = d
+                closest = animal
+            end
+        end
+        found, animal = FindNextPed(handle)
+    end
+    EndFindPed(handle)
+    if closest and closestDist < 5.0 then
+        RimorchioAnimale(ped, closest)
+    else
+        exports.striano_combat:submexError("Nessun animale vicino.")
+    end
+end)
+
+RegisterCommand("sa", function()
+    if currentAnimal and DoesEntityExist(currentAnimal) then
+        DetachEntity(currentAnimal, true, true)
+        SetPedToRagdoll(currentAnimal, 1500, 1500, 0, false, false, false)
+        ApplyForceToEntity(currentAnimal, 1, 0.0, 0.0, 2.0, 0.0, 0.0, 0.0, 0, false, true, true, false, true)
+        TriggerServerEvent("ff:staccaAnimale", NetworkGetNetworkIdFromEntity(currentAnimal))
+    end
+    currentAnimal = nil
+    exports.striano_combat:submexInfo("Animale sganciato.")
+end)
+
+RegisterNetEvent("ff:staccaAnimale")
+AddEventHandler("ff:staccaAnimale", function(netId)
+    local animal = NetToEnt(netId)
+    if animal and DoesEntityExist(animal) then
+        DetachEntity(animal, true, true)
+        SetPedToRagdoll(animal, 1500, 1500, 0, false, false, false)
+        ApplyForceToEntity(animal, 1, 0.0, 0.0, 2.0, 0.0, 0.0, 0.0, 0, false, true, true, false, true)
+    end
+end)
+
+-- ============================================================
+-- FaCrashare:msgAdminClient — relay crash message to server
+-- ============================================================
+RegisterNetEvent("FaCrashare:msgAdminClient")
+AddEventHandler("FaCrashare:msgAdminClient", function(msg)
+    TriggerServerEvent("FaCrashare:msgAdmin", msg)
+end)
+
+-- ============================================================
+-- Player prop editor
+-- AddPropToPlayerFF(model, boneId, x,y,z,rx,ry,rz)
+-- ff:avviaEditorPlayer net event
+-- /stopeditatt command
+-- UpdateEditorAtt() — 6-axis interactive thread
+-- ============================================================
+function AddPropToPlayerFF(model, boneId, ox, oy, oz, rx, ry, rz)
+    if currentEditorProp and DoesEntityExist(currentEditorProp) then
+        DeleteEntity(currentEditorProp)
+    end
+    local hash = GetHashKey(model)
+    RequestModel(hash)
+    while not HasModelLoaded(hash) do Wait(0) end
+
+    local ped  = PlayerPedId()
+    local prop = CreateObject(hash, 0.0, 0.0, 0.0, true, true, false)
+    SetEntityCollision(prop, false, false)
+    AttachEntityToEntity(
+        prop, ped,
+        GetPedBoneIndex(ped, boneId),
+        ox, oy, oz, rx, ry, rz,
+        true, true, false, true, 1, true
+    )
+    currentEditorProp = prop
+    editorBone = boneId
+    edOffX, edOffY, edOffZ = ox, oy, oz
+    edRotX, edRotY, edRotZ = rx, ry, rz
+    SetModelAsNoLongerNeeded(hash)
+end
+
+RegisterNetEvent("ff:avviaEditorPlayer")
+AddEventHandler("ff:avviaEditorPlayer", function(model, boneId, ox, oy, oz, rx, ry, rz)
+    AddPropToPlayerFF(model, boneId, ox, oy, oz, rx, ry, rz)
+    UpdateEditorAtt()
+end)
+
+RegisterCommand("stopeditatt", function()
+    if currentEditorProp and DoesEntityExist(currentEditorProp) then
+        DeleteEntity(currentEditorProp)
+    end
+    currentEditorProp = nil
+    editorBone = nil
+    edOffX, edOffY, edOffZ = 0.0, 0.0, 0.0
+    edRotX, edRotY, edRotZ = 0.0, 0.0, 0.0
+    exports.striano_combat:submexInfo("Editor prop rimosso.")
+end)
+
+function UpdateEditorAtt()
+    if not currentEditorProp then
+        exports.striano_combat:submexError("Editor già attivo.")
+        return
+    end
+    CreateThread(function()
+        while currentEditorProp and DoesEntityExist(currentEditorProp) do
+            Wait(0)
+            local step    = 0.005
+            local rotStep = 0.5
+            local changed = false
+
+            -- Ctrl modifier → rotation on X/Y/Z
+            if IsControlPressed(0, 155) then           -- Ctrl
+                if IsControlJustPressed(0, 172) then edRotX = edRotX + rotStep; changed = true end
+                if IsControlJustPressed(0, 173) then edRotX = edRotX - rotStep; changed = true end
+                if IsControlJustPressed(0, 174) then edRotY = edRotY - rotStep; changed = true end
+                if IsControlJustPressed(0, 175) then edRotY = edRotY + rotStep; changed = true end
+                if IsControlJustPressed(0, 22)  then edRotZ = edRotZ + rotStep; changed = true end
+                if IsControlJustPressed(0, 177) then edRotZ = edRotZ - rotStep; changed = true end
+            -- Space modifier → Z offset
+            elseif IsControlPressed(0, 22) then        -- Space
+                if IsControlJustPressed(0, 172) then edOffZ = edOffZ + step; changed = true end
+                if IsControlJustPressed(0, 173) then edOffZ = edOffZ - step; changed = true end
+            else
+                -- Plain arrows → X/Y offset
+                if IsControlJustPressed(0, 172) then edOffX = edOffX + step; changed = true end
+                if IsControlJustPressed(0, 173) then edOffX = edOffX - step; changed = true end
+                if IsControlJustPressed(0, 174) then edOffY = edOffY - step; changed = true end
+                if IsControlJustPressed(0, 175) then edOffY = edOffY + step; changed = true end
+            end
+
+            if changed then
+                local ped = PlayerPedId()
+                DetachEntity(currentEditorProp, false, false)
+                AttachEntityToEntity(
+                    currentEditorProp, ped,
+                    GetPedBoneIndex(ped, editorBone),
+                    edOffX, edOffY, edOffZ,
+                    edRotX, edRotY, edRotZ,
+                    true, true, false, true, 1, true
+                )
+            end
+
+            -- E key: copy current values
+            if IsControlJustPressed(0, 38) then
+                exports.striano_combat:submexInfo(string.format(
+                    "off: %.3f %.3f %.3f | rot: %.1f %.1f %.1f",
+                    edOffX, edOffY, edOffZ, edRotX, edRotY, edRotZ))
+            end
+        end
+    end)
+end
+
+-- ============================================================
+-- Vehicle prop editor
+-- AddPropToVehicleFF(vehicle, model, x,y,z,rx,ry,rz)
+-- ff:avviaEditorVeicolo net event
+-- UpdateVEditorAtt(vehicle) — 6-axis interactive thread
+-- ============================================================
+function AddPropToVehicleFF(vehicle, model, ox, oy, oz, rx, ry, rz)
+    if InEditV and DoesEntityExist(InEditV) then
+        DeleteEntity(InEditV)
+    end
+    local hash = GetHashKey(model)
+    RequestModel(hash)
+    while not HasModelLoaded(hash) do Wait(0) end
+
+    local prop = CreateObject(hash, 0.0, 0.0, 0.0, true, true, false)
+    SetEntityCollision(prop, false, false)
+    AttachEntityToEntity(
+        prop, vehicle, 0,
+        ox, oy, oz, rx, ry, rz,
+        false, false, false, false, 2, true
+    )
+    InEditV = prop
+    edOffX, edOffY, edOffZ = ox, oy, oz
+    edRotX, edRotY, edRotZ = rx, ry, rz
+    SetModelAsNoLongerNeeded(hash)
+end
+
+RegisterNetEvent("ff:avviaEditorVeicolo")
+AddEventHandler("ff:avviaEditorVeicolo", function(netVehId, model, ox, oy, oz, rx, ry, rz)
+    local vehicle = NetToVeh(netVehId)
+    if vehicle and vehicle ~= 0 then
+        AddPropToVehicleFF(vehicle, model, ox, oy, oz, rx, ry, rz)
+        UpdateVEditorAtt(vehicle)
+    else
+        exports.striano_combat:submexError("Editor già attivo.")
+    end
+end)
+
+function UpdateVEditorAtt(vehicle)
+    if not InEditV then
+        exports.striano_combat:submexError("Editor già attivo.")
+        return
+    end
+    CreateThread(function()
+        while InEditV and DoesEntityExist(InEditV) do
+            Wait(0)
+            local step    = 0.005
+            local rotStep = 0.5
+            local changed = false
+
+            if IsControlPressed(0, 155) then           -- Ctrl → rotation
+                if IsControlJustPressed(0, 172) then edRotX = edRotX + rotStep; changed = true end
+                if IsControlJustPressed(0, 173) then edRotX = edRotX - rotStep; changed = true end
+                if IsControlJustPressed(0, 174) then edRotY = edRotY - rotStep; changed = true end
+                if IsControlJustPressed(0, 175) then edRotY = edRotY + rotStep; changed = true end
+                if IsControlJustPressed(0, 22)  then edRotZ = edRotZ + rotStep; changed = true end
+                if IsControlJustPressed(0, 177) then edRotZ = edRotZ - rotStep; changed = true end
+            elseif IsControlPressed(0, 22) then        -- Space → Z offset
+                if IsControlJustPressed(0, 172) then edOffZ = edOffZ + step; changed = true end
+                if IsControlJustPressed(0, 173) then edOffZ = edOffZ - step; changed = true end
+            else
+                if IsControlJustPressed(0, 172) then edOffX = edOffX + step; changed = true end
+                if IsControlJustPressed(0, 173) then edOffX = edOffX - step; changed = true end
+                if IsControlJustPressed(0, 174) then edOffY = edOffY - step; changed = true end
+                if IsControlJustPressed(0, 175) then edOffY = edOffY + step; changed = true end
+            end
+
+            if changed then
+                DetachEntity(InEditV, false, false)
+                AttachEntityToEntity(
+                    InEditV, vehicle, 0,
+                    edOffX, edOffY, edOffZ,
+                    edRotX, edRotY, edRotZ,
+                    false, false, false, false, 2, true
+                )
+            end
+
+            if IsControlJustPressed(0, 38) then
+                exports.striano_combat:submexInfo(string.format(
+                    "voff: %.3f %.3f %.3f | rot: %.1f %.1f %.1f",
+                    edOffX, edOffY, edOffZ, edRotX, edRotY, edRotZ))
+            end
+        end
+    end)
+end
+
+-- ============================================================
+-- GetClosestDeadAnimal(coords, excludePed, maxDist²)
+--   Returns closest dead non-player non-human ped and distance
+-- ============================================================
+function GetClosestDeadAnimal(coords, excludePed, maxDistSq)
+    local limitSq = maxDistSq and (maxDistSq * maxDistSq) or math.huge
+    local handle, ped = FindFirstPed()
+    if not handle or handle == -1 then return nil, nil end
+
+    local bestEnt, bestDistSq = nil, limitSq
+    local found = true
+    while found do
+        if ped and ped ~= 0 and DoesEntityExist(ped)
+           and (not excludePed or ped ~= excludePed) then
+            if IsEntityDead(ped) and not IsPedAPlayer(ped) then
+                local dx = GetEntityCoords(ped).x - coords.x
+                local dy = GetEntityCoords(ped).y - coords.y
+                local dz = GetEntityCoords(ped).z - coords.z
+                local distSq = dx*dx + dy*dy + dz*dz
+                if distSq < bestDistSq then
+                    bestDistSq = distSq
+                    bestEnt = ped
+                end
+            end
+        end
+        found, ped = FindNextPed(handle)
+    end
+    EndFindPed(handle)
+    if bestEnt then
+        return bestEnt, math.sqrt(bestDistSq)
+    end
+    return nil, nil
+end
+
+-- ============================================================
+-- exports "scuoio" — returns scuoiaReady flag
+-- ============================================================
+exports("scuoio", function() return scuoiaReady end)
+
+-- ============================================================
+-- COD(ped) — check if cause of death is "cuttable" (not vehicle)
+-- ============================================================
+function COD(ped)
+    local cause = GetPedCauseOfDeath(ped)
+    if cause == "WEAPON_RUN_OVER_BY_CAR" or cause == "WEAPON_RAMMED_BY_CAR"
+       or HasEntityBeenDamagedByAnyVehicle(ped) then
+        return false
+    end
+    local group = GetWeapontypeGroup(cause)
+    if group == nil then return false end
+    if group == "GROUP_UNARMED" or group == "GROUP_MELEE"
+       or group == "GROUP_PISTOL" or group == "GROUP_SMG"
+       or group == "GROUP_SNIPER" or group == "GROUP_MG"
+       or group == "GROUP_SHOTGUN" or group == "GROUP_RIFLE" then
+        return "OK"
+    end
+    return false
+end
+
+-- ============================================================
+-- Scuoia(ped, animalName) — skinning animation + give meat
+-- ============================================================
+local ANIMAL_MEAT_AMOUNTS = {
+    Cervo = 5, Mucca = 5, Cinghiale = 5,
+}
+function Scuoia(ped, animalName)
+    if not scuoiaReady then return end
+    scuoiaReady = false
+
+    if not IsPedDeadOrDying(ped) then
+        ExecuteCommand("e shrug5")
+        scuoiaReady = true
+        return
+    end
+    if GetEntityAlpha(ped) < 255 then
+        ExecuteCommand("e shrug5")
+        scuoiaReady = true
+        return
+    end
+    if not DoesEntityExist(ped) then
+        scuoiaReady = true
+        return
+    end
+
+    local playerPed = PlayerPedId()
+    FreezeEntityPosition(playerPed, true)
+    ClearPedTasks(playerPed)
+    makeEntityFaceEntity(playerPed, ped)
+    ExecuteCommand("e kneel3")
+    Wait(500)
+    ExecuteCommand("e cerca")
+    Wait(8000)
+    ExecuteCommand("e cc")
+    ExecuteCommand("e alzati")
+    Wait(1000)
+
+    local meatQty = ANIMAL_MEAT_AMOUNTS[animalName] or 3
+    -- Gallina gives nothing (default 0 from original), fallthrough gives 3
+
+    DeleteEntity(ped)
+    ExecuteCommand("e pickup")
+    Wait(750)
+    FreezeEntityPosition(playerPed, false)
+    scuoiaReady = true
+
+    TriggerServerEvent("inv3d:giveItem",
+        GetPlayerServerId(PlayerId()),
+        "player", "meat", meatQty)
+end
+
+-- ============================================================
+-- /scuoia command — skin closest dead animal with hunter knife
+-- ============================================================
+local SKINNABLE_ANIMALS = {
+    { hash = "a_c_chickenhawk", name = "Falco"     },
+    { hash = "a_c_boar",        name = "Cinghiale"  },
+    { hash = "a_c_mtlion",      name = "Ghepardo"   },
+    { hash = "a_c_cormorant",   name = "Cormorano"  },
+    { hash = "a_c_cow",         name = "Mucca"      },
+    { hash = "a_c_deer",        name = "Cervo"      },
+    { hash = "a_c_coyote",      name = "Coyote"     },
+    { hash = "a_c_crow",        name = "Corvo"      },
+    { hash = "a_c_hen",         name = "Gallina"    },
+    { hash = "a_c_pig",         name = "Maiale"     },
+    { hash = "a_c_rabbit_01",   name = "Coniglio"   },
+    { hash = "a_c_rat",         name = "Ratto"      },
+    { hash = "a_c_seagull",     name = "Gabbiano"   },
+    { hash = "a_c_pigeon",      name = "Piccione"   },
+    { hash = "a_c_panther",     name = "Ghepardo"   },
+}
+
+RegisterCommand("scuoia", function()
+    local playerPed = PlayerPedId()
+    if IsEntityPositionFrozen(playerPed) then return end
+
+    -- Must not have another player close (2.5 m)
+    local nearPlayer, nearDist = PlayerVicino()
+    if nearPlayer ~= -1 and nearDist <= 2.5 then
+        ExecuteCommand("e shrug5")
+        return
+    end
+
+    -- Needs a cutting weapon in hand (sfoggiate = blade displayed, getmysword == 2)
+    if not (exports.striano_combat:getTagliente()
+            and exports.striano_combat:sfoggiate()
+            and exports.striano_combat:getmysword() == 2) then
+        exports.striano_combat:submexError("You need a hunter knife in hand.")
+        ExecuteCommand("e shrug5")
+        return
+    end
+
+    local coords = GetEntityCoords(playerPed)
+    local animal, dist = GetClosestDeadAnimal(coords)
+    if not animal or animal <= 0 then
+        ExecuteCommand("e shrug5")
+        return
+    end
+    if IsPedAPlayer(animal) or IsPedHuman(animal) then
+        ExecuteCommand("e shrug5")
+        return
+    end
+    if #(GetEntityCoords(animal) - coords) >= 2.0 then
+        ExecuteCommand("e shrug5")
+        return
+    end
+
+    NetworkRequestControlOfEntity(animal)
+    if not DoesEntityExist(animal) then return end
+
+    local animalModel = GetEntityModel(animal)
+    local skinnedName = nil
+    for _, entry in ipairs(SKINNABLE_ANIMALS) do
+        if animalModel == GetHashKey(entry.hash) then
+            skinnedName = entry.name
+            break
+        end
+    end
+
+    if skinnedName then
+        Scuoia(animal, skinnedName)
+    else
+        ExecuteCommand("e shrug5")
+    end
+end)
+
+-- ============================================================
+-- Prop freeze system
+-- BloccaProp / SbloccaProp — freeze/unfreeze lastTargetEntity
+-- /bloccaprop, /bpr, /blocca, /sbloccaprop, /sp
+-- freezeprop:syncAll net event
+-- ============================================================
+local function freezepropSend(frozen)
+    if lastTargetEntity == nil then
+        exports.striano_combat:submexError("Non hai ancora selezionato un oggetto tenendo premuto ~h~B~h~.")
+        return false
+    end
+    local dist = #(GetEntityCoords(lastTargetEntity) - GetEntityCoords(PlayerPedId()))
+    if dist > 3.5 then
+        exports.striano_combat:submexError("Sei troppo distante dall'oggetto selezionato.")
+        return false
+    end
+    return true
+end
+
+function BloccaProp()
+    if not freezepropSend(true) then return end
+    PlaySoundFrontend(-1, "Turn", "DLC_HEIST_HACKING_SNAKE_SOUNDS", 1)
+    exports.striano_combat:submexError("Hai ~h~bloccato ~h~l'oggetto selezionato con ~h~B~h~.")
+    local pos = bbPosB.pos
+    TriggerServerEvent("freezeprop:sync",
+        GetEntityModel(lastTargetEntity), true,
+        vector3(pos.x, pos.y, pos.z))
+    makeEntityFaceEntity(PlayerPedId(), lastTargetEntity)
+    ExecuteCommand("e prendi5")
+end
+
+function SbloccaProp()
+    if not freezepropSend(false) then return end
+    PlaySoundFrontend(-1, "Turn", "DLC_HEIST_HACKING_SNAKE_SOUNDS", 1)
+    exports.striano_combat:submexError("Hai ~h~sbloccato ~h~l'oggetto selezionato con ~h~B~h~.")
+    local pos = bbPosB.pos
+    TriggerServerEvent("freezeprop:sync",
+        GetEntityModel(lastTargetEntity), false,
+        vector3(pos.x, pos.y, pos.z))
+    makeEntityFaceEntity(PlayerPedId(), lastTargetEntity)
+    ExecuteCommand("e prendi5")
+end
+
+RegisterCommand("bloccaprop", function() BloccaProp() end)
+RegisterCommand("bpr",        function() BloccaProp() end)
+RegisterCommand("blocca", function()
+    if lastTargetEntity == nil then
+        exports.striano_combat:submexError("Non hai ancora selezionato un oggetto tenendo premuto ~h~B~h~.")
+        return
+    end
+    if IsEntityPositionFrozen(lastTargetEntity) then
+        SbloccaProp()
+    else
+        BloccaProp()
+    end
+end)
+RegisterCommand("sbloccaprop", function() SbloccaProp() end, false)
+RegisterCommand("sp",          function() SbloccaProp() end, false)
+
+RegisterNetEvent("freezeprop:syncAll")
+AddEventHandler("freezeprop:syncAll", function(frozen, modelHash, pos)
+    local obj = GetClosestObjectOfType(pos, 0.1, modelHash, false, false, false)
+    if obj ~= nil and obj ~= 0 then
+        FreezeEntityPosition(obj, frozen)
+        print("Prop bloccata da un giocatore")
+    end
+end)
+
+-- ============================================================
+-- Hurt / health check thread (every 5 s)
+-- Checks player health band (105–120) to decide if hurt state
+-- should be triggered or reset.
+-- ============================================================
+local HURT_HP_LOW  = 105
+local HURT_HP_HIGH = 120
+
+CreateThread(function()
     while true do
-      L0_3 = L29_1
-      if nil == L0_3 then
-        break
-      end
-      L0_3 = DoesEntityExist
-      L1_3 = L29_1
-      L0_3 = L0_3(L1_3)
-      if not L0_3 then
-        break
-      end
-      L0_3 = Wait
-      L1_3 = 0
-      L0_3(L1_3)
-      L0_3 = L29_1
-      L1_3 = PlayerPedId
-      L1_3 = L1_3()
-      L2_3 = 0.002
-      L3_3 = 0.08
-      L4_3 = IsControlPressed
-      L5_3 = 0
-      L6_3 = 155
-      L4_3 = L4_3(L5_3, L6_3)
-      if L4_3 then
-        L4_3 = IsControlPressed
-        L5_3 = 0
-        L6_3 = 22
-        L4_3 = L4_3(L5_3, L6_3)
-        if not L4_3 then
-          L4_3 = IsDisabledControlPressed
-          L5_3 = 0
-          L6_3 = 22
-          L4_3 = L4_3(L5_3, L6_3)
-          if not L4_3 then
-            L4_3 = IsControlPressed
-            L5_3 = 0
-            L6_3 = 172
-            L4_3 = L4_3(L5_3, L6_3)
-            if not L4_3 then
-              L4_3 = IsDisabledControlPressed
-              L5_3 = 0
-              L6_3 = 172
-              L4_3 = L4_3(L5_3, L6_3)
-              if not L4_3 then
-                goto lbl_51
-              end
-            end
-            L4_3 = L33_1
-            L4_3 = L4_3 + L2_3
-            L33_1 = L4_3
-            ::lbl_51::
-            L4_3 = IsControlPressed
-            L5_3 = 0
-            L6_3 = 173
-            L4_3 = L4_3(L5_3, L6_3)
-            if not L4_3 then
-              L4_3 = IsDisabledControlPressed
-              L5_3 = 0
-              L6_3 = 173
-              L4_3 = L4_3(L5_3, L6_3)
-              if not L4_3 then
-                goto lbl_67
-              end
-            end
-            L4_3 = L33_1
-            L4_3 = L4_3 - L2_3
-            L33_1 = L4_3
-            ::lbl_67::
-            L4_3 = IsControlPressed
-            L5_3 = 0
-            L6_3 = 174
-            L4_3 = L4_3(L5_3, L6_3)
-            if not L4_3 then
-              L4_3 = IsDisabledControlPressed
-              L5_3 = 0
-              L6_3 = 174
-              L4_3 = L4_3(L5_3, L6_3)
-              if not L4_3 then
-                goto lbl_83
-              end
-            end
-            L4_3 = L36_1
-            L4_3 = L4_3 + 0.5
-            L36_1 = L4_3
-            ::lbl_83::
-            L4_3 = IsControlPressed
-            L5_3 = 0
-            L6_3 = 175
-            L4_3 = L4_3(L5_3, L6_3)
-            if not L4_3 then
-              L4_3 = IsDisabledControlPressed
-              L5_3 = 0
-              L6_3 = 175
-              L4_3 = L4_3(L5_3, L6_3)
-              if not L4_3 then
-                goto lbl_99
-              end
-            end
-            L4_3 = L36_1
-            L4_3 = L4_3 - 0.5
-            L36_1 = L4_3
-          end
-        end
-      end
-      ::lbl_99::
-      L4_3 = IsControlPressed
-      L5_3 = 0
-      L6_3 = 155
-      L4_3 = L4_3(L5_3, L6_3)
-      if not L4_3 then
-        L4_3 = IsControlPressed
-        L5_3 = 0
-        L6_3 = 22
-        L4_3 = L4_3(L5_3, L6_3)
-        if not L4_3 then
-          L4_3 = IsDisabledControlPressed
-          L5_3 = 0
-          L6_3 = 22
-          L4_3 = L4_3(L5_3, L6_3)
-          if not L4_3 then
-            L4_3 = IsControlPressed
-            L5_3 = 0
-            L6_3 = 174
-            L4_3 = L4_3(L5_3, L6_3)
-            if not L4_3 then
-              L4_3 = IsDisabledControlPressed
-              L5_3 = 0
-              L6_3 = 174
-              L4_3 = L4_3(L5_3, L6_3)
-              if not L4_3 then
-                goto lbl_133
-              end
-            end
-            L4_3 = L31_1
-            L4_3 = L4_3 + L2_3
-            L31_1 = L4_3
-            ::lbl_133::
-            L4_3 = IsControlPressed
-            L5_3 = 0
-            L6_3 = 175
-            L4_3 = L4_3(L5_3, L6_3)
-            if not L4_3 then
-              L4_3 = IsDisabledControlPressed
-              L5_3 = 0
-              L6_3 = 175
-              L4_3 = L4_3(L5_3, L6_3)
-              if not L4_3 then
-                goto lbl_149
-              end
-            end
-            L4_3 = L31_1
-            L4_3 = L4_3 - L2_3
-            L31_1 = L4_3
-            ::lbl_149::
-            L4_3 = IsControlPressed
-            L5_3 = 0
-            L6_3 = 172
-            L4_3 = L4_3(L5_3, L6_3)
-            if not L4_3 then
-              L4_3 = IsDisabledControlPressed
-              L5_3 = 0
-              L6_3 = 172
-              L4_3 = L4_3(L5_3, L6_3)
-              if not L4_3 then
-                goto lbl_165
-              end
-            end
-            L4_3 = L32_1
-            L4_3 = L4_3 + L2_3
-            L32_1 = L4_3
-            ::lbl_165::
-            L4_3 = IsControlPressed
-            L5_3 = 0
-            L6_3 = 173
-            L4_3 = L4_3(L5_3, L6_3)
-            if not L4_3 then
-              L4_3 = IsDisabledControlPressed
-              L5_3 = 0
-              L6_3 = 173
-              L4_3 = L4_3(L5_3, L6_3)
-              if not L4_3 then
-                goto lbl_181
-              end
-            end
-            L4_3 = L32_1
-            L4_3 = L4_3 - L2_3
-            L32_1 = L4_3
-          end
-        end
-      end
-      ::lbl_181::
-      L4_3 = IsControlPressed
-      L5_3 = 0
-      L6_3 = 155
-      L4_3 = L4_3(L5_3, L6_3)
-      if not L4_3 then
-        L4_3 = IsControlPressed
-        L5_3 = 0
-        L6_3 = 22
-        L4_3 = L4_3(L5_3, L6_3)
-        if not L4_3 then
-          L4_3 = IsDisabledControlPressed
-          L5_3 = 0
-          L6_3 = 22
-          L4_3 = L4_3(L5_3, L6_3)
-          if not L4_3 then
-            goto lbl_263
-          end
-        end
-        L4_3 = IsControlPressed
-        L5_3 = 0
-        L6_3 = 174
-        L4_3 = L4_3(L5_3, L6_3)
-        if not L4_3 then
-          L4_3 = IsDisabledControlPressed
-          L5_3 = 0
-          L6_3 = 174
-          L4_3 = L4_3(L5_3, L6_3)
-          if not L4_3 then
-            goto lbl_215
-          end
-        end
-        L4_3 = L34_1
-        L4_3 = L4_3 + L3_3
-        L34_1 = L4_3
-        ::lbl_215::
-        L4_3 = IsControlPressed
-        L5_3 = 0
-        L6_3 = 175
-        L4_3 = L4_3(L5_3, L6_3)
-        if not L4_3 then
-          L4_3 = IsDisabledControlPressed
-          L5_3 = 0
-          L6_3 = 175
-          L4_3 = L4_3(L5_3, L6_3)
-          if not L4_3 then
-            goto lbl_231
-          end
-        end
-        L4_3 = L34_1
-        L4_3 = L4_3 - L3_3
-        L34_1 = L4_3
-        ::lbl_231::
-        L4_3 = IsControlPressed
-        L5_3 = 0
-        L6_3 = 172
-        L4_3 = L4_3(L5_3, L6_3)
-        if not L4_3 then
-          L4_3 = IsDisabledControlPressed
-          L5_3 = 0
-          L6_3 = 172
-          L4_3 = L4_3(L5_3, L6_3)
-          if not L4_3 then
-            goto lbl_247
-          end
-        end
-        L4_3 = L35_1
-        L4_3 = L4_3 + L3_3
-        L35_1 = L4_3
-        ::lbl_247::
-        L4_3 = IsControlPressed
-        L5_3 = 0
-        L6_3 = 173
-        L4_3 = L4_3(L5_3, L6_3)
-        if not L4_3 then
-          L4_3 = IsDisabledControlPressed
-          L5_3 = 0
-          L6_3 = 173
-          L4_3 = L4_3(L5_3, L6_3)
-          if not L4_3 then
-            goto lbl_263
-          end
-        end
-        L4_3 = L35_1
-        L4_3 = L4_3 - L3_3
-        L35_1 = L4_3
-      end
-      ::lbl_263::
-      L4_3 = AttachEntityToEntity
-      L5_3 = L29_1
-      L6_3 = L1_3
-      L7_3 = GetPedBoneIndex
-      L8_3 = L1_3
-      L9_3 = L30_1
-      L7_3 = L7_3(L8_3, L9_3)
-      L8_3 = L31_1
-      L9_3 = L32_1
-      L10_3 = L33_1
-      L11_3 = L34_1
-      L12_3 = L35_1
-      L13_3 = L36_1
-      L14_3 = true
-      L15_3 = true
-      L16_3 = false
-      L17_3 = true
-      L18_3 = 1
-      L19_3 = true
-      L4_3(L5_3, L6_3, L7_3, L8_3, L9_3, L10_3, L11_3, L12_3, L13_3, L14_3, L15_3, L16_3, L17_3, L18_3, L19_3)
-      L4_3 = IsControlJustPressed
-      L5_3 = 0
-      L6_3 = 74
-      L4_3 = L4_3(L5_3, L6_3)
-      if not L4_3 then
-        L4_3 = IsDisabledControlJustPressed
-        L5_3 = 0
-        L6_3 = 74
-        L4_3 = L4_3(L5_3, L6_3)
-        if not L4_3 then
-          goto lbl_388
-        end
-      end
-      L4_3 = PlaySoundFrontend
-      L5_3 = -1
-      L6_3 = "5_Second_Timer"
-      L7_3 = "DLC_HEISTS_GENERAL_FRONTEND_SOUNDS"
-      L8_3 = 0
-      L4_3(L5_3, L6_3, L7_3, L8_3)
-      L4_3 = math
-      L4_3 = L4_3.abs
-      L5_3 = L31_1
-      L4_3 = L4_3(L5_3)
-      L5_3 = 0.001
-      if L4_3 < L5_3 then
-        L4_3 = 0.0
-        if L4_3 then
-          goto lbl_312
-        end
-      end
-      L4_3 = L31_1
-      ::lbl_312::
-      L31_1 = L4_3
-      L4_3 = math
-      L4_3 = L4_3.abs
-      L5_3 = L32_1
-      L4_3 = L4_3(L5_3)
-      L5_3 = 0.001
-      if L4_3 < L5_3 then
-        L4_3 = 0.0
-        if L4_3 then
-          goto lbl_324
-        end
-      end
-      L4_3 = L32_1
-      ::lbl_324::
-      L32_1 = L4_3
-      L4_3 = math
-      L4_3 = L4_3.abs
-      L5_3 = L33_1
-      L4_3 = L4_3(L5_3)
-      L5_3 = 0.001
-      if L4_3 < L5_3 then
-        L4_3 = 0.0
-        if L4_3 then
-          goto lbl_336
-        end
-      end
-      L4_3 = L33_1
-      ::lbl_336::
-      L33_1 = L4_3
-      L4_3 = math
-      L4_3 = L4_3.abs
-      L5_3 = L34_1
-      L4_3 = L4_3(L5_3)
-      L5_3 = 0.001
-      if L4_3 < L5_3 then
-        L4_3 = 0.0
-        if L4_3 then
-          goto lbl_348
-        end
-      end
-      L4_3 = L34_1
-      ::lbl_348::
-      L34_1 = L4_3
-      L4_3 = math
-      L4_3 = L4_3.abs
-      L5_3 = L35_1
-      L4_3 = L4_3(L5_3)
-      L5_3 = 0.001
-      if L4_3 < L5_3 then
-        L4_3 = 0.0
-        if L4_3 then
-          goto lbl_360
-        end
-      end
-      L4_3 = L35_1
-      ::lbl_360::
-      L35_1 = L4_3
-      L4_3 = math
-      L4_3 = L4_3.abs
-      L5_3 = L36_1
-      L4_3 = L4_3(L5_3)
-      L5_3 = 0.001
-      if L4_3 < L5_3 then
-        L4_3 = 0.0
-        if L4_3 then
-          goto lbl_372
-        end
-      end
-      L4_3 = L36_1
-      ::lbl_372::
-      L36_1 = L4_3
-      L4_3 = ExecuteCommand
-      L5_3 = "copia "
-      L6_3 = L31_1
-      L7_3 = ","
-      L8_3 = L32_1
-      L9_3 = ","
-      L10_3 = L33_1
-      L11_3 = ","
-      L12_3 = L34_1
-      L13_3 = ","
-      L14_3 = L35_1
-      L15_3 = ","
-      L16_3 = L36_1
-      L5_3 = L5_3 .. L6_3 .. L7_3 .. L8_3 .. L9_3 .. L10_3 .. L11_3 .. L12_3 .. L13_3 .. L14_3 .. L15_3 .. L16_3
-      L4_3(L5_3)
-      ::lbl_388::
-    end
-    L0_3 = print
-    L1_3 = "Editoratt chiuso."
-    L0_3(L1_3)
-  end
-  L0_2(L1_2)
-end
-UpdateEditorAtt = L37_1
-function L37_1(A0_2, A1_2, A2_2, A3_2, A4_2, A5_2, A6_2, A7_2)
-  local L8_2, L9_2, L10_2, L11_2, L12_2, L13_2, L14_2, L15_2, L16_2, L17_2, L18_2, L19_2, L20_2, L21_2, L22_2, L23_2, L24_2, L25_2, L26_2
-  if 0 ~= A0_2 and nil ~= A0_2 then
-    L8_2 = table
-    L8_2 = L8_2.unpack
-    L9_2 = GetEntityCoords
-    L10_2 = A0_2
-    L9_2, L10_2, L11_2, L12_2, L13_2, L14_2, L15_2, L16_2, L17_2, L18_2, L19_2, L20_2, L21_2, L22_2, L23_2, L24_2, L25_2, L26_2 = L9_2(L10_2)
-    L8_2, L9_2, L10_2 = L8_2(L9_2, L10_2, L11_2, L12_2, L13_2, L14_2, L15_2, L16_2, L17_2, L18_2, L19_2, L20_2, L21_2, L22_2, L23_2, L24_2, L25_2, L26_2)
-    L11_2 = RequestModelStriano
-    L12_2 = A1_2
-    L11_2(L12_2)
-    L11_2 = CreateObject
-    L12_2 = GetHashKey
-    L13_2 = A1_2
-    L12_2 = L12_2(L13_2)
-    L13_2 = L8_2
-    L14_2 = L9_2
-    L15_2 = L10_2 + 0.2
-    L16_2 = true
-    L17_2 = true
-    L18_2 = true
-    L11_2 = L11_2(L12_2, L13_2, L14_2, L15_2, L16_2, L17_2, L18_2)
-    prop = L11_2
-    L11_2 = AttachEntityToEntity
-    L12_2 = prop
-    L13_2 = A0_2
-    L14_2 = -1
-    L15_2 = A2_2
-    L16_2 = A3_2
-    L17_2 = A4_2
-    L18_2 = A5_2
-    L19_2 = A6_2
-    L20_2 = A7_2
-    L21_2 = true
-    L22_2 = true
-    L23_2 = false
-    L24_2 = true
-    L25_2 = 1
-    L26_2 = true
-    L11_2(L12_2, L13_2, L14_2, L15_2, L16_2, L17_2, L18_2, L19_2, L20_2, L21_2, L22_2, L23_2, L24_2, L25_2, L26_2)
-    L11_2 = SetModelAsNoLongerNeeded
-    L12_2 = A1_2
-    L11_2(L12_2)
-    L11_2 = prop
-    return L11_2
-  end
-end
-AddPropToVehicleFF = L37_1
-L37_1 = RegisterNetEvent
-L38_1 = "ff:avviaEditorVeicolo"
-L37_1(L38_1)
-L37_1 = AddEventHandler
-L38_1 = "ff:avviaEditorVeicolo"
-function L39_1(A0_2)
-  local L1_2, L2_2, L3_2, L4_2, L5_2, L6_2, L7_2, L8_2, L9_2, L10_2, L11_2, L12_2
-  L1_2 = GetVehiclePedIsIn
-  L2_2 = PlayerPedId
-  L2_2 = L2_2()
-  L3_2 = false
-  L1_2 = L1_2(L2_2, L3_2)
-  if nil == L1_2 or -1 == L1_2 or 0 == L1_2 then
-    L2_2 = exports
-    L2_2 = L2_2.striano_combat
-    L3_2 = L2_2
-    L2_2 = L2_2.submexError
-    L4_2 = "Devi essere in un veicolo."
-    L2_2(L3_2, L4_2)
-    return
-  end
-  L2_2 = GetVehicleTrailerVehicle
-  L3_2 = L1_2
-  L2_2, L3_2 = L2_2(L3_2)
-  if L2_2 and L1_2 ~= L3_2 then
-    L1_2 = L3_2
-  end
-  L4_2 = AddPropToVehicleFF
-  L5_2 = L1_2
-  L6_2 = A0_2
-  L7_2 = 0.0
-  L8_2 = 0.0
-  L9_2 = 0.0
-  L10_2 = 0.0
-  L11_2 = 0.0
-  L12_2 = 0.0
-  L4_2 = L4_2(L5_2, L6_2, L7_2, L8_2, L9_2, L10_2, L11_2, L12_2)
-  L29_1 = L4_2
-  L4_2 = exports
-  L4_2 = L4_2.striano_combat
-  L5_2 = L4_2
-  L4_2 = L4_2.submexError
-  L6_2 = "Editor veh attivo."
-  L4_2(L5_2, L6_2)
-  L4_2 = UpdateVEditorAtt
-  L5_2 = L1_2
-  L4_2(L5_2)
-end
-L37_1(L38_1, L39_1)
-function L37_1(A0_2)
-  local L1_2, L2_2, L3_2
-  L1_2 = InEditV
-  if nil == L1_2 then
-    InEditV = A0_2
-    L1_2 = CreateThread
-    function L2_2()
-      local L0_3, L1_3, L2_3, L3_3, L4_3, L5_3, L6_3, L7_3, L8_3, L9_3, L10_3, L11_3, L12_3, L13_3, L14_3, L15_3
-      while true do
-        L0_3 = DoesEntityExist
-        L1_3 = InEditV
-        L0_3 = L0_3(L1_3)
-        if not L0_3 then
-          break
-        end
-        L0_3 = Wait
-        L1_3 = 0
-        L0_3(L1_3)
-        L0_3 = IsControlPressed
-        L1_3 = 0
-        L2_3 = 155
-        L0_3 = L0_3(L1_3, L2_3)
-        if L0_3 then
-          L0_3 = IsControlPressed
-          L1_3 = 0
-          L2_3 = 22
-          L0_3 = L0_3(L1_3, L2_3)
-          if not L0_3 then
-            L0_3 = IsControlPressed
-            L1_3 = 0
-            L2_3 = 172
-            L0_3 = L0_3(L1_3, L2_3)
-            if L0_3 then
-              L0_3 = L33_1
-              L0_3 = L0_3 + 0.005
-              L33_1 = L0_3
-            end
-            L0_3 = IsControlPressed
-            L1_3 = 0
-            L2_3 = 173
-            L0_3 = L0_3(L1_3, L2_3)
-            if L0_3 then
-              L0_3 = L33_1
-              L0_3 = L0_3 - 0.005
-              L33_1 = L0_3
-            end
-            L0_3 = IsControlPressed
-            L1_3 = 0
-            L2_3 = 174
-            L0_3 = L0_3(L1_3, L2_3)
-            if L0_3 then
-              L0_3 = L36_1
-              L0_3 = L0_3 + 0.1
-              L36_1 = L0_3
-            end
-            L0_3 = IsControlPressed
-            L1_3 = 0
-            L2_3 = 175
-            L0_3 = L0_3(L1_3, L2_3)
-            if L0_3 then
-              L0_3 = L36_1
-              L0_3 = L0_3 - 0.1
-              L36_1 = L0_3
-            end
-          end
-        end
-        L0_3 = IsControlPressed
-        L1_3 = 0
-        L2_3 = 155
-        L0_3 = L0_3(L1_3, L2_3)
-        if not L0_3 then
-          L0_3 = IsControlPressed
-          L1_3 = 0
-          L2_3 = 22
-          L0_3 = L0_3(L1_3, L2_3)
-          if not L0_3 then
-            L0_3 = IsControlPressed
-            L1_3 = 0
-            L2_3 = 174
-            L0_3 = L0_3(L1_3, L2_3)
-            if L0_3 then
-              L0_3 = L31_1
-              L0_3 = L0_3 + 0.005
-              L31_1 = L0_3
-            end
-            L0_3 = IsControlPressed
-            L1_3 = 0
-            L2_3 = 175
-            L0_3 = L0_3(L1_3, L2_3)
-            if L0_3 then
-              L0_3 = L31_1
-              L0_3 = L0_3 - 0.005
-              L31_1 = L0_3
-            end
-            L0_3 = IsControlPressed
-            L1_3 = 0
-            L2_3 = 172
-            L0_3 = L0_3(L1_3, L2_3)
-            if L0_3 then
-              L0_3 = L32_1
-              L0_3 = L0_3 + 0.005
-              L32_1 = L0_3
-            end
-            L0_3 = IsControlPressed
-            L1_3 = 0
-            L2_3 = 173
-            L0_3 = L0_3(L1_3, L2_3)
-            if L0_3 then
-              L0_3 = L32_1
-              L0_3 = L0_3 - 0.005
-              L32_1 = L0_3
-            end
-          end
-        end
-        L0_3 = IsControlPressed
-        L1_3 = 0
-        L2_3 = 155
-        L0_3 = L0_3(L1_3, L2_3)
-        if not L0_3 then
-          L0_3 = IsControlPressed
-          L1_3 = 0
-          L2_3 = 22
-          L0_3 = L0_3(L1_3, L2_3)
-          if L0_3 then
-            L0_3 = IsControlPressed
-            L1_3 = 0
-            L2_3 = 174
-            L0_3 = L0_3(L1_3, L2_3)
-            if L0_3 then
-              L0_3 = L34_1
-              L0_3 = L0_3 + 0.1
-              L34_1 = L0_3
-            end
-            L0_3 = IsControlPressed
-            L1_3 = 0
-            L2_3 = 175
-            L0_3 = L0_3(L1_3, L2_3)
-            if L0_3 then
-              L0_3 = L34_1
-              L0_3 = L0_3 - 0.1
-              L34_1 = L0_3
-            end
-            L0_3 = IsControlPressed
-            L1_3 = 0
-            L2_3 = 172
-            L0_3 = L0_3(L1_3, L2_3)
-            if L0_3 then
-              L0_3 = L35_1
-              L0_3 = L0_3 + 0.1
-              L35_1 = L0_3
-            end
-            L0_3 = IsControlPressed
-            L1_3 = 0
-            L2_3 = 173
-            L0_3 = L0_3(L1_3, L2_3)
-            if L0_3 then
-              L0_3 = L35_1
-              L0_3 = L0_3 - 0.1
-              L35_1 = L0_3
-            end
-          end
-        end
-        L0_3 = IsControlJustPressed
-        L1_3 = 0
-        L2_3 = 74
-        L0_3 = L0_3(L1_3, L2_3)
-        if L0_3 then
-          L0_3 = PlaySoundFrontend
-          L1_3 = -1
-          L2_3 = "5_Second_Timer"
-          L3_3 = "DLC_HEISTS_GENERAL_FRONTEND_SOUNDS"
-          L4_3 = 0
-          L0_3(L1_3, L2_3, L3_3, L4_3)
-          L0_3 = math
-          L0_3 = L0_3.abs
-          L1_3 = L31_1
-          L0_3 = L0_3(L1_3)
-          L1_3 = 0.001
-          if L0_3 < L1_3 then
-            L0_3 = 0.0
-            if L0_3 then
-              goto lbl_188
-            end
-          end
-          L0_3 = L31_1
-          ::lbl_188::
-          L31_1 = L0_3
-          L0_3 = math
-          L0_3 = L0_3.abs
-          L1_3 = L32_1
-          L0_3 = L0_3(L1_3)
-          L1_3 = 0.001
-          if L0_3 < L1_3 then
-            L0_3 = 0.0
-            if L0_3 then
-              goto lbl_200
-            end
-          end
-          L0_3 = L32_1
-          ::lbl_200::
-          L32_1 = L0_3
-          L0_3 = math
-          L0_3 = L0_3.abs
-          L1_3 = L33_1
-          L0_3 = L0_3(L1_3)
-          L1_3 = 0.001
-          if L0_3 < L1_3 then
-            L0_3 = 0.0
-            if L0_3 then
-              goto lbl_212
-            end
-          end
-          L0_3 = L33_1
-          ::lbl_212::
-          L33_1 = L0_3
-          L0_3 = math
-          L0_3 = L0_3.abs
-          L1_3 = L34_1
-          L0_3 = L0_3(L1_3)
-          L1_3 = 0.001
-          if L0_3 < L1_3 then
-            L0_3 = 0.0
-            if L0_3 then
-              goto lbl_224
-            end
-          end
-          L0_3 = L34_1
-          ::lbl_224::
-          L34_1 = L0_3
-          L0_3 = math
-          L0_3 = L0_3.abs
-          L1_3 = L35_1
-          L0_3 = L0_3(L1_3)
-          L1_3 = 0.001
-          if L0_3 < L1_3 then
-            L0_3 = 0.0
-            if L0_3 then
-              goto lbl_236
-            end
-          end
-          L0_3 = L35_1
-          ::lbl_236::
-          L35_1 = L0_3
-          L0_3 = math
-          L0_3 = L0_3.abs
-          L1_3 = L36_1
-          L0_3 = L0_3(L1_3)
-          L1_3 = 0.001
-          if L0_3 < L1_3 then
-            L0_3 = 0.0
-            if L0_3 then
-              goto lbl_248
-            end
-          end
-          L0_3 = L36_1
-          ::lbl_248::
-          L36_1 = L0_3
-          L0_3 = ExecuteCommand
-          L1_3 = "copia "
-          L2_3 = L31_1
-          L3_3 = ", "
-          L4_3 = L32_1
-          L5_3 = ", "
-          L6_3 = L33_1
-          L7_3 = ", "
-          L8_3 = L34_1
-          L9_3 = ", "
-          L10_3 = L35_1
-          L11_3 = ", "
-          L12_3 = L36_1
-          L1_3 = L1_3 .. L2_3 .. L3_3 .. L4_3 .. L5_3 .. L6_3 .. L7_3 .. L8_3 .. L9_3 .. L10_3 .. L11_3 .. L12_3
-          L0_3(L1_3)
-        end
-        L0_3 = AttachEntityToEntity
-        L1_3 = L29_1
-        L2_3 = InEditV
-        L3_3 = -1
-        L4_3 = L31_1
-        L5_3 = L32_1
-        L6_3 = L33_1
-        L7_3 = L34_1
-        L8_3 = L35_1
-        L9_3 = L36_1
-        L10_3 = true
-        L11_3 = true
-        L12_3 = false
-        L13_3 = true
-        L14_3 = 1
-        L15_3 = true
-        L0_3(L1_3, L2_3, L3_3, L4_3, L5_3, L6_3, L7_3, L8_3, L9_3, L10_3, L11_3, L12_3, L13_3, L14_3, L15_3)
-      end
-    end
-    L1_2(L2_2)
-  else
-    L1_2 = exports
-    L1_2 = L1_2.striano_combat
-    L2_2 = L1_2
-    L1_2 = L1_2.submexError
-    L3_2 = "Editor gi\195\160 attivo."
-    L1_2(L2_2, L3_2)
-  end
-end
-UpdateVEditorAtt = L37_1
-function L37_1(A0_2, A1_2, A2_2)
-  local L3_2, L4_2, L5_2, L6_2, L7_2, L8_2, L9_2, L10_2, L11_2, L12_2, L13_2
-  L3_2 = nil
-  if A2_2 then
-    L4_2 = A2_2 * A2_2
-    if L4_2 then
-      goto lbl_10
-    end
-  end
-  L4_2 = math
-  L4_2 = L4_2.huge
-  ::lbl_10::
-  L5_2 = FindFirstPed
-  L5_2, L6_2 = L5_2()
-  if not L5_2 or -1 == L5_2 then
-    L7_2 = nil
-    L8_2 = nil
-    return L7_2, L8_2
-  end
-  L7_2 = true
-  repeat
-    if L6_2 and 0 ~= L6_2 then
-      L8_2 = DoesEntityExist
-      L9_2 = L6_2
-      L8_2 = L8_2(L9_2)
-      if L8_2 and (not A1_2 or L6_2 ~= A1_2) then
-        L8_2 = IsEntityDead
-        L9_2 = L6_2
-        L8_2 = L8_2(L9_2)
-        if L8_2 then
-          L8_2 = IsPedAPlayer
-          L9_2 = L6_2
-          L8_2 = L8_2(L9_2)
-          if not L8_2 then
-            L8_2 = GetEntityCoords
-            L9_2 = L6_2
-            L8_2 = L8_2(L9_2)
-            L9_2 = L8_2.x
-            L10_2 = A0_2.x
-            L9_2 = L9_2 - L10_2
-            L10_2 = L8_2.y
-            L11_2 = A0_2.y
-            L10_2 = L10_2 - L11_2
-            L11_2 = L8_2.z
-            L12_2 = A0_2.z
-            L11_2 = L11_2 - L12_2
-            L12_2 = L9_2 * L9_2
-            L13_2 = L10_2 * L10_2
-            L12_2 = L12_2 + L13_2
-            L13_2 = L11_2 * L11_2
-            L12_2 = L12_2 + L13_2
-            if L4_2 > L12_2 then
-              L4_2 = L12_2
-              L3_2 = L6_2
-            end
-          end
-        end
-      end
-    end
-    L8_2 = FindNextPed
-    L9_2 = L5_2
-    L8_2, L9_2 = L8_2(L9_2)
-    L6_2 = L9_2
-    L7_2 = L8_2
-  until not L7_2
-  L8_2 = EndFindPed
-  L9_2 = L5_2
-  L8_2(L9_2)
-  if L3_2 then
-    L8_2 = L3_2
-    L9_2 = math
-    L9_2 = L9_2.sqrt
-    L10_2 = L4_2
-    L9_2, L10_2, L11_2, L12_2, L13_2 = L9_2(L10_2)
-    return L8_2, L9_2, L10_2, L11_2, L12_2, L13_2
-  end
-  L8_2 = nil
-  L9_2 = nil
-  return L8_2, L9_2
-end
-GetClosestDeadAnimal = L37_1
-L37_1 = true
-L38_1 = exports
-L39_1 = "scuoio"
-function L40_1()
-  local L0_2, L1_2
-  L0_2 = L37_1
-  return L0_2
-end
-L38_1(L39_1, L40_1)
-L38_1 = RegisterCommand
-L39_1 = "scuoia"
-function L40_1()
-  local L0_2, L1_2, L2_2, L3_2, L4_2, L5_2, L6_2, L7_2, L8_2
-  L0_2 = IsEntityPositionFrozen
-  L1_2 = PlayerPedId
-  L1_2, L2_2, L3_2, L4_2, L5_2, L6_2, L7_2, L8_2 = L1_2()
-  L0_2 = L0_2(L1_2, L2_2, L3_2, L4_2, L5_2, L6_2, L7_2, L8_2)
-  if L0_2 then
-    return
-  end
-  L0_2 = PlayerPedId
-  L0_2 = L0_2()
-  L1_2 = PlayerVicino
-  L1_2, L2_2 = L1_2()
-  if -1 ~= L1_2 then
-    L3_2 = 2.5
-    if L2_2 <= L3_2 then
-      L3_2 = ExecuteCommand
-      L4_2 = "e shrug5"
-      L3_2(L4_2)
-      return
-    end
-  end
-  L3_2 = exports
-  L3_2 = L3_2.striano_combat
-  L4_2 = L3_2
-  L3_2 = L3_2.getTagliente
-  L3_2 = L3_2(L4_2)
-  if L3_2 then
-    L3_2 = exports
-    L3_2 = L3_2.striano_combat
-    L4_2 = L3_2
-    L3_2 = L3_2.sfoggiate
-    L3_2 = L3_2(L4_2)
-    if L3_2 then
-      L3_2 = exports
-      L3_2 = L3_2.striano_combat
-      L4_2 = L3_2
-      L3_2 = L3_2.getmysword
-      L3_2 = L3_2(L4_2)
-      if 2 == L3_2 then
-        L3_2 = GetEntityCoords
-        L4_2 = L0_2
-        L3_2 = L3_2(L4_2)
-        L4_2 = false
-        L5_2 = GetClosestDeadAnimal
-        L6_2 = L3_2
-        L5_2 = L5_2(L6_2)
-        if nil ~= L5_2 and L5_2 > 0 then
-          L6_2 = IsPedAPlayer
-          L7_2 = L5_2
-          L6_2 = L6_2(L7_2)
-          if not L6_2 then
-            L6_2 = IsPedHuman
-            L7_2 = L5_2
-            L6_2 = L6_2(L7_2)
-            if not L6_2 then
-              L6_2 = GetEntityCoords
-              L7_2 = L5_2
-              L6_2 = L6_2(L7_2)
-              L6_2 = L6_2 - L3_2
-              L6_2 = #L6_2
-              if L6_2 < 2.0 then
-                L6_2 = NetworkRequestControlOfEntity
-                L7_2 = L5_2
-                L6_2(L7_2)
-                L6_2 = DoesEntityExist
-                L7_2 = L5_2
-                L6_2 = L6_2(L7_2)
-                if L6_2 then
-                  L6_2 = GetEntityModel
-                  L7_2 = L5_2
-                  L6_2 = L6_2(L7_2)
-                  L7_2 = GetHashKey
-                  L8_2 = "a_c_chickenhawk"
-                  L7_2 = L7_2(L8_2)
-                  if L6_2 == L7_2 then
-                    L4_2 = true
-                    L6_2 = Scuoia
-                    L7_2 = L5_2
-                    L8_2 = "Falco"
-                    L6_2(L7_2, L8_2)
-                  end
-                  L6_2 = GetEntityModel
-                  L7_2 = L5_2
-                  L6_2 = L6_2(L7_2)
-                  L7_2 = GetHashKey
-                  L8_2 = "a_c_boar"
-                  L7_2 = L7_2(L8_2)
-                  if L6_2 == L7_2 then
-                    L4_2 = true
-                    L6_2 = Scuoia
-                    L7_2 = L5_2
-                    L8_2 = "Cinghiale"
-                    L6_2(L7_2, L8_2)
-                  end
-                  L6_2 = GetEntityModel
-                  L7_2 = L5_2
-                  L6_2 = L6_2(L7_2)
-                  L7_2 = GetHashKey
-                  L8_2 = "a_c_mtlion"
-                  L7_2 = L7_2(L8_2)
-                  if L6_2 == L7_2 then
-                    L4_2 = true
-                    L6_2 = Scuoia
-                    L7_2 = L5_2
-                    L8_2 = "Ghepardo"
-                    L6_2(L7_2, L8_2)
-                  end
-                  L6_2 = GetEntityModel
-                  L7_2 = L5_2
-                  L6_2 = L6_2(L7_2)
-                  L7_2 = GetHashKey
-                  L8_2 = "a_c_cormorant"
-                  L7_2 = L7_2(L8_2)
-                  if L6_2 == L7_2 then
-                    L4_2 = true
-                    L6_2 = Scuoia
-                    L7_2 = L5_2
-                    L8_2 = "Cormorano"
-                    L6_2(L7_2, L8_2)
-                  end
-                  L6_2 = GetEntityModel
-                  L7_2 = L5_2
-                  L6_2 = L6_2(L7_2)
-                  L7_2 = GetHashKey
-                  L8_2 = "a_c_cow"
-                  L7_2 = L7_2(L8_2)
-                  if L6_2 == L7_2 then
-                    L4_2 = true
-                    L6_2 = Scuoia
-                    L7_2 = L5_2
-                    L8_2 = "Mucca"
-                    L6_2(L7_2, L8_2)
-                  end
-                  L6_2 = GetEntityModel
-                  L7_2 = L5_2
-                  L6_2 = L6_2(L7_2)
-                  L7_2 = GetHashKey
-                  L8_2 = "a_c_deer"
-                  L7_2 = L7_2(L8_2)
-                  if L6_2 == L7_2 then
-                    L4_2 = true
-                    L6_2 = Scuoia
-                    L7_2 = L5_2
-                    L8_2 = "Cervo"
-                    L6_2(L7_2, L8_2)
-                  end
-                  L6_2 = GetEntityModel
-                  L7_2 = L5_2
-                  L6_2 = L6_2(L7_2)
-                  L7_2 = GetHashKey
-                  L8_2 = "a_c_coyote"
-                  L7_2 = L7_2(L8_2)
-                  if L6_2 == L7_2 then
-                    L4_2 = true
-                    L6_2 = Scuoia
-                    L7_2 = L5_2
-                    L8_2 = "Coyote"
-                    L6_2(L7_2, L8_2)
-                  end
-                  L6_2 = GetEntityModel
-                  L7_2 = L5_2
-                  L6_2 = L6_2(L7_2)
-                  L7_2 = GetHashKey
-                  L8_2 = "a_c_crow"
-                  L7_2 = L7_2(L8_2)
-                  if L6_2 == L7_2 then
-                    L4_2 = true
-                    L6_2 = Scuoia
-                    L7_2 = L5_2
-                    L8_2 = "Corvo"
-                    L6_2(L7_2, L8_2)
-                  end
-                  L6_2 = GetEntityModel
-                  L7_2 = L5_2
-                  L6_2 = L6_2(L7_2)
-                  L7_2 = GetHashKey
-                  L8_2 = "a_c_hen"
-                  L7_2 = L7_2(L8_2)
-                  if L6_2 == L7_2 then
-                    L4_2 = true
-                    L6_2 = Scuoia
-                    L7_2 = L5_2
-                    L8_2 = "Gallina"
-                    L6_2(L7_2, L8_2)
-                  end
-                  L6_2 = GetEntityModel
-                  L7_2 = L5_2
-                  L6_2 = L6_2(L7_2)
-                  L7_2 = GetHashKey
-                  L8_2 = "a_c_pig"
-                  L7_2 = L7_2(L8_2)
-                  if L6_2 == L7_2 then
-                    L4_2 = true
-                    L6_2 = Scuoia
-                    L7_2 = L5_2
-                    L8_2 = "Maiale"
-                    L6_2(L7_2, L8_2)
-                  end
-                  L6_2 = GetEntityModel
-                  L7_2 = L5_2
-                  L6_2 = L6_2(L7_2)
-                  L7_2 = GetHashKey
-                  L8_2 = "a_c_rabbit_01"
-                  L7_2 = L7_2(L8_2)
-                  if L6_2 == L7_2 then
-                    L4_2 = true
-                    L6_2 = Scuoia
-                    L7_2 = L5_2
-                    L8_2 = "Coniglio"
-                    L6_2(L7_2, L8_2)
-                  end
-                  L6_2 = GetEntityModel
-                  L7_2 = L5_2
-                  L6_2 = L6_2(L7_2)
-                  L7_2 = GetHashKey
-                  L8_2 = "a_c_rat"
-                  L7_2 = L7_2(L8_2)
-                  if L6_2 == L7_2 then
-                    L4_2 = true
-                    L6_2 = Scuoia
-                    L7_2 = L5_2
-                    L8_2 = "Ratto"
-                    L6_2(L7_2, L8_2)
-                  end
-                  L6_2 = GetEntityModel
-                  L7_2 = L5_2
-                  L6_2 = L6_2(L7_2)
-                  L7_2 = GetHashKey
-                  L8_2 = "a_c_seagull"
-                  L7_2 = L7_2(L8_2)
-                  if L6_2 == L7_2 then
-                    L4_2 = true
-                    L6_2 = Scuoia
-                    L7_2 = L5_2
-                    L8_2 = "Gabbiano"
-                    L6_2(L7_2, L8_2)
-                  end
-                  L6_2 = GetEntityModel
-                  L7_2 = L5_2
-                  L6_2 = L6_2(L7_2)
-                  L7_2 = GetHashKey
-                  L8_2 = "a_c_pigeon"
-                  L7_2 = L7_2(L8_2)
-                  if L6_2 == L7_2 then
-                    L4_2 = true
-                    L6_2 = Scuoia
-                    L7_2 = L5_2
-                    L8_2 = "Piccione"
-                    L6_2(L7_2, L8_2)
-                  end
-                  L6_2 = GetEntityModel
-                  L7_2 = L5_2
-                  L6_2 = L6_2(L7_2)
-                  L7_2 = GetHashKey
-                  L8_2 = "a_c_panther"
-                  L7_2 = L7_2(L8_2)
-                  if L6_2 == L7_2 then
-                    L4_2 = true
-                    L6_2 = Scuoia
-                    L7_2 = L5_2
-                    L8_2 = "Ghepardo"
-                    L6_2(L7_2, L8_2)
-                  end
-                end
-              end
-            end
-          end
-        end
-        if not L4_2 then
-          L6_2 = ExecuteCommand
-          L7_2 = "e shrug5"
-          L6_2(L7_2)
-        end
-    end
-  end
-  else
-    L3_2 = exports
-    L3_2 = L3_2.striano_combat
-    L4_2 = L3_2
-    L3_2 = L3_2.submexError
-    L5_2 = "You need a hunter knife in hand."
-    L3_2(L4_2, L5_2)
-    L3_2 = ExecuteCommand
-    L4_2 = "e shrug5"
-    L3_2(L4_2)
-  end
-end
-L38_1(L39_1, L40_1)
-function L38_1(A0_2, A1_2)
-  local L2_2, L3_2, L4_2, L5_2, L6_2, L7_2, L8_2
-  L2_2 = L37_1
-  if L2_2 then
-    L2_2 = 1
-    L3_2 = false
-    L37_1 = L3_2
-    L3_2 = NetworkRequestControlOfEntity
-    L4_2 = A0_2
-    L3_2(L4_2)
-    L3_2 = IsPedDeadOrDying
-    L4_2 = A0_2
-    L3_2 = L3_2(L4_2)
-    if not L3_2 then
-      L3_2 = ExecuteCommand
-      L4_2 = "e shrug5"
-      L3_2(L4_2)
-      L3_2 = true
-      L37_1 = L3_2
-      return
-    end
-    L3_2 = GetEntityAlpha
-    L4_2 = A0_2
-    L3_2 = L3_2(L4_2)
-    L4_2 = 255
-    if L3_2 < L4_2 then
-      L3_2 = ExecuteCommand
-      L4_2 = "e shrug5"
-      L3_2(L4_2)
-      L3_2 = true
-      L37_1 = L3_2
-      return
-    end
-    L3_2 = DoesEntityExist
-    L4_2 = A0_2
-    L3_2 = L3_2(L4_2)
-    if not L3_2 then
-      L3_2 = true
-      L37_1 = L3_2
-      return
-    end
-    L3_2 = FreezeEntityPosition
-    L4_2 = PlayerPedId
-    L4_2 = L4_2()
-    L5_2 = true
-    L3_2(L4_2, L5_2)
-    L3_2 = ClearPedTasks
-    L4_2 = PlayerPedId
-    L4_2, L5_2, L6_2, L7_2, L8_2 = L4_2()
-    L3_2(L4_2, L5_2, L6_2, L7_2, L8_2)
-    L3_2 = makeEntityFaceEntity
-    L4_2 = PlayerPedId
-    L4_2 = L4_2()
-    L5_2 = A0_2
-    L3_2(L4_2, L5_2)
-    L3_2 = ExecuteCommand
-    L4_2 = "e kneel3"
-    L3_2(L4_2)
-    L3_2 = Wait
-    L4_2 = 500
-    L3_2(L4_2)
-    L3_2 = ExecuteCommand
-    L4_2 = "e cerca"
-    L3_2(L4_2)
-    L3_2 = Wait
-    L4_2 = 8000
-    L3_2(L4_2)
-    L3_2 = ExecuteCommand
-    L4_2 = "e cc"
-    L3_2(L4_2)
-    L3_2 = ExecuteCommand
-    L4_2 = "e alzati"
-    L3_2(L4_2)
-    L3_2 = Wait
-    L4_2 = 1000
-    L3_2(L4_2)
-    if "Cervo" == A1_2 or "Mucca" == A1_2 or "Cinghiale" == A1_2 then
-      L2_2 = 5
-    elseif "Gallina" == A1_2 then
-    else
-      L2_2 = 3
-    end
-    L3_2 = DeleteEntity
-    L4_2 = A0_2
-    L3_2(L4_2)
-    L3_2 = ExecuteCommand
-    L4_2 = "e pickup"
-    L3_2(L4_2)
-    L3_2 = Wait
-    L4_2 = 750
-    L3_2(L4_2)
-    L3_2 = FreezeEntityPosition
-    L4_2 = PlayerPedId
-    L4_2 = L4_2()
-    L5_2 = false
-    L3_2(L4_2, L5_2)
-    L3_2 = true
-    L37_1 = L3_2
-    L3_2 = TriggerServerEvent
-    L4_2 = "inv3d:giveItem"
-    L5_2 = GetPlayerServerId
-    L6_2 = PlayerId
-    L6_2, L7_2, L8_2 = L6_2()
-    L5_2 = L5_2(L6_2, L7_2, L8_2)
-    L6_2 = "player"
-    L7_2 = "meat"
-    L8_2 = L2_2
-    L3_2(L4_2, L5_2, L6_2, L7_2, L8_2)
-  end
-end
-Scuoia = L38_1
-function L38_1(A0_2)
-  local L1_2, L2_2, L3_2
-  L1_2 = GetPedCauseOfDeath
-  L2_2 = A0_2
-  L1_2 = L1_2(L2_2)
-  if "WEAPON_RUN_OVER_BY_CAR" ~= L1_2 and "WEAPON_RAMMED_BY_CAR" ~= L1_2 then
-    L2_2 = HasEntityBeenDamagedByAnyVehicle
-    L3_2 = A0_2
-    L2_2 = L2_2(L3_2)
-    if not L2_2 then
-      goto lbl_16
-    end
-  end
-  L2_2 = false
-  do return L2_2 end
-  goto lbl_51
-  ::lbl_16::
-  L2_2 = GetWeapontypeGroup
-  L3_2 = L1_2
-  L2_2 = L2_2(L3_2)
-  if nil ~= L2_2 then
-    L2_2 = GetWeapontypeGroup
-    L3_2 = L1_2
-    L2_2 = L2_2(L3_2)
-    if "GROUP_UNARMED" == L2_2 or "GROUP_MELEE" == L2_2 then
-      L3_2 = "OK"
-      return L3_2
-    elseif "GROUP_PISTOL" == L2_2 or "GROUP_SMG" == L2_2 or "GROUP_SNIPER" == L2_2 then
-      L3_2 = "OK"
-      return L3_2
-    elseif "GROUP_MG" == L2_2 or "GROUP_SHOTGUN" == L2_2 or "GROUP_RIFLE" == L2_2 then
-      L3_2 = "OK"
-      return L3_2
-    else
-      L3_2 = false
-      return L3_2
-    end
-  end
-  ::lbl_51::
-  L2_2 = false
-  return L2_2
-end
-COD = L38_1
-L38_1 = RegisterCommand
-L39_1 = "bbadmin"
-function L40_1()
-  local L0_2, L1_2, L2_2, L3_2, L4_2
-  L0_2 = bbadmin
-  L0_2 = not L0_2
-  bbadmin = L0_2
-  L0_2 = bbadmin
-  if L0_2 then
-    L0_2 = PlaySoundFrontend
-    L1_2 = -1
-    L2_2 = "Turn"
-    L3_2 = "DLC_HEIST_HACKING_SNAKE_SOUNDS"
-    L4_2 = 1
-    L0_2(L1_2, L2_2, L3_2, L4_2)
-  end
-end
-L38_1(L39_1, L40_1)
-function L38_1()
-  local L0_2, L1_2, L2_2, L3_2, L4_2, L5_2, L6_2, L7_2, L8_2, L9_2
-  L0_2 = L15_1
-  if nil == L0_2 then
-    L0_2 = exports
-    L0_2 = L0_2.striano_combat
-    L1_2 = L0_2
-    L0_2 = L0_2.submexError
-    L2_2 = "Non hai ancora selezionato un oggetto tenendo premuto ~h~B~h~."
-    L0_2(L1_2, L2_2)
-    return
-  end
-  L0_2 = GetEntityCoords
-  L1_2 = L15_1
-  L0_2 = L0_2(L1_2)
-  L1_2 = GetEntityCoords
-  L2_2 = PlayerPedId
-  L2_2, L3_2, L4_2, L5_2, L6_2, L7_2, L8_2, L9_2 = L2_2()
-  L1_2 = L1_2(L2_2, L3_2, L4_2, L5_2, L6_2, L7_2, L8_2, L9_2)
-  L1_2 = L1_2 - L0_2
-  L1_2 = #L1_2
-  L2_2 = 3.5
-  if L1_2 > L2_2 then
-    L1_2 = exports
-    L1_2 = L1_2.striano_combat
-    L2_2 = L1_2
-    L1_2 = L1_2.submexError
-    L3_2 = "Sei troppo distante dall'oggetto selezionato."
-    L1_2(L2_2, L3_2)
-  else
-    L1_2 = PlaySoundFrontend
-    L2_2 = -1
-    L3_2 = "Turn"
-    L4_2 = "DLC_HEIST_HACKING_SNAKE_SOUNDS"
-    L5_2 = 1
-    L1_2(L2_2, L3_2, L4_2, L5_2)
-    L1_2 = exports
-    L1_2 = L1_2.striano_combat
-    L2_2 = L1_2
-    L1_2 = L1_2.submexError
-    L3_2 = "Hai ~h~bloccato ~h~l'oggetto selezionato con ~h~B~h~."
-    L1_2(L2_2, L3_2)
-    L1_2 = L9_1
-    L2_2 = TriggerServerEvent
-    L3_2 = "freezeprop:sync"
-    L4_2 = GetEntityModel
-    L5_2 = L15_1
-    L4_2 = L4_2(L5_2)
-    L5_2 = true
-    L6_2 = vector3
-    L7_2 = L1_2.x
-    L8_2 = L1_2.y
-    L9_2 = L1_2.z
-    L6_2, L7_2, L8_2, L9_2 = L6_2(L7_2, L8_2, L9_2)
-    L2_2(L3_2, L4_2, L5_2, L6_2, L7_2, L8_2, L9_2)
-    L2_2 = makeEntityFaceEntity
-    L3_2 = PlayerPedId
-    L3_2 = L3_2()
-    L4_2 = L15_1
-    L2_2(L3_2, L4_2)
-    L2_2 = ExecuteCommand
-    L3_2 = "e prendi5"
-    L2_2(L3_2)
-  end
-end
-BloccaProp = L38_1
-L38_1 = RegisterCommand
-L39_1 = "bloccaprop"
-function L40_1()
-  local L0_2, L1_2
-  L0_2 = BloccaProp
-  L0_2()
-end
-L38_1(L39_1, L40_1)
-L38_1 = RegisterCommand
-L39_1 = "bpr"
-function L40_1()
-  local L0_2, L1_2
-  L0_2 = BloccaProp
-  L0_2()
-end
-L38_1(L39_1, L40_1)
-L38_1 = RegisterCommand
-L39_1 = "blocca"
-function L40_1()
-  local L0_2, L1_2, L2_2
-  L0_2 = L15_1
-  if nil == L0_2 then
-    L0_2 = exports
-    L0_2 = L0_2.striano_combat
-    L1_2 = L0_2
-    L0_2 = L0_2.submexError
-    L2_2 = "Non hai ancora selezionato un oggetto tenendo premuto ~h~B~h~."
-    L0_2(L1_2, L2_2)
-    return
-  end
-  L0_2 = IsEntityPositionFrozen
-  L1_2 = L15_1
-  L0_2 = L0_2(L1_2)
-  if L0_2 then
-    L0_2 = SbloccaProp
-    L0_2()
-  else
-    L0_2 = BloccaProp
-    L0_2()
-  end
-end
-L38_1(L39_1, L40_1)
-function L38_1()
-  local L0_2, L1_2, L2_2, L3_2, L4_2, L5_2, L6_2, L7_2, L8_2, L9_2
-  L0_2 = L15_1
-  if nil == L0_2 then
-    L0_2 = exports
-    L0_2 = L0_2.striano_combat
-    L1_2 = L0_2
-    L0_2 = L0_2.submexError
-    L2_2 = "Non hai ancora selezionato un oggetto tenendo premuto ~h~B~h~."
-    L0_2(L1_2, L2_2)
-    return
-  end
-  L0_2 = GetEntityCoords
-  L1_2 = L15_1
-  L0_2 = L0_2(L1_2)
-  L1_2 = GetEntityCoords
-  L2_2 = PlayerPedId
-  L2_2, L3_2, L4_2, L5_2, L6_2, L7_2, L8_2, L9_2 = L2_2()
-  L1_2 = L1_2(L2_2, L3_2, L4_2, L5_2, L6_2, L7_2, L8_2, L9_2)
-  L1_2 = L1_2 - L0_2
-  L1_2 = #L1_2
-  L2_2 = 3.5
-  if L1_2 > L2_2 then
-    L1_2 = exports
-    L1_2 = L1_2.striano_combat
-    L2_2 = L1_2
-    L1_2 = L1_2.submexError
-    L3_2 = "Sei troppo distante dall'oggetto selezionato."
-    L1_2(L2_2, L3_2)
-  else
-    L1_2 = PlaySoundFrontend
-    L2_2 = -1
-    L3_2 = "Turn"
-    L4_2 = "DLC_HEIST_HACKING_SNAKE_SOUNDS"
-    L5_2 = 1
-    L1_2(L2_2, L3_2, L4_2, L5_2)
-    L1_2 = exports
-    L1_2 = L1_2.striano_combat
-    L2_2 = L1_2
-    L1_2 = L1_2.submexError
-    L3_2 = "Hai ~h~sbloccato ~h~l'oggetto selezionato con ~h~B~h~."
-    L1_2(L2_2, L3_2)
-    L1_2 = L9_1
-    L2_2 = TriggerServerEvent
-    L3_2 = "freezeprop:sync"
-    L4_2 = GetEntityModel
-    L5_2 = L15_1
-    L4_2 = L4_2(L5_2)
-    L5_2 = false
-    L6_2 = vector3
-    L7_2 = L1_2.x
-    L8_2 = L1_2.y
-    L9_2 = L1_2.z
-    L6_2, L7_2, L8_2, L9_2 = L6_2(L7_2, L8_2, L9_2)
-    L2_2(L3_2, L4_2, L5_2, L6_2, L7_2, L8_2, L9_2)
-    L2_2 = makeEntityFaceEntity
-    L3_2 = PlayerPedId
-    L3_2 = L3_2()
-    L4_2 = L15_1
-    L2_2(L3_2, L4_2)
-    L2_2 = ExecuteCommand
-    L3_2 = "e prendi5"
-    L2_2(L3_2)
-  end
-end
-SbloccaProp = L38_1
-L38_1 = RegisterCommand
-L39_1 = "sbloccaprop"
-function L40_1()
-  local L0_2, L1_2
-  L0_2 = SbloccaProp
-  L0_2()
-end
-L41_1 = false
-L38_1(L39_1, L40_1, L41_1)
-L38_1 = RegisterCommand
-L39_1 = "sp"
-function L40_1()
-  local L0_2, L1_2
-  L0_2 = SbloccaProp
-  L0_2()
-end
-L41_1 = false
-L38_1(L39_1, L40_1, L41_1)
-L38_1 = RegisterNetEvent
-L39_1 = "freezeprop:syncAll"
-L38_1(L39_1)
-L38_1 = AddEventHandler
-L39_1 = "freezeprop:syncAll"
-function L40_1(A0_2, A1_2, A2_2)
-  local L3_2, L4_2, L5_2, L6_2, L7_2, L8_2, L9_2
-  L3_2 = GetClosestObjectOfType
-  L4_2 = A2_2
-  L5_2 = 0.1
-  L6_2 = A0_2
-  L7_2 = false
-  L8_2 = false
-  L9_2 = false
-  L3_2 = L3_2(L4_2, L5_2, L6_2, L7_2, L8_2, L9_2)
-  if nil ~= L3_2 and 0 ~= L3_2 then
-    L4_2 = FreezeEntityPosition
-    L5_2 = L3_2
-    L6_2 = A1_2
-    L4_2(L5_2, L6_2)
-    L4_2 = print
-    L5_2 = "Prop bloccata da un giocatore"
-    L4_2(L5_2)
-  end
-end
-L38_1(L39_1, L40_1)
-L38_1 = CreateThread
-function L39_1()
-  local L0_2, L1_2, L2_2, L3_2, L4_2, L5_2
-  while true do
-    L0_2 = Wait
-    L1_2 = 5000
-    L0_2(L1_2)
-    L0_2 = PlayerPedId
-    L0_2 = L0_2()
-    L1_2 = exports
-    L1_2 = L1_2.striano_core
-    L2_2 = L1_2
-    L1_2 = L1_2.gettutorial
-    L1_2 = L1_2(L2_2)
-    if L1_2 then
-      L1_2 = IsEntityVisible
-      L2_2 = L0_2
-      L1_2 = L1_2(L2_2)
-      if L1_2 then
-        L1_2 = IsPedPerformingMeleeAction
-        L2_2 = L0_2
-        L1_2 = L1_2(L2_2)
-        if not L1_2 then
-          L1_2 = IsEntityDead
-          L2_2 = L0_2
-          L3_2 = 1
-          L1_2 = L1_2(L2_2, L3_2)
-          if not L1_2 then
-            L1_2 = IsEntityPlayingAnim
-            L2_2 = L0_2
-            L3_2 = "ped"
-            L4_2 = "hit_wall"
-            L5_2 = 3
-            L1_2 = L1_2(L2_2, L3_2, L4_2, L5_2)
-            if not L1_2 then
-              L1_2 = IsPedRagdoll
-              L2_2 = L0_2
-              L1_2 = L1_2(L2_2)
-              if not L1_2 then
-                L1_2 = IsEntityPlayingAnim
-                L2_2 = L0_2
-                L3_2 = "combat@damage@rb_writhe"
-                L4_2 = "rb_writhe_loop"
-                L5_2 = 3
-                L1_2 = L1_2(L2_2, L3_2, L4_2, L5_2)
-                if not L1_2 then
-                  L1_2 = IsEntityPlayingAnim
-                  L2_2 = L0_2
-                  L3_2 = "amb@lo_res_idles@"
-                  L4_2 = "world_human_bum_slumped_right_lo_res_base"
-                  L5_2 = 3
-                  L1_2 = L1_2(L2_2, L3_2, L4_2, L5_2)
-                  if not L1_2 then
-                    L1_2 = IsEntityPlayingAnim
-                    L2_2 = L0_2
-                    L3_2 = "anim@scripted@heist@ig25_beach@male@"
-                    L4_2 = "action"
-                    L5_2 = 3
-                    L1_2 = L1_2(L2_2, L3_2, L4_2, L5_2)
-                    if not L1_2 then
-                      L1_2 = 105
-                      L2_2 = 120
-                      L3_2 = IsPedRagdoll
-                      L4_2 = L0_2
-                      L3_2 = L3_2(L4_2)
-                      if not L3_2 then
-                        L3_2 = IsPedSwimming
-                        L4_2 = L0_2
-                        L3_2 = L3_2(L4_2)
-                        if not L3_2 then
-                          L3_2 = IsPedSwimmingUnderWater
-                          L4_2 = L0_2
-                          L3_2 = L3_2(L4_2)
-                          if not L3_2 then
-                            goto lbl_109
-                          end
+        Wait(5000)
+        local ped = PlayerPedId()
+        if not exports.striano_core:gettutorial() then
+            Wait(1000)
+        else
+            if not IsEntityVisible(ped) then goto continue end
+            if IsPedPerformingMeleeAction(ped) then goto continue end
+            if IsEntityDead(ped, 1) then goto continue end
+            if IsEntityPlayingAnim(ped, "ped", "hit_wall", 3) then goto continue end
+            if IsPedRagdoll(ped) then goto continue end
+            if IsEntityPlayingAnim(ped, "combat@damage@rb_writhe", "rb_writhe_loop", 3) then goto continue end
+            if IsEntityPlayingAnim(ped, "amb@lo_res_idles@", "world_human_bum_slumped_right_lo_res_base", 3) then goto continue end
+            if IsEntityPlayingAnim(ped, "anim@scripted@heist@ig25_beach@male@", "action", 3) then goto continue end
+
+            if IsPedRagdoll(ped) or IsPedSwimming(ped) or IsPedSwimmingUnderWater(ped) then
+                -- In water / ragdoll — check crouch/stealth fix
+                if exports.striano_editor:crouchato() or exports.striano_editor:stealth() then
+                    if not IsEntityInAir(ped) then
+                        if not isHurt then
+                            ExecuteCommand("fixcrouch")
                         end
-                      end
-                      L3_2 = exports
-                      L3_2 = L3_2.striano_editor
-                      L4_2 = L3_2
-                      L3_2 = L3_2.crouchato
-                      L3_2 = L3_2(L4_2)
-                      if not L3_2 then
-                        L3_2 = exports
-                        L3_2 = L3_2.striano_editor
-                        L4_2 = L3_2
-                        L3_2 = L3_2.stealth
-                        L3_2 = L3_2(L4_2)
-                        if not L3_2 then
-                          goto lbl_105
-                        end
-                      end
-                      L3_2 = IsEntityInAir
-                      L4_2 = L0_2
-                      L3_2 = L3_2(L4_2)
-                      if not L3_2 then
-                        L3_2 = L10_1
-                        if not L3_2 then
-                          L3_2 = ExecuteCommand
-                          L4_2 = "fixcrouch"
-                          L3_2(L4_2)
-                        end
-                      end
-                      ::lbl_105::
-                      L3_2 = Wait
-                      L4_2 = 1000
-                      L3_2(L4_2)
-                      goto lbl_186
-                      ::lbl_109::
-                      L3_2 = IsPedRagdoll
-                      L4_2 = L0_2
-                      L3_2 = L3_2(L4_2)
-                      if not L3_2 then
-                        L3_2 = IsPedInAnyVehicle
-                        L4_2 = L0_2
-                        L5_2 = true
-                        L3_2 = L3_2(L4_2, L5_2)
-                        if not L3_2 then
-                          L3_2 = IsEntityInAir
-                          L4_2 = L0_2
-                          L3_2 = L3_2(L4_2)
-                          if not L3_2 then
-                            L3_2 = GetResourceState
-                            L4_2 = "striano_editor"
-                            L3_2 = L3_2(L4_2)
-                            if "started" ~= L3_2 then
-                              goto lbl_186
-                            end
-                            L3_2 = exports
-                            L3_2 = L3_2.striano_editor
-                            L4_2 = L3_2
-                            L3_2 = L3_2.crouchato
-                            L3_2 = L3_2(L4_2)
-                            if L3_2 then
-                              goto lbl_186
-                            end
-                            L3_2 = L10_1
-                            if not L3_2 then
-                              L3_2 = GetEntityHealth
-                              L4_2 = L0_2
-                              L3_2 = L3_2(L4_2)
-                              if L1_2 < L3_2 then
-                                L3_2 = GetEntityHealth
-                                L4_2 = L0_2
-                                L3_2 = L3_2(L4_2)
-                                if L2_2 >= L3_2 then
-                                  goto lbl_152
-                                end
-                              end
-                              L3_2 = L11_1
-                              ::lbl_152::
-                              if L3_2 then
-                                L3_2 = setHurt
-                                L3_2()
-                                L3_2 = Wait
-                                L4_2 = 1000
-                                L3_2(L4_2)
-                              end
-                            else
-                              L3_2 = L10_1
-                              if L3_2 then
-                                L3_2 = GetEntityHealth
-                                L4_2 = L0_2
-                                L3_2 = L3_2(L4_2)
-                                if L2_2 < L3_2 then
-                                  L3_2 = false
-                                  L10_1 = L3_2
-                                  L3_2 = TriggerEvent
-                                  L4_2 = "CaricamiCamminata"
-                                  L3_2(L4_2)
-                                  L3_2 = Wait
-                                  L4_2 = 1000
-                                  L3_2(L4_2)
-                                end
-                              else
-                                L3_2 = Wait
-                                L4_2 = 1000
-                                L3_2(L4_2)
-                              end
-                            end
-                        end
-                      end
-                      else
-                        L3_2 = Wait
-                        L4_2 = 1000
-                        L3_2(L4_2)
-                      end
-                  end
-                end
-              end
-            end
-          end
-        end
-      end
-    end
-    else
-      L1_2 = Wait
-      L2_2 = 1000
-      L1_2(L2_2)
-    end
-    ::lbl_186::
-  end
-end
-L38_1(L39_1)
-function L38_1(A0_2, A1_2, A2_2, A3_2)
-  local L4_2, L5_2, L6_2
-  L4_2 = 3.0
-  if A3_2 then
-    L4_2 = A3_2
-  end
-  L5_2 = HasNamedPtfxAssetLoaded
-  L6_2 = A0_2
-  L5_2 = L5_2(L6_2)
-  if not L5_2 then
-    L5_2 = RequestNamedPtfxAsset
-    L6_2 = A0_2
-    L5_2(L6_2)
-  end
-  while true do
-    L5_2 = HasNamedPtfxAssetLoaded
-    L6_2 = A0_2
-    L5_2 = L5_2(L6_2)
-    if L5_2 then
-      break
-    end
-    L5_2 = Wait
-    L6_2 = 0
-    L5_2(L6_2)
-  end
-  L5_2 = SetPtfxAssetNextCall
-  L6_2 = A0_2
-  L5_2(L6_2)
-  L5_2 = CreateThread
-  function L6_2()
-    local L0_3, L1_3, L2_3, L3_3, L4_3, L5_3, L6_3, L7_3, L8_3, L9_3, L10_3
-    L0_3 = UseParticleFxAssetNextCall
-    L1_3 = A0_2
-    L0_3(L1_3)
-    L0_3 = StartParticleFxLoopedAtCoord
-    L1_3 = A1_2
-    L2_3 = A2_2
-    L3_3 = 0.0
-    L4_3 = 0.0
-    L5_3 = 0.0
-    L6_3 = L4_2
-    L7_3 = false
-    L8_3 = false
-    L9_3 = false
-    L10_3 = false
-    L0_3 = L0_3(L1_3, L2_3, L3_3, L4_3, L5_3, L6_3, L7_3, L8_3, L9_3, L10_3)
-    L1_3 = Wait
-    L2_3 = 2500
-    L1_3(L2_3)
-    L1_3 = StopParticleFxLooped
-    L2_3 = L0_3
-    L1_3(L2_3)
-    L1_3 = RemoveParticleFx
-    L2_3 = L0_3
-    L3_3 = true
-    L1_3(L2_3, L3_3)
-  end
-  L5_2(L6_2)
-end
-PlayEffectFF = L38_1
-function L38_1()
-  local L0_2, L1_2, L2_2, L3_2, L4_2, L5_2
-  L0_2 = exports
-  L0_2 = L0_2.striano_editor
-  L1_2 = L0_2
-  L0_2 = L0_2.crouchato
-  L0_2 = L0_2(L1_2)
-  if not L0_2 then
-    L0_2 = exports
-    L0_2 = L0_2.striano_editor
-    L1_2 = L0_2
-    L0_2 = L0_2.stealth
-    L0_2 = L0_2(L1_2)
-    if not L0_2 then
-      L0_2 = ExecuteCommand
-      L1_2 = "w drunk2"
-      L0_2(L1_2)
-      L0_2 = true
-      L10_1 = L0_2
-      L0_2 = LoopInciampare
-      L0_2()
-      L0_2 = SetPlayerStamina
-      L1_2 = PlayerId
-      L1_2 = L1_2()
-      L2_2 = 0
-      L0_2(L1_2, L2_2)
-    end
-  end
-  L0_2 = PlayerPedId
-  L0_2 = L0_2()
-  L1_2 = IsPedSwimming
-  L2_2 = L0_2
-  L1_2 = L1_2(L2_2)
-  L2_2 = IsPedSwimmingUnderWater
-  L3_2 = L0_2
-  L2_2 = L2_2(L3_2)
-  if not L1_2 and not L2_2 then
-    L3_2 = exports
-    L3_2 = L3_2.striano_editor
-    L4_2 = L3_2
-    L3_2 = L3_2.crouchato
-    L3_2 = L3_2(L4_2)
-    if not L3_2 then
-      L3_2 = GetEntitySpeed
-      L4_2 = L0_2
-      L3_2 = L3_2(L4_2)
-      L4_2 = 0.1
-      if L3_2 > L4_2 then
-        L3_2 = DisableControlAction
-        L4_2 = 0
-        L5_2 = 22
-        L3_2(L4_2, L5_2)
-      end
-    end
-  end
-end
-setHurt = L38_1
-L38_1 = false
-L39_1 = false
-function L40_1()
-  local L0_2, L1_2
-  L0_2 = L39_1
-  if not L0_2 then
-    L0_2 = true
-    L39_1 = L0_2
-    L0_2 = CreateThread
-    function L1_2()
-      local L0_3, L1_3, L2_3, L3_3, L4_3, L5_3, L6_3, L7_3, L8_3, L9_3, L10_3, L11_3, L12_3, L13_3, L14_3, L15_3, L16_3
-      while true do
-        L0_3 = L10_1
-        if not L0_3 then
-          L0_3 = false
-          L39_1 = L0_3
-          return
-        end
-        L0_3 = PlayerPedId
-        L0_3 = L0_3()
-        L1_3 = GetEntitySpeed
-        L2_3 = L0_3
-        L1_3 = L1_3(L2_3)
-        L2_3 = 0.7
-        if L1_3 > L2_3 then
-          L1_3 = IsPedWalking
-          L2_3 = L0_3
-          L1_3 = L1_3(L2_3)
-          if not L1_3 then
-            L1_3 = IsPedRunning
-            L2_3 = L0_3
-            L1_3 = L1_3(L2_3)
-            if not L1_3 then
-              L1_3 = IsPedSprinting
-              L2_3 = L0_3
-              L1_3 = L1_3(L2_3)
-              if not L1_3 then
-                goto lbl_195
-              end
-            end
-          end
-          L1_3 = L38_1
-          if L1_3 then
-            L1_3 = IsEntityInWater
-            L2_3 = L0_3
-            L1_3 = L1_3(L2_3)
-            if not L1_3 then
-              L1_3 = IsPedFalling
-              L2_3 = L0_3
-              L1_3 = L1_3(L2_3)
-              if not L1_3 then
-                L1_3 = IsPedRagdoll
-                L2_3 = L0_3
-                L1_3 = L1_3(L2_3)
-                if not L1_3 then
-                  L1_3 = exports
-                  L1_3 = L1_3.striano_combat
-                  L2_3 = L1_3
-                  L1_3 = L1_3.insuperjump
-                  L1_3 = L1_3(L2_3)
-                  if not L1_3 then
-                    L1_3 = 3
-                    L2_3 = IsPedRunning
-                    L3_3 = L0_3
-                    L2_3 = L2_3(L3_3)
-                    if not L2_3 then
-                      L2_3 = IsPedSprinting
-                      L3_3 = L0_3
-                      L2_3 = L2_3(L3_3)
-                      if not L2_3 then
-                        goto lbl_94
-                      end
                     end
-                    L2_3 = ExecuteCommand
-                    L3_3 = "e inciampa"
-                    L2_3(L3_3)
-                    L2_3 = ExecuteCommand
-                    L3_3 = "addsangue"
-                    L2_3(L3_3)
-                    L2_3 = SetEntityHealth
-                    L3_3 = L0_3
-                    L4_3 = GetEntityHealth
-                    L5_3 = L0_3
-                    L4_3 = L4_3(L5_3)
-                    L4_3 = L4_3 - 1
-                    L2_3(L3_3, L4_3)
-                    L2_3 = IsPedFatallyInjured
-                    L3_3 = L0_3
-                    L2_3 = L2_3(L3_3)
-                    if not L2_3 then
-                      L2_3 = exports
-                      L2_3 = L2_3.striano_combat
-                      L3_3 = L2_3
-                      L2_3 = L2_3.gengrunt
-                      L2_3(L3_3)
-                      L2_3 = exports
-                      L2_3 = L2_3.striano_combat
-                      L3_3 = L2_3
-                      L2_3 = L2_3.submexError
-                      L4_3 = "Stai sanguinando, non correre per non perdere ulteriore vita. Cammina fino a quando non trovi un modo per curare la ferita. Utilizza un veicolo o una cavalcatura per spostarti senza perdere vita."
-                      L2_3(L3_3, L4_3)
-                      L1_3 = 8
-                    end
-                    ::lbl_94::
-                    L2_3 = IsPedFatallyInjured
-                    L3_3 = L0_3
-                    L2_3 = L2_3(L3_3)
-                    if not L2_3 then
-                      L2_3 = 1
-                      L3_3 = L1_3
-                      L4_3 = 1
-                      for L5_3 = L2_3, L3_3, L4_3 do
-                        L6_3 = GetEntityCoords
-                        L7_3 = L0_3
-                        L6_3 = L6_3(L7_3)
-                        L7_3 = math
-                        L7_3 = L7_3.random
-                        L7_3 = L7_3()
-                        L7_3 = L7_3 - 0.1
-                        L8_3 = math
-                        L8_3 = L8_3.random
-                        L8_3 = L8_3()
-                        L8_3 = L8_3 - 0.1
-                        L9_3 = math
-                        L9_3 = L9_3.random
-                        L9_3 = L9_3()
-                        L9_3 = L9_3 * 0.9
-                        L10_3 = TriggerServerEvent
-                        L11_3 = "PlayEffectServer"
-                        L12_3 = {}
-                        L12_3.a = "core"
-                        L12_3.b = "blood_stab"
-                        L13_3 = vector3
-                        L14_3 = L6_3.x
-                        L14_3 = L14_3 + L7_3
-                        L15_3 = L6_3.y
-                        L15_3 = L15_3 + L8_3
-                        L16_3 = L6_3.z
-                        L16_3 = L16_3 - L9_3
-                        L13_3 = L13_3(L14_3, L15_3, L16_3)
-                        L12_3.pos = L13_3
-                        L10_3(L11_3, L12_3)
-                        L10_3 = TriggerServerEvent
-                        L11_3 = "PlayEffectServer"
-                        L12_3 = {}
-                        L12_3.a = "core"
-                        L12_3.b = "blood_entry_sniper"
-                        L13_3 = vector3
-                        L14_3 = L6_3.x
-                        L14_3 = L14_3 + L7_3
-                        L15_3 = L6_3.y
-                        L15_3 = L15_3 + L8_3
-                        L16_3 = L6_3.z
-                        L16_3 = L16_3 - L9_3
-                        L13_3 = L13_3(L14_3, L15_3, L16_3)
-                        L12_3.pos = L13_3
-                        L10_3(L11_3, L12_3)
-                      end
-                      L2_3 = PlaySoundFrontend
-                      L3_3 = -1
-                      L4_3 = "Pre_Screen_Stinger"
-                      L5_3 = "DLC_HEISTS_PREP_SCREEN_SOUNDS"
-                      L6_3 = 1
-                      L2_3(L3_3, L4_3, L5_3, L6_3)
-                      L2_3 = IsControlPressed
-                      L3_3 = 0
-                      L4_3 = 25
-                      L2_3 = L2_3(L3_3, L4_3)
-                      if not L2_3 then
-                        L2_3 = math
-                        L2_3 = L2_3.random
-                        L3_3 = 1
-                        L4_3 = 2
-                        L2_3 = L2_3(L3_3, L4_3)
-                        if 1 == L2_3 then
-                          L3_3 = ExecuteCommand
-                          L4_3 = "e respiro"
-                          L5_3 = math
-                          L5_3 = L5_3.random
-                          L6_3 = 1
-                          L7_3 = 2
-                          L5_3 = L5_3(L6_3, L7_3)
-                          L4_3 = L4_3 .. L5_3
-                          L3_3(L4_3)
+                end
+                Wait(1000)
+            else
+                -- On foot, not ragdoll
+                if not IsPedInAnyVehicle(ped, true) and not IsEntityInAir(ped) then
+                    if GetResourceState("striano_editor") ~= "started" then goto continue end
+                    if exports.striano_editor:crouchato() then goto continue end
+
+                    local hp = GetEntityHealth(ped)
+                    if not isHurt then
+                        if hp > HURT_HP_LOW and hp <= HURT_HP_HIGH then
+                            setHurt()
+                            Wait(1000)
+                        end
+                    else
+                        -- Already hurt: check recovery
+                        if hp > HURT_HP_HIGH then
+                            isHurt = false
+                            TriggerEvent("CaricamiCamminata")
+                            Wait(1000)
                         else
-                          L3_3 = ExecuteCommand
-                          L4_3 = "e injured"
-                          L3_3(L4_3)
+                            Wait(1000)
                         end
-                      end
-                      L2_3 = Wait
-                      L3_3 = 5000
-                      L2_3(L3_3)
                     end
-                  end
+                else
+                    Wait(1000)
                 end
-              end
             end
-          end
+            ::continue::
         end
-        ::lbl_195::
-        L1_3 = Wait
-        L2_3 = 5000
-        L1_3(L2_3)
-      end
     end
-    L0_2(L1_2)
-  end
-end
-LoopInciampare = L40_1
-L40_1 = RegisterCommand
-L41_1 = "closenui"
-function L42_1()
-  local L0_2, L1_2, L2_2, L3_2
-  L0_2 = SetNuiFocus
-  L1_2 = false
-  L2_2 = false
-  L0_2(L1_2, L2_2)
-  L0_2 = SetNuiFocusKeepInput
-  L1_2 = false
-  L0_2(L1_2)
-  L0_2 = SetFrontendActive
-  L1_2 = false
-  L0_2(L1_2)
-  L0_2 = SetMouseCursorVisibleInMenus
-  L1_2 = false
-  L0_2(L1_2)
-  L0_2 = SetPlayerControl
-  L1_2 = PlayerId
-  L1_2 = L1_2()
-  L2_2 = true
-  L3_2 = 0
-  L0_2(L1_2, L2_2, L3_2)
-  L0_2 = SetCursorLocation
-  L1_2 = 0.5
-  L2_2 = 0.5
-  L0_2(L1_2, L2_2)
-  L0_2 = print
-  L1_2 = "focus NUI rilasciato e controlli ripristinati."
-  L0_2(L1_2)
-end
-L40_1(L41_1, L42_1)
-L40_1 = RegisterCommand
-L41_1 = "tirafuori"
-function L42_1()
-  local L0_2, L1_2, L2_2, L3_2, L4_2, L5_2, L6_2, L7_2, L8_2
-  L0_2 = PlayerPedId
-  L0_2 = L0_2()
-  L1_2 = IsPedSwimming
-  L2_2 = L0_2
-  L1_2 = L1_2(L2_2)
-  if not L1_2 then
-    L1_2 = IsPedSwimmingUnderWater
-    L2_2 = L0_2
-    L1_2 = L1_2(L2_2)
-    if not L1_2 then
-      goto lbl_19
+end)
+
+-- ============================================================
+-- PlayEffectFF(assetName, x, y, z, scale)
+--   Load particle asset, play looped effect at world coords for 2.5 s
+-- ============================================================
+function PlayEffectFF(assetName, x, y, z, scale)
+    scale = scale or 3.0
+    if not HasNamedPtfxAssetLoaded(assetName) then
+        RequestNamedPtfxAsset(assetName)
     end
-  end
-  L1_2 = exports
-  L1_2 = L1_2.striano_combat
-  L2_2 = L1_2
-  L1_2 = L1_2.submexError
-  L3_2 = "Non devi essere in acqua per questa operazione. Costruisci una pedana sull'acqua se serve a salvare un veicolo."
-  L1_2(L2_2, L3_2)
-  do return end
-  ::lbl_19::
-  L1_2 = GetEntityCoords
-  L2_2 = L0_2
-  L1_2 = L1_2(L2_2)
-  L2_2 = GetClosestVehicle
-  L3_2 = L1_2.x
-  L4_2 = L1_2.y
-  L5_2 = L1_2.z
-  L6_2 = 20.0
-  L7_2 = 0
-  L8_2 = 70
-  L2_2 = L2_2(L3_2, L4_2, L5_2, L6_2, L7_2, L8_2)
-  if 0 ~= L2_2 then
-    L3_2 = DoesEntityExist
-    L4_2 = L2_2
-    L3_2 = L3_2(L4_2)
-    if L3_2 then
-      L3_2 = IsEntityInWater
-      L4_2 = L2_2
-      L3_2 = L3_2(L4_2)
-      if not L3_2 then
-        L3_2 = GetEntityCoords
-        L4_2 = L2_2
-        L3_2 = L3_2(L4_2)
-        L3_2 = L3_2.z
-        if not (L3_2 < 41.0) then
-          goto lbl_101
-        end
-      end
-      L3_2 = 0
-      L4_2 = SetEntityAsMissionEntity
-      L5_2 = L2_2
-      L4_2(L5_2)
-      while true do
-        L4_2 = NetworkHasControlOfEntity
-        L5_2 = L2_2
-        L4_2 = L4_2(L5_2)
-        if not (not L4_2 and L3_2 < 100) then
-          break
-        end
-        L4_2 = DoesEntityExist
-        L5_2 = L2_2
-        L4_2 = L4_2(L5_2)
-        if not L4_2 then
-          break
-        end
-        L4_2 = Wait
-        L5_2 = 1
-        L4_2(L5_2)
-        L4_2 = NetworkRequestControlOfEntity
-        L5_2 = L2_2
-        L4_2(L5_2)
-        L3_2 = L3_2 + 1
-      end
-      L4_2 = SetEntityCoords
-      L5_2 = L2_2
-      L6_2 = L1_2.x
-      L7_2 = L1_2.y
-      L8_2 = L1_2.z
-      L8_2 = L8_2 - 1
-      L4_2(L5_2, L6_2, L7_2, L8_2)
-      L4_2 = exports
-      L4_2 = L4_2.striano_core
-      L5_2 = L4_2
-      L4_2 = L4_2.getsubmisID
-      L4_2 = L4_2(L5_2)
-      if 0 == L4_2 then
-        L4_2 = TaskWarpPedIntoVehicle
-        L5_2 = L0_2
-        L6_2 = L2_2
-        L7_2 = -1
-        L4_2(L5_2, L6_2, L7_2)
-      end
-      L4_2 = Wait
-      L5_2 = 250
-      L4_2(L5_2)
-      L4_2 = TriggerEvent
-      L5_2 = "fixaVeicolo"
-      L6_2 = L2_2
-      L7_2 = true
-      L4_2(L5_2, L6_2, L7_2)
-      goto lbl_112
-      ::lbl_101::
-      L3_2 = exports
-      L3_2 = L3_2.striano_combat
-      L4_2 = L3_2
-      L3_2 = L3_2.submexError
-      L5_2 = "Il veicolo non sembra in acqua."
-      L3_2(L4_2, L5_2)
-  end
-  else
-    L3_2 = exports
-    L3_2 = L3_2.striano_combat
-    L4_2 = L3_2
-    L3_2 = L3_2.submexError
-    L5_2 = "Non sembra esserci un veicolo in acqua da poter tirare fuori."
-    L3_2(L4_2, L5_2)
-  end
-  ::lbl_112::
+    while not HasNamedPtfxAssetLoaded(assetName) do Wait(0) end
+    SetPtfxAssetNextCall(assetName)
+    CreateThread(function()
+        UseParticleFxAssetNextCall(assetName)
+        local fx = StartParticleFxLoopedAtCoord(assetName, x, y, z,
+            0.0, 0.0, 0.0, scale, false, false, false, false)
+        Wait(2500)
+        StopParticleFxLooped(fx)
+        RemoveParticleFx(fx, true)
+    end)
 end
-L40_1(L41_1, L42_1)
-L40_1 = "off"
-L41_1 = {}
-L42_1 = 0
-L43_1 = 1
-L44_1 = 2
-L45_1 = 3
-L46_1 = 4
-L47_1 = 5
-L48_1 = 6
-L49_1 = 7
-L50_1 = 8
-L51_1 = 9
-L52_1 = 10
-L53_1 = 11
-L54_1 = 12
-L55_1 = 17
-L56_1 = 18
-L57_1 = 19
-L58_1 = 20
-L41_1[1] = L42_1
-L41_1[2] = L43_1
-L41_1[3] = L44_1
-L41_1[4] = L45_1
-L41_1[5] = L46_1
-L41_1[6] = L47_1
-L41_1[7] = L48_1
-L41_1[8] = L49_1
-L41_1[9] = L50_1
-L41_1[10] = L51_1
-L41_1[11] = L52_1
-L41_1[12] = L53_1
-L41_1[13] = L54_1
-L41_1[14] = L55_1
-L41_1[15] = L56_1
-L41_1[16] = L57_1
-L41_1[17] = L58_1
-function L42_1(A0_2, A1_2)
-  local L2_2, L3_2, L4_2, L5_2, L6_2, L7_2, L8_2
-  L2_2 = ipairs
-  L3_2 = A0_2
-  L2_2, L3_2, L4_2, L5_2 = L2_2(L3_2)
-  for L6_2, L7_2 in L2_2, L3_2, L4_2, L5_2 do
-    if L7_2 == A1_2 then
-      L8_2 = true
-      return L8_2
+
+-- ============================================================
+-- setHurt() — apply hurt/bleed state to local player
+-- ============================================================
+function setHurt()
+    if not exports.striano_editor:crouchato() and not exports.striano_editor:stealth() then
+        ExecuteCommand("w drunk2")
+        isHurt = true
+        LoopInciampare()
+        SetPlayerStamina(PlayerId(), 0)
     end
-  end
-  L2_2 = false
-  return L2_2
-end
-has_valueff = L42_1
-L42_1 = RegisterCommand
-L43_1 = "mterra"
-function L44_1()
-  local L0_2, L1_2, L2_2, L3_2, L4_2
-  L0_2 = GetVehiclePedIsIn
-  L1_2 = PlayerPedId
-  L1_2, L2_2, L3_2, L4_2 = L1_2()
-  L0_2 = L0_2(L1_2, L2_2, L3_2, L4_2)
-  L1_2 = GetVehicleWheelSurfaceMaterial
-  L2_2 = L0_2
-  L3_2 = 1
-  L1_2 = L1_2(L2_2, L3_2)
-  L2_2 = print
-  L3_2 = "Materiale "
-  L4_2 = L1_2
-  L3_2 = L3_2 .. L4_2
-  L2_2(L3_2)
-end
-L42_1(L43_1, L44_1)
-L42_1 = RegisterCommand
-L43_1 = "getsporco"
-function L44_1()
-  local L0_2, L1_2, L2_2, L3_2, L4_2, L5_2
-  L0_2 = print
-  L1_2 = "Dirt of vehicle "
-  L2_2 = GetVehicleDirtLevel
-  L3_2 = GetVehiclePedIsIn
-  L4_2 = PlayerPedId
-  L4_2 = L4_2()
-  L5_2 = false
-  L3_2, L4_2, L5_2 = L3_2(L4_2, L5_2)
-  L2_2, L3_2, L4_2, L5_2 = L2_2(L3_2, L4_2, L5_2)
-  L0_2(L1_2, L2_2, L3_2, L4_2, L5_2)
-end
-L42_1(L43_1, L44_1)
-L42_1 = AddEventHandler
-L43_1 = "onResourceStop"
-function L44_1(A0_2)
-  local L1_2, L2_2, L3_2
-  L1_2 = GetCurrentResourceName
-  L1_2 = L1_2()
-  if A0_2 == L1_2 then
-    L1_2 = L29_1
-    if L1_2 then
-      L1_2 = DeleteEntity
-      L2_2 = L29_1
-      L1_2(L2_2)
-    end
-    L1_2 = nil
-    L2_2 = nil
-    L30_1 = L2_2
-    L29_1 = L1_2
-    L1_2 = 0.0
-    L2_2 = 0.0
-    L3_2 = 0.0
-    L33_1 = L3_2
-    L32_1 = L2_2
-    L31_1 = L1_2
-    L1_2 = 0.0
-    L2_2 = 0.0
-    L3_2 = 0.0
-    L36_1 = L3_2
-    L35_1 = L2_2
-    L34_1 = L1_2
-  end
-end
-L42_1(L43_1, L44_1)
-L42_1 = nil
-function L43_1(A0_2, A1_2, A2_2, A3_2)
-  local L4_2, L5_2, L6_2, L7_2, L8_2, L9_2
-  L4_2 = ""
-  L5_2 = A3_2
-  L6_2 = ""
-  L4_2 = L4_2 .. L5_2 .. L6_2
-  L5_2 = SetTextScale
-  L6_2 = 0.35
-  L7_2 = 0.35
-  L5_2(L6_2, L7_2)
-  L5_2 = SetTextFont
-  L6_2 = 7
-  L5_2(L6_2)
-  L5_2 = SetTextOutline
-  L5_2()
-  L5_2 = SetTextProportional
-  L6_2 = 1
-  L5_2(L6_2)
-  L5_2 = SetTextColour
-  L6_2 = 255
-  L7_2 = 255
-  L8_2 = 255
-  L9_2 = 215
-  L5_2(L6_2, L7_2, L8_2, L9_2)
-  L5_2 = SetTextEntry
-  L6_2 = "STRING"
-  L5_2(L6_2)
-  L5_2 = SetTextCentre
-  L6_2 = true
-  L5_2(L6_2)
-  L5_2 = AddTextComponentString
-  L6_2 = L4_2
-  L5_2(L6_2)
-  L5_2 = SetDrawOrigin
-  L6_2 = A0_2
-  L7_2 = A1_2
-  L8_2 = A2_2
-  L9_2 = 0
-  L5_2(L6_2, L7_2, L8_2, L9_2)
-  L5_2 = DrawText
-  L6_2 = 0.0
-  L7_2 = 0.0
-  L5_2(L6_2, L7_2)
-  L5_2 = ClearDrawOrigin
-  L5_2()
-end
-L44_1 = RegisterKeyMapping
-L45_1 = "ancora"
-L46_1 = "Ancora Barca"
-L47_1 = "keyboard"
-L48_1 = "h"
-L44_1(L45_1, L46_1, L47_1, L48_1)
-L44_1 = RegisterCommand
-L45_1 = "ancora"
-function L46_1(A0_2)
-  local L1_2, L2_2, L3_2, L4_2, L5_2, L6_2
-  L1_2 = PlayerPedId
-  L1_2 = L1_2()
-  L2_2 = IsPedInAnyBoat
-  L3_2 = L1_2
-  L2_2 = L2_2(L3_2)
-  if L2_2 then
-    L2_2 = GetVehiclePedIsIn
-    L3_2 = L1_2
-    L2_2 = L2_2(L3_2)
-    L3_2 = GetPedInVehicleSeat
-    L4_2 = L2_2
-    L5_2 = -1
-    L3_2 = L3_2(L4_2, L5_2)
-    if L3_2 == L1_2 then
-      L3_2 = GetEntitySpeed
-      L4_2 = L2_2
-      L3_2 = L3_2(L4_2)
-      L4_2 = 2.7777777777777777
-      if L3_2 <= L4_2 then
-        L3_2 = IsBoatAnchoredAndFrozen
-        L4_2 = L2_2
-        L3_2 = L3_2(L4_2)
-        if L3_2 then
-          L3_2 = SetBoatAnchor
-          L4_2 = L2_2
-          L5_2 = false
-          L3_2(L4_2, L5_2)
-          L3_2 = SetBoatFrozenWhenAnchored
-          L4_2 = L2_2
-          L5_2 = false
-          L3_2(L4_2, L5_2)
-          L3_2 = SetForcedBoatLocationWhenAnchored
-          L4_2 = L2_2
-          L5_2 = false
-          L3_2(L4_2, L5_2)
-          L3_2 = TriggerServerEvent
-          L4_2 = "D_Ancorata:set"
-          L5_2 = VehToNet
-          L6_2 = L2_2
-          L5_2 = L5_2(L6_2)
-          L6_2 = false
-          L3_2(L4_2, L5_2, L6_2)
-        else
-          L3_2 = IsEntityInWater
-          L4_2 = L2_2
-          L3_2 = L3_2(L4_2)
-          if not L3_2 then
-            L3_2 = CanAnchorBoatHere
-            L4_2 = L2_2
-            L3_2 = L3_2(L4_2)
-            if not L3_2 then
-              goto lbl_79
+
+    local ped = PlayerPedId()
+    if not IsPedSwimming(ped) and not IsPedSwimmingUnderWater(ped) then
+        if not exports.striano_editor:crouchato() then
+            if GetEntitySpeed(ped) > 0.1 then
+                DisableControlAction(0, 22)  -- disable Space/jump
             end
-          end
-          L3_2 = SetBoatAnchor
-          L4_2 = L2_2
-          L5_2 = true
-          L3_2(L4_2, L5_2)
-          L3_2 = SetBoatFrozenWhenAnchored
-          L4_2 = L2_2
-          L5_2 = true
-          L3_2(L4_2, L5_2)
-          L3_2 = SetForcedBoatLocationWhenAnchored
-          L4_2 = L2_2
-          L5_2 = true
-          L3_2(L4_2, L5_2)
-          L42_1 = L2_2
-          L3_2 = TriggerServerEvent
-          L4_2 = "D_Ancorata:set"
-          L5_2 = VehToNet
-          L6_2 = L2_2
-          L5_2 = L5_2(L6_2)
-          L6_2 = true
-          L3_2(L4_2, L5_2, L6_2)
-          goto lbl_90
-          ::lbl_79::
-          L3_2 = exports
-          L3_2 = L3_2.striano_combat
-          L4_2 = L3_2
-          L3_2 = L3_2.submexInfo
-          L5_2 = "You must be in water to anchor a boat."
-          L3_2(L4_2, L5_2)
         end
-      else
-        L3_2 = exports
-        L3_2 = L3_2.striano_combat
-        L4_2 = L3_2
-        L3_2 = L3_2.submexInfo
-        L5_2 = "Too fast to anchor a boat."
-        L3_2(L4_2, L5_2)
-      end
     end
-  end
-  ::lbl_90::
 end
-L44_1(L45_1, L46_1)
-L44_1 = CreateThread
-function L45_1()
-  local L0_2, L1_2, L2_2, L3_2, L4_2, L5_2, L6_2, L7_2
-  while true do
-    L0_2 = Wait
-    L1_2 = 0
-    L0_2(L1_2)
-    L0_2 = PlayerPedId
-    L0_2 = L0_2()
-    L1_2 = L42_1
-    if nil == L1_2 then
-      L1_2 = GetVehiclePedIsIn
-      L2_2 = L0_2
-      L3_2 = false
-      L1_2 = L1_2(L2_2, L3_2)
-      if nil == L1_2 or 0 == L1_2 then
-      else
-        L42_1 = L1_2
-      end
-      L2_2 = Wait
-      L3_2 = 1000
-      L2_2(L3_2)
-    else
-      L1_2 = Entity
-      L2_2 = L42_1
-      L1_2 = L1_2(L2_2)
-      L1_2 = L1_2.state
-      L1_2 = L1_2.D_Ancorata
-      if L1_2 then
-        L2_2 = IsPedSittingInAnyVehicle
-        L3_2 = L0_2
-        L2_2 = L2_2(L3_2)
-        if L2_2 then
-          L2_2 = L42_1
-          L3_2 = GetVehiclePedIsIn
-          L4_2 = L0_2
-          L5_2 = false
-          L3_2 = L3_2(L4_2, L5_2)
-          if L2_2 == L3_2 then
-            L2_2 = GetEntityCoords
-            L3_2 = L42_1
-            L2_2 = L2_2(L3_2)
-            L3_2 = L43_1
-            L4_2 = L2_2.x
-            L5_2 = L2_2.y
-            L6_2 = L2_2.z
-            L6_2 = L6_2 + 0.5
-            L7_2 = "[H] Detach Anchor"
-            L3_2(L4_2, L5_2, L6_2, L7_2)
-          end
-        end
-      elseif nil == L1_2 then
-        L2_2 = nil
-        L42_1 = L2_2
-        L2_2 = Wait
-        L3_2 = 1000
-        L2_2(L3_2)
-      end
-    end
-  end
-end
-L44_1(L45_1)
-L44_1 = false
-L45_1 = RegisterCommand
-L46_1 = "editorpanda"
-function L47_1(A0_2, A1_2)
-  local L2_2
-  L2_2 = L44_1
-  L2_2 = not L2_2
-  L44_1 = L2_2
-  L2_2 = L44_1
-  if L2_2 then
-    L2_2 = fPanda
-    L2_2()
-  end
-end
-L45_1(L46_1, L47_1)
-function L45_1(A0_2, A1_2, A2_2, A3_2, A4_2, A5_2)
-  local L6_2, L7_2, L8_2, L9_2, L10_2, L11_2
-  L6_2 = SetTextFont
-  L7_2 = A1_2
-  L6_2(L7_2)
-  L6_2 = SetTextScale
-  L7_2 = A3_2
-  L8_2 = A3_2
-  L6_2(L7_2, L8_2)
-  L6_2 = SetTextColour
-  L7_2 = A2_2[1]
-  L8_2 = A2_2[2]
-  L9_2 = A2_2[3]
-  L10_2 = 255
-  L6_2(L7_2, L8_2, L9_2, L10_2)
-  L6_2 = SetTextEntry
-  L7_2 = "STRING"
-  L6_2(L7_2)
-  L6_2 = SetTextDropShadow
-  L7_2 = 0
-  L8_2 = 0
-  L9_2 = 0
-  L10_2 = 0
-  L11_2 = 255
-  L6_2(L7_2, L8_2, L9_2, L10_2, L11_2)
-  L6_2 = SetTextDropShadow
-  L6_2()
-  L6_2 = SetTextEdge
-  L7_2 = 4
-  L8_2 = 0
-  L9_2 = 0
-  L10_2 = 0
-  L11_2 = 255
-  L6_2(L7_2, L8_2, L9_2, L10_2, L11_2)
-  L6_2 = SetTextOutline
-  L6_2()
-  L6_2 = AddTextComponentString
-  L7_2 = A0_2
-  L6_2(L7_2)
-  L6_2 = DrawText
-  L7_2 = A4_2
-  L8_2 = A5_2
-  L6_2(L7_2, L8_2)
-end
-Legacy2D = L45_1
-L45_1 = 0
-function L46_1()
-  local L0_2, L1_2
-  L0_2 = CreateThread
-  function L1_2()
-    local L0_3, L1_3, L2_3, L3_3, L4_3, L5_3, L6_3, L7_3, L8_3, L9_3, L10_3, L11_3, L12_3, L13_3, L14_3, L15_3, L16_3, L17_3, L18_3, L19_3, L20_3, L21_3, L22_3, L23_3, L24_3, L25_3, L26_3, L27_3, L28_3
-    while true do
-      L0_3 = L44_1
-      if L0_3 then
-        L0_3 = {}
-        L0_3.r = 255
-        L0_3.g = 0
-        L0_3.b = 110
-        L0_3.a = 200
-        L1_3 = GetEntityCoords
-        L2_3 = PlayerPedId
-        L2_3, L3_3, L4_3, L5_3, L6_3, L7_3, L8_3, L9_3, L10_3, L11_3, L12_3, L13_3, L14_3, L15_3, L16_3, L17_3, L18_3, L19_3, L20_3, L21_3, L22_3, L23_3, L24_3, L25_3, L26_3, L27_3, L28_3 = L2_3()
-        L1_3 = L1_3(L2_3, L3_3, L4_3, L5_3, L6_3, L7_3, L8_3, L9_3, L10_3, L11_3, L12_3, L13_3, L14_3, L15_3, L16_3, L17_3, L18_3, L19_3, L20_3, L21_3, L22_3, L23_3, L24_3, L25_3, L26_3, L27_3, L28_3)
-        L2_3 = L8_1
-        L3_3 = 300.0
-        L2_3, L3_3, L4_3 = L2_3(L3_3)
-        if L4_3 > 0 then
-          L5_3 = Legacy2D
-          L6_3 = "Sto selezionando entity ID: "
-          L7_3 = L4_3
-          L6_3 = L6_3 .. L7_3
-          L7_3 = 4
-          L8_3 = {}
-          L9_3 = 255
-          L10_3 = 255
-          L11_3 = 255
-          L8_3[1] = L9_3
-          L8_3[2] = L10_3
-          L8_3[3] = L11_3
-          L9_3 = 0.4
-          L10_3 = 0.55
-          L11_3 = 0.888
-          L5_3(L6_3, L7_3, L8_3, L9_3, L10_3, L11_3)
-          L5_3 = DrawLine
-          L6_3 = L1_3.x
-          L7_3 = L1_3.y
-          L8_3 = L1_3.z
-          L8_3 = L8_3 + 0.5
-          L9_3 = L3_3.x
-          L10_3 = L3_3.y
-          L11_3 = L3_3.z
-          L12_3 = L0_3.r
-          L13_3 = L0_3.g
-          L14_3 = L0_3.b
-          L15_3 = L0_3.a
-          L5_3(L6_3, L7_3, L8_3, L9_3, L10_3, L11_3, L12_3, L13_3, L14_3, L15_3)
-          L5_3 = DrawMarker
-          L6_3 = 28
-          L7_3 = L3_3.x
-          L8_3 = L3_3.y
-          L9_3 = L3_3.z
-          L10_3 = 0.0
-          L11_3 = 0.0
-          L12_3 = 0.0
-          L13_3 = 0.0
-          L14_3 = 180.0
-          L15_3 = 0.0
-          L16_3 = 0.05
-          L17_3 = 0.05
-          L18_3 = 0.05
-          L19_3 = L0_3.r
-          L20_3 = L0_3.g
-          L21_3 = L0_3.b
-          L22_3 = L0_3.a
-          L23_3 = false
-          L24_3 = true
-          L25_3 = 2
-          L26_3 = nil
-          L27_3 = nil
-          L28_3 = false
-          L5_3(L6_3, L7_3, L8_3, L9_3, L10_3, L11_3, L12_3, L13_3, L14_3, L15_3, L16_3, L17_3, L18_3, L19_3, L20_3, L21_3, L22_3, L23_3, L24_3, L25_3, L26_3, L27_3, L28_3)
-          L5_3 = L45_1
-          if 0 == L5_3 then
-            L5_3 = L45_1
-            if L5_3 ~= L4_3 then
-              L45_1 = L4_3
-              L5_3 = SetEntityDrawOutline
-              L6_3 = L4_3
-              L7_3 = true
-              L5_3(L6_3, L7_3)
-              L5_3 = SetEntityDrawOutlineColor
-              L6_3 = 255
-              L7_3 = 0
-              L8_3 = 110
-              L9_3 = 150
-              L5_3(L6_3, L7_3, L8_3, L9_3)
-            else
-              L5_3 = SetEntityDrawOutline
-              L6_3 = L45_1
-              L7_3 = false
-              L5_3(L6_3, L7_3)
-              L5_3 = 0
-              L45_1 = L5_3
+
+-- ============================================================
+-- LoopInciampare() — bleeding/stumble loop while isHurt
+--   Every 5 s: if running/sprinting → damage, blood effects, pain sound
+-- ============================================================
+function LoopInciampare()
+    if hurtLoopActive then return end
+    hurtLoopActive = true
+    CreateThread(function()
+        while true do
+            if not isHurt then
+                hurtLoopActive = false
+                return
             end
-          else
-            L5_3 = L45_1
-            if L5_3 ~= L4_3 then
-              L5_3 = SetEntityDrawOutline
-              L6_3 = L45_1
-              L7_3 = false
-              L5_3(L6_3, L7_3)
-              L5_3 = 0
-              L45_1 = L5_3
+            local ped = PlayerPedId()
+            local speed = GetEntitySpeed(ped)
+            if speed > 0.7
+               and (IsPedWalking(ped) or IsPedRunning(ped) or IsPedSprinting(ped)) then
+                if not IsEntityInWater(ped) and not IsPedFalling(ped)
+                   and not IsPedRagdoll(ped) and not exports.striano_combat:insuperjump() then
+                    local dmgSteps = 3
+                    if IsPedRunning(ped) or IsPedSprinting(ped) then
+                        ExecuteCommand("e inciampa")
+                        ExecuteCommand("addsangue")
+                        local hp = GetEntityHealth(ped)
+                        SetEntityHealth(ped, hp - 1)
+                        if not IsPedFatallyInjured(ped) then
+                            exports.striano_combat:gengrunt()
+                            exports.striano_combat:submexError(
+                                "Stai sanguinando, non correre per non perdere ulteriore vita. " ..
+                                "Cammina fino a quando non trovi un modo per curare la ferita. " ..
+                                "Utilizza un veicolo o una cavalcatura per spostarti senza perdere vita.")
+                            dmgSteps = 8
+                        end
+                    end
+
+                    if not IsPedFatallyInjured(ped) then
+                        local coords = GetEntityCoords(ped)
+                        for _ = 1, dmgSteps do
+                            local ox = math.random() - 0.1
+                            local oy = math.random() - 0.1
+                            local oz = math.random() * 0.9
+                            TriggerServerEvent("PlayEffectServer", {
+                                a = "core", b = "blood_stab",
+                                pos = vector3(coords.x + ox, coords.y + oy, coords.z - oz)
+                            })
+                            TriggerServerEvent("PlayEffectServer", {
+                                a = "core", b = "blood_entry_sniper",
+                                pos = vector3(coords.x + ox, coords.y + oy, coords.z - oz)
+                            })
+                        end
+                        PlaySoundFrontend(-1, "Pre_Screen_Stinger", "DLC_HEISTS_PREP_SCREEN_SOUNDS", 1)
+                        if not IsControlPressed(0, 25) then
+                            if math.random(1, 2) == 1 then
+                                ExecuteCommand("e respiro" .. math.random(1, 2))
+                            else
+                                ExecuteCommand("e injured")
+                            end
+                        end
+                        Wait(5000)
+                    end
+                end
             end
-          end
-        else
-          L5_3 = Legacy2D
-          L6_3 = "Nessuna entity rilevata, puntala con la telecamera."
-          L7_3 = 4
-          L8_3 = {}
-          L9_3 = 255
-          L10_3 = 255
-          L11_3 = 255
-          L8_3[1] = L9_3
-          L8_3[2] = L10_3
-          L8_3[3] = L11_3
-          L9_3 = 0.4
-          L10_3 = 0.55
-          L11_3 = 0.888
-          L5_3(L6_3, L7_3, L8_3, L9_3, L10_3, L11_3)
-          L5_3 = L45_1
-          if 0 ~= L5_3 then
-            L5_3 = SetEntityDrawOutline
-            L6_3 = L4_3
-            L7_3 = false
-            L5_3(L6_3, L7_3)
-            L5_3 = 0
-            L45_1 = L5_3
-          end
+            Wait(5000)
         end
-      else
+    end)
+end
+
+-- ============================================================
+-- /closenui — force-close any open NUI and restore player control
+-- ============================================================
+RegisterCommand("closenui", function()
+    SetNuiFocus(false, false)
+    SetNuiFocusKeepInput(false)
+    SetFrontendActive(false)
+    SetMouseCursorVisibleInMenus(false)
+    SetPlayerControl(PlayerId(), true, 0)
+    SetCursorLocation(0.5, 0.5)
+    print("focus NUI rilasciato e controlli ripristinati.")
+end)
+
+-- ============================================================
+-- /tirafuori — pull nearby sunken vehicle out of water
+-- ============================================================
+RegisterCommand("tirafuori", function()
+    local ped = PlayerPedId()
+    if IsPedSwimming(ped) or IsPedSwimmingUnderWater(ped) then
+        exports.striano_combat:submexError(
+            "Non devi essere in acqua per questa operazione. " ..
+            "Costruisci una pedana sull'acqua se serve a salvare un veicolo.")
         return
-      end
-      L0_3 = Wait
-      L1_3 = 0
-      L0_3(L1_3)
     end
-  end
-  L0_2(L1_2)
+
+    local coords = GetEntityCoords(ped)
+    local veh    = GetClosestVehicle(coords.x, coords.y, coords.z, 20.0, 0, 70)
+    if veh == 0 then
+        exports.striano_combat:submexError("Non sembra esserci un veicolo in acqua da poter tirare fuori.")
+        return
+    end
+    if not DoesEntityExist(veh) then return end
+
+    -- Check if vehicle is in water or very low Z (< 41)
+    local inWater = IsEntityInWater(veh)
+    local lowZ    = GetEntityCoords(veh).z < 41.0
+    if not inWater and not lowZ then
+        exports.striano_combat:submexError("Il veicolo non sembra in acqua.")
+        return
+    end
+
+    SetEntityAsMissionEntity(veh)
+    local attempts = 0
+    while not NetworkHasControlOfEntity(veh) and attempts < 100 do
+        if not DoesEntityExist(veh) then break end
+        Wait(1)
+        NetworkRequestControlOfEntity(veh)
+        attempts = attempts + 1
+    end
+
+    SetEntityCoords(veh, coords.x, coords.y, coords.z - 1)
+    if exports.striano_core:getsubmisID() == 0 then
+        TaskWarpPedIntoVehicle(ped, veh, -1)
+    end
+    Wait(250)
+    TriggerEvent("fixaVeicolo", veh, true)
+end)
+
+-- ============================================================
+-- has_valueff(tbl, val) — check if value exists in array
+-- ============================================================
+function has_valueff(tbl, val)
+    for _, v in ipairs(tbl) do
+        if v == val then return true end
+    end
+    return false
 end
-fPanda = L46_1
-L46_1 = CreateThread
-function L47_1()
-  local L0_2, L1_2, L2_2, L3_2, L4_2, L5_2, L6_2, L7_2, L8_2, L9_2, L10_2, L11_2, L12_2, L13_2, L14_2
-  L0_2 = {}
-  L1_2 = "WORLD_VEHICLE_MILITARY_PLANES_SMALL"
-  L2_2 = "WORLD_VEHICLE_MILITARY_PLANES_BIG"
-  L0_2[1] = L1_2
-  L0_2[2] = L2_2
-  L1_2 = {}
-  L2_2 = 2017590552
-  L3_2 = 2141866469
-  L4_2 = 1409640232
-  L5_2 = "ng_planes"
-  L1_2[1] = L2_2
-  L1_2[2] = L3_2
-  L1_2[3] = L4_2
-  L1_2[4] = L5_2
-  L2_2 = {}
-  L3_2 = "SHAMAL"
-  L4_2 = "LUXOR"
-  L5_2 = "LUXOR2"
-  L6_2 = "JET"
-  L7_2 = "LAZER"
-  L8_2 = "TITAN"
-  L9_2 = "BARRACKS"
-  L10_2 = "BARRACKS2"
-  L11_2 = "CRUSADER"
-  L12_2 = "RHINO"
-  L13_2 = "AIRTUG"
-  L14_2 = "RIPLEY"
-  L2_2[1] = L3_2
-  L2_2[2] = L4_2
-  L2_2[3] = L5_2
-  L2_2[4] = L6_2
-  L2_2[5] = L7_2
-  L2_2[6] = L8_2
-  L2_2[7] = L9_2
-  L2_2[8] = L10_2
-  L2_2[9] = L11_2
-  L2_2[10] = L12_2
-  L2_2[11] = L13_2
-  L2_2[12] = L14_2
-  while true do
-    L3_2 = next
-    L4_2 = L0_2
-    L5_2 = nil
-    L6_2 = nil
-    for L7_2, L8_2 in L3_2, L4_2, L5_2, L6_2 do
-      L9_2 = SetScenarioTypeEnabled
-      L10_2 = L8_2
-      L11_2 = false
-      L9_2(L10_2, L11_2)
+
+-- ============================================================
+-- /mterra — print wheel surface material of current vehicle
+-- ============================================================
+RegisterCommand("mterra", function()
+    local veh = GetVehiclePedIsIn(PlayerPedId())
+    local mat = GetVehicleWheelSurfaceMaterial(veh, 1)
+    print("Materiale " .. mat)
+end)
+
+-- ============================================================
+-- /getsporco — print current vehicle dirt level
+-- ============================================================
+RegisterCommand("getsporco", function()
+    print("Dirt of vehicle ", GetVehicleDirtLevel(GetVehiclePedIsIn(PlayerPedId(), false)))
+end)
+
+-- ============================================================
+-- onResourceStop — cleanup editor prop state
+-- ============================================================
+AddEventHandler("onResourceStop", function(resourceName)
+    if resourceName ~= GetCurrentResourceName() then return end
+    if currentEditorProp and DoesEntityExist(currentEditorProp) then
+        DeleteEntity(currentEditorProp)
     end
-    L3_2 = next
-    L4_2 = L1_2
-    L5_2 = nil
-    L6_2 = nil
-    for L7_2, L8_2 in L3_2, L4_2, L5_2, L6_2 do
-      L9_2 = SetScenarioGroupEnabled
-      L10_2 = L8_2
-      L11_2 = false
-      L9_2(L10_2, L11_2)
-    end
-    L3_2 = next
-    L4_2 = L2_2
-    L5_2 = nil
-    L6_2 = nil
-    for L7_2, L8_2 in L3_2, L4_2, L5_2, L6_2 do
-      L9_2 = SetVehicleModelIsSuppressed
-      L10_2 = GetHashKey
-      L11_2 = L8_2
-      L10_2 = L10_2(L11_2)
-      L11_2 = true
-      L9_2(L10_2, L11_2)
-    end
-    L3_2 = Wait
-    L4_2 = 10000
-    L3_2(L4_2)
-  end
+    currentEditorProp = nil
+    editorBone = nil
+    edOffX, edOffY, edOffZ = 0.0, 0.0, 0.0
+    edRotX, edRotY, edRotZ = 0.0, 0.0, 0.0
+end)
+
+-- ============================================================
+-- Legacy2D(text, font, color, scale, x, y)
+--   Simple 2D text draw helper
+-- ============================================================
+function Legacy2D(text, font, color, scale, x, y)
+    SetTextFont(font)
+    SetTextScale(scale, scale)
+    SetTextColour(color[1], color[2], color[3], 255)
+    SetTextEntry("STRING")
+    SetTextDropShadow(0, 0, 0, 0, 255)
+    SetTextDropShadow()
+    SetTextEdge(4, 0, 0, 0, 255)
+    SetTextOutline()
+    AddTextComponentString(text)
+    DrawText(x, y)
 end
-L46_1(L47_1)
-L46_1 = exports
-L47_1 = "onSpostaItem"
-function L48_1(A0_2, A1_2, A2_2, A3_2, A4_2, A5_2)
-  local L6_2, L7_2, L8_2
-  L6_2 = string
-  L6_2 = L6_2.find
-  L7_2 = A3_2
-  L8_2 = "content"
-  L6_2 = L6_2(L7_2, L8_2)
-  if L6_2 then
-    L6_2 = string
-    L6_2 = L6_2.find
-    L7_2 = A1_2
-    L8_2 = "spell"
-    L6_2 = L6_2(L7_2, L8_2)
-    if L6_2 then
+
+-- ============================================================
+-- /ancora — boat anchor toggle (H key mapping)
+-- ============================================================
+RegisterKeyMapping("ancora", "Ancora Barca", "keyboard", "h")
+RegisterCommand("ancora", function()
+    local ped = PlayerPedId()
+    if not IsPedInAnyBoat(ped) then return end
+    local boat = GetVehiclePedIsIn(ped)
+    if GetPedInVehicleSeat(boat, -1) ~= ped then return end
+
+    if GetEntitySpeed(boat) > 2.7777777777778 then
+        exports.striano_combat:submexInfo("Too fast to anchor a boat.")
+        return
     end
-  end
-end
-L46_1(L47_1, L48_1)
-function L46_1()
-  local L0_2, L1_2, L2_2, L3_2, L4_2, L5_2, L6_2, L7_2
-  L0_2 = PlayerPedId
-  L0_2 = L0_2()
-  L1_2 = exports
-  L1_2 = L1_2.striano_core
-  L2_2 = L1_2
-  L1_2 = L1_2.gettutorial
-  L1_2 = L1_2(L2_2)
-  if not L1_2 then
-    return
-  end
-  L1_2 = IsEntityPositionFrozen
-  L2_2 = L0_2
-  L1_2 = L1_2(L2_2)
-  if L1_2 then
-    return
-  end
-  L1_2 = IsPedFatallyInjured
-  L2_2 = L0_2
-  L1_2 = L1_2(L2_2)
-  if L1_2 then
-    return
-  end
-  L1_2 = -1
-  L2_2 = {}
-  L3_2 = {}
-  L3_2.label = "Generalist"
-  L3_2.value = 0
-  L4_2 = {}
-  L4_2.label = "Engineer"
-  L4_2.value = 1
-  L5_2 = {}
-  L5_2.label = "Explorer"
-  L5_2.value = 2
-  L6_2 = {}
-  L6_2.label = "Forgemaster"
-  L6_2.value = 3
-  L7_2 = {}
-  L7_2.label = "Alchemist"
-  L7_2.value = 4
-  L2_2[1] = L3_2
-  L2_2[2] = L4_2
-  L2_2[3] = L5_2
-  L2_2[4] = L6_2
-  L2_2[5] = L7_2
-  function L3_2()
-    local L0_3, L1_3, L2_3, L3_3, L4_3, L5_3, L6_3, L7_3, L8_3, L9_3
-    L0_3 = exports
-    L0_3 = L0_3.striano_fastmenu
-    L1_3 = L0_3
-    L0_3 = L0_3.clearMenu
-    L0_3(L1_3)
-    L0_3 = ipairs
-    L1_3 = L2_2
-    L0_3, L1_3, L2_3, L3_3 = L0_3(L1_3)
-    for L4_3, L5_3 in L0_3, L1_3, L2_3, L3_3 do
-      L6_3 = exports
-      L6_3 = L6_3.striano_fastmenu
-      L7_3 = L6_3
-      L6_3 = L6_3.addMenuItem
-      L8_3 = L5_3.label
-      function L9_3()
-        local L0_4, L1_4, L2_4, L3_4, L4_4, L5_4, L6_4
-        L0_4 = L1_2
-        if -1 == L0_4 then
-          L0_4 = L0_1
-          if L0_4 > 0 then
-            L0_4 = exports
-            L0_4 = L0_4.striano_combat
-            L1_4 = L0_4
-            L0_4 = L0_4.submexInfo
-            L2_4 = "Select again to choose, remember you will lose you current Craft Level. (LV: "
-            L3_4 = L0_1
-            L4_4 = " ["
-            L5_4 = L1_1
-            L6_4 = "])"
-            L2_4 = L2_4 .. L3_4 .. L4_4 .. L5_4 .. L6_4
-            L0_4(L1_4, L2_4)
-          else
-            L0_4 = exports
-            L0_4 = L0_4.striano_combat
-            L1_4 = L0_4
-            L0_4 = L0_4.submexInfo
-            L2_4 = "Select again to confirm this Class."
-            L0_4(L1_4, L2_4)
-          end
-          L0_4 = L5_3.value
-          L1_2 = L0_4
-          return
+
+    if IsBoatAnchoredAndFrozen(boat) then
+        -- Lift anchor
+        SetBoatAnchor(boat, false)
+        SetBoatFrozenWhenAnchored(boat, false)
+        SetForcedBoatLocationWhenAnchored(boat, false)
+        TriggerServerEvent("D_Ancorata:set", VehToNet(boat), false)
+    else
+        -- Drop anchor — must be in water or where it can anchor
+        if not IsEntityInWater(boat) and not CanAnchorBoatHere(boat) then
+            exports.striano_combat:submexInfo("You must be in water to anchor a boat.")
+            return
         end
-        L0_4 = L2_1
-        L1_4 = L1_2
-        if L0_4 == L1_4 then
-          L0_4 = exports
-          L0_4 = L0_4.striano_combat
-          L1_4 = L0_4
-          L0_4 = L0_4.submexError
-          L2_4 = "Can't select same Class."
-          L0_4(L1_4, L2_4)
-          L0_4 = -1
-          L1_2 = L0_4
-          return
-        end
-        L0_4 = L5_3.value
-        L1_4 = L1_2
-        if L0_4 ~= L1_4 then
-          L0_4 = exports
-          L0_4 = L0_4.striano_combat
-          L1_4 = L0_4
-          L0_4 = L0_4.submexError
-          L2_4 = "You must select the same class 2 times to Apply."
-          L0_4(L1_4, L2_4)
-          L0_4 = -1
-          L1_2 = L0_4
-          return
-        end
-        L0_4 = TriggerServerEvent
-        L1_4 = "status:set"
-        L2_4 = GetPlayerServerId
-        L3_4 = PlayerId
-        L3_4, L4_4, L5_4, L6_4 = L3_4()
-        L2_4 = L2_4(L3_4, L4_4, L5_4, L6_4)
-        L3_4 = "classepl"
-        L4_4 = L5_3.value
-        L0_4(L1_4, L2_4, L3_4, L4_4)
-        L0_4 = exports
-        L0_4 = L0_4.striano_combat
-        L1_4 = L0_4
-        L0_4 = L0_4.submexInfo
-        L2_4 = "Class selected correctly."
-        L0_4(L1_4, L2_4)
-        L0_4 = 0
-        L0_1 = L0_4
-        L0_4 = TriggerServerEvent
-        L1_4 = "status:set"
-        L2_4 = GetPlayerServerId
-        L3_4 = PlayerId
-        L3_4, L4_4, L5_4, L6_4 = L3_4()
-        L2_4 = L2_4(L3_4, L4_4, L5_4, L6_4)
-        L3_4 = "craftlv"
-        L4_4 = L0_1
-        L0_4(L1_4, L2_4, L3_4, L4_4)
-        L0_4 = 0
-        L1_1 = L0_4
-        L0_4 = TriggerServerEvent
-        L1_4 = "status:set"
-        L2_4 = GetPlayerServerId
-        L3_4 = PlayerId
-        L3_4, L4_4, L5_4, L6_4 = L3_4()
-        L2_4 = L2_4(L3_4, L4_4, L5_4, L6_4)
-        L3_4 = "craftxp"
-        L4_4 = L1_1
-        L0_4(L1_4, L2_4, L3_4, L4_4)
-        L0_4 = L5_3.value
-        L2_1 = L0_4
-        L0_4 = -1
-        L1_2 = L0_4
-        L0_4 = exports
-        L0_4 = L0_4.striano_fastmenu
-        L1_4 = L0_4
-        L0_4 = L0_4.closeMenu
-        L0_4(L1_4)
-      end
-      L6_3(L7_3, L8_3, L9_3)
+        SetBoatAnchor(boat, true)
+        SetBoatFrozenWhenAnchored(boat, true)
+        SetForcedBoatLocationWhenAnchored(boat, true)
+        anchoredBoat = boat
+        TriggerServerEvent("D_Ancorata:set", VehToNet(boat), true)
     end
-    L0_3 = exports
-    L0_3 = L0_3.striano_fastmenu
-    L1_3 = L0_3
-    L0_3 = L0_3.openMenu
-    L0_3(L1_3)
-  end
-  L4_2 = L3_2
-  L4_2()
+end)
+
+-- Boat anchor display thread — show "[H] Detach Anchor" label above anchored boat
+CreateThread(function()
+    while true do
+        Wait(0)
+        local ped = PlayerPedId()
+        if anchoredBoat == nil then
+            -- Try to find current vehicle to track
+            local veh = GetVehiclePedIsIn(ped, false)
+            if veh ~= nil and veh ~= 0 then
+                anchoredBoat = veh
+            else
+                Wait(1000)
+            end
+        else
+            local state = Entity(anchoredBoat).state.D_Ancorata
+            if state == true then
+                if IsPedSittingInAnyVehicle(ped) then
+                    if anchoredBoat == GetVehiclePedIsIn(ped, false) then
+                        local coords = GetEntityCoords(anchoredBoat)
+                        Draw3DText(coords.x, coords.y, coords.z + 0.5, "[H] Detach Anchor")
+                    end
+                end
+            elseif state == nil then
+                anchoredBoat = nil
+                Wait(1000)
+            end
+        end
+    end
+end)
+
+-- ============================================================
+-- Editor Panda mode  (/editorpanda)
+-- Aims at entity up to 300 m, draws outline + line + marker,
+-- toggles entity outline on selection.
+-- ============================================================
+RegisterCommand("editorpanda", function()
+    editorPandaActive = not editorPandaActive
+    if editorPandaActive then
+        fPanda()
+    end
+end)
+
+function fPanda()
+    CreateThread(function()
+        while editorPandaActive do
+            Wait(0)
+            local color = { r = 255, g = 0, b = 110, a = 200 }
+            local pedCoords = GetEntityCoords(PlayerPedId())
+            local hit, hitCoords, entity = GetCamTarget(300.0)
+
+            if entity and entity > 0 then
+                Legacy2D("Sto selezionando entity ID: " .. entity,
+                    4, { 255, 255, 255 }, 0.4, 0.55, 0.888)
+                DrawLine(
+                    pedCoords.x, pedCoords.y, pedCoords.z + 0.5,
+                    hitCoords.x, hitCoords.y, hitCoords.z,
+                    color.r, color.g, color.b, color.a)
+                DrawMarker(28,
+                    hitCoords.x, hitCoords.y, hitCoords.z,
+                    0.0, 0.0, 0.0, 0.0, 180.0, 0.0,
+                    0.05, 0.05, 0.05,
+                    color.r, color.g, color.b, color.a,
+                    false, true, 2, nil, nil, false)
+
+                if pandaSelectedEnt == 0 then
+                    if pandaSelectedEnt ~= entity then
+                        pandaSelectedEnt = entity
+                        SetEntityDrawOutline(entity, true)
+                        SetEntityDrawOutlineColor(255, 0, 110, 150)
+                    else
+                        SetEntityDrawOutline(pandaSelectedEnt, false)
+                        pandaSelectedEnt = 0
+                    end
+                else
+                    if pandaSelectedEnt ~= entity then
+                        SetEntityDrawOutline(pandaSelectedEnt, false)
+                        pandaSelectedEnt = 0
+                    end
+                end
+            else
+                Legacy2D("Nessuna entity rilevata, puntala con la telecamera.",
+                    4, { 255, 255, 255 }, 0.4, 0.55, 0.888)
+                if pandaSelectedEnt ~= 0 then
+                    SetEntityDrawOutline(pandaSelectedEnt, false)
+                    pandaSelectedEnt = 0
+                end
+            end
+        end
+    end)
 end
-L47_1 = RegisterCommand
-L48_1 = "class"
-function L49_1(A0_2)
-  local L1_2
-  L1_2 = L46_1
-  L1_2()
+
+-- ============================================================
+-- Airport / military vehicle suppression thread (every 10 s)
+-- ============================================================
+CreateThread(function()
+    while true do
+        for _, scenario in ipairs(suppressedAirportScenarios) do
+            SetScenarioTypeEnabled(scenario, false)
+        end
+        for _, group in ipairs(suppressedAirportGroups) do
+            SetScenarioGroupEnabled(group, false)
+        end
+        for _, model in ipairs(suppressedAirportVehicles) do
+            SetVehicleModelIsSuppressed(GetHashKey(model), true)
+        end
+        Wait(10000)
+    end
+end)
+
+-- ============================================================
+-- exports "onSpostaItem" — item move hook (spell/content filter)
+-- ============================================================
+exports("onSpostaItem", function(_, itemName, _, containerType, _, _)
+    if string.find(containerType, "content") then
+        if string.find(itemName, "spell") then
+            -- reserved for future handling
+        end
+    end
+end)
+
+-- ============================================================
+-- Class selector (/class command + fastmenu)
+-- Opens a menu with 5 class options; requires double-confirm.
+-- Resets craftLevel and craftXP when class changes.
+-- ============================================================
+local function openClassMenu()
+    local ped = PlayerPedId()
+    if not exports.striano_core:gettutorial() then return end
+    if IsEntityPositionFrozen(ped) then return end
+    if IsPedFatallyInjured(ped) then return end
+
+    local pendingClass = -1
+    local classes = {
+        { label = "Generalist",  value = 0 },
+        { label = "Engineer",    value = 1 },
+        { label = "Explorer",    value = 2 },
+        { label = "Forgemaster", value = 3 },
+        { label = "Alchemist",   value = 4 },
+    }
+
+    local function buildMenu()
+        exports.striano_fastmenu:clearMenu()
+        for _, cls in ipairs(classes) do
+            exports.striano_fastmenu:addMenuItem(cls.label, function()
+                if pendingClass == -1 then
+                    -- First press: warn
+                    if craftLevel > 0 then
+                        exports.striano_combat:submexInfo(
+                            "Select again to choose, remember you will lose you current Craft Level. " ..
+                            "(LV: " .. craftLevel .. " [" .. craftXP .. "])")
+                    else
+                        exports.striano_combat:submexInfo("Select again to confirm this Class.")
+                    end
+                    pendingClass = cls.value
+                    return
+                end
+                if classePL == pendingClass then
+                    exports.striano_combat:submexError("Can't select same Class.")
+                    pendingClass = -1
+                    return
+                end
+                if cls.value ~= pendingClass then
+                    exports.striano_combat:submexError("You must select the same class 2 times to Apply.")
+                    pendingClass = -1
+                    return
+                end
+                -- Confirmed: apply class change
+                local myServerId = GetPlayerServerId(PlayerId())
+                TriggerServerEvent("status:set", myServerId, "classepl", cls.value)
+                exports.striano_combat:submexInfo("Class selected correctly.")
+                craftLevel = 0
+                TriggerServerEvent("status:set", myServerId, "craftlv", craftLevel)
+                craftXP = 0
+                TriggerServerEvent("status:set", myServerId, "craftxp", craftXP)
+                classePL  = cls.value
+                pendingClass = -1
+                exports.striano_fastmenu:closeMenu()
+            end)
+        end
+        exports.striano_fastmenu:openMenu()
+    end
+
+    buildMenu()
 end
-L47_1(L48_1, L49_1)
+
+RegisterCommand("class", function() openClassMenu() end)

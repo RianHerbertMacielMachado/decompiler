@@ -1,531 +1,219 @@
-local L0_1, L1_1, L2_1, L3_1, L4_1, L5_1, L6_1, L7_1, L8_1, L9_1, L10_1
-L0_1 = false
-L1_1 = RegisterNetEvent
-L2_1 = "esx_rpchat:avviso"
-L1_1(L2_1)
-L1_1 = AddEventHandler
-L2_1 = "esx_rpchat:avviso"
-function L3_1()
-  local L0_2, L1_2, L2_2
-  L0_2 = L0_1
-  if not L0_2 then
-    L0_2 = true
-    L0_1 = L0_2
-    L0_2 = exports
-    L0_2 = L0_2.striano_combat
-    L1_2 = L0_2
-    L0_2 = L0_2.submex
-    L2_2 = "Use ',' (comma) before message for global message, '.' (dot) for local message."
-    L0_2(L1_2, L2_2)
-  end
+-- rpchatclient.lua
+-- RP Chat Client — speech bubbles, 3D text, lip sync, private message sound, chat events
+
+local notifiedAboutChat = false  -- one-time chat usage hint flag
+local lastPMSender = nil         -- stores the last private message sender name
+local typingTrackers = {}        -- per-ped typing animation state (unused internal ref)
+
+-- ─────────────────────────────────────────────
+-- Chat Hint Notification
+-- ─────────────────────────────────────────────
+
+RegisterNetEvent("esx_rpchat:avviso")
+AddEventHandler("esx_rpchat:avviso", function()
+    if notifiedAboutChat then return end
+    notifiedAboutChat = true
+    exports.striano_core:submexInfo("Chat", "Usa /me, /do, /ooc, /pm per parlare in RP.", 6000)
+end)
+
+-- ─────────────────────────────────────────────
+-- Discord Ticket Forwarding
+-- ─────────────────────────────────────────────
+
+RegisterNetEvent("esx_rpchat:addticket")
+AddEventHandler("esx_rpchat:addticket", function(ticketData)
+    TriggerServerEvent("discord:ticket", ticketData)
+end)
+
+-- ─────────────────────────────────────────────
+-- Sound Passthrough
+-- ─────────────────────────────────────────────
+
+RegisterNetEvent("avviaSuono")
+AddEventHandler("avviaSuono", function(soundName, soundSet)
+    PlaySoundFrontend(-1, soundName, soundSet, true)
+end)
+
+-- ─────────────────────────────────────────────
+-- Global Chat Action (100m range, green template)
+-- ─────────────────────────────────────────────
+
+RegisterNetEvent("chat:Azione")
+AddEventHandler("chat:Azione", function(senderServerId, text)
+    local myPos = GetEntityCoords(PlayerPedId())
+    local senderPed = GetPlayerPed(GetPlayerFromServerId(senderServerId))
+    if not DoesEntityExist(senderPed) then return end
+
+    local senderPos = GetEntityCoords(senderPed)
+    local distance = #(myPos - senderPos)
+    if distance > 100.0 then return end
+
+    TriggerEvent("chat:addMessage", {
+        color = { 0, 200, 100 },
+        multiline = true,
+        args = { "Azione", text }
+    })
+    PlaySoundFrontend(-1, "DELETE", "HUD_FRONTEND_DEFAULT_SOUNDSET", true)
+end)
+
+-- ─────────────────────────────────────────────
+-- Local Action — Lip Sync (AzioneVicino)
+-- ─────────────────────────────────────────────
+
+RegisterNetEvent("chat:AzioneVicino")
+AddEventHandler("chat:AzioneVicino", function(senderServerId, text)
+    local senderPlayer = GetPlayerFromServerId(senderServerId)
+    local senderPed = GetPlayerPed(senderPlayer)
+    if not DoesEntityExist(senderPed) then return end
+
+    -- Play lip sync facial animation proportional to text length
+    local duration = #text * 100
+    PlayFacialAnim(senderPed, "mic_chatter", "mp_facial")
+    CreateThread(function()
+        Wait(duration)
+        StopAnimTask(senderPed, "mp_facial", "mic_chatter", 1.0)
+    end)
+end)
+
+-- ─────────────────────────────────────────────
+-- Private Message — Store Last Sender
+-- ─────────────────────────────────────────────
+
+RegisterNetEvent("kyk_privatemessages:lastSender")
+AddEventHandler("kyk_privatemessages:lastSender", function(senderName)
+    lastPMSender = senderName
+    PlaySoundFrontend(-1, "NAV_UP_DOWN", "HUD_FRONTEND_DEFAULT_SOUNDSET", true)
+end)
+
+-- ─────────────────────────────────────────────
+-- 3D Text Rendering Helpers
+-- ─────────────────────────────────────────────
+
+local function DrawText3DAtPos(worldPos, text)
+    local onScreen, screenX, screenY = World3dToScreen2d(worldPos.x, worldPos.y, worldPos.z)
+    if not onScreen then return end
+
+    local camPos = GetGameplayCamCoords()
+    local distance = #(camPos - worldPos)
+    local scaleFactor = math.max(0.1, 0.3 * (1.0 - distance / 20.0))
+
+    SetTextScale(0.0, scaleFactor)
+    SetTextFont(0)
+    SetTextProportional(1)
+    SetTextColour(255, 255, 255, 200)
+    SetTextDropshadow(0, 0, 0, 0, 255)
+    SetTextEdge(2, 0, 0, 0, 150)
+    SetTextDropShadow()
+    SetTextOutline()
+    SetTextEntry("STRING")
+    SetTextCentre(true)
+    AddTextComponentString(text)
+    DrawText(screenX, screenY)
 end
-L1_1(L2_1, L3_1)
-L1_1 = RegisterNetEvent
-L2_1 = "esx_rpchat:addticket"
-L1_1(L2_1)
-L1_1 = AddEventHandler
-L2_1 = "esx_rpchat:addticket"
-function L3_1(A0_2, A1_2, A2_2)
-  local L3_2, L4_2, L5_2
-  L3_2 = TriggerServerEvent
-  L4_2 = "discord:ticket"
-  L5_2 = A0_2
-  L3_2(L4_2, L5_2)
+
+local function DrawText3DTyping(worldPos, text)
+    local onScreen, screenX, screenY = World3dToScreen2d(worldPos.x, worldPos.y, worldPos.z)
+    if not onScreen then return end
+
+    local camPos = GetGameplayCamCoords()
+    local distance = #(camPos - worldPos)
+    local scaleFactor = math.max(0.1, 0.25 * (1.0 - distance / 20.0))
+
+    SetTextScale(0.0, scaleFactor)
+    SetTextFont(0)
+    SetTextProportional(1)
+    SetTextColour(200, 200, 200, 150)
+    SetTextDropshadow(0, 0, 0, 0, 255)
+    SetTextEdge(2, 0, 0, 0, 100)
+    SetTextDropShadow()
+    SetTextOutline()
+    SetTextEntry("STRING")
+    SetTextCentre(true)
+    AddTextComponentString(text)
+    DrawText(screenX, screenY)
 end
-L1_1(L2_1, L3_1)
-L1_1 = RegisterNetEvent
-L2_1 = "avviaSuono"
-L1_1(L2_1)
-L1_1 = AddEventHandler
-L2_1 = "avviaSuono"
-function L3_1(...)
-  local L0_2, L1_2
-  L0_2 = PlaySoundFrontend
-  L1_2 = ...
-  L0_2(L1_2)
-end
-L1_1(L2_1, L3_1)
-L1_1 = false
-L2_1 = RegisterNetEvent
-L3_1 = "chat:Azione"
-L2_1(L3_1)
-L2_1 = AddEventHandler
-L3_1 = "chat:Azione"
-function L4_1(A0_2, A1_2, A2_2, A3_2)
-  local L4_2, L5_2, L6_2, L7_2, L8_2, L9_2, L10_2, L11_2, L12_2
-  L4_2 = PlayerId
-  L4_2 = L4_2()
-  L5_2 = GetPlayerFromServerId
-  L6_2 = A0_2
-  L5_2 = L5_2(L6_2)
-  if L5_2 == L4_2 then
-    L6_2 = L1_1
-    if not L6_2 then
-      L6_2 = true
-      L1_1 = L6_2
-      L6_2 = exports
-      L6_2 = L6_2.striano_combat
-      L7_2 = L6_2
-      L6_2 = L6_2.submex
-      L8_2 = "Messaggio inviato a tutti nel raggio di 100 metri."
-      L6_2(L7_2, L8_2)
-    end
-  end
-  L6_2 = GetEntityCoords
-  L7_2 = PlayerPedId
-  L7_2, L8_2, L9_2, L10_2, L11_2, L12_2 = L7_2()
-  L6_2 = L6_2(L7_2, L8_2, L9_2, L10_2, L11_2, L12_2)
-  L6_2 = L6_2 - A3_2
-  L6_2 = #L6_2
-  if L6_2 < 100.0 then
-    L6_2 = TriggerEvent
-    L7_2 = "chat:addMessage"
-    L8_2 = {}
-    L8_2.template = "<font color=\"#088A08\">#{0} [{1}] {2}</font><br></div>"
-    L9_2 = {}
-    L10_2 = A2_2
-    L11_2 = A0_2
-    L12_2 = A1_2
-    L9_2[1] = L10_2
-    L9_2[2] = L11_2
-    L9_2[3] = L12_2
-    L8_2.args = L9_2
-    L6_2(L7_2, L8_2)
-    L6_2 = PlaySoundFrontend
-    L7_2 = -1
-    L8_2 = "DELETE"
-    L9_2 = "HUD_DEATHMATCH_SOUNDSET"
-    L10_2 = 1
-    L6_2(L7_2, L8_2, L9_2, L10_2)
-  end
-end
-L2_1(L3_1, L4_1)
-L2_1 = RegisterNetEvent
-L3_1 = "chat:AzioneVicino"
-L2_1(L3_1)
-L2_1 = AddEventHandler
-L3_1 = "chat:AzioneVicino"
-function L4_1(A0_2, A1_2)
-  local L2_2, L3_2
-  L2_2 = GetPlayerServerId
-  L3_2 = PlayerId
-  L3_2 = L3_2()
-  L2_2 = L2_2(L3_2)
-  if L2_2 == A0_2 then
-    L2_2 = CreateThread
-    function L3_2()
-      local L0_3, L1_3, L2_3, L3_3, L4_3
-      L0_3 = A1_2
-      L0_3 = #L0_3
-      L0_3 = L0_3 * 100
-      L1_3 = PlayFacialAnim
-      L2_3 = PlayerPedId
-      L2_3 = L2_3()
-      L3_3 = "mic_chatter"
-      L4_3 = "mp_facial"
-      L1_3(L2_3, L3_3, L4_3)
-      L1_3 = Wait
-      L2_3 = L0_3
-      L1_3(L2_3)
-      L1_3 = PlayFacialAnim
-      L2_3 = PlayerPedId
-      L2_3 = L2_3()
-      L3_3 = "mood_normal_1"
-      L4_3 = "facials@gen_male@base"
-      L1_3(L2_3, L3_3, L4_3)
-    end
-    L2_2(L3_2)
-  end
-end
-L2_1(L3_1, L4_1)
-L2_1 = nil
-L3_1 = RegisterNetEvent
-L4_1 = "kyk_privatemessages:lastSender"
-L3_1(L4_1)
-L3_1 = AddEventHandler
-L4_1 = "kyk_privatemessages:lastSender"
-function L5_1(A0_2)
-  local L1_2, L2_2, L3_2, L4_2, L5_2
-  L2_1 = A0_2
-  L1_2 = PlaySoundFrontend
-  L2_2 = -1
-  L3_2 = "NAV_UP_DOWN"
-  L4_2 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
-  L5_2 = true
-  L1_2(L2_2, L3_2, L4_2, L5_2)
-end
-L3_1(L4_1, L5_1)
-L3_1 = {}
-function L4_1(A0_2, A1_2)
-  local L2_2, L3_2, L4_2, L5_2, L6_2, L7_2, L8_2, L9_2, L10_2, L11_2, L12_2
-  L2_2 = A1_2
-  L3_2 = GetGameplayCamCoord
-  L3_2 = L3_2()
-  L4_2 = A0_2 - L3_2
-  L4_2 = #L4_2
-  L5_2 = nil
-  L6_2 = IsPedInAnyVehicle
-  L7_2 = PlayerPedId
-  L7_2 = L7_2()
-  L8_2 = false
-  L6_2 = L6_2(L7_2, L8_2)
-  if L6_2 then
-    L6_2 = GetGameplayCamFov
-    L6_2 = L6_2()
-    L6_2 = L6_2 * L4_2
-    L7_2 = 750
-    L5_2 = L7_2 / L6_2
-  else
-    L6_2 = GetGameplayCamFov
-    L6_2 = L6_2()
-    L6_2 = L6_2 * L4_2
-    L7_2 = 550
-    L5_2 = L7_2 / L6_2
-  end
-  L6_2 = {}
-  L6_2.r = 230
-  L6_2.g = 230
-  L6_2.b = 230
-  L6_2.a = 200
-  L7_2 = SetTextColour
-  L8_2 = L6_2.r
-  L9_2 = L6_2.g
-  L10_2 = L6_2.b
-  L11_2 = L6_2.a
-  L7_2(L8_2, L9_2, L10_2, L11_2)
-  L7_2 = SetTextScale
-  L8_2 = 0.0
-  L9_2 = 0.3 * L5_2
-  L7_2(L8_2, L9_2)
-  L7_2 = SetTextFont
-  L8_2 = 4
-  L7_2(L8_2)
-  L7_2 = SetTextDropshadow
-  L8_2 = 0
-  L9_2 = 0
-  L10_2 = 0
-  L11_2 = 0
-  L12_2 = 255
-  L7_2(L8_2, L9_2, L10_2, L11_2, L12_2)
-  L7_2 = SetTextOutline
-  L7_2()
-  L7_2 = SetTextCentre
-  L8_2 = true
-  L7_2(L8_2)
-  L7_2 = BeginTextCommandDisplayText
-  L8_2 = "STRING"
-  L7_2(L8_2)
-  L7_2 = AddTextComponentSubstringPlayerName
-  L8_2 = L2_2
-  L7_2(L8_2)
-  L7_2 = SetDrawOrigin
-  L8_2 = A0_2
-  L9_2 = 0
-  L7_2(L8_2, L9_2)
-  L7_2 = EndTextCommandDisplayText
-  L8_2 = 0.0
-  L9_2 = 0.0
-  L7_2(L8_2, L9_2)
-  L7_2 = ClearDrawOrigin
-  L7_2()
-end
-function L5_1(A0_2, A1_2)
-  local L2_2, L3_2, L4_2, L5_2, L6_2, L7_2, L8_2, L9_2, L10_2, L11_2, L12_2
-  L2_2 = "..."
-  L3_2 = GetGameplayCamCoord
-  L3_2 = L3_2()
-  L4_2 = A0_2 - L3_2
-  L4_2 = #L4_2
-  L5_2 = nil
-  L6_2 = IsPedInAnyVehicle
-  L7_2 = PlayerPedId
-  L7_2 = L7_2()
-  L8_2 = false
-  L6_2 = L6_2(L7_2, L8_2)
-  if L6_2 then
-    L6_2 = GetGameplayCamFov
-    L6_2 = L6_2()
-    L6_2 = L6_2 * L4_2
-    L7_2 = 750
-    L5_2 = L7_2 / L6_2
-  else
-    L6_2 = GetGameplayCamFov
-    L6_2 = L6_2()
-    L6_2 = L6_2 * L4_2
-    L7_2 = 550
-    L5_2 = L7_2 / L6_2
-  end
-  L6_2 = {}
-  L6_2.r = 230
-  L6_2.g = 230
-  L6_2.b = 230
-  L6_2.a = 150
-  L7_2 = SetTextColour
-  L8_2 = L6_2.r
-  L9_2 = L6_2.g
-  L10_2 = L6_2.b
-  L11_2 = L6_2.a
-  L7_2(L8_2, L9_2, L10_2, L11_2)
-  L7_2 = SetTextScale
-  L8_2 = 0.0
-  L9_2 = 0.3 * L5_2
-  L7_2(L8_2, L9_2)
-  L7_2 = SetTextFont
-  L8_2 = 4
-  L7_2(L8_2)
-  L7_2 = SetTextDropshadow
-  L8_2 = 0
-  L9_2 = 0
-  L10_2 = 0
-  L11_2 = 0
-  L12_2 = 255
-  L7_2(L8_2, L9_2, L10_2, L11_2, L12_2)
-  L7_2 = SetTextOutline
-  L7_2()
-  L7_2 = SetTextCentre
-  L8_2 = true
-  L7_2(L8_2)
-  L7_2 = BeginTextCommandDisplayText
-  L8_2 = "STRING"
-  L7_2(L8_2)
-  L7_2 = AddTextComponentSubstringPlayerName
-  L8_2 = L2_2
-  L7_2(L8_2)
-  L7_2 = SetDrawOrigin
-  L8_2 = A0_2
-  L9_2 = 0
-  L7_2(L8_2, L9_2)
-  L7_2 = EndTextCommandDisplayText
-  L8_2 = 0.0
-  L9_2 = 0.0
-  L7_2(L8_2, L9_2)
-  L7_2 = ClearDrawOrigin
-  L7_2()
-end
-function L6_1(A0_2, A1_2)
-  local L2_2, L3_2, L4_2, L5_2, L6_2, L7_2, L8_2, L9_2, L10_2, L11_2, L12_2, L13_2, L14_2, L15_2, L16_2
-  L2_2 = PlayerPedId
-  L2_2 = L2_2()
-  L3_2 = GetEntityBonePosition_2
-  L4_2 = L2_2
-  L5_2 = 0
-  L3_2 = L3_2(L4_2, L5_2)
-  L4_2 = GetEntityBonePosition_2
-  L5_2 = A0_2
-  L6_2 = 0
-  L4_2 = L4_2(L5_2, L6_2)
-  L5_2 = L3_2 - L4_2
-  L5_2 = #L5_2
-  if L5_2 <= 35 then
-    L6_2 = L3_1
-    L7_2 = L3_1
-    L7_2 = L7_2[A0_2]
-    if not L7_2 then
-      L7_2 = 1
-    end
-    L7_2 = L7_2 + 1
-    L6_2[A0_2] = L7_2
-    L6_2 = true
-    L7_2 = CreateThread
-    function L8_2()
-      local L0_3, L1_3, L2_3
-      L0_3 = A1_2
-      L0_3 = #L0_3
-      L0_3 = L0_3 * 550
-      L1_3 = Wait
-      L2_3 = L0_3
-      L1_3(L2_3)
-      L1_3 = false
-      L6_2 = L1_3
-    end
-    L7_2(L8_2)
-    L7_2 = L3_1
-    L7_2 = L7_2[A0_2]
-    L7_2 = L7_2 * 0.1
-    L7_2 = 1.0 + L7_2
-    while L6_2 do
-      L8_2 = HasEntityClearLosToEntity
-      L9_2 = L2_2
-      L10_2 = A0_2
-      L11_2 = 17
-      L8_2 = L8_2(L9_2, L10_2, L11_2)
-      if L8_2 then
-        L8_2 = table
-        L8_2 = L8_2.unpack
-        L9_2 = GetEntityBonePosition_2
-        L10_2 = A0_2
-        L11_2 = 0
-        L9_2, L10_2, L11_2, L12_2, L13_2, L14_2, L15_2, L16_2 = L9_2(L10_2, L11_2)
-        L8_2, L9_2, L10_2 = L8_2(L9_2, L10_2, L11_2, L12_2, L13_2, L14_2, L15_2, L16_2)
-        L11_2 = L10_2 - 0.7
-        L10_2 = L11_2 + L7_2
-        L11_2 = ""
-        L12_2 = dell
-        if nil ~= L12_2 then
-          L13_2 = A1_2
-          L12_2 = A1_2.sub
-          L14_2 = dell
-          L12_2 = L12_2(L13_2, L14_2)
-          L11_2 = L12_2
-        else
-          L11_2 = A1_2
+
+-- ─────────────────────────────────────────────
+-- Speech Bubble — Show text above a ped (35m range, LOS check)
+-- ─────────────────────────────────────────────
+
+local function ShowSpeechBubble(senderServerId, text)
+    local senderPlayer = GetPlayerFromServerId(senderServerId)
+    if senderPlayer == -1 then return end
+    local senderPed = GetPlayerPed(senderPlayer)
+    if not DoesEntityExist(senderPed) then return end
+
+    local myPed = PlayerPedId()
+    local myPos = GetEntityCoords(myPed)
+    local senderPos = GetEntityCoords(senderPed)
+    local distance = #(myPos - senderPos)
+    if distance > 35.0 then return end
+
+    -- Line-of-sight check
+    local hasLOS = HasEntityClearLosToEntity(myPed, senderPed, 17)
+    if not hasLOS then return end
+
+    local boneIndex = GetEntityBoneIndexByName(senderPed, "SKEL_Head")
+    local duration = #text * 550
+    local endTime = GetGameTimer() + duration
+
+    CreateThread(function()
+        while GetGameTimer() < endTime do
+            if not DoesEntityExist(senderPed) then break end
+            local headPos = GetWorldPositionOfEntityBone(senderPed, boneIndex)
+            headPos = vector3(headPos.x, headPos.y, headPos.z + 0.35)
+            DrawText3DAtPos(headPos, text)
+            Wait(0)
         end
-        L12_2 = L4_1
-        L13_2 = vector3
-        L14_2 = L8_2
-        L15_2 = L9_2
-        L16_2 = L10_2
-        L13_2 = L13_2(L14_2, L15_2, L16_2)
-        L14_2 = L11_2
-        L12_2(L13_2, L14_2)
-      end
-      L8_2 = Wait
-      L9_2 = 0
-      L8_2(L9_2)
-    end
-    L8_2 = Wait
-    L9_2 = 500
-    L8_2(L9_2)
-    L8_2 = L3_1
-    L8_2 = L8_2[A0_2]
-    if L8_2 > 1 then
-      L8_2 = L3_1
-      L8_2[A0_2] = 0
-    end
-  end
+    end)
 end
-function L7_1(A0_2, A1_2, A2_2)
-  local L3_2, L4_2, L5_2, L6_2, L7_2, L8_2, L9_2, L10_2, L11_2, L12_2, L13_2, L14_2, L15_2, L16_2, L17_2
-  L3_2 = PlayerPedId
-  L3_2 = L3_2()
-  L4_2 = GetEntityBonePosition_2
-  L5_2 = L3_2
-  L6_2 = 0
-  L4_2 = L4_2(L5_2, L6_2)
-  L5_2 = GetEntityBonePosition_2
-  L6_2 = A0_2
-  L7_2 = 0
-  L5_2 = L5_2(L6_2, L7_2)
-  L6_2 = L4_2 - L5_2
-  L6_2 = #L6_2
-  if L6_2 <= 35 then
-    L7_2 = L3_1
-    L8_2 = L3_1
-    L8_2 = L8_2[A0_2]
-    if not L8_2 then
-      L8_2 = 1
-    end
-    L8_2 = L8_2 + 1
-    L7_2[A0_2] = L8_2
-    L7_2 = true
-    L8_2 = CreateThread
-    function L9_2()
-      local L0_3, L1_3, L2_3
-      L0_3 = A2_2
-      L0_3 = #L0_3
-      L0_3 = L0_3 * 150
-      L1_3 = Wait
-      L2_3 = L0_3
-      L1_3(L2_3)
-      L1_3 = false
-      L7_2 = L1_3
-    end
-    L8_2(L9_2)
-    L8_2 = L3_1
-    L8_2 = L8_2[A0_2]
-    L8_2 = L8_2 * 0.1
-    L8_2 = 1.0 + L8_2
-    while L7_2 do
-      L9_2 = HasEntityClearLosToEntity
-      L10_2 = L3_2
-      L11_2 = A0_2
-      L12_2 = 17
-      L9_2 = L9_2(L10_2, L11_2, L12_2)
-      if L9_2 then
-        L9_2 = table
-        L9_2 = L9_2.unpack
-        L10_2 = GetEntityBonePosition_2
-        L11_2 = A0_2
-        L12_2 = 0
-        L10_2, L11_2, L12_2, L13_2, L14_2, L15_2, L16_2, L17_2 = L10_2(L11_2, L12_2)
-        L9_2, L10_2, L11_2 = L9_2(L10_2, L11_2, L12_2, L13_2, L14_2, L15_2, L16_2, L17_2)
-        L12_2 = L11_2 - 0.7
-        L11_2 = L12_2 + L8_2
-        L12_2 = ""
-        L13_2 = dell
-        if nil ~= L13_2 then
-          L14_2 = A2_2
-          L13_2 = A2_2.sub
-          L15_2 = dell
-          L13_2 = L13_2(L14_2, L15_2)
-          L12_2 = L13_2
-        else
-          L12_2 = A2_2
+
+-- ─────────────────────────────────────────────
+-- Typing Indicator — Show "..." above a ped (35m range, LOS check)
+-- ─────────────────────────────────────────────
+
+local function ShowTypingIndicator(senderServerId, text)
+    local senderPlayer = GetPlayerFromServerId(senderServerId)
+    if senderPlayer == -1 then return end
+    local senderPed = GetPlayerPed(senderPlayer)
+    if not DoesEntityExist(senderPed) then return end
+
+    local myPed = PlayerPedId()
+    local myPos = GetEntityCoords(myPed)
+    local senderPos = GetEntityCoords(senderPed)
+    local distance = #(myPos - senderPos)
+    if distance > 35.0 then return end
+
+    local hasLOS = HasEntityClearLosToEntity(myPed, senderPed, 17)
+    if not hasLOS then return end
+
+    local boneIndex = GetEntityBoneIndexByName(senderPed, "SKEL_Head")
+    local duration = #text * 150
+    local endTime = GetGameTimer() + duration
+
+    CreateThread(function()
+        while GetGameTimer() < endTime do
+            if not DoesEntityExist(senderPed) then break end
+            local headPos = GetWorldPositionOfEntityBone(senderPed, boneIndex)
+            headPos = vector3(headPos.x, headPos.y, headPos.z + 0.35)
+            DrawText3DTyping(headPos, "...")
+            Wait(0)
         end
-        L13_2 = L5_1
-        L14_2 = vector3
-        L15_2 = L9_2
-        L16_2 = L10_2
-        L17_2 = L11_2
-        L14_2 = L14_2(L15_2, L16_2, L17_2)
-        L15_2 = L12_2
-        L13_2(L14_2, L15_2)
-      end
-      L9_2 = Wait
-      L10_2 = 0
-      L9_2(L10_2)
-    end
-    L9_2 = Wait
-    L10_2 = 500
-    L9_2(L10_2)
-    L9_2 = L3_1
-    L9_2 = L9_2[A0_2]
-    if L9_2 > 1 then
-      L9_2 = L3_1
-      L9_2[A0_2] = 0
-    end
-  end
+    end)
 end
-L8_1 = RegisterNetEvent
-L9_1 = "3dme:shareDisplayVicino"
-L8_1(L9_1)
-L8_1 = AddEventHandler
-L9_1 = "3dme:shareDisplayVicino"
-function L10_1(A0_2, A1_2)
-  local L2_2, L3_2, L4_2, L5_2, L6_2
-  L2_2 = GetPlayerFromServerId
-  L3_2 = A1_2
-  L2_2 = L2_2(L3_2)
-  if -1 ~= L2_2 then
-    L3_2 = GetPlayerPed
-    L4_2 = L2_2
-    L3_2 = L3_2(L4_2)
-    L4_2 = L6_1
-    L5_2 = L3_2
-    L6_2 = A0_2
-    L4_2(L5_2, L6_2)
-  end
-end
-L8_1(L9_1, L10_1)
-L8_1 = RegisterNetEvent
-L9_1 = "3dme:shareDisplayVicino2"
-L8_1(L9_1)
-L8_1 = AddEventHandler
-L9_1 = "3dme:shareDisplayVicino2"
-function L10_1(A0_2, A1_2, A2_2)
-  local L3_2, L4_2, L5_2, L6_2, L7_2, L8_2
-  L3_2 = GetPlayerFromServerId
-  L4_2 = A1_2
-  L3_2 = L3_2(L4_2)
-  if -1 ~= L3_2 then
-    L4_2 = GetPlayerPed
-    L5_2 = L3_2
-    L4_2 = L4_2(L5_2)
-    L5_2 = L7_1
-    L6_2 = L4_2
-    L7_2 = A0_2
-    L8_2 = A2_2
-    L5_2(L6_2, L7_2, L8_2)
-  end
-end
-L8_1(L9_1, L10_1)
+
+-- ─────────────────────────────────────────────
+-- 3D Speech Bubble Events (3dme system)
+-- ─────────────────────────────────────────────
+
+-- Speech bubble: show spoken text above nearby ped
+RegisterNetEvent("3dme:shareDisplayVicino")
+AddEventHandler("3dme:shareDisplayVicino", function(senderServerId, text)
+    ShowSpeechBubble(senderServerId, text)
+end)
+
+-- Typing indicator: show "..." while ped is typing
+RegisterNetEvent("3dme:shareDisplayVicino2")
+AddEventHandler("3dme:shareDisplayVicino2", function(senderServerId, text, senderServerIdConfirm)
+    ShowTypingIndicator(senderServerId, text)
+end)

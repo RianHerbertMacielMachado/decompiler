@@ -1,65 +1,29 @@
-local L0_1, L1_1, L2_1
-L0_1 = RegisterServerEvent
-L1_1 = "syncbad1"
-L0_1(L1_1)
-L0_1 = AddEventHandler
-L1_1 = "syncbad1"
-function L2_1(A0_2, A1_2, A2_2)
-  local L3_2, L4_2, L5_2, L6_2, L7_2, L8_2
-  L3_2 = TriggerClientEvent
-  L4_2 = "syncbad_cl1"
-  L5_2 = -1
-  L6_2 = A0_2
-  L7_2 = A1_2
-  L8_2 = A2_2
-  L3_2(L4_2, L5_2, L6_2, L7_2, L8_2)
-end
-L0_1(L1_1, L2_1)
-L0_1 = RegisterServerEvent
-L1_1 = "syncbad2"
-L0_1(L1_1)
-L0_1 = AddEventHandler
-L1_1 = "syncbad2"
-function L2_1(A0_2, A1_2, A2_2)
-  local L3_2, L4_2, L5_2, L6_2, L7_2, L8_2
-  L3_2 = TriggerClientEvent
-  L4_2 = "syncbad_cl2"
-  L5_2 = -1
-  L6_2 = A0_2
-  L7_2 = A1_2
-  L8_2 = A2_2
-  L3_2(L4_2, L5_2, L6_2, L7_2, L8_2)
-end
-L0_1(L1_1, L2_1)
-L0_1 = RegisterServerEvent
-L1_1 = "syncbad3"
-L0_1(L1_1)
-L0_1 = AddEventHandler
-L1_1 = "syncbad3"
-function L2_1(A0_2, A1_2, A2_2)
-  local L3_2, L4_2, L5_2, L6_2, L7_2, L8_2
-  L3_2 = TriggerClientEvent
-  L4_2 = "syncbad_cl3"
-  L5_2 = -1
-  L6_2 = A0_2
-  L7_2 = A1_2
-  L8_2 = A2_2
-  L3_2(L4_2, L5_2, L6_2, L7_2, L8_2)
-end
-L0_1(L1_1, L2_1)
-L0_1 = RegisterServerEvent
-L1_1 = "syncbad4"
-L0_1(L1_1)
-L0_1 = AddEventHandler
-L1_1 = "syncbad4"
-function L2_1(A0_2, A1_2, A2_2)
-  local L3_2, L4_2, L5_2, L6_2, L7_2, L8_2
-  L3_2 = TriggerClientEvent
-  L4_2 = "syncbad_cl4"
-  L5_2 = -1
-  L6_2 = A0_2
-  L7_2 = A1_2
-  L8_2 = A2_2
-  L3_2(L4_2, L5_2, L6_2, L7_2, L8_2)
-end
-L0_1(L1_1, L2_1)
+-- ============================================================
+--  striano_core - server/[phar server]/fireworkserver.lua
+--  Servidor: relay de sincronização de fogos de artifício
+--  (syncbad = sync broadcast animated display)
+-- ============================================================
+
+--- Relay do fogos de artifício: tipo 1
+RegisterServerEvent("syncbad1")
+AddEventHandler("syncbad1", function(p1, p2, p3)
+    TriggerClientEvent("syncbad_cl1", -1, p1, p2, p3)
+end)
+
+--- Relay do fogos de artifício: tipo 2
+RegisterServerEvent("syncbad2")
+AddEventHandler("syncbad2", function(p1, p2, p3)
+    TriggerClientEvent("syncbad_cl2", -1, p1, p2, p3)
+end)
+
+--- Relay do fogos de artifício: tipo 3
+RegisterServerEvent("syncbad3")
+AddEventHandler("syncbad3", function(p1, p2, p3)
+    TriggerClientEvent("syncbad_cl3", -1, p1, p2, p3)
+end)
+
+--- Relay do fogos de artifício: tipo 4
+RegisterServerEvent("syncbad4")
+AddEventHandler("syncbad4", function(p1, p2, p3)
+    TriggerClientEvent("syncbad_cl4", -1, p1, p2, p3)
+end)

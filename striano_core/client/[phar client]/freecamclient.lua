@@ -1,7283 +1,1736 @@
-local L0_1, L1_1, L2_1, L3_1, L4_1, L5_1, L6_1, L7_1, L8_1, L9_1, L10_1, L11_1, L12_1, L13_1, L14_1, L15_1, L16_1, L17_1, L18_1, L19_1, L20_1, L21_1, L22_1, L23_1, L24_1, L25_1, L26_1, L27_1, L28_1, L29_1, L30_1, L31_1, L32_1, L33_1, L34_1, L35_1, L36_1, L37_1, L38_1, L39_1, L40_1, L41_1, L42_1, L43_1, L44_1, L45_1, L46_1, L47_1, L48_1, L49_1, L50_1, L51_1, L52_1, L53_1, L54_1
-L0_1 = {}
-L1_1 = {}
-L2_1 = -1
-L3_1 = "1st_Person_Transition"
-L4_1 = "PLAYER_SWITCH_CUSTOM_SOUNDSET"
-L5_1 = 0
-L1_1[1] = L2_1
-L1_1[2] = L3_1
-L1_1[3] = L4_1
-L1_1[4] = L5_1
-L2_1 = {}
-L3_1 = -1
-L4_1 = "1st_Person_Transition"
-L5_1 = "PLAYER_SWITCH_CUSTOM_SOUNDSET"
-L6_1 = 1
-L2_1[1] = L3_1
-L2_1[2] = L4_1
-L2_1[3] = L5_1
-L2_1[4] = L6_1
-L3_1 = {}
-L4_1 = -1
-L5_1 = "3_2_1"
-L6_1 = "HUD_MINI_GAME_SOUNDSET"
-L7_1 = 0
-L3_1[1] = L4_1
-L3_1[2] = L5_1
-L3_1[3] = L6_1
-L3_1[4] = L7_1
-L4_1 = {}
-L5_1 = -1
-L6_1 = "3_2_1"
-L7_1 = "HUD_MINI_GAME_SOUNDSET"
-L8_1 = 1
-L4_1[1] = L5_1
-L4_1[2] = L6_1
-L4_1[3] = L7_1
-L4_1[4] = L8_1
-L5_1 = {}
-L6_1 = -1
-L7_1 = "3_2_1_NON_RACE"
-L8_1 = "HUD_MINI_GAME_SOUNDSET"
-L9_1 = 1
-L5_1[1] = L6_1
-L5_1[2] = L7_1
-L5_1[3] = L8_1
-L5_1[4] = L9_1
-L6_1 = {}
-L7_1 = -1
-L8_1 = "5_SEC_WARNING"
-L9_1 = "HUD_MINI_GAME_SOUNDSET"
-L10_1 = 1
-L6_1[1] = L7_1
-L6_1[2] = L8_1
-L6_1[3] = L9_1
-L6_1[4] = L10_1
-L7_1 = {}
-L8_1 = -1
-L9_1 = "5_Second_Timer"
-L10_1 = "DLC_HEISTS_GENERAL_FRONTEND_SOUNDS"
-L11_1 = 0
-L7_1[1] = L8_1
-L7_1[2] = L9_1
-L7_1[3] = L10_1
-L7_1[4] = L11_1
-L8_1 = {}
-L9_1 = -1
-L10_1 = "Airhorn"
-L11_1 = "DLC_TG_Running_Back_Sounds"
-L12_1 = 0
-L8_1[1] = L9_1
-L8_1[2] = L10_1
-L8_1[3] = L11_1
-L8_1[4] = L12_1
-L9_1 = {}
-L10_1 = -1
-L11_1 = "Apt_Style_Purchase"
-L12_1 = "DLC_APT_Apartment_SoundSet"
-L13_1 = 0
-L9_1[1] = L10_1
-L9_1[2] = L11_1
-L9_1[3] = L12_1
-L9_1[4] = L13_1
-L10_1 = {}
-L11_1 = -1
-L12_1 = "ARM_3_CAR_GLASS_CRASH"
-L13_1 = 0
-L14_1 = 1
-L10_1[1] = L11_1
-L10_1[2] = L12_1
-L10_1[3] = L13_1
-L10_1[4] = L14_1
-L11_1 = {}
-L12_1 = -1
-L13_1 = "ARM_3_PISTOL_COCK"
-L14_1 = 0
-L15_1 = 1
-L11_1[1] = L12_1
-L11_1[2] = L13_1
-L11_1[3] = L14_1
-L11_1[4] = L15_1
-L12_1 = {}
-L13_1 = -1
-L14_1 = "ARM_WRESTLING_WHOOSH_MASTER"
-L15_1 = 0
-L16_1 = 1
-L12_1[1] = L13_1
-L12_1[2] = L14_1
-L12_1[3] = L15_1
-L12_1[4] = L16_1
-L13_1 = {}
-L14_1 = -1
-L15_1 = "ATM_WINDOW"
-L16_1 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
-L17_1 = 1
-L13_1[1] = L14_1
-L13_1[2] = L15_1
-L13_1[3] = L16_1
-L13_1[4] = L17_1
-L14_1 = {}
-L15_1 = -1
-L16_1 = "BACK"
-L17_1 = "HUD_AMMO_SHOP_SOUNDSET"
-L18_1 = 1
-L14_1[1] = L15_1
-L14_1[2] = L16_1
-L14_1[3] = L17_1
-L14_1[4] = L18_1
-L15_1 = {}
-L16_1 = -1
-L17_1 = "BACK"
-L18_1 = "HUD_FREEMODE_SOUNDSET"
-L19_1 = 1
-L15_1[1] = L16_1
-L15_1[2] = L17_1
-L15_1[3] = L18_1
-L15_1[4] = L19_1
-L16_1 = {}
-L17_1 = -1
-L18_1 = "BACK"
-L19_1 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
-L20_1 = 0
-L16_1[1] = L17_1
-L16_1[2] = L18_1
-L16_1[3] = L19_1
-L16_1[4] = L20_1
-L17_1 = {}
-L18_1 = -1
-L19_1 = "BACK"
-L20_1 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
-L21_1 = 1
-L17_1[1] = L18_1
-L17_1[2] = L19_1
-L17_1[3] = L20_1
-L17_1[4] = L21_1
-L18_1 = {}
-L19_1 = -1
-L20_1 = "BACK"
-L21_1 = "HUD_FRONTEND_MP_SOUNDSET"
-L22_1 = 1
-L18_1[1] = L19_1
-L18_1[2] = L20_1
-L18_1[3] = L21_1
-L18_1[4] = L22_1
-L19_1 = {}
-L20_1 = -1
-L21_1 = "BACK"
-L22_1 = "HUD_FRONTEND_TATTOO_SHOP_SOUNDSET"
-L23_1 = 1
-L19_1[1] = L20_1
-L19_1[2] = L21_1
-L19_1[3] = L22_1
-L19_1[4] = L23_1
-L20_1 = {}
-L21_1 = -1
-L22_1 = "BACK"
-L23_1 = "HUD_MINI_GAME_SOUNDSET"
-L24_1 = 1
-L20_1[1] = L21_1
-L20_1[2] = L22_1
-L20_1[3] = L23_1
-L20_1[4] = L24_1
-L21_1 = {}
-L22_1 = -1
-L23_1 = "Banshee2_Upgrade"
-L24_1 = "JA16_Super_Mod_Garage_Sounds"
-L25_1 = 1
-L21_1[1] = L22_1
-L21_1[2] = L23_1
-L21_1[3] = L24_1
-L21_1[4] = L25_1
-L22_1 = {}
-L23_1 = -1
-L24_1 = "Beast_Checkpoint"
-L25_1 = "APT_BvS_Soundset"
-L26_1 = 0
-L22_1[1] = L23_1
-L22_1[2] = L24_1
-L22_1[3] = L25_1
-L22_1[4] = L26_1
-L23_1 = {}
-L24_1 = -1
-L25_1 = "Beast_Checkpoint_NPC"
-L26_1 = "APT_BvS_Soundset"
-L27_1 = 0
-L23_1[1] = L24_1
-L23_1[2] = L25_1
-L23_1[3] = L26_1
-L23_1[4] = L27_1
-L24_1 = {}
-L25_1 = -1
-L26_1 = "Beep_Red"
-L27_1 = "DLC_HEIST_HACKING_SNAKE_SOUNDS"
-L28_1 = 1
-L24_1[1] = L25_1
-L24_1[2] = L26_1
-L24_1[3] = L27_1
-L24_1[4] = L28_1
-L25_1 = {}
-L26_1 = -1
-L27_1 = "Blade_Appear"
-L28_1 = "APT_BvS_Soundset"
-L29_1 = 0
-L25_1[1] = L26_1
-L25_1[2] = L27_1
-L25_1[3] = L28_1
-L25_1[4] = L29_1
-L26_1 = {}
-L27_1 = -1
-L28_1 = "BOATS_PLANES_HELIS_BOOM"
-L29_1 = "MP_LOBBY_SOUNDS"
-L30_1 = 1
-L26_1[1] = L27_1
-L26_1[2] = L28_1
-L26_1[3] = L29_1
-L26_1[4] = L30_1
-L27_1 = {}
-L28_1 = -1
-L29_1 = "Bomb_Disarmed"
-L30_1 = "GTAO_Speed_Convoy_Soundset"
-L31_1 = 0
-L27_1[1] = L28_1
-L27_1[2] = L29_1
-L27_1[3] = L30_1
-L27_1[4] = L31_1
-L28_1 = {}
-L29_1 = -1
-L30_1 = "Boss_Blipped"
-L31_1 = "GTAO_Magnate_Hunt_Boss_SoundSet"
-L32_1 = 0
-L28_1[1] = L29_1
-L28_1[2] = L30_1
-L28_1[3] = L31_1
-L28_1[4] = L32_1
-L29_1 = {}
-L30_1 = -1
-L31_1 = "Boss_Message_Orange"
-L32_1 = "GTAO_Boss_Goons_FM_Soundset"
-L33_1 = 0
-L29_1[1] = L30_1
-L29_1[2] = L31_1
-L29_1[3] = L32_1
-L29_1[4] = L33_1
-L30_1 = {}
-L31_1 = -1
-L32_1 = "Breaker_01"
-L33_1 = "DLC_HALLOWEEN_FVJ_Sounds"
-L34_1 = 0
-L30_1[1] = L31_1
-L30_1[2] = L32_1
-L30_1[3] = L33_1
-L30_1[4] = L34_1
-L31_1 = {}
-L32_1 = -1
-L33_1 = "Breaker_02"
-L34_1 = "DLC_HALLOWEEN_FVJ_Sounds"
-L35_1 = 0
-L31_1[1] = L32_1
-L31_1[2] = L33_1
-L31_1[3] = L34_1
-L31_1[4] = L35_1
-L32_1 = {}
-L33_1 = -1
-L34_1 = "BULL_SHARK_TESTOSTERONE_END_MASTER"
-L35_1 = ""
-L36_1 = 0
-L32_1[1] = L33_1
-L32_1[2] = L34_1
-L32_1[3] = L35_1
-L32_1[4] = L36_1
-L33_1 = {}
-L34_1 = -1
-L35_1 = "BULL_SHARK_TESTOSTERONE_START_MASTER"
-L36_1 = ""
-L37_1 = 0
-L33_1[1] = L34_1
-L33_1[2] = L35_1
-L33_1[3] = L36_1
-L33_1[4] = L37_1
-L34_1 = {}
-L35_1 = -1
-L36_1 = "Bus_Schedule_Pickup"
-L37_1 = "DLC_PRISON_BREAK_HEIST_SOUNDS"
-L38_1 = 0
-L34_1[1] = L35_1
-L34_1[2] = L36_1
-L34_1[3] = L37_1
-L34_1[4] = L38_1
-L35_1 = {}
-L36_1 = -1
-L37_1 = "CABLE_SNAPS"
-L38_1 = "CONSTRUCTION_ACCIDENT_1_SOUNDS"
-L39_1 = 1
-L35_1[1] = L36_1
-L35_1[2] = L37_1
-L35_1[3] = L38_1
-L35_1[4] = L39_1
-L36_1 = {}
-L37_1 = -1
-L38_1 = "CAM_PAN_DARTS"
-L39_1 = "HUD_MINI_GAME_SOUNDSET"
-L40_1 = 1
-L36_1[1] = L37_1
-L36_1[2] = L38_1
-L36_1[3] = L39_1
-L36_1[4] = L40_1
-L37_1 = {}
-L38_1 = -1
-L39_1 = "Camera_Shoot"
-L40_1 = "Phone_Soundset_Franklin"
-L41_1 = 1
-L37_1[1] = L38_1
-L37_1[2] = L39_1
-L37_1[3] = L40_1
-L37_1[4] = L41_1
-L38_1 = {}
-L39_1 = -1
-L40_1 = "CANCEL"
-L41_1 = "HUD_FREEMODE_SOUNDSET"
-L42_1 = 1
-L38_1[1] = L39_1
-L38_1[2] = L40_1
-L38_1[3] = L41_1
-L38_1[4] = L42_1
-L39_1 = {}
-L40_1 = -1
-L41_1 = "CANCEL"
-L42_1 = "HUD_FRONTEND_CLOTHESSHOP_SOUNDSET"
-L43_1 = 1
-L39_1[1] = L40_1
-L39_1[2] = L41_1
-L39_1[3] = L42_1
-L39_1[4] = L43_1
-L40_1 = {}
-L41_1 = -1
-L42_1 = "CANCEL"
-L43_1 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
-L44_1 = 0
-L40_1[1] = L41_1
-L40_1[2] = L42_1
-L40_1[3] = L43_1
-L40_1[4] = L44_1
-L41_1 = {}
-L42_1 = -1
-L43_1 = "CANCEL"
-L44_1 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
-L45_1 = 1
-L41_1[1] = L42_1
-L41_1[2] = L43_1
-L41_1[3] = L44_1
-L41_1[4] = L45_1
-L42_1 = {}
-L43_1 = -1
-L44_1 = "CANCEL"
-L45_1 = "HUD_LIQUOR_STORE_SOUNDSET"
-L46_1 = 1
-L42_1[1] = L43_1
-L42_1[2] = L44_1
-L42_1[3] = L45_1
-L42_1[4] = L46_1
-L43_1 = {}
-L44_1 = -1
-L45_1 = "CANCEL"
-L46_1 = "HUD_MINI_GAME_SOUNDSET"
-L47_1 = 1
-L43_1[1] = L44_1
-L43_1[2] = L45_1
-L43_1[3] = L46_1
-L43_1[4] = L47_1
-L44_1 = {}
-L45_1 = -1
-L46_1 = "CAR_BIKE_WHOOSH"
-L47_1 = "MP_LOBBY_SOUNDS"
-L48_1 = 1
-L44_1[1] = L45_1
-L44_1[2] = L46_1
-L44_1[3] = L47_1
-L44_1[4] = L48_1
-L45_1 = {}
-L46_1 = -1
-L47_1 = "CHARACTER_SELECT"
-L48_1 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
-L49_1 = 0
-L45_1[1] = L46_1
-L45_1[2] = L47_1
-L45_1[3] = L48_1
-L45_1[4] = L49_1
-L46_1 = {}
-L47_1 = -1
-L48_1 = "CHECKPOINT_AHEAD"
-L49_1 = "HUD_MINI_GAME_SOUNDSET"
-L50_1 = 0
-L46_1[1] = L47_1
-L46_1[2] = L48_1
-L46_1[3] = L49_1
-L46_1[4] = L50_1
-L47_1 = {}
-L48_1 = -1
-L49_1 = "Checkpoint_Beast_Hit"
-L50_1 = "FM_Events_Sasquatch_Sounds"
-L51_1 = 0
-L47_1[1] = L48_1
-L47_1[2] = L49_1
-L47_1[3] = L50_1
-L47_1[4] = L51_1
-L48_1 = {}
-L49_1 = -1
-L50_1 = "CHECKPOINT_BEHIND"
-L51_1 = "HUD_MINI_GAME_SOUNDSET"
-L52_1 = 0
-L48_1[1] = L49_1
-L48_1[2] = L50_1
-L48_1[3] = L51_1
-L48_1[4] = L52_1
-L49_1 = {}
-L50_1 = -1
-L51_1 = "Checkpoint_Cash_Hit"
-L52_1 = "GTAO_FM_Events_Soundset"
-L53_1 = 0
-L49_1[1] = L50_1
-L49_1[2] = L51_1
-L49_1[3] = L52_1
-L49_1[4] = L53_1
-L50_1 = {}
-L51_1 = -1
-L52_1 = "Checkpoint_Hit"
-L53_1 = "GTAO_FM_Events_Soundset"
-L54_1 = 0
-L50_1[1] = L51_1
-L50_1[2] = L52_1
-L50_1[3] = L53_1
-L50_1[4] = L54_1
-L0_1[1] = L1_1
-L0_1[2] = L2_1
-L0_1[3] = L3_1
-L0_1[4] = L4_1
-L0_1[5] = L5_1
-L0_1[6] = L6_1
-L0_1[7] = L7_1
-L0_1[8] = L8_1
-L0_1[9] = L9_1
-L0_1[10] = L10_1
-L0_1[11] = L11_1
-L0_1[12] = L12_1
-L0_1[13] = L13_1
-L0_1[14] = L14_1
-L0_1[15] = L15_1
-L0_1[16] = L16_1
-L0_1[17] = L17_1
-L0_1[18] = L18_1
-L0_1[19] = L19_1
-L0_1[20] = L20_1
-L0_1[21] = L21_1
-L0_1[22] = L22_1
-L0_1[23] = L23_1
-L0_1[24] = L24_1
-L0_1[25] = L25_1
-L0_1[26] = L26_1
-L0_1[27] = L27_1
-L0_1[28] = L28_1
-L0_1[29] = L29_1
-L0_1[30] = L30_1
-L0_1[31] = L31_1
-L0_1[32] = L32_1
-L0_1[33] = L33_1
-L0_1[34] = L34_1
-L0_1[35] = L35_1
-L0_1[36] = L36_1
-L0_1[37] = L37_1
-L0_1[38] = L38_1
-L0_1[39] = L39_1
-L0_1[40] = L40_1
-L0_1[41] = L41_1
-L0_1[42] = L42_1
-L0_1[43] = L43_1
-L0_1[44] = L44_1
-L0_1[45] = L45_1
-L0_1[46] = L46_1
-L0_1[47] = L47_1
-L0_1[48] = L48_1
-L0_1[49] = L49_1
-L0_1[50] = L50_1
-L1_1 = {}
-L2_1 = -1
-L3_1 = "CHECKPOINT_MISSED"
-L4_1 = "HUD_MINI_GAME_SOUNDSET"
-L5_1 = 0
-L1_1[1] = L2_1
-L1_1[2] = L3_1
-L1_1[3] = L4_1
-L1_1[4] = L5_1
-L2_1 = {}
-L3_1 = -1
-L4_1 = "CHECKPOINT_NORMAL"
-L5_1 = "HUD_MINI_GAME_SOUNDSET"
-L6_1 = 0
-L2_1[1] = L3_1
-L2_1[2] = L4_1
-L2_1[3] = L5_1
-L2_1[4] = L6_1
-L3_1 = {}
-L4_1 = -1
-L5_1 = "CHECKPOINT_PERFECT"
-L6_1 = "HUD_MINI_GAME_SOUNDSET"
-L7_1 = 0
-L3_1[1] = L4_1
-L3_1[2] = L5_1
-L3_1[3] = L6_1
-L3_1[4] = L7_1
-L4_1 = {}
-L5_1 = -1
-L6_1 = "Checkpoint_Teammate"
-L7_1 = "GTAO_Shepherd_Sounds"
-L8_1 = 0
-L4_1[1] = L5_1
-L4_1[2] = L6_1
-L4_1[3] = L7_1
-L4_1[4] = L8_1
-L5_1 = {}
-L6_1 = -1
-L7_1 = "CHECKPOINT_UNDER_THE_BRIDGE"
-L8_1 = "HUD_MINI_GAME_SOUNDSET"
-L9_1 = 0
-L5_1[1] = L6_1
-L5_1[2] = L7_1
-L5_1[3] = L8_1
-L5_1[4] = L9_1
-L6_1 = {}
-L7_1 = -1
-L8_1 = "Cheers"
-L9_1 = "DLC_TG_Running_Back_Sounds"
-L10_1 = 0
-L6_1[1] = L7_1
-L6_1[2] = L8_1
-L6_1[3] = L9_1
-L6_1[4] = L10_1
-L7_1 = {}
-L8_1 = -1
-L9_1 = "Click"
-L10_1 = "DLC_HEIST_HACKING_SNAKE_SOUNDS"
-L11_1 = 1
-L7_1[1] = L8_1
-L7_1[2] = L9_1
-L7_1[3] = L10_1
-L7_1[4] = L11_1
-L8_1 = {}
-L9_1 = -1
-L10_1 = "CLICK_BACK"
-L11_1 = "WEB_NAVIGATION_SOUNDS_PHONE"
-L12_1 = 1
-L8_1[1] = L9_1
-L8_1[2] = L10_1
-L8_1[3] = L11_1
-L8_1[4] = L12_1
-L9_1 = {}
-L10_1 = -1
-L11_1 = "Click_Fail"
-L12_1 = "WEB_NAVIGATION_SOUNDS_PHONE"
-L13_1 = 1
-L9_1[1] = L10_1
-L9_1[2] = L11_1
-L9_1[3] = L12_1
-L9_1[4] = L13_1
-L10_1 = {}
-L11_1 = -1
-L12_1 = "Click_Special"
-L13_1 = " WEB_NAVIGATION_SOUNDS_PHONE"
-L14_1 = 1
-L10_1[1] = L11_1
-L10_1[2] = L12_1
-L10_1[3] = L13_1
-L10_1[4] = L14_1
-L11_1 = {}
-L12_1 = -1
-L13_1 = "Click_Special"
-L14_1 = "WEB_NAVIGATION_SOUNDS_PHONE"
-L15_1 = 1
-L11_1[1] = L12_1
-L11_1[2] = L13_1
-L11_1[3] = L14_1
-L11_1[4] = L15_1
-L12_1 = {}
-L13_1 = -1
-L14_1 = "CLOSE_WINDOW"
-L15_1 = "LESTER1A_SOUNDS"
-L16_1 = 1
-L12_1[1] = L13_1
-L12_1[2] = L14_1
-L12_1[3] = L15_1
-L12_1[4] = L16_1
-L13_1 = {}
-L14_1 = -1
-L15_1 = "CLOSED"
-L16_1 = "DLC_APT_YACHT_DOOR_SOUNDS"
-L17_1 = 1
-L13_1[1] = L14_1
-L13_1[2] = L15_1
-L13_1[3] = L16_1
-L13_1[4] = L17_1
-L14_1 = {}
-L15_1 = -1
-L16_1 = "CLOSED"
-L17_1 = "MP_PROPERTIES_ELEVATOR_DOORS"
-L18_1 = 1
-L14_1[1] = L15_1
-L14_1[2] = L16_1
-L14_1[3] = L17_1
-L14_1[4] = L18_1
-L15_1 = {}
-L16_1 = -1
-L17_1 = "COMPUTERS_MOUSE_CLICK"
-L18_1 = 0
-L19_1 = 1
-L15_1[1] = L16_1
-L15_1[2] = L17_1
-L15_1[3] = L18_1
-L15_1[4] = L19_1
-L16_1 = {}
-L17_1 = -1
-L18_1 = "CONFIRM_BEEP"
-L19_1 = "HUD_MINI_GAME_SOUNDSET"
-L20_1 = 1
-L16_1[1] = L17_1
-L16_1[2] = L18_1
-L16_1[3] = L19_1
-L16_1[4] = L20_1
-L17_1 = {}
-L18_1 = -1
-L19_1 = "CONTINUE"
-L20_1 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
-L21_1 = 0
-L17_1[1] = L18_1
-L17_1[2] = L19_1
-L17_1[3] = L20_1
-L17_1[4] = L21_1
-L18_1 = {}
-L19_1 = -1
-L20_1 = "CONTINUE"
-L21_1 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
-L22_1 = 1
-L18_1[1] = L19_1
-L18_1[2] = L20_1
-L18_1[3] = L21_1
-L18_1[4] = L22_1
-L19_1 = {}
-L20_1 = -1
-L21_1 = "Continue_Accepted"
-L22_1 = "DLC_HEIST_PLANNING_BOARD_SOUNDS"
-L23_1 = 1
-L19_1[1] = L20_1
-L19_1[2] = L21_1
-L19_1[3] = L22_1
-L19_1[4] = L23_1
-L20_1 = {}
-L21_1 = -1
-L22_1 = "Continue_Appears"
-L23_1 = "DLC_HEIST_PLANNING_BOARD_SOUNDS"
-L24_1 = 1
-L20_1[1] = L21_1
-L20_1[2] = L22_1
-L20_1[3] = L23_1
-L20_1[4] = L24_1
-L21_1 = {}
-L22_1 = -1
-L23_1 = "Crash"
-L24_1 = "DLC_HEIST_HACKING_SNAKE_SOUNDS"
-L25_1 = 1
-L21_1[1] = L22_1
-L21_1[2] = L23_1
-L21_1[3] = L24_1
-L21_1[4] = L25_1
-L22_1 = {}
-L23_1 = -1
-L24_1 = "Criminal_Damage_High_Value"
-L25_1 = "GTAO_FM_Events_Soundset"
-L26_1 = 0
-L22_1[1] = L23_1
-L22_1[2] = L24_1
-L22_1[3] = L25_1
-L22_1[4] = L26_1
-L23_1 = {}
-L24_1 = -1
-L25_1 = "Criminal_Damage_Kill_Player"
-L26_1 = "GTAO_FM_Events_Soundset"
-L27_1 = 0
-L23_1[1] = L24_1
-L23_1[2] = L25_1
-L23_1[3] = L26_1
-L23_1[4] = L27_1
-L24_1 = {}
-L25_1 = -1
-L26_1 = "Criminal_Damage_Low_Value"
-L27_1 = "GTAO_FM_Events_Soundset"
-L28_1 = 0
-L24_1[1] = L25_1
-L24_1[2] = L26_1
-L24_1[3] = L27_1
-L24_1[4] = L28_1
-L25_1 = {}
-L26_1 = -1
-L27_1 = "CUTSCENE_DIALOGUE_OVERRIDE_SOUND_02"
-L28_1 = 0
-L29_1 = 0
-L25_1[1] = L26_1
-L25_1[2] = L27_1
-L25_1[3] = L28_1
-L25_1[4] = L29_1
-L26_1 = {}
-L27_1 = -1
-L28_1 = "Cycle_Item"
-L29_1 = "DLC_Dmod_Prop_Editor_Sounds"
-L30_1 = 0
-L26_1[1] = L27_1
-L26_1[2] = L28_1
-L26_1[3] = L29_1
-L26_1[4] = L30_1
-L27_1 = {}
-L28_1 = -1
-L29_1 = "DELETE"
-L30_1 = "HUD_DEATHMATCH_SOUNDSET"
-L31_1 = 1
-L27_1[1] = L28_1
-L27_1[2] = L29_1
-L27_1[3] = L30_1
-L27_1[4] = L31_1
-L28_1 = {}
-L29_1 = -1
-L30_1 = "Delete_Placed_Prop"
-L31_1 = "DLC_Dmod_Prop_Editor_Sounds"
-L32_1 = 0
-L28_1[1] = L29_1
-L28_1[2] = L30_1
-L28_1[3] = L31_1
-L28_1[4] = L32_1
-L29_1 = {}
-L30_1 = -1
-L31_1 = "Deliver_Pick_Up"
-L32_1 = "HUD_FRONTEND_MP_COLLECTABLE_SOUNDS"
-L33_1 = 1
-L29_1[1] = L30_1
-L29_1[2] = L31_1
-L29_1[3] = L32_1
-L29_1[4] = L33_1
-L30_1 = {}
-L31_1 = -1
-L32_1 = "DiggerRevOneShot"
-L33_1 = "BulldozerDefault"
-L34_1 = 1
-L30_1[1] = L31_1
-L30_1[2] = L32_1
-L30_1[3] = L33_1
-L30_1[4] = L34_1
-L31_1 = {}
-L32_1 = -1
-L33_1 = "Door_Open"
-L34_1 = "DOCKS_HEIST_FINALE_2B_SOUNDS"
-L35_1 = 1
-L31_1[1] = L32_1
-L31_1[2] = L33_1
-L31_1[3] = L34_1
-L31_1[4] = L35_1
-L32_1 = {}
-L33_1 = -1
-L34_1 = "Drill_Pin_Break"
-L35_1 = "DLC_HEIST_FLEECA_SOUNDSET"
-L36_1 = 1
-L32_1[1] = L33_1
-L32_1[2] = L34_1
-L32_1[3] = L35_1
-L32_1[4] = L36_1
-L33_1 = {}
-L34_1 = -1
-L35_1 = "Dropped"
-L36_1 = "HUD_FRONTEND_MP_COLLECTABLE_SOUNDS"
-L37_1 = 1
-L33_1[1] = L34_1
-L33_1[2] = L35_1
-L33_1[3] = L36_1
-L33_1[4] = L37_1
-L34_1 = {}
-L35_1 = -1
-L36_1 = "DRUG_TRAFFIC_AIR_BOMB_DROP_ERROR_MASTER"
-L37_1 = 0
-L38_1 = 1
-L34_1[1] = L35_1
-L34_1[2] = L36_1
-L34_1[3] = L37_1
-L34_1[4] = L38_1
-L35_1 = {}
-L36_1 = -1
-L37_1 = "DRUG_TRAFFIC_AIR_SCREAMS"
-L38_1 = 0
-L39_1 = 1
-L35_1[1] = L36_1
-L35_1[2] = L37_1
-L35_1[3] = L38_1
-L35_1[4] = L39_1
-L36_1 = {}
-L37_1 = -1
-L38_1 = "EDIT"
-L39_1 = "HUD_DEATHMATCH_SOUNDSET"
-L40_1 = 1
-L36_1[1] = L37_1
-L36_1[2] = L38_1
-L36_1[3] = L39_1
-L36_1[4] = L40_1
-L37_1 = {}
-L38_1 = -1
-L39_1 = "End_Squelch"
-L40_1 = "CB_RADIO_SFX"
-L41_1 = 1
-L37_1[1] = L38_1
-L37_1[2] = L39_1
-L37_1[3] = L40_1
-L37_1[4] = L41_1
-L38_1 = {}
-L39_1 = -1
-L40_1 = "Enemy_Capture_Start"
-L41_1 = "GTAO_Magnate_Yacht_Attack_Soundset"
-L42_1 = 0
-L38_1[1] = L39_1
-L38_1[2] = L40_1
-L38_1[3] = L41_1
-L38_1[4] = L42_1
-L39_1 = {}
-L40_1 = -1
-L41_1 = "Enemy_Deliver"
-L42_1 = "HUD_FRONTEND_MP_COLLECTABLE_SOUNDS"
-L43_1 = 1
-L39_1[1] = L40_1
-L39_1[2] = L41_1
-L39_1[3] = L42_1
-L39_1[4] = L43_1
-L40_1 = {}
-L41_1 = -1
-L42_1 = "Enemy_Pick_Up"
-L43_1 = "HUD_FRONTEND_MP_COLLECTABLE_SOUNDS"
-L44_1 = 1
-L40_1[1] = L41_1
-L40_1[2] = L42_1
-L40_1[3] = L43_1
-L40_1[4] = L44_1
-L41_1 = {}
-L42_1 = -1
-L43_1 = "Enter_1st"
-L44_1 = "GTAO_FM_Events_Soundset"
-L45_1 = 0
-L41_1[1] = L42_1
-L41_1[2] = L43_1
-L41_1[3] = L44_1
-L41_1[4] = L45_1
-L42_1 = {}
-L43_1 = -1
-L44_1 = "Enter_1st"
-L45_1 = "GTAO_Magnate_Boss_Modes_Soundset"
-L46_1 = 0
-L42_1[1] = L43_1
-L42_1[2] = L44_1
-L42_1[3] = L45_1
-L42_1[4] = L46_1
-L43_1 = {}
-L44_1 = -1
-L45_1 = "Enter_Area"
-L46_1 = "DLC_Lowrider_Relay_Race_Sounds"
-L47_1 = 0
-L43_1[1] = L44_1
-L43_1[2] = L45_1
-L43_1[3] = L46_1
-L43_1[4] = L47_1
-L44_1 = {}
-L45_1 = -1
-L46_1 = "Enter_Capture_Zone"
-L47_1 = "DLC_Apartments_Drop_Zone_Sounds"
-L48_1 = 0
-L44_1[1] = L45_1
-L44_1[2] = L46_1
-L44_1[3] = L47_1
-L44_1[4] = L48_1
-L45_1 = {}
-L46_1 = -1
-L47_1 = "ERROR"
-L48_1 = "HUD_AMMO_SHOP_SOUNDSET"
-L49_1 = 1
-L45_1[1] = L46_1
-L45_1[2] = L47_1
-L45_1[3] = L48_1
-L45_1[4] = L49_1
-L46_1 = {}
-L47_1 = -1
-L48_1 = "ERROR"
-L49_1 = "HUD_FRONTEND_CLOTHESSHOP_SOUNDSET"
-L50_1 = 1
-L46_1[1] = L47_1
-L46_1[2] = L48_1
-L46_1[3] = L49_1
-L46_1[4] = L50_1
-L47_1 = {}
-L48_1 = -1
-L49_1 = "ERROR"
-L50_1 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
-L51_1 = 1
-L47_1[1] = L48_1
-L47_1[2] = L49_1
-L47_1[3] = L50_1
-L47_1[4] = L51_1
-L48_1 = {}
-L49_1 = -1
-L50_1 = "ERROR"
-L51_1 = "HUD_FRONTEND_TATTOO_SHOP_SOUNDSET"
-L52_1 = 1
-L48_1[1] = L49_1
-L48_1[2] = L50_1
-L48_1[3] = L51_1
-L48_1[4] = L52_1
-L49_1 = {}
-L50_1 = -1
-L51_1 = "ERROR"
-L52_1 = "HUD_LIQUOR_STORE_SOUNDSET"
-L53_1 = 1
-L49_1[1] = L50_1
-L49_1[2] = L51_1
-L49_1[3] = L52_1
-L49_1[4] = L53_1
-L50_1 = {}
-L51_1 = -1
-L52_1 = "Event_Message_Purple"
-L53_1 = "GTAO_FM_Events_Soundset"
-L54_1 = 0
-L50_1[1] = L51_1
-L50_1[2] = L52_1
-L50_1[3] = L53_1
-L50_1[4] = L54_1
-L0_1[51] = L1_1
-L0_1[52] = L2_1
-L0_1[53] = L3_1
-L0_1[54] = L4_1
-L0_1[55] = L5_1
-L0_1[56] = L6_1
-L0_1[57] = L7_1
-L0_1[58] = L8_1
-L0_1[59] = L9_1
-L0_1[60] = L10_1
-L0_1[61] = L11_1
-L0_1[62] = L12_1
-L0_1[63] = L13_1
-L0_1[64] = L14_1
-L0_1[65] = L15_1
-L0_1[66] = L16_1
-L0_1[67] = L17_1
-L0_1[68] = L18_1
-L0_1[69] = L19_1
-L0_1[70] = L20_1
-L0_1[71] = L21_1
-L0_1[72] = L22_1
-L0_1[73] = L23_1
-L0_1[74] = L24_1
-L0_1[75] = L25_1
-L0_1[76] = L26_1
-L0_1[77] = L27_1
-L0_1[78] = L28_1
-L0_1[79] = L29_1
-L0_1[80] = L30_1
-L0_1[81] = L31_1
-L0_1[82] = L32_1
-L0_1[83] = L33_1
-L0_1[84] = L34_1
-L0_1[85] = L35_1
-L0_1[86] = L36_1
-L0_1[87] = L37_1
-L0_1[88] = L38_1
-L0_1[89] = L39_1
-L0_1[90] = L40_1
-L0_1[91] = L41_1
-L0_1[92] = L42_1
-L0_1[93] = L43_1
-L0_1[94] = L44_1
-L0_1[95] = L45_1
-L0_1[96] = L46_1
-L0_1[97] = L47_1
-L0_1[98] = L48_1
-L0_1[99] = L49_1
-L0_1[100] = L50_1
-L1_1 = {}
-L2_1 = -1
-L3_1 = "Event_Start_Text"
-L4_1 = "GTAO_FM_Events_Soundset"
-L5_1 = 0
-L1_1[1] = L2_1
-L1_1[2] = L3_1
-L1_1[3] = L4_1
-L1_1[4] = L5_1
-L2_1 = {}
-L3_1 = -1
-L4_1 = "EXILE_3_TRAIN_BRAKE_PULL_MASTER"
-L5_1 = 0
-L6_1 = 1
-L2_1[1] = L3_1
-L2_1[2] = L4_1
-L2_1[3] = L5_1
-L2_1[4] = L6_1
-L3_1 = {}
-L4_1 = -1
-L5_1 = "EXILE_3_TRAIN_BRAKE_RELEASE_MASTER"
-L6_1 = 0
-L7_1 = 1
-L3_1[1] = L4_1
-L3_1[2] = L5_1
-L3_1[3] = L6_1
-L3_1[4] = L7_1
-L4_1 = {}
-L5_1 = -1
-L6_1 = "EXIT"
-L7_1 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
-L8_1 = 1
-L4_1[1] = L5_1
-L4_1[2] = L6_1
-L4_1[3] = L7_1
-L4_1[4] = L8_1
-L5_1 = {}
-L6_1 = -1
-L7_1 = "Exit_Capture_Zone"
-L8_1 = "DLC_Apartments_Drop_Zone_Sounds"
-L9_1 = 0
-L5_1[1] = L6_1
-L5_1[2] = L7_1
-L5_1[3] = L8_1
-L5_1[4] = L9_1
-L6_1 = {}
-L7_1 = -1
-L8_1 = "Failure"
-L9_1 = "DLC_HEIST_HACKING_SNAKE_SOUNDS"
-L10_1 = 1
-L6_1[1] = L7_1
-L6_1[2] = L8_1
-L6_1[3] = L9_1
-L6_1[4] = L10_1
-L7_1 = {}
-L8_1 = -1
-L9_1 = "Falling_Crates"
-L10_1 = "EXILE_1"
-L11_1 = 1
-L7_1[1] = L8_1
-L7_1[2] = L9_1
-L7_1[3] = L10_1
-L7_1[4] = L11_1
-L8_1 = {}
-L9_1 = -1
-L10_1 = "FAMILY_1_CAR_BREAKDOWN"
-L11_1 = "FAMILY1_BOAT"
-L12_1 = 1
-L8_1[1] = L9_1
-L8_1[2] = L10_1
-L8_1[3] = L11_1
-L8_1[4] = L12_1
-L9_1 = {}
-L10_1 = -1
-L11_1 = "FAMILY_1_CAR_BREAKDOWN_ADDITIONAL"
-L12_1 = "FAMILY1_BOAT"
-L13_1 = 1
-L9_1[1] = L10_1
-L9_1[2] = L11_1
-L9_1[3] = L12_1
-L9_1[4] = L13_1
-L10_1 = {}
-L11_1 = -1
-L12_1 = "Faster_Bar_Full"
-L13_1 = "RESPAWN_ONLINE_SOUNDSET"
-L14_1 = 1
-L10_1[1] = L11_1
-L10_1[2] = L12_1
-L10_1[3] = L13_1
-L10_1[4] = L14_1
-L11_1 = {}
-L12_1 = -1
-L13_1 = "Faster_Click"
-L14_1 = "RESPAWN_ONLINE_SOUNDSET"
-L15_1 = 1
-L11_1[1] = L12_1
-L11_1[2] = L13_1
-L11_1[3] = L14_1
-L11_1[4] = L15_1
-L12_1 = {}
-L13_1 = -1
-L14_1 = "FestiveGift"
-L15_1 = "Feed_Message_Sounds"
-L16_1 = 0
-L12_1[1] = L13_1
-L12_1[2] = L14_1
-L12_1[3] = L15_1
-L12_1[4] = L16_1
-L13_1 = {}
-L14_1 = -1
-L15_1 = "FIRST_PLACE"
-L16_1 = "HUD_MINI_GAME_SOUNDSET"
-L17_1 = 1
-L13_1[1] = L14_1
-L13_1[2] = L15_1
-L13_1[3] = L16_1
-L13_1[4] = L17_1
-L14_1 = {}
-L15_1 = -1
-L16_1 = "FLYING_STREAM_END_INSTANT"
-L17_1 = "FAMILY_5_SOUNDS"
-L18_1 = 1
-L14_1[1] = L15_1
-L14_1[2] = L16_1
-L14_1[3] = L17_1
-L14_1[4] = L18_1
-L15_1 = {}
-L16_1 = -1
-L17_1 = "FocusIn"
-L18_1 = "HintCamSounds"
-L19_1 = 1
-L15_1[1] = L16_1
-L15_1[2] = L17_1
-L15_1[3] = L18_1
-L15_1[4] = L19_1
-L16_1 = {}
-L17_1 = -1
-L18_1 = "FocusOut"
-L19_1 = "HintCamSounds"
-L20_1 = 1
-L16_1[1] = L17_1
-L16_1[2] = L18_1
-L16_1[3] = L19_1
-L16_1[4] = L20_1
-L17_1 = {}
-L18_1 = -1
-L19_1 = "Friend_Deliver"
-L20_1 = "HUD_FRONTEND_MP_COLLECTABLE_SOUNDS"
-L21_1 = 1
-L17_1[1] = L18_1
-L17_1[2] = L19_1
-L17_1[3] = L20_1
-L17_1[4] = L21_1
-L18_1 = {}
-L19_1 = -1
-L20_1 = "Friend_Pick_Up"
-L21_1 = "HUD_FRONTEND_MP_COLLECTABLE_SOUNDS"
-L22_1 = 0
-L18_1[1] = L19_1
-L18_1[2] = L20_1
-L18_1[3] = L21_1
-L18_1[4] = L22_1
-L19_1 = {}
-L20_1 = -1
-L21_1 = "Friend_Pick_Up"
-L22_1 = "HUD_FRONTEND_MP_COLLECTABLE_SOUNDS"
-L23_1 = 1
-L19_1[1] = L20_1
-L19_1[2] = L21_1
-L19_1[3] = L22_1
-L19_1[4] = L23_1
-L20_1 = {}
-L21_1 = -1
-L22_1 = "Frontend_Beast_Fade_Screen"
-L23_1 = "FM_Events_Sasquatch_Sounds"
-L24_1 = 0
-L20_1[1] = L21_1
-L20_1[2] = L22_1
-L20_1[3] = L23_1
-L20_1[4] = L24_1
-L21_1 = {}
-L22_1 = -1
-L23_1 = "Frontend_Beast_Freeze_Screen"
-L24_1 = "FM_Events_Sasquatch_Sounds"
-L25_1 = 0
-L21_1[1] = L22_1
-L21_1[2] = L23_1
-L21_1[3] = L24_1
-L21_1[4] = L25_1
-L22_1 = {}
-L23_1 = -1
-L24_1 = "Frontend_Beast_Text_Hit"
-L25_1 = "FM_Events_Sasquatch_Sounds"
-L26_1 = 0
-L22_1[1] = L23_1
-L22_1[2] = L24_1
-L22_1[3] = L25_1
-L22_1[4] = L26_1
-L23_1 = {}
-L24_1 = -1
-L25_1 = "Frontend_Beast_Transform_Back"
-L26_1 = "FM_Events_Sasquatch_Sounds"
-L27_1 = 0
-L23_1[1] = L24_1
-L23_1[2] = L25_1
-L23_1[3] = L26_1
-L23_1[4] = L27_1
-L24_1 = {}
-L25_1 = -1
-L26_1 = "GO"
-L27_1 = "HUD_MINI_GAME_SOUNDSET"
-L28_1 = 0
-L24_1[1] = L25_1
-L24_1[2] = L26_1
-L24_1[3] = L27_1
-L24_1[4] = L28_1
-L25_1 = {}
-L26_1 = -1
-L27_1 = "GO"
-L28_1 = "HUD_MINI_GAME_SOUNDSET"
-L29_1 = 1
-L25_1[1] = L26_1
-L25_1[2] = L27_1
-L25_1[3] = L28_1
-L25_1[4] = L29_1
-L26_1 = {}
-L27_1 = -1
-L28_1 = "GO_NON_RACE"
-L29_1 = "HUD_MINI_GAME_SOUNDSET"
-L30_1 = 1
-L26_1[1] = L27_1
-L26_1[2] = L28_1
-L26_1[3] = L29_1
-L26_1[4] = L30_1
-L27_1 = {}
-L28_1 = -1
-L29_1 = "Goal"
-L30_1 = "DLC_HEIST_HACKING_SNAKE_SOUNDS"
-L31_1 = 1
-L27_1[1] = L28_1
-L27_1[2] = L29_1
-L27_1[3] = L30_1
-L27_1[4] = L31_1
-L28_1 = {}
-L29_1 = -1
-L30_1 = "GOLF_HUD_HOLE_IN_ONE_MASTER"
-L31_1 = 0
-L32_1 = 1
-L28_1[1] = L29_1
-L28_1[2] = L30_1
-L28_1[3] = L31_1
-L28_1[4] = L32_1
-L29_1 = {}
-L30_1 = -1
-L31_1 = "GOLF_HUD_SCORECARD_MASTER"
-L32_1 = 0
-L33_1 = 1
-L29_1[1] = L30_1
-L29_1[2] = L31_1
-L29_1[3] = L32_1
-L29_1[4] = L33_1
-L30_1 = {}
-L31_1 = -1
-L32_1 = "Goon_Paid_Small"
-L33_1 = "GTAO_Boss_Goons_FM_Soundset"
-L34_1 = 0
-L30_1[1] = L31_1
-L30_1[2] = L32_1
-L30_1[3] = L33_1
-L30_1[4] = L34_1
-L31_1 = {}
-L32_1 = -1
-L33_1 = "Grab_Parachute"
-L34_1 = "BASEJUMPS_SOUNDS"
-L35_1 = 1
-L31_1[1] = L32_1
-L31_1[2] = L33_1
-L31_1[3] = L34_1
-L31_1[4] = L35_1
-L32_1 = {}
-L33_1 = -1
-L34_1 = "Hack_Failed"
-L35_1 = "DLC_HEIST_BIOLAB_PREP_HACKING_SOUNDS"
-L36_1 = 0
-L32_1[1] = L33_1
-L32_1[2] = L34_1
-L32_1[3] = L35_1
-L32_1[4] = L36_1
-L33_1 = {}
-L34_1 = -1
-L35_1 = "Hack_Success"
-L36_1 = "DLC_HEIST_BIOLAB_PREP_HACKING_SOUNDS"
-L37_1 = 1
-L33_1[1] = L34_1
-L33_1[2] = L35_1
-L33_1[3] = L36_1
-L33_1[4] = L37_1
-L34_1 = {}
-L35_1 = -1
-L36_1 = "HACKING_CLICK"
-L37_1 = 0
-L38_1 = 1
-L34_1[1] = L35_1
-L34_1[2] = L36_1
-L34_1[3] = L37_1
-L34_1[4] = L38_1
-L35_1 = {}
-L36_1 = -1
-L37_1 = "HACKING_CLICK_BAD"
-L38_1 = 0
-L39_1 = 1
-L35_1[1] = L36_1
-L35_1[2] = L37_1
-L35_1[3] = L38_1
-L35_1[4] = L39_1
-L36_1 = {}
-L37_1 = -1
-L38_1 = "HACKING_CLICK_GOOD"
-L39_1 = 0
-L40_1 = 1
-L36_1[1] = L37_1
-L36_1[2] = L38_1
-L36_1[3] = L39_1
-L36_1[4] = L40_1
-L37_1 = {}
-L38_1 = -1
-L39_1 = "HACKING_FAILURE"
-L40_1 = 0
-L41_1 = 1
-L37_1[1] = L38_1
-L37_1[2] = L39_1
-L37_1[3] = L40_1
-L37_1[4] = L41_1
-L38_1 = {}
-L39_1 = -1
-L40_1 = "HACKING_MOVE_CURSOR"
-L41_1 = 0
-L42_1 = 1
-L38_1[1] = L39_1
-L38_1[2] = L40_1
-L38_1[3] = L41_1
-L38_1[4] = L42_1
-L39_1 = {}
-L40_1 = -1
-L41_1 = "HACKING_SUCCESS"
-L42_1 = 0
-L43_1 = 1
-L39_1[1] = L40_1
-L39_1[2] = L41_1
-L39_1[3] = L42_1
-L39_1[4] = L43_1
-L40_1 = {}
-L41_1 = -1
-L42_1 = "Hang_Up"
-L43_1 = "Phone_SoundSet_Michael"
-L44_1 = 1
-L40_1[1] = L41_1
-L40_1[2] = L42_1
-L40_1[3] = L43_1
-L40_1[4] = L44_1
-L41_1 = {}
-L42_1 = -1
-L43_1 = "HIGHLIGHT"
-L44_1 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
-L45_1 = 1
-L41_1[1] = L42_1
-L41_1[2] = L43_1
-L41_1[3] = L44_1
-L41_1[4] = L45_1
-L42_1 = {}
-L43_1 = -1
-L44_1 = "Highlight_Accept"
-L45_1 = "DLC_HEIST_PLANNING_BOARD_SOUNDS"
-L46_1 = 1
-L42_1[1] = L43_1
-L42_1[2] = L44_1
-L42_1[3] = L45_1
-L42_1[4] = L46_1
-L43_1 = {}
-L44_1 = -1
-L45_1 = "Highlight_Cancel"
-L46_1 = "DLC_HEIST_PLANNING_BOARD_SOUNDS"
-L47_1 = 1
-L43_1[1] = L44_1
-L43_1[2] = L45_1
-L43_1[3] = L46_1
-L43_1[4] = L47_1
-L44_1 = {}
-L45_1 = -1
-L46_1 = "Highlight_Error"
-L47_1 = "DLC_HEIST_PLANNING_BOARD_SOUNDS"
-L48_1 = 1
-L44_1[1] = L45_1
-L44_1[2] = L46_1
-L44_1[3] = L47_1
-L44_1[4] = L48_1
-L45_1 = {}
-L46_1 = -1
-L47_1 = "Highlight_Move"
-L48_1 = "DLC_HEIST_PLANNING_BOARD_SOUNDS"
-L49_1 = 1
-L45_1[1] = L46_1
-L45_1[2] = L47_1
-L45_1[3] = L48_1
-L45_1[4] = L49_1
-L46_1 = {}
-L47_1 = -1
-L48_1 = "HIGHLIGHT_NAV_UP_DOWN"
-L49_1 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
-L50_1 = 1
-L46_1[1] = L47_1
-L46_1[2] = L48_1
-L46_1[3] = L49_1
-L46_1[4] = L50_1
-L47_1 = {}
-L48_1 = -1
-L49_1 = "Hit"
-L50_1 = "RESPAWN_ONLINE_SOUNDSET"
-L51_1 = 1
-L47_1[1] = L48_1
-L47_1[2] = L49_1
-L47_1[3] = L50_1
-L47_1[4] = L51_1
-L48_1 = {}
-L49_1 = -1
-L50_1 = "Hit"
-L51_1 = "RESPAWN_SOUNDSET"
-L52_1 = 0
-L48_1[1] = L49_1
-L48_1[2] = L50_1
-L48_1[3] = L51_1
-L48_1[4] = L52_1
-L49_1 = {}
-L50_1 = -1
-L51_1 = "Hit"
-L52_1 = "RESPAWN_SOUNDSET"
-L53_1 = 1
-L49_1[1] = L50_1
-L49_1[2] = L51_1
-L49_1[3] = L52_1
-L49_1[4] = L53_1
-L50_1 = {}
-L51_1 = -1
-L52_1 = "Hit_1"
-L53_1 = "LONG_PLAYER_SWITCH_SOUNDS"
-L54_1 = 0
-L50_1[1] = L51_1
-L50_1[2] = L52_1
-L50_1[3] = L53_1
-L50_1[4] = L54_1
-L0_1[101] = L1_1
-L0_1[102] = L2_1
-L0_1[103] = L3_1
-L0_1[104] = L4_1
-L0_1[105] = L5_1
-L0_1[106] = L6_1
-L0_1[107] = L7_1
-L0_1[108] = L8_1
-L0_1[109] = L9_1
-L0_1[110] = L10_1
-L0_1[111] = L11_1
-L0_1[112] = L12_1
-L0_1[113] = L13_1
-L0_1[114] = L14_1
-L0_1[115] = L15_1
-L0_1[116] = L16_1
-L0_1[117] = L17_1
-L0_1[118] = L18_1
-L0_1[119] = L19_1
-L0_1[120] = L20_1
-L0_1[121] = L21_1
-L0_1[122] = L22_1
-L0_1[123] = L23_1
-L0_1[124] = L24_1
-L0_1[125] = L25_1
-L0_1[126] = L26_1
-L0_1[127] = L27_1
-L0_1[128] = L28_1
-L0_1[129] = L29_1
-L0_1[130] = L30_1
-L0_1[131] = L31_1
-L0_1[132] = L32_1
-L0_1[133] = L33_1
-L0_1[134] = L34_1
-L0_1[135] = L35_1
-L0_1[136] = L36_1
-L0_1[137] = L37_1
-L0_1[138] = L38_1
-L0_1[139] = L39_1
-L0_1[140] = L40_1
-L0_1[141] = L41_1
-L0_1[142] = L42_1
-L0_1[143] = L43_1
-L0_1[144] = L44_1
-L0_1[145] = L45_1
-L0_1[146] = L46_1
-L0_1[147] = L47_1
-L0_1[148] = L48_1
-L0_1[149] = L49_1
-L0_1[150] = L50_1
-L1_1 = {}
-L2_1 = -1
-L3_1 = "Hit_1"
-L4_1 = "LONG_PLAYER_SWITCH_SOUNDS"
-L5_1 = 1
-L1_1[1] = L2_1
-L1_1[2] = L3_1
-L1_1[3] = L4_1
-L1_1[4] = L5_1
-L2_1 = {}
-L3_1 = -1
-L4_1 = "Hit_In"
-L5_1 = "PLAYER_SWITCH_CUSTOM_SOUNDSET"
-L6_1 = 1
-L2_1[1] = L3_1
-L2_1[2] = L4_1
-L2_1[3] = L5_1
-L2_1[4] = L6_1
-L3_1 = {}
-L4_1 = -1
-L5_1 = "Hit_Out"
-L6_1 = "PLAYER_SWITCH_CUSTOM_SOUNDSET"
-L7_1 = 1
-L3_1[1] = L4_1
-L3_1[2] = L5_1
-L3_1[3] = L6_1
-L3_1[4] = L7_1
-L4_1 = {}
-L5_1 = -1
-L6_1 = "HOORAY"
-L7_1 = "BARRY_02_SOUNDSET"
-L8_1 = 1
-L4_1[1] = L5_1
-L4_1[2] = L6_1
-L4_1[3] = L7_1
-L4_1[4] = L8_1
-L5_1 = {}
-L6_1 = -1
-L7_1 = "HORDE_COOL_DOWN_TIMER"
-L8_1 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
-L9_1 = 1
-L5_1[1] = L6_1
-L5_1[2] = L7_1
-L5_1[3] = L8_1
-L5_1[4] = L9_1
-L6_1 = {}
-L7_1 = -1
-L8_1 = "HUD_FREEMODE_CANCEL_MASTER"
-L9_1 = 0
-L10_1 = 1
-L6_1[1] = L7_1
-L6_1[2] = L8_1
-L6_1[3] = L9_1
-L6_1[4] = L10_1
-L7_1 = {}
-L8_1 = -1
-L9_1 = "Kill_List_Counter"
-L10_1 = "GTAO_FM_Events_Soundset"
-L11_1 = 0
-L7_1[1] = L8_1
-L7_1[2] = L9_1
-L7_1[3] = L10_1
-L7_1[4] = L11_1
-L8_1 = {}
-L9_1 = -1
-L10_1 = "LAMAR1_PARTYGIRLS_master"
-L11_1 = 0
-L12_1 = 1
-L8_1[1] = L9_1
-L8_1[2] = L10_1
-L8_1[3] = L11_1
-L8_1[4] = L12_1
-L9_1 = {}
-L10_1 = -1
-L11_1 = "LEADER_BOARD"
-L12_1 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
-L13_1 = 1
-L9_1[1] = L10_1
-L9_1[2] = L11_1
-L9_1[3] = L12_1
-L9_1[4] = L13_1
-L10_1 = {}
-L11_1 = -1
-L12_1 = "LEADERBOARD"
-L13_1 = "HUD_MINI_GAME_SOUNDSET"
-L14_1 = 1
-L10_1[1] = L11_1
-L10_1[2] = L12_1
-L10_1[3] = L13_1
-L10_1[4] = L14_1
-L11_1 = {}
-L12_1 = -1
-L13_1 = "Lester_Laugh_Phone"
-L14_1 = "DLC_HEIST_HACKING_SNAKE_SOUNDS"
-L15_1 = 1
-L11_1[1] = L12_1
-L11_1[2] = L13_1
-L11_1[3] = L14_1
-L11_1[4] = L15_1
-L12_1 = {}
-L13_1 = -1
-L14_1 = "Lights_On"
-L15_1 = "GTAO_MUGSHOT_ROOM_SOUNDS"
-L16_1 = 1
-L12_1[1] = L13_1
-L12_1[2] = L14_1
-L12_1[3] = L15_1
-L12_1[4] = L16_1
-L13_1 = {}
-L14_1 = -1
-L15_1 = "LIMIT"
-L16_1 = "DLC_APT_YACHT_DOOR_SOUNDS"
-L17_1 = 1
-L13_1[1] = L14_1
-L13_1[2] = L15_1
-L13_1[3] = L16_1
-L13_1[4] = L17_1
-L14_1 = {}
-L15_1 = -1
-L16_1 = "LIMIT"
-L17_1 = "GTAO_APT_DOOR_DOWNSTAIRS_GLASS_SOUNDS"
-L18_1 = 1
-L14_1[1] = L15_1
-L14_1[2] = L16_1
-L14_1[3] = L17_1
-L14_1[4] = L18_1
-L15_1 = {}
-L16_1 = -1
-L17_1 = "LIMIT"
-L18_1 = "GTAO_APT_DOOR_DOWNSTAIRS_WOOD_SOUNDS"
-L19_1 = 1
-L15_1[1] = L16_1
-L15_1[2] = L17_1
-L15_1[3] = L18_1
-L15_1[4] = L19_1
-L16_1 = {}
-L17_1 = -1
-L18_1 = "Load_Scene"
-L19_1 = "DLC_Dmod_Prop_Editor_Sounds"
-L20_1 = 0
-L16_1[1] = L17_1
-L16_1[2] = L18_1
-L16_1[3] = L19_1
-L16_1[4] = L20_1
-L17_1 = {}
-L18_1 = -1
-L19_1 = "LOCAL_PLYR_CASH_COUNTER_COMPLETE"
-L20_1 = "DLC_HEISTS_GENERAL_FRONTEND_SOUNDS"
-L21_1 = 0
-L17_1[1] = L18_1
-L17_1[2] = L19_1
-L17_1[3] = L20_1
-L17_1[4] = L21_1
-L18_1 = {}
-L19_1 = -1
-L20_1 = "LOCAL_PLYR_CASH_COUNTER_INCREASE"
-L21_1 = "DLC_HEISTS_GENERAL_FRONTEND_SOUNDS"
-L22_1 = 0
-L18_1[1] = L19_1
-L18_1[2] = L20_1
-L18_1[3] = L21_1
-L18_1[4] = L22_1
-L19_1 = {}
-L20_1 = -1
-L21_1 = "LOOSE_MATCH"
-L22_1 = "HUD_MINI_GAME_SOUNDSET"
-L23_1 = 1
-L19_1[1] = L20_1
-L19_1[2] = L21_1
-L19_1[3] = L22_1
-L19_1[4] = L23_1
-L20_1 = {}
-L21_1 = -1
-L22_1 = "Lose_1st"
-L23_1 = "GTAO_FM_Events_Soundset"
-L24_1 = 0
-L20_1[1] = L21_1
-L20_1[2] = L22_1
-L20_1[3] = L23_1
-L20_1[4] = L24_1
-L21_1 = {}
-L22_1 = -1
-L23_1 = "Lose_1st"
-L24_1 = "GTAO_Magnate_Boss_Modes_Soundset"
-L25_1 = 0
-L21_1[1] = L22_1
-L21_1[2] = L23_1
-L21_1[3] = L24_1
-L21_1[4] = L25_1
-L22_1 = {}
-L23_1 = -1
-L24_1 = "Lowrider_Upgrade"
-L25_1 = "Lowrider_Super_Mod_Garage_Sounds"
-L26_1 = 1
-L22_1[1] = L23_1
-L22_1[2] = L24_1
-L22_1[3] = L25_1
-L22_1[4] = L26_1
-L23_1 = {}
-L24_1 = -1
-L25_1 = "Map_Roll_Down"
-L26_1 = "DLC_HEIST_PLANNING_BOARD_SOUNDS"
-L27_1 = 1
-L23_1[1] = L24_1
-L23_1[2] = L25_1
-L23_1[3] = L26_1
-L23_1[4] = L27_1
-L24_1 = {}
-L25_1 = -1
-L26_1 = "Map_Roll_Up"
-L27_1 = "DLC_HEIST_PLANNING_BOARD_SOUNDS"
-L28_1 = 1
-L24_1[1] = L25_1
-L24_1[2] = L26_1
-L24_1[3] = L27_1
-L24_1[4] = L28_1
-L25_1 = {}
-L26_1 = -1
-L27_1 = "MARKER_ERASE"
-L28_1 = "HEIST_BULLETIN_BOARD_SOUNDSET"
-L29_1 = 1
-L25_1[1] = L26_1
-L25_1[2] = L27_1
-L25_1[3] = L28_1
-L25_1[4] = L29_1
-L26_1 = {}
-L27_1 = -1
-L28_1 = "MARTIN1_DISTANT_TRAIN_HORNS_MASTER"
-L29_1 = 0
-L30_1 = 1
-L26_1[1] = L27_1
-L26_1[2] = L28_1
-L26_1[3] = L29_1
-L26_1[4] = L30_1
-L27_1 = {}
-L28_1 = -1
-L29_1 = "MEDAL_UP"
-L30_1 = "HUD_MINI_GAME_SOUNDSET"
-L31_1 = 1
-L27_1[1] = L28_1
-L27_1[2] = L29_1
-L27_1[3] = L30_1
-L27_1[4] = L31_1
-L28_1 = {}
-L29_1 = -1
-L30_1 = "Menu_Accept"
-L31_1 = "Phone_SoundSet_Default"
-L32_1 = 1
-L28_1[1] = L29_1
-L28_1[2] = L30_1
-L28_1[3] = L31_1
-L28_1[4] = L32_1
-L29_1 = {}
-L30_1 = -1
-L31_1 = "MICHAEL_LONG_SCREAM"
-L32_1 = "FAMILY_5_SOUNDS"
-L33_1 = 1
-L29_1[1] = L30_1
-L29_1[2] = L31_1
-L29_1[3] = L32_1
-L29_1[4] = L33_1
-L30_1 = {}
-L31_1 = -1
-L32_1 = "MICHAEL_SOFA_REMOTE_CLICK_VOLUME_MASTER"
-L33_1 = 0
-L34_1 = 1
-L30_1[1] = L31_1
-L30_1[2] = L32_1
-L30_1[3] = L33_1
-L30_1[4] = L34_1
-L31_1 = {}
-L32_1 = -1
-L33_1 = "MICHAEL_SOFA_TV_CHANGE_CHANNEL_MASTER"
-L34_1 = 0
-L35_1 = 1
-L31_1[1] = L32_1
-L31_1[2] = L33_1
-L31_1[3] = L34_1
-L31_1[4] = L35_1
-L32_1 = {}
-L33_1 = -1
-L34_1 = "MICHAEL_SOFA_TV_ON_MASTER"
-L35_1 = 0
-L36_1 = 1
-L32_1[1] = L33_1
-L32_1[2] = L34_1
-L32_1[3] = L35_1
-L32_1[4] = L36_1
-L33_1 = {}
-L34_1 = -1
-L35_1 = "Mission_Pass_Notify"
-L36_1 = "DLC_HEISTS_GENERAL_FRONTEND_SOUNDS"
-L37_1 = 0
-L33_1[1] = L34_1
-L33_1[2] = L35_1
-L33_1[3] = L36_1
-L33_1[4] = L37_1
-L34_1 = {}
-L35_1 = -1
-L36_1 = "Mission_Pass_Notify"
-L37_1 = "DLC_HEISTS_GENERAL_FRONTEND_SOUNDS"
-L38_1 = 1
-L34_1[1] = L35_1
-L34_1[2] = L36_1
-L34_1[3] = L37_1
-L34_1[4] = L38_1
-L35_1 = {}
-L36_1 = -1
-L37_1 = "MP_5_SECOND_TIMER"
-L38_1 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
-L39_1 = 1
-L35_1[1] = L36_1
-L35_1[2] = L37_1
-L35_1[3] = L38_1
-L35_1[4] = L39_1
-L36_1 = {}
-L37_1 = -1
-L38_1 = "MP_AWARD"
-L39_1 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
-L40_1 = 1
-L36_1[1] = L37_1
-L36_1[2] = L38_1
-L36_1[3] = L39_1
-L36_1[4] = L40_1
-L37_1 = {}
-L38_1 = -1
-L39_1 = "MP_IDLE_KICK"
-L40_1 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
-L41_1 = 1
-L37_1[1] = L38_1
-L37_1[2] = L39_1
-L37_1[3] = L40_1
-L37_1[4] = L41_1
-L38_1 = {}
-L39_1 = -1
-L40_1 = "MP_IDLE_TIMER"
-L41_1 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
-L42_1 = 1
-L38_1[1] = L39_1
-L38_1[2] = L40_1
-L38_1[3] = L41_1
-L38_1[4] = L42_1
-L39_1 = {}
-L40_1 = -1
-L41_1 = "MP_RANK_UP"
-L42_1 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
-L43_1 = 0
-L39_1[1] = L40_1
-L39_1[2] = L41_1
-L39_1[3] = L42_1
-L39_1[4] = L43_1
-L40_1 = {}
-L41_1 = -1
-L42_1 = "MP_WAVE_COMPLETE"
-L43_1 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
-L44_1 = 1
-L40_1[1] = L41_1
-L40_1[2] = L42_1
-L40_1[3] = L43_1
-L40_1[4] = L44_1
-L41_1 = {}
-L42_1 = -1
-L43_1 = "NAV"
-L44_1 = "HUD_AMMO_SHOP_SOUNDSET"
-L45_1 = 1
-L41_1[1] = L42_1
-L41_1[2] = L43_1
-L41_1[3] = L44_1
-L41_1[4] = L45_1
-L42_1 = {}
-L43_1 = -1
-L44_1 = "Nav_Arrow_Ahead"
-L45_1 = "DLC_HEISTS_GENERAL_FRONTEND_SOUNDS"
-L46_1 = 1
-L42_1[1] = L43_1
-L42_1[2] = L44_1
-L42_1[3] = L45_1
-L42_1[4] = L46_1
-L43_1 = {}
-L44_1 = -1
-L45_1 = "Nav_Arrow_Behind"
-L46_1 = "DLC_HEISTS_GENERAL_FRONTEND_SOUNDS"
-L47_1 = 1
-L43_1[1] = L44_1
-L43_1[2] = L45_1
-L43_1[3] = L46_1
-L43_1[4] = L47_1
-L44_1 = {}
-L45_1 = -1
-L46_1 = "Nav_Arrow_Left"
-L47_1 = "DLC_HEISTS_GENERAL_FRONTEND_SOUNDS"
-L48_1 = 1
-L44_1[1] = L45_1
-L44_1[2] = L46_1
-L44_1[3] = L47_1
-L44_1[4] = L48_1
-L45_1 = {}
-L46_1 = -1
-L47_1 = "Nav_Arrow_Right"
-L48_1 = "DLC_HEISTS_GENERAL_FRONTEND_SOUNDS"
-L49_1 = 1
-L45_1[1] = L46_1
-L45_1[2] = L47_1
-L45_1[3] = L48_1
-L45_1[4] = L49_1
-L46_1 = {}
-L47_1 = -1
-L48_1 = "NAV_LEFT_RIGHT"
-L49_1 = "HUD_FREEMODE_SOUNDSET"
-L50_1 = 1
-L46_1[1] = L47_1
-L46_1[2] = L48_1
-L46_1[3] = L49_1
-L46_1[4] = L50_1
-L47_1 = {}
-L48_1 = -1
-L49_1 = "NAV_LEFT_RIGHT"
-L50_1 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
-L51_1 = 0
-L47_1[1] = L48_1
-L47_1[2] = L49_1
-L47_1[3] = L50_1
-L47_1[4] = L51_1
-L48_1 = {}
-L49_1 = -1
-L50_1 = "NAV_LEFT_RIGHT"
-L51_1 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
-L52_1 = 1
-L48_1[1] = L49_1
-L48_1[2] = L50_1
-L48_1[3] = L51_1
-L48_1[4] = L52_1
-L49_1 = {}
-L50_1 = -1
-L51_1 = "NAV_UP_DOWN"
-L52_1 = "HUD_FREEMODE_SOUNDSET"
-L53_1 = 1
-L49_1[1] = L50_1
-L49_1[2] = L51_1
-L49_1[3] = L52_1
-L49_1[4] = L53_1
-L50_1 = {}
-L51_1 = -1
-L52_1 = "NAV_UP_DOWN"
-L53_1 = "HUD_FRONTEND_CLOTHESSHOP_SOUNDSET"
-L54_1 = 1
-L50_1[1] = L51_1
-L50_1[2] = L52_1
-L50_1[3] = L53_1
-L50_1[4] = L54_1
-L0_1[151] = L1_1
-L0_1[152] = L2_1
-L0_1[153] = L3_1
-L0_1[154] = L4_1
-L0_1[155] = L5_1
-L0_1[156] = L6_1
-L0_1[157] = L7_1
-L0_1[158] = L8_1
-L0_1[159] = L9_1
-L0_1[160] = L10_1
-L0_1[161] = L11_1
-L0_1[162] = L12_1
-L0_1[163] = L13_1
-L0_1[164] = L14_1
-L0_1[165] = L15_1
-L0_1[166] = L16_1
-L0_1[167] = L17_1
-L0_1[168] = L18_1
-L0_1[169] = L19_1
-L0_1[170] = L20_1
-L0_1[171] = L21_1
-L0_1[172] = L22_1
-L0_1[173] = L23_1
-L0_1[174] = L24_1
-L0_1[175] = L25_1
-L0_1[176] = L26_1
-L0_1[177] = L27_1
-L0_1[178] = L28_1
-L0_1[179] = L29_1
-L0_1[180] = L30_1
-L0_1[181] = L31_1
-L0_1[182] = L32_1
-L0_1[183] = L33_1
-L0_1[184] = L34_1
-L0_1[185] = L35_1
-L0_1[186] = L36_1
-L0_1[187] = L37_1
-L0_1[188] = L38_1
-L0_1[189] = L39_1
-L0_1[190] = L40_1
-L0_1[191] = L41_1
-L0_1[192] = L42_1
-L0_1[193] = L43_1
-L0_1[194] = L44_1
-L0_1[195] = L45_1
-L0_1[196] = L46_1
-L0_1[197] = L47_1
-L0_1[198] = L48_1
-L0_1[199] = L49_1
-L0_1[200] = L50_1
-L1_1 = {}
-L2_1 = -1
-L3_1 = "NAV_UP_DOWN"
-L4_1 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
-L5_1 = 0
-L1_1[1] = L2_1
-L1_1[2] = L3_1
-L1_1[3] = L4_1
-L1_1[4] = L5_1
-L2_1 = {}
-L3_1 = -1
-L4_1 = "NAV_UP_DOWN"
-L5_1 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
-L6_1 = 1
-L2_1[1] = L3_1
-L2_1[2] = L4_1
-L2_1[3] = L5_1
-L2_1[4] = L6_1
-L3_1 = {}
-L4_1 = -1
-L5_1 = "NAV_UP_DOWN"
-L6_1 = "HUD_FRONTEND_TATTOO_SHOP_SOUNDSET"
-L7_1 = 1
-L3_1[1] = L4_1
-L3_1[2] = L5_1
-L3_1[3] = L6_1
-L3_1[4] = L7_1
-L4_1 = {}
-L5_1 = -1
-L6_1 = "NAV_UP_DOWN"
-L7_1 = "HUD_LIQUOR_STORE_SOUNDSET"
-L8_1 = 1
-L4_1[1] = L5_1
-L4_1[2] = L6_1
-L4_1[3] = L7_1
-L4_1[4] = L8_1
-L5_1 = {}
-L6_1 = -1
-L7_1 = "NAV_UP_DOWN"
-L8_1 = "HUD_MINI_GAME_SOUNDSET"
-L9_1 = 1
-L5_1[1] = L6_1
-L5_1[2] = L7_1
-L5_1[3] = L8_1
-L5_1[4] = L9_1
-L6_1 = {}
-L7_1 = -1
-L8_1 = "Near_Miss_Counter_Reset"
-L9_1 = "GTAO_FM_Events_Soundset"
-L10_1 = 0
-L6_1[1] = L7_1
-L6_1[2] = L8_1
-L6_1[3] = L9_1
-L6_1[4] = L10_1
-L7_1 = {}
-L8_1 = -1
-L9_1 = "NET_RACE_START_EVENT_MASTER"
-L10_1 = 0
-L11_1 = 1
-L7_1[1] = L8_1
-L7_1[2] = L9_1
-L7_1[3] = L10_1
-L7_1[4] = L11_1
-L8_1 = {}
-L9_1 = -1
-L10_1 = "NO"
-L11_1 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
-L12_1 = 1
-L8_1[1] = L9_1
-L8_1[2] = L10_1
-L8_1[3] = L11_1
-L8_1[4] = L12_1
-L9_1 = {}
-L10_1 = -1
-L11_1 = "Object_Collect_Player"
-L12_1 = "GTAO_FM_Events_Soundset"
-L13_1 = 0
-L9_1[1] = L10_1
-L9_1[2] = L11_1
-L9_1[3] = L12_1
-L9_1[4] = L13_1
-L10_1 = {}
-L11_1 = -1
-L12_1 = "Object_Collect_Remote"
-L13_1 = "GTAO_FM_Events_Soundset"
-L14_1 = 0
-L10_1[1] = L11_1
-L10_1[2] = L12_1
-L10_1[3] = L13_1
-L10_1[4] = L14_1
-L11_1 = {}
-L12_1 = -1
-L13_1 = "Object_Dropped_Remote"
-L14_1 = "GTAO_FM_Events_Soundset"
-L15_1 = 0
-L11_1[1] = L12_1
-L11_1[2] = L13_1
-L11_1[3] = L14_1
-L11_1[4] = L15_1
-L12_1 = {}
-L13_1 = -1
-L14_1 = "OFF"
-L15_1 = v_4
-L16_1 = 1
-L12_1[1] = L13_1
-L12_1[2] = L14_1
-L12_1[3] = L15_1
-L12_1[4] = L16_1
-L13_1 = {}
-L14_1 = -1
-L15_1 = "Off_High"
-L16_1 = "MP_RADIO_SFX"
-L17_1 = 1
-L13_1[1] = L14_1
-L13_1[2] = L15_1
-L13_1[3] = L16_1
-L13_1[4] = L17_1
-L14_1 = {}
-L15_1 = -1
-L16_1 = "OK"
-L17_1 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
-L18_1 = 1
-L14_1[1] = L15_1
-L14_1[2] = L16_1
-L14_1[3] = L17_1
-L14_1[4] = L18_1
-L15_1 = {}
-L16_1 = -1
-L17_1 = "ON"
-L18_1 = "NOIR_FILTER_SOUNDS"
-L19_1 = 1
-L15_1[1] = L16_1
-L15_1[2] = L17_1
-L15_1[3] = L18_1
-L15_1[4] = L19_1
-L16_1 = {}
-L17_1 = -1
-L18_1 = "On_Call_Player_Join"
-L19_1 = "DLC_HEISTS_GENERAL_FRONTEND_SOUNDS"
-L20_1 = 1
-L16_1[1] = L17_1
-L16_1[2] = L18_1
-L16_1[3] = L19_1
-L16_1[4] = L20_1
-L17_1 = {}
-L18_1 = -1
-L19_1 = "OOB_Cancel"
-L20_1 = "GTAO_FM_Events_Soundset"
-L21_1 = 0
-L17_1[1] = L18_1
-L17_1[2] = L19_1
-L17_1[3] = L20_1
-L17_1[4] = L21_1
-L18_1 = {}
-L19_1 = -1
-L20_1 = "OOB_Start"
-L21_1 = "GTAO_FM_Events_Soundset"
-L22_1 = 0
-L18_1[1] = L19_1
-L18_1[2] = L20_1
-L18_1[3] = L21_1
-L18_1[4] = L22_1
-L19_1 = {}
-L20_1 = -1
-L21_1 = "OPEN_WINDOW"
-L22_1 = "LESTER1A_SOUNDS"
-L23_1 = 1
-L19_1[1] = L20_1
-L19_1[2] = L21_1
-L19_1[3] = L22_1
-L19_1[4] = L23_1
-L20_1 = {}
-L21_1 = -1
-L22_1 = "OPENED"
-L23_1 = "MP_PROPERTIES_ELEVATOR_DOORS"
-L24_1 = 1
-L20_1[1] = L21_1
-L20_1[2] = L22_1
-L20_1[3] = L23_1
-L20_1[4] = L24_1
-L21_1 = {}
-L22_1 = -1
-L23_1 = "Out_Of_Area"
-L24_1 = "DLC_Lowrider_Relay_Race_Sounds"
-L25_1 = 0
-L21_1[1] = L22_1
-L21_1[2] = L23_1
-L21_1[3] = L24_1
-L21_1[4] = L25_1
-L22_1 = {}
-L23_1 = -1
-L24_1 = "Paper_Shuffle"
-L25_1 = "DLC_HEIST_PLANNING_BOARD_SOUNDS"
-L26_1 = 1
-L22_1[1] = L23_1
-L22_1[2] = L24_1
-L22_1[3] = L25_1
-L22_1[4] = L26_1
-L23_1 = {}
-L24_1 = -1
-L25_1 = "Parcel_Vehicle_Lost"
-L26_1 = "GTAO_FM_Events_Soundset"
-L27_1 = 0
-L23_1[1] = L24_1
-L23_1[2] = L25_1
-L23_1[3] = L26_1
-L23_1[4] = L27_1
-L24_1 = {}
-L25_1 = -1
-L26_1 = "Payment_Non_Player"
-L27_1 = "DLC_HEISTS_GENERIC_SOUNDS"
-L28_1 = 0
-L24_1[1] = L25_1
-L24_1[2] = L26_1
-L24_1[3] = L27_1
-L24_1[4] = L28_1
-L25_1 = {}
-L26_1 = -1
-L27_1 = "Payment_Player"
-L28_1 = "DLC_HEISTS_GENERIC_SOUNDS"
-L29_1 = 0
-L25_1[1] = L26_1
-L25_1[2] = L27_1
-L25_1[3] = L28_1
-L25_1[4] = L29_1
-L26_1 = {}
-L27_1 = -1
-L28_1 = "Pen_Tick"
-L29_1 = "DLC_HEIST_PLANNING_BOARD_SOUNDS"
-L30_1 = 1
-L26_1[1] = L27_1
-L26_1[2] = L28_1
-L26_1[3] = L29_1
-L26_1[4] = L30_1
-L27_1 = {}
-L28_1 = -1
-L29_1 = "PERSON_SCROLL"
-L30_1 = "HEIST_BULLETIN_BOARD_SOUNDSET"
-L31_1 = 1
-L27_1[1] = L28_1
-L27_1[2] = L29_1
-L27_1[3] = L30_1
-L27_1[4] = L31_1
-L28_1 = {}
-L29_1 = -1
-L30_1 = "PERSON_SELECT"
-L31_1 = "HEIST_BULLETIN_BOARD_SOUNDSET"
-L32_1 = 1
-L28_1[1] = L29_1
-L28_1[2] = L30_1
-L28_1[3] = L31_1
-L28_1[4] = L32_1
-L29_1 = {}
-L30_1 = -1
-L31_1 = "Phone_Generic_Key_02"
-L32_1 = "HUD_MINIGAME_SOUNDSET"
-L33_1 = 1
-L29_1[1] = L30_1
-L29_1[2] = L31_1
-L29_1[3] = L32_1
-L29_1[4] = L33_1
-L30_1 = {}
-L31_1 = -1
-L32_1 = "Phone_Generic_Key_03"
-L33_1 = "HUD_MINIGAME_SOUNDSET"
-L34_1 = 1
-L30_1[1] = L31_1
-L30_1[2] = L32_1
-L30_1[3] = L33_1
-L30_1[4] = L34_1
-L31_1 = {}
-L32_1 = -1
-L33_1 = "PICK_UP"
-L34_1 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
-L35_1 = 1
-L31_1[1] = L32_1
-L31_1[2] = L33_1
-L31_1[3] = L34_1
-L31_1[4] = L35_1
-L32_1 = {}
-L33_1 = -1
-L34_1 = "PICK_UP_WEAPON"
-L35_1 = "HUD_FRONTEND_CUSTOM_SOUNDSET"
-L36_1 = 1
-L32_1[1] = L33_1
-L32_1[2] = L34_1
-L32_1[3] = L35_1
-L32_1[4] = L36_1
-L33_1 = {}
-L34_1 = -1
-L35_1 = "PICKUP_WEAPON_SMOKEGRENADE"
-L36_1 = "HUD_FRONTEND_WEAPONS_PICKUPS_SOUNDSET"
-L37_1 = 1
-L33_1[1] = L34_1
-L33_1[2] = L35_1
-L33_1[3] = L36_1
-L33_1[4] = L37_1
-L34_1 = {}
-L35_1 = -1
-L36_1 = "Pin_Bad"
-L37_1 = "DLC_HEIST_BIOLAB_PREP_HACKING_SOUNDS"
-L38_1 = 1
-L34_1[1] = L35_1
-L34_1[2] = L36_1
-L34_1[3] = L37_1
-L34_1[4] = L38_1
-L35_1 = {}
-L36_1 = -1
-L37_1 = "PIN_BUTTON"
-L38_1 = "ATM_SOUNDS"
-L39_1 = 1
-L35_1[1] = L36_1
-L35_1[2] = L37_1
-L35_1[3] = L38_1
-L35_1[4] = L39_1
-L36_1 = {}
-L37_1 = -1
-L38_1 = "Pin_Centred"
-L39_1 = "DLC_HEIST_BIOLAB_PREP_HACKING_SOUNDS"
-L40_1 = 1
-L36_1[1] = L37_1
-L36_1[2] = L38_1
-L36_1[3] = L39_1
-L36_1[4] = L40_1
-L37_1 = {}
-L38_1 = -1
-L39_1 = "Pin_Good"
-L40_1 = "DLC_HEIST_BIOLAB_PREP_HACKING_SOUNDS"
-L41_1 = 1
-L37_1[1] = L38_1
-L37_1[2] = L39_1
-L37_1[3] = L40_1
-L37_1[4] = L41_1
-L38_1 = {}
-L39_1 = -1
-L40_1 = "PIPES_LAND"
-L41_1 = "CONSTRUCTION_ACCIDENT_1_SOUNDS"
-L42_1 = 1
-L38_1[1] = L39_1
-L38_1[2] = L40_1
-L38_1[3] = L41_1
-L38_1[4] = L42_1
-L39_1 = {}
-L40_1 = -1
-L41_1 = "Place_Prop_Fail"
-L42_1 = "DLC_Dmod_Prop_Editor_Sounds"
-L43_1 = 0
-L39_1[1] = L40_1
-L39_1[2] = L41_1
-L39_1[3] = L42_1
-L39_1[4] = L43_1
-L40_1 = {}
-L41_1 = -1
-L42_1 = "Place_Prop_Success"
-L43_1 = "DLC_Dmod_Prop_Editor_Sounds"
-L44_1 = 0
-L40_1[1] = L41_1
-L40_1[2] = L42_1
-L40_1[3] = L43_1
-L40_1[4] = L44_1
-L41_1 = {}
-L42_1 = -1
-L43_1 = "Player_Collect"
-L44_1 = "DLC_PILOT_MP_HUD_SOUNDS"
-L45_1 = 0
-L41_1[1] = L42_1
-L41_1[2] = L43_1
-L41_1[3] = L44_1
-L41_1[4] = L45_1
-L42_1 = {}
-L43_1 = -1
-L44_1 = "Player_Enter_Line"
-L45_1 = "GTAO_FM_Cross_The_Line_Soundset"
-L46_1 = 0
-L42_1[1] = L43_1
-L42_1[2] = L44_1
-L42_1[3] = L45_1
-L42_1[4] = L46_1
-L43_1 = {}
-L44_1 = -1
-L45_1 = "Player_Exit_Line"
-L46_1 = "GTAO_FM_Cross_The_Line_Soundset"
-L47_1 = 0
-L43_1[1] = L44_1
-L43_1[2] = L45_1
-L43_1[3] = L46_1
-L43_1[4] = L47_1
-L44_1 = {}
-L45_1 = -1
-L46_1 = "Power_Down"
-L47_1 = "DLC_HEIST_HACKING_SNAKE_SOUNDS"
-L48_1 = 1
-L44_1[1] = L45_1
-L44_1[2] = L46_1
-L44_1[3] = L47_1
-L44_1[4] = L48_1
-L45_1 = {}
-L46_1 = -1
-L47_1 = "Pre_Screen_Stinger"
-L48_1 = "DLC_HEISTS_FAILED_SCREEN_SOUNDS"
-L49_1 = 0
-L45_1[1] = L46_1
-L45_1[2] = L47_1
-L45_1[3] = L48_1
-L45_1[4] = L49_1
-L46_1 = {}
-L47_1 = -1
-L48_1 = "Pre_Screen_Stinger"
-L49_1 = "DLC_HEISTS_FINALE_SCREEN_SOUNDS"
-L50_1 = 0
-L46_1[1] = L47_1
-L46_1[2] = L48_1
-L46_1[3] = L49_1
-L46_1[4] = L50_1
-L47_1 = {}
-L48_1 = -1
-L49_1 = "Pre_Screen_Stinger"
-L50_1 = "DLC_HEISTS_FINALE_SCREEN_SOUNDS"
-L51_1 = 1
-L47_1[1] = L48_1
-L47_1[2] = L49_1
-L47_1[3] = L50_1
-L47_1[4] = L51_1
-L48_1 = {}
-L49_1 = -1
-L50_1 = "Pre_Screen_Stinger"
-L51_1 = "DLC_HEISTS_PREP_SCREEN_SOUNDS"
-L52_1 = 0
-L48_1[1] = L49_1
-L48_1[2] = L50_1
-L48_1[3] = L51_1
-L48_1[4] = L52_1
-L49_1 = {}
-L50_1 = -1
-L51_1 = "Pre_Screen_Stinger"
-L52_1 = "DLC_HEISTS_PREP_SCREEN_SOUNDS"
-L53_1 = 1
-L49_1[1] = L50_1
-L49_1[2] = L51_1
-L49_1[3] = L52_1
-L49_1[4] = L53_1
-L50_1 = {}
-L51_1 = -1
-L52_1 = "PROPERTY_PURCHASE_MEDIUM"
-L53_1 = "HUD_PROPERTY_SOUNDSET"
-L54_1 = 1
-L50_1[1] = L51_1
-L50_1[2] = L52_1
-L50_1[3] = L53_1
-L50_1[4] = L54_1
-L0_1[201] = L1_1
-L0_1[202] = L2_1
-L0_1[203] = L3_1
-L0_1[204] = L4_1
-L0_1[205] = L5_1
-L0_1[206] = L6_1
-L0_1[207] = L7_1
-L0_1[208] = L8_1
-L0_1[209] = L9_1
-L0_1[210] = L10_1
-L0_1[211] = L11_1
-L0_1[212] = L12_1
-L0_1[213] = L13_1
-L0_1[214] = L14_1
-L0_1[215] = L15_1
-L0_1[216] = L16_1
-L0_1[217] = L17_1
-L0_1[218] = L18_1
-L0_1[219] = L19_1
-L0_1[220] = L20_1
-L0_1[221] = L21_1
-L0_1[222] = L22_1
-L0_1[223] = L23_1
-L0_1[224] = L24_1
-L0_1[225] = L25_1
-L0_1[226] = L26_1
-L0_1[227] = L27_1
-L0_1[228] = L28_1
-L0_1[229] = L29_1
-L0_1[230] = L30_1
-L0_1[231] = L31_1
-L0_1[232] = L32_1
-L0_1[233] = L33_1
-L0_1[234] = L34_1
-L0_1[235] = L35_1
-L0_1[236] = L36_1
-L0_1[237] = L37_1
-L0_1[238] = L38_1
-L0_1[239] = L39_1
-L0_1[240] = L40_1
-L0_1[241] = L41_1
-L0_1[242] = L42_1
-L0_1[243] = L43_1
-L0_1[244] = L44_1
-L0_1[245] = L45_1
-L0_1[246] = L46_1
-L0_1[247] = L47_1
-L0_1[248] = L48_1
-L0_1[249] = L49_1
-L0_1[250] = L50_1
-L1_1 = {}
-L2_1 = -1
-L3_1 = "PS2A_DISTANT_TRAIN_HORNS_MASTER"
-L4_1 = 0
-L5_1 = 1
-L1_1[1] = L2_1
-L1_1[2] = L3_1
-L1_1[3] = L4_1
-L1_1[4] = L5_1
-L2_1 = {}
-L3_1 = -1
-L4_1 = "PS2A_MONEY_LOST"
-L5_1 = "PALETO_SCORE_2A_BANK_SS"
-L6_1 = 1
-L2_1[1] = L3_1
-L2_1[2] = L4_1
-L2_1[3] = L5_1
-L2_1[4] = L6_1
-L3_1 = {}
-L4_1 = -1
-L5_1 = "PURCHASE"
-L6_1 = "HUD_FRONTEND_TATTOO_SHOP_SOUNDSET"
-L7_1 = 1
-L3_1[1] = L4_1
-L3_1[2] = L5_1
-L3_1[3] = L6_1
-L3_1[4] = L7_1
-L4_1 = {}
-L5_1 = -1
-L6_1 = "PURCHASE"
-L7_1 = "HUD_LIQUOR_STORE_SOUNDSET"
-L8_1 = 1
-L4_1[1] = L5_1
-L4_1[2] = L6_1
-L4_1[3] = L7_1
-L4_1[4] = L8_1
-L5_1 = {}
-L6_1 = -1
-L7_1 = "PUSH"
-L8_1 = "DLC_APT_YACHT_DOOR_SOUNDS"
-L9_1 = 1
-L5_1[1] = L6_1
-L5_1[2] = L7_1
-L5_1[3] = L8_1
-L5_1[4] = L9_1
-L6_1 = {}
-L7_1 = -1
-L8_1 = "PUSH"
-L9_1 = "GTAO_APT_DOOR_DOWNSTAIRS_GLASS_SOUNDS"
-L10_1 = 1
-L6_1[1] = L7_1
-L6_1[2] = L8_1
-L6_1[3] = L9_1
-L6_1[4] = L10_1
-L7_1 = {}
-L8_1 = -1
-L9_1 = "PUSH"
-L10_1 = "GTAO_APT_DOOR_DOWNSTAIRS_WOOD_SOUNDS"
-L11_1 = 1
-L7_1[1] = L8_1
-L7_1[2] = L9_1
-L7_1[3] = L10_1
-L7_1[4] = L11_1
-L8_1 = {}
-L9_1 = -1
-L10_1 = "Put_Away"
-L11_1 = "Phone_SoundSet_Michael"
-L12_1 = 1
-L8_1[1] = L9_1
-L8_1[2] = L10_1
-L8_1[3] = L11_1
-L8_1[4] = L12_1
-L9_1 = {}
-L10_1 = -1
-L11_1 = "QUIT"
-L12_1 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
-L13_1 = 1
-L9_1[1] = L10_1
-L9_1[2] = L11_1
-L9_1[3] = L12_1
-L9_1[4] = L13_1
-L10_1 = {}
-L11_1 = -1
-L12_1 = "QUIT_WHOOSH"
-L13_1 = "HUD_MINI_GAME_SOUNDSET"
-L14_1 = 1
-L10_1[1] = L11_1
-L10_1[2] = L12_1
-L10_1[3] = L13_1
-L10_1[4] = L14_1
-L11_1 = {}
-L12_1 = -1
-L13_1 = "Radar_Beast_Blip"
-L14_1 = "FM_Events_Sasquatch_Sounds"
-L15_1 = 0
-L11_1[1] = L12_1
-L11_1[2] = L13_1
-L11_1[3] = L14_1
-L11_1[4] = L15_1
-L12_1 = {}
-L13_1 = -1
-L14_1 = "RAMP_DOWN"
-L15_1 = "TRUCK_RAMP_DOWN"
-L16_1 = 1
-L12_1[1] = L13_1
-L12_1[2] = L14_1
-L12_1[3] = L15_1
-L12_1[4] = L16_1
-L13_1 = {}
-L14_1 = -1
-L15_1 = "RAMP_UP"
-L16_1 = "TRUCK_RAMP_DOWN"
-L17_1 = 1
-L13_1[1] = L14_1
-L13_1[2] = L15_1
-L13_1[3] = L16_1
-L13_1[4] = L17_1
-L14_1 = {}
-L15_1 = -1
-L16_1 = "RAMPAGE_KILLED_COUNTER_MASTER"
-L17_1 = 0
-L18_1 = 1
-L14_1[1] = L15_1
-L14_1[2] = L16_1
-L14_1[3] = L17_1
-L14_1[4] = L18_1
-L15_1 = {}
-L16_1 = -1
-L17_1 = "RAMPAGE_KILLED_HEAD_SHOT_MASTER"
-L18_1 = 0
-L19_1 = 1
-L15_1[1] = L16_1
-L15_1[2] = L17_1
-L15_1[3] = L18_1
-L15_1[4] = L19_1
-L16_1 = {}
-L17_1 = -1
-L18_1 = "RAMPAGE_PASSED_MASTER"
-L19_1 = 0
-L20_1 = 1
-L16_1[1] = L17_1
-L16_1[2] = L18_1
-L16_1[3] = L19_1
-L16_1[4] = L20_1
-L17_1 = {}
-L18_1 = -1
-L19_1 = "RAMPAGE_ROAR_MASTER"
-L20_1 = 0
-L21_1 = 1
-L17_1[1] = L18_1
-L17_1[2] = L19_1
-L17_1[3] = L20_1
-L17_1[4] = L21_1
-L18_1 = {}
-L19_1 = -1
-L20_1 = "REMOTE_PLYR_CASH_COUNTER_COMPLETE"
-L21_1 = "DLC_HEISTS_GENERAL_FRONTEND_SOUNDS"
-L22_1 = 0
-L18_1[1] = L19_1
-L18_1[2] = L20_1
-L18_1[3] = L21_1
-L18_1[4] = L22_1
-L19_1 = {}
-L20_1 = -1
-L21_1 = "REMOTE_PLYR_CASH_COUNTER_INCREASE"
-L22_1 = "DLC_HEISTS_GENERAL_FRONTEND_SOUNDS"
-L23_1 = 0
-L19_1[1] = L20_1
-L19_1[2] = L21_1
-L19_1[3] = L22_1
-L19_1[4] = L23_1
-L20_1 = {}
-L21_1 = -1
-L22_1 = "Remote_Sniper_Rifle_Fire"
-L23_1 = 0
-L24_1 = 1
-L20_1[1] = L21_1
-L20_1[2] = L22_1
-L20_1[3] = L23_1
-L20_1[4] = L24_1
-L21_1 = {}
-L22_1 = -1
-L23_1 = "Reset_Prop_Position"
-L24_1 = "DLC_Dmod_Prop_Editor_Sounds"
-L25_1 = 0
-L21_1[1] = L22_1
-L21_1[2] = L23_1
-L21_1[3] = L24_1
-L21_1[4] = L25_1
-L22_1 = {}
-L23_1 = -1
-L24_1 = "RESTART"
-L25_1 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
-L26_1 = 1
-L22_1[1] = L23_1
-L22_1[2] = L24_1
-L22_1[3] = L25_1
-L22_1[4] = L26_1
-L23_1 = {}
-L24_1 = -1
-L25_1 = "RETRY"
-L26_1 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
-L27_1 = 1
-L23_1[1] = L24_1
-L23_1[2] = L25_1
-L23_1[3] = L26_1
-L23_1[4] = L27_1
-L24_1 = {}
-L25_1 = -1
-L26_1 = "Retune_High"
-L27_1 = "MP_RADIO_SFX"
-L28_1 = 1
-L24_1[1] = L25_1
-L24_1[2] = L26_1
-L24_1[3] = L27_1
-L24_1[4] = L28_1
-L25_1 = {}
-L26_1 = -1
-L27_1 = "ROBBERY_MONEY_TOTAL"
-L28_1 = "HUD_FRONTEND_CUSTOM_SOUNDSET"
-L29_1 = 1
-L25_1[1] = L26_1
-L25_1[2] = L27_1
-L25_1[3] = L28_1
-L25_1[4] = L29_1
-L26_1 = {}
-L27_1 = -1
-L28_1 = "ROPE_CUT"
-L29_1 = "ROPE_CUT_SOUNDSET"
-L30_1 = 1
-L26_1[1] = L27_1
-L26_1[2] = L28_1
-L26_1[3] = L29_1
-L26_1[4] = L30_1
-L27_1 = {}
-L28_1 = -1
-L29_1 = "ROUND_ENDING_STINGER_CUSTOM"
-L30_1 = "CELEBRATION_SOUNDSET"
-L31_1 = 0
-L27_1[1] = L28_1
-L27_1[2] = L29_1
-L27_1[3] = L30_1
-L27_1[4] = L31_1
-L28_1 = {}
-L29_1 = -1
-L30_1 = "Save_Scene"
-L31_1 = "DLC_Dmod_Prop_Editor_Sounds"
-L32_1 = 0
-L28_1[1] = L29_1
-L28_1[2] = L30_1
-L28_1[3] = L31_1
-L28_1[4] = L32_1
-L29_1 = {}
-L30_1 = -1
-L31_1 = "SCOPE_UI_MASTER"
-L32_1 = 0
-L33_1 = 1
-L29_1[1] = L30_1
-L29_1[2] = L31_1
-L29_1[3] = L32_1
-L29_1[4] = L33_1
-L30_1 = {}
-L31_1 = -1
-L32_1 = "SCREEN_FLASH"
-L33_1 = "CELEBRATION_SOUNDSET"
-L34_1 = 1
-L30_1[1] = L31_1
-L30_1[2] = L32_1
-L30_1[3] = L33_1
-L30_1[4] = L34_1
-L31_1 = {}
-L32_1 = -1
-L33_1 = "ScreenFlash"
-L34_1 = "MissionFailedSounds"
-L35_1 = 1
-L31_1[1] = L32_1
-L31_1[2] = L33_1
-L31_1[3] = L34_1
-L31_1[4] = L35_1
-L32_1 = {}
-L33_1 = -1
-L34_1 = "SELECT"
-L35_1 = "HUD_FREEMODE_SOUNDSET"
-L36_1 = 1
-L32_1[1] = L33_1
-L32_1[2] = L34_1
-L32_1[3] = L35_1
-L32_1[4] = L36_1
-L33_1 = {}
-L34_1 = -1
-L35_1 = "SELECT"
-L36_1 = "HUD_FRONTEND_CLOTHESSHOP_SOUNDSET"
-L37_1 = 1
-L33_1[1] = L34_1
-L33_1[2] = L35_1
-L33_1[3] = L36_1
-L33_1[4] = L37_1
-L34_1 = {}
-L35_1 = -1
-L36_1 = "SELECT"
-L37_1 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
-L38_1 = 0
-L34_1[1] = L35_1
-L34_1[2] = L36_1
-L34_1[3] = L37_1
-L34_1[4] = L38_1
-L35_1 = {}
-L36_1 = -1
-L37_1 = "SELECT"
-L38_1 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
-L39_1 = 1
-L35_1[1] = L36_1
-L35_1[2] = L37_1
-L35_1[3] = L38_1
-L35_1[4] = L39_1
-L36_1 = {}
-L37_1 = -1
-L38_1 = "SELECT"
-L39_1 = "HUD_FRONTEND_MP_SOUNDSET"
-L40_1 = 0
-L36_1[1] = L37_1
-L36_1[2] = L38_1
-L36_1[3] = L39_1
-L36_1[4] = L40_1
-L37_1 = {}
-L38_1 = -1
-L39_1 = "SELECT"
-L40_1 = "HUD_FRONTEND_MP_SOUNDSET"
-L41_1 = 1
-L37_1[1] = L38_1
-L37_1[2] = L39_1
-L37_1[3] = L40_1
-L37_1[4] = L41_1
-L38_1 = {}
-L39_1 = -1
-L40_1 = "SELECT"
-L41_1 = "HUD_FRONTEND_TATTOO_SHOP_SOUNDSET"
-L42_1 = 1
-L38_1[1] = L39_1
-L38_1[2] = L40_1
-L38_1[3] = L41_1
-L38_1[4] = L42_1
-L39_1 = {}
-L40_1 = -1
-L41_1 = "SELECT"
-L42_1 = "HUD_LIQUOR_STORE_SOUNDSET"
-L43_1 = 1
-L39_1[1] = L40_1
-L39_1[2] = L41_1
-L39_1[3] = L42_1
-L39_1[4] = L43_1
-L40_1 = {}
-L41_1 = -1
-L42_1 = "SELECT"
-L43_1 = "HUD_MINI_GAME_SOUNDSET"
-L44_1 = 1
-L40_1[1] = L41_1
-L40_1[2] = L42_1
-L40_1[3] = L43_1
-L40_1[4] = L44_1
-L41_1 = {}
-L42_1 = -1
-L43_1 = "Select_Placed_Prop"
-L44_1 = "DLC_Dmod_Prop_Editor_Sounds"
-L45_1 = 0
-L41_1[1] = L42_1
-L41_1[2] = L43_1
-L41_1[3] = L44_1
-L41_1[4] = L45_1
-L42_1 = {}
-L43_1 = -1
-L44_1 = "Shard_Disappear"
-L45_1 = "GTAO_Boss_Goons_FM_Shard_Sounds"
-L46_1 = 0
-L42_1[1] = L43_1
-L42_1[2] = L44_1
-L42_1[3] = L45_1
-L42_1[4] = L46_1
-L43_1 = {}
-L44_1 = -1
-L45_1 = "Shard_Disappear"
-L46_1 = "GTAO_FM_Events_Soundset"
-L47_1 = 0
-L43_1[1] = L44_1
-L43_1[2] = L45_1
-L43_1[3] = L46_1
-L43_1[4] = L47_1
-L44_1 = {}
-L45_1 = -1
-L46_1 = "Short_Transition_In"
-L47_1 = "PLAYER_SWITCH_CUSTOM_SOUNDSET"
-L48_1 = 1
-L44_1[1] = L45_1
-L44_1[2] = L46_1
-L44_1[3] = L47_1
-L44_1[4] = L48_1
-L45_1 = {}
-L46_1 = -1
-L47_1 = "Short_Transition_Out"
-L48_1 = "PLAYER_SWITCH_CUSTOM_SOUNDSET"
-L49_1 = 1
-L45_1[1] = L46_1
-L45_1[2] = L47_1
-L45_1[3] = L48_1
-L45_1[4] = L49_1
-L46_1 = {}
-L47_1 = -1
-L48_1 = "SKIP"
-L49_1 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
-L50_1 = 1
-L46_1[1] = L47_1
-L46_1[2] = L48_1
-L46_1[3] = L49_1
-L46_1[4] = L50_1
-L47_1 = {}
-L48_1 = -1
-L49_1 = "Start"
-L50_1 = "DLC_HEIST_HACKING_SNAKE_SOUNDS"
-L51_1 = 1
-L47_1[1] = L48_1
-L47_1[2] = L49_1
-L47_1[3] = L50_1
-L47_1[4] = L51_1
-L48_1 = {}
-L49_1 = -1
-L50_1 = "Start_Squelch"
-L51_1 = "CB_RADIO_SFX"
-L52_1 = 1
-L48_1[1] = L49_1
-L48_1[2] = L50_1
-L48_1[3] = L51_1
-L48_1[4] = L52_1
-L49_1 = {}
-L50_1 = -1
-L51_1 = "STUN_COLLECT"
-L52_1 = "MINUTE_MAN_01_SOUNDSET"
-L53_1 = 1
-L49_1[1] = L50_1
-L49_1[2] = L51_1
-L49_1[3] = L52_1
-L49_1[4] = L53_1
-L50_1 = {}
-L51_1 = -1
-L52_1 = "SultanRS_Upgrade"
-L53_1 = "JA16_Super_Mod_Garage_Sounds"
-L54_1 = 1
-L50_1[1] = L51_1
-L50_1[2] = L52_1
-L50_1[3] = L53_1
-L50_1[4] = L54_1
-L0_1[251] = L1_1
-L0_1[252] = L2_1
-L0_1[253] = L3_1
-L0_1[254] = L4_1
-L0_1[255] = L5_1
-L0_1[256] = L6_1
-L0_1[257] = L7_1
-L0_1[258] = L8_1
-L0_1[259] = L9_1
-L0_1[260] = L10_1
-L0_1[261] = L11_1
-L0_1[262] = L12_1
-L0_1[263] = L13_1
-L0_1[264] = L14_1
-L0_1[265] = L15_1
-L0_1[266] = L16_1
-L0_1[267] = L17_1
-L0_1[268] = L18_1
-L0_1[269] = L19_1
-L0_1[270] = L20_1
-L0_1[271] = L21_1
-L0_1[272] = L22_1
-L0_1[273] = L23_1
-L0_1[274] = L24_1
-L0_1[275] = L25_1
-L0_1[276] = L26_1
-L0_1[277] = L27_1
-L0_1[278] = L28_1
-L0_1[279] = L29_1
-L0_1[280] = L30_1
-L0_1[281] = L31_1
-L0_1[282] = L32_1
-L0_1[283] = L33_1
-L0_1[284] = L34_1
-L0_1[285] = L35_1
-L0_1[286] = L36_1
-L0_1[287] = L37_1
-L0_1[288] = L38_1
-L0_1[289] = L39_1
-L0_1[290] = L40_1
-L0_1[291] = L41_1
-L0_1[292] = L42_1
-L0_1[293] = L43_1
-L0_1[294] = L44_1
-L0_1[295] = L45_1
-L0_1[296] = L46_1
-L0_1[297] = L47_1
-L0_1[298] = L48_1
-L0_1[299] = L49_1
-L0_1[300] = L50_1
-L1_1 = {}
-L2_1 = -1
-L3_1 = "Swap_Sides"
-L4_1 = "DLC_HALLOWEEN_FVJ_Sounds"
-L5_1 = 0
-L1_1[1] = L2_1
-L1_1[2] = L3_1
-L1_1[3] = L4_1
-L1_1[4] = L5_1
-L2_1 = {}
-L3_1 = -1
-L4_1 = "SWING_SHUT"
-L5_1 = "GTAO_APT_DOOR_DOWNSTAIRS_GLASS_SOUNDS"
-L6_1 = 1
-L2_1[1] = L3_1
-L2_1[2] = L4_1
-L2_1[3] = L5_1
-L2_1[4] = L6_1
-L3_1 = {}
-L4_1 = -1
-L5_1 = "SWING_SHUT"
-L6_1 = "GTAO_APT_DOOR_DOWNSTAIRS_WOOD_SOUNDS"
-L7_1 = 1
-L3_1[1] = L4_1
-L3_1[2] = L5_1
-L3_1[3] = L6_1
-L3_1[4] = L7_1
-L4_1 = {}
-L5_1 = -1
-L6_1 = "Tattooing_Oneshot"
-L7_1 = "TATTOOIST_SOUNDS"
-L8_1 = 1
-L4_1[1] = L5_1
-L4_1[2] = L6_1
-L4_1[3] = L7_1
-L4_1[4] = L8_1
-L5_1 = {}
-L6_1 = -1
-L7_1 = "Tattooing_Oneshot_Remove"
-L8_1 = "TATTOOIST_SOUNDS"
-L9_1 = 1
-L5_1[1] = L6_1
-L5_1[2] = L7_1
-L5_1[3] = L8_1
-L5_1[4] = L9_1
-L6_1 = {}
-L7_1 = -1
-L8_1 = "Team_Capture_Start"
-L9_1 = "GTAO_Magnate_Yacht_Attack_Soundset"
-L10_1 = 0
-L6_1[1] = L7_1
-L6_1[2] = L8_1
-L6_1[3] = L9_1
-L6_1[4] = L10_1
-L7_1 = {}
-L8_1 = -1
-L9_1 = "Thermal_Off"
-L10_1 = "CAR_STEAL_2_SOUNDSET"
-L11_1 = 1
-L7_1[1] = L8_1
-L7_1[2] = L9_1
-L7_1[3] = L10_1
-L7_1[4] = L11_1
-L8_1 = {}
-L9_1 = -1
-L10_1 = "Thermal_On"
-L11_1 = "CAR_STEAL_2_SOUNDSET"
-L12_1 = 1
-L8_1[1] = L9_1
-L8_1[2] = L10_1
-L8_1[3] = L11_1
-L8_1[4] = L12_1
-L9_1 = {}
-L10_1 = -1
-L11_1 = "THERMAL_VISION_GOGGLES_OFF_MASTER"
-L12_1 = 0
-L13_1 = 0
-L9_1[1] = L10_1
-L9_1[2] = L11_1
-L9_1[3] = L12_1
-L9_1[4] = L13_1
-L10_1 = {}
-L11_1 = -1
-L12_1 = "THERMAL_VISION_GOGGLES_OFF_MASTER"
-L13_1 = 0
-L14_1 = 1
-L10_1[1] = L11_1
-L10_1[2] = L12_1
-L10_1[3] = L13_1
-L10_1[4] = L14_1
-L11_1 = {}
-L12_1 = -1
-L13_1 = "THERMAL_VISION_GOGGLES_ON_MASTER"
-L14_1 = 0
-L15_1 = 1
-L11_1[1] = L12_1
-L11_1[2] = L13_1
-L11_1[3] = L14_1
-L11_1[4] = L15_1
-L12_1 = {}
-L13_1 = -1
-L14_1 = "TIME_LAPSE_MASTER"
-L15_1 = 0
-L16_1 = 1
-L12_1[1] = L13_1
-L12_1[2] = L14_1
-L12_1[3] = L15_1
-L12_1[4] = L16_1
-L13_1 = {}
-L14_1 = -1
-L15_1 = "TIMER"
-L16_1 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
-L17_1 = 1
-L13_1[1] = L14_1
-L13_1[2] = L15_1
-L13_1[3] = L16_1
-L13_1[4] = L17_1
-L14_1 = {}
-L15_1 = -1
-L16_1 = "TIMER_STOP"
-L17_1 = "HUD_MINI_GAME_SOUNDSET"
-L18_1 = 1
-L14_1[1] = L15_1
-L14_1[2] = L16_1
-L14_1[3] = L17_1
-L14_1[4] = L18_1
-L15_1 = {}
-L16_1 = -1
-L17_1 = "TOGGLE_ON"
-L18_1 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
-L19_1 = 0
-L15_1[1] = L16_1
-L15_1[2] = L17_1
-L15_1[3] = L18_1
-L15_1[4] = L19_1
-L16_1 = {}
-L17_1 = -1
-L18_1 = "TOGGLE_ON"
-L19_1 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
-L20_1 = 1
-L16_1[1] = L17_1
-L16_1[2] = L18_1
-L16_1[3] = L19_1
-L16_1[4] = L20_1
-L17_1 = {}
-L18_1 = -1
-L19_1 = "Traffic_Control_Fail"
-L20_1 = "BIG_SCORE_3A_SOUNDS"
-L21_1 = 1
-L17_1[1] = L18_1
-L17_1[2] = L19_1
-L17_1[3] = L20_1
-L17_1[4] = L21_1
-L18_1 = {}
-L19_1 = -1
-L20_1 = "Traffic_Control_Fail_Blank"
-L21_1 = "BIG_SCORE_3A_SOUNDS"
-L22_1 = 1
-L18_1[1] = L19_1
-L18_1[2] = L20_1
-L18_1[3] = L21_1
-L18_1[4] = L22_1
-L19_1 = {}
-L20_1 = -1
-L21_1 = "Traffic_Control_Light_Switch_Back"
-L22_1 = "BIG_SCORE_3A_SOUNDS"
-L23_1 = 1
-L19_1[1] = L20_1
-L19_1[2] = L21_1
-L19_1[3] = L22_1
-L19_1[4] = L23_1
-L20_1 = {}
-L21_1 = -1
-L22_1 = "TRAFFIC_CONTROL_MOVE_CROSSHAIR"
-L23_1 = "BIG_SCORE_3A_SOUNDS"
-L24_1 = 1
-L20_1[1] = L21_1
-L20_1[2] = L22_1
-L20_1[3] = L23_1
-L20_1[4] = L24_1
-L21_1 = {}
-L22_1 = -1
-L23_1 = "Turn"
-L24_1 = "DLC_HEIST_HACKING_SNAKE_SOUNDS"
-L25_1 = 1
-L21_1[1] = L22_1
-L21_1[2] = L23_1
-L21_1[3] = L24_1
-L21_1[4] = L25_1
-L22_1 = {}
-L23_1 = -1
-L24_1 = "UNDER_WATER_COME_UP"
-L25_1 = 0
-L26_1 = 1
-L22_1[1] = L23_1
-L22_1[2] = L24_1
-L22_1[3] = L25_1
-L22_1[4] = L26_1
-L23_1 = {}
-L24_1 = -1
-L25_1 = "UNDO"
-L26_1 = "HEIST_BULLETIN_BOARD_SOUNDSET"
-L27_1 = 1
-L23_1[1] = L24_1
-L23_1[2] = L25_1
-L23_1[3] = L26_1
-L23_1[4] = L27_1
-L24_1 = {}
-L25_1 = -1
-L26_1 = "WAYPOINT_SET"
-L27_1 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
-L28_1 = 0
-L24_1[1] = L25_1
-L24_1[2] = L26_1
-L24_1[3] = L27_1
-L24_1[4] = L28_1
-L25_1 = {}
-L26_1 = -1
-L27_1 = "WEAKEN"
-L28_1 = "CONSTRUCTION_ACCIDENT_1_SOUNDS"
-L29_1 = 1
-L25_1[1] = L26_1
-L25_1[2] = L27_1
-L25_1[3] = L28_1
-L25_1[4] = L29_1
-L26_1 = {}
-L27_1 = -1
-L28_1 = "WEAPON_AMMO_PURCHASE"
-L29_1 = "HUD_AMMO_SHOP_SOUNDSET"
-L30_1 = 1
-L26_1[1] = L27_1
-L26_1[2] = L28_1
-L26_1[3] = L29_1
-L26_1[4] = L30_1
-L27_1 = {}
-L28_1 = -1
-L29_1 = "WEAPON_ATTACHMENT_EQUIP"
-L30_1 = "HUD_AMMO_SHOP_SOUNDSET"
-L31_1 = 1
-L27_1[1] = L28_1
-L27_1[2] = L29_1
-L27_1[3] = L30_1
-L27_1[4] = L31_1
-L28_1 = {}
-L29_1 = -1
-L30_1 = "WEAPON_ATTACHMENT_UNEQUIP"
-L31_1 = "HUD_AMMO_SHOP_SOUNDSET"
-L32_1 = 1
-L28_1[1] = L29_1
-L28_1[2] = L30_1
-L28_1[3] = L31_1
-L28_1[4] = L32_1
-L29_1 = {}
-L30_1 = -1
-L31_1 = "WEAPON_PURCHASE"
-L32_1 = "HUD_AMMO_SHOP_SOUNDSET"
-L33_1 = 1
-L29_1[1] = L30_1
-L29_1[2] = L31_1
-L29_1[3] = L32_1
-L29_1[4] = L33_1
-L30_1 = {}
-L31_1 = -1
-L32_1 = "WEAPON_SELECT_ARMOR"
-L33_1 = "HUD_AMMO_SHOP_SOUNDSET"
-L34_1 = 1
-L30_1[1] = L31_1
-L30_1[2] = L32_1
-L30_1[3] = L33_1
-L30_1[4] = L34_1
-L31_1 = {}
-L32_1 = -1
-L33_1 = "WEAPON_SELECT_BATON"
-L34_1 = "HUD_AMMO_SHOP_SOUNDSET"
-L35_1 = 1
-L31_1[1] = L32_1
-L31_1[2] = L33_1
-L31_1[3] = L34_1
-L31_1[4] = L35_1
-L32_1 = {}
-L33_1 = -1
-L34_1 = "WEAPON_SELECT_FUEL_CAN"
-L35_1 = "HUD_AMMO_SHOP_SOUNDSET"
-L36_1 = 1
-L32_1[1] = L33_1
-L32_1[2] = L34_1
-L32_1[3] = L35_1
-L32_1[4] = L36_1
-L33_1 = {}
-L34_1 = -1
-L35_1 = "WEAPON_SELECT_GRENADE_LAUNCHER"
-L36_1 = "HUD_AMMO_SHOP_SOUNDSET"
-L37_1 = 1
-L33_1[1] = L34_1
-L33_1[2] = L35_1
-L33_1[3] = L36_1
-L33_1[4] = L37_1
-L34_1 = {}
-L35_1 = -1
-L36_1 = "WEAPON_SELECT_HANDGUN"
-L37_1 = "HUD_AMMO_SHOP_SOUNDSET"
-L38_1 = 1
-L34_1[1] = L35_1
-L34_1[2] = L36_1
-L34_1[3] = L37_1
-L34_1[4] = L38_1
-L35_1 = {}
-L36_1 = -1
-L37_1 = "WEAPON_SELECT_KNIFE"
-L38_1 = "HUD_AMMO_SHOP_SOUNDSET"
-L39_1 = 1
-L35_1[1] = L36_1
-L35_1[2] = L37_1
-L35_1[3] = L38_1
-L35_1[4] = L39_1
-L36_1 = {}
-L37_1 = -1
-L38_1 = "WEAPON_SELECT_OTHER"
-L39_1 = "HUD_AMMO_SHOP_SOUNDSET"
-L40_1 = 1
-L36_1[1] = L37_1
-L36_1[2] = L38_1
-L36_1[3] = L39_1
-L36_1[4] = L40_1
-L37_1 = {}
-L38_1 = -1
-L39_1 = "WEAPON_SELECT_PARACHUTE"
-L40_1 = "HUD_AMMO_SHOP_SOUNDSET"
-L41_1 = 1
-L37_1[1] = L38_1
-L37_1[2] = L39_1
-L37_1[3] = L40_1
-L37_1[4] = L41_1
-L38_1 = {}
-L39_1 = -1
-L40_1 = "WEAPON_SELECT_RIFLE"
-L41_1 = "HUD_AMMO_SHOP_SOUNDSET"
-L42_1 = 1
-L38_1[1] = L39_1
-L38_1[2] = L40_1
-L38_1[3] = L41_1
-L38_1[4] = L42_1
-L39_1 = {}
-L40_1 = -1
-L41_1 = "WEAPON_SELECT_RPG_LAUNCHER"
-L42_1 = "HUD_AMMO_SHOP_SOUNDSET"
-L43_1 = 1
-L39_1[1] = L40_1
-L39_1[2] = L41_1
-L39_1[3] = L42_1
-L39_1[4] = L43_1
-L40_1 = {}
-L41_1 = -1
-L42_1 = "WEAPON_SELECT_SHOTGUN"
-L43_1 = "HUD_AMMO_SHOP_SOUNDSET"
-L44_1 = 1
-L40_1[1] = L41_1
-L40_1[2] = L42_1
-L40_1[3] = L43_1
-L40_1[4] = L44_1
-L41_1 = {}
-L42_1 = -1
-L43_1 = "Whistle"
-L44_1 = "DLC_TG_Running_Back_Sounds"
-L45_1 = 0
-L41_1[1] = L42_1
-L41_1[2] = L43_1
-L41_1[3] = L44_1
-L41_1[4] = L45_1
-L42_1 = {}
-L43_1 = -1
-L44_1 = "Whoosh_1s_L_to_R"
-L45_1 = "MP_LOBBY_SOUNDS"
-L46_1 = 1
-L42_1[1] = L43_1
-L42_1[2] = L44_1
-L42_1[3] = L45_1
-L42_1[4] = L46_1
-L43_1 = {}
-L44_1 = -1
-L45_1 = "Whoosh_1s_R_to_L"
-L46_1 = "MP_LOBBY_SOUNDS"
-L47_1 = 1
-L43_1[1] = L44_1
-L43_1[2] = L45_1
-L43_1[3] = L46_1
-L43_1[4] = L47_1
-L44_1 = {}
-L45_1 = -1
-L46_1 = "WOODEN_DOOR_CLOSED_AT"
-L47_1 = 0
-L48_1 = 0
-L44_1[1] = L45_1
-L44_1[2] = L46_1
-L44_1[3] = L47_1
-L44_1[4] = L48_1
-L45_1 = {}
-L46_1 = -1
-L47_1 = "WOODEN_DOOR_CLOSED_AT"
-L48_1 = 0
-L49_1 = 1
-L45_1[1] = L46_1
-L45_1[2] = L47_1
-L45_1[3] = L48_1
-L45_1[4] = L49_1
-L46_1 = {}
-L47_1 = -1
-L48_1 = "WOODEN_DOOR_CLOSING_AT"
-L49_1 = 0
-L50_1 = 0
-L46_1[1] = L47_1
-L46_1[2] = L48_1
-L46_1[3] = L49_1
-L46_1[4] = L50_1
-L47_1 = {}
-L48_1 = -1
-L49_1 = "WOODEN_DOOR_CLOSING_AT"
-L50_1 = 0
-L51_1 = 1
-L47_1[1] = L48_1
-L47_1[2] = L49_1
-L47_1[3] = L50_1
-L47_1[4] = L51_1
-L48_1 = {}
-L49_1 = -1
-L50_1 = "WOODEN_DOOR_OPEN_HANDLE_AT"
-L51_1 = 0
-L52_1 = 0
-L48_1[1] = L49_1
-L48_1[2] = L50_1
-L48_1[3] = L51_1
-L48_1[4] = L52_1
-L49_1 = {}
-L50_1 = -1
-L51_1 = "WOODEN_DOOR_OPEN_HANDLE_AT"
-L52_1 = 0
-L53_1 = 1
-L49_1[1] = L50_1
-L49_1[2] = L51_1
-L49_1[3] = L52_1
-L49_1[4] = L53_1
-L50_1 = {}
-L51_1 = -1
-L52_1 = "WOODEN_DOOR_OPEN_NO_HANDLE_AT"
-L53_1 = 0
-L54_1 = 1
-L50_1[1] = L51_1
-L50_1[2] = L52_1
-L50_1[3] = L53_1
-L50_1[4] = L54_1
-L0_1[301] = L1_1
-L0_1[302] = L2_1
-L0_1[303] = L3_1
-L0_1[304] = L4_1
-L0_1[305] = L5_1
-L0_1[306] = L6_1
-L0_1[307] = L7_1
-L0_1[308] = L8_1
-L0_1[309] = L9_1
-L0_1[310] = L10_1
-L0_1[311] = L11_1
-L0_1[312] = L12_1
-L0_1[313] = L13_1
-L0_1[314] = L14_1
-L0_1[315] = L15_1
-L0_1[316] = L16_1
-L0_1[317] = L17_1
-L0_1[318] = L18_1
-L0_1[319] = L19_1
-L0_1[320] = L20_1
-L0_1[321] = L21_1
-L0_1[322] = L22_1
-L0_1[323] = L23_1
-L0_1[324] = L24_1
-L0_1[325] = L25_1
-L0_1[326] = L26_1
-L0_1[327] = L27_1
-L0_1[328] = L28_1
-L0_1[329] = L29_1
-L0_1[330] = L30_1
-L0_1[331] = L31_1
-L0_1[332] = L32_1
-L0_1[333] = L33_1
-L0_1[334] = L34_1
-L0_1[335] = L35_1
-L0_1[336] = L36_1
-L0_1[337] = L37_1
-L0_1[338] = L38_1
-L0_1[339] = L39_1
-L0_1[340] = L40_1
-L0_1[341] = L41_1
-L0_1[342] = L42_1
-L0_1[343] = L43_1
-L0_1[344] = L44_1
-L0_1[345] = L45_1
-L0_1[346] = L46_1
-L0_1[347] = L47_1
-L0_1[348] = L48_1
-L0_1[349] = L49_1
-L0_1[350] = L50_1
-L1_1 = {}
-L2_1 = -1
-L3_1 = "YES"
-L4_1 = "HUD_FRONTEND_DEFAULT_SOUNDSET"
-L5_1 = 1
-L1_1[1] = L2_1
-L1_1[2] = L3_1
-L1_1[3] = L4_1
-L1_1[4] = L5_1
-L2_1 = {}
-L3_1 = -1
-L4_1 = "Zone_Enemy_Capture"
-L5_1 = "DLC_Apartments_Drop_Zone_Sounds"
-L6_1 = 0
-L2_1[1] = L3_1
-L2_1[2] = L4_1
-L2_1[3] = L5_1
-L2_1[4] = L6_1
-L3_1 = {}
-L4_1 = -1
-L5_1 = "Zone_Neutral"
-L6_1 = "DLC_Apartments_Drop_Zone_Sounds"
-L7_1 = 0
-L3_1[1] = L4_1
-L3_1[2] = L5_1
-L3_1[3] = L6_1
-L3_1[4] = L7_1
-L4_1 = {}
-L5_1 = -1
-L6_1 = "Zone_Team_Capture"
-L7_1 = "DLC_Apartments_Drop_Zone_Sounds"
-L8_1 = 0
-L4_1[1] = L5_1
-L4_1[2] = L6_1
-L4_1[3] = L7_1
-L4_1[4] = L8_1
-L5_1 = {}
-L6_1 = -1
-L7_1 = "Zoom_In"
-L8_1 = "DLC_HEIST_PLANNING_BOARD_SOUNDS"
-L9_1 = 1
-L5_1[1] = L6_1
-L5_1[2] = L7_1
-L5_1[3] = L8_1
-L5_1[4] = L9_1
-L6_1 = {}
-L7_1 = -1
-L8_1 = "Zoom_Left"
-L9_1 = "DLC_HEIST_PLANNING_BOARD_SOUNDS"
-L10_1 = 1
-L6_1[1] = L7_1
-L6_1[2] = L8_1
-L6_1[3] = L9_1
-L6_1[4] = L10_1
-L7_1 = {}
-L8_1 = -1
-L9_1 = "Zoom_Out"
-L10_1 = "DLC_HEIST_PLANNING_BOARD_SOUNDS"
-L11_1 = 1
-L7_1[1] = L8_1
-L7_1[2] = L9_1
-L7_1[3] = L10_1
-L7_1[4] = L11_1
-L8_1 = {}
-L9_1 = -1
-L10_1 = "Zoom_Right"
-L11_1 = "DLC_HEIST_PLANNING_BOARD_SOUNDS"
-L12_1 = 1
-L8_1[1] = L9_1
-L8_1[2] = L10_1
-L8_1[3] = L11_1
-L8_1[4] = L12_1
-L9_1 = {}
-L10_1 = -1
-L11_1 = "10_SEC_WARNING"
-L12_1 = "HUD_MINI_GAME_SOUNDSET"
-L13_1 = 1
-L9_1[1] = L10_1
-L9_1[2] = L11_1
-L9_1[3] = L12_1
-L9_1[4] = L13_1
-L0_1[351] = L1_1
-L0_1[352] = L2_1
-L0_1[353] = L3_1
-L0_1[354] = L4_1
-L0_1[355] = L5_1
-L0_1[356] = L6_1
-L0_1[357] = L7_1
-L0_1[358] = L8_1
-L0_1[359] = L9_1
-L1_1 = {}
-L2_1 = "None"
-L3_1 = "AmbientPUSH"
-L4_1 = "AP1_01_B_IntRefRange"
-L5_1 = "AP1_01_C_NoFog"
-L6_1 = "Bank_HLWD"
-L7_1 = "Barry1_Stoned"
-L8_1 = "BarryFadeOut"
-L9_1 = "baseTONEMAPPING"
-L10_1 = "BeastIntro01"
-L11_1 = "BeastIntro02"
-L12_1 = "BeastLaunch01"
-L13_1 = "BeastLaunch02"
-L14_1 = "BikerFilter"
-L15_1 = "BikerForm01"
-L16_1 = "BikerFormFlash"
-L17_1 = "Bikers"
-L18_1 = "BikersSPLASH"
-L19_1 = "blackNwhite"
-L20_1 = "BlackOut"
-L21_1 = "BleepYellow01"
-L22_1 = "BleepYellow02"
-L23_1 = "Bloom"
-L24_1 = "BloomLight"
-L25_1 = "BloomMid"
-L26_1 = "buggy_shack"
-L27_1 = "buildingTOP"
-L28_1 = "BulletTimeDark"
-L29_1 = "BulletTimeLight"
-L30_1 = "CAMERA_BW"
-L31_1 = "CAMERA_secuirity"
-L32_1 = "CAMERA_secuirity_FUZZ"
-L33_1 = "canyon_mission"
-L34_1 = "carMOD_underpass"
-L35_1 = "carpark"
-L36_1 = "carpark_dt1_02"
-L37_1 = "carpark_dt1_03"
-L38_1 = "Carpark_MP_exit"
-L39_1 = "cashdepot"
-L40_1 = "cashdepotEMERGENCY"
-L41_1 = "cBank_back"
-L42_1 = "cBank_front"
-L43_1 = "ch2_tunnel_whitelight"
-L44_1 = "CH3_06_water"
-L45_1 = "CHOP"
-L46_1 = "cinema"
-L47_1 = "cinema_001"
-L48_1 = "cops"
-L49_1 = "CopsSPLASH"
-L50_1 = "crane_cam"
-L51_1 = "crane_cam_cinematic"
-L1_1[1] = L2_1
-L1_1[2] = L3_1
-L1_1[3] = L4_1
-L1_1[4] = L5_1
-L1_1[5] = L6_1
-L1_1[6] = L7_1
-L1_1[7] = L8_1
-L1_1[8] = L9_1
-L1_1[9] = L10_1
-L1_1[10] = L11_1
-L1_1[11] = L12_1
-L1_1[12] = L13_1
-L1_1[13] = L14_1
-L1_1[14] = L15_1
-L1_1[15] = L16_1
-L1_1[16] = L17_1
-L1_1[17] = L18_1
-L1_1[18] = L19_1
-L1_1[19] = L20_1
-L1_1[20] = L21_1
-L1_1[21] = L22_1
-L1_1[22] = L23_1
-L1_1[23] = L24_1
-L1_1[24] = L25_1
-L1_1[25] = L26_1
-L1_1[26] = L27_1
-L1_1[27] = L28_1
-L1_1[28] = L29_1
-L1_1[29] = L30_1
-L1_1[30] = L31_1
-L1_1[31] = L32_1
-L1_1[32] = L33_1
-L1_1[33] = L34_1
-L1_1[34] = L35_1
-L1_1[35] = L36_1
-L1_1[36] = L37_1
-L1_1[37] = L38_1
-L1_1[38] = L39_1
-L1_1[39] = L40_1
-L1_1[40] = L41_1
-L1_1[41] = L42_1
-L1_1[42] = L43_1
-L1_1[43] = L44_1
-L1_1[44] = L45_1
-L1_1[45] = L46_1
-L1_1[46] = L47_1
-L1_1[47] = L48_1
-L1_1[48] = L49_1
-L1_1[49] = L50_1
-L1_1[50] = L51_1
-L2_1 = "CrossLine01"
-L3_1 = "CrossLine02"
-L4_1 = "CS1_railwayB_tunnel"
-L5_1 = "CS3_rail_tunnel"
-L6_1 = "CUSTOM_streetlight"
-L7_1 = "damage"
-L8_1 = "DeadlineNeon01"
-L9_1 = "default"
-L10_1 = "DefaultColorCode"
-L11_1 = "DONT_overide_sunpos"
-L12_1 = "Dont_tazeme_bro"
-L13_1 = "dont_tazeme_bro_b"
-L14_1 = "downtown_FIB_cascades_opt"
-L15_1 = "DrivingFocusDark"
-L16_1 = "DrivingFocusLight"
-L17_1 = "DRUG_2_drive"
-L18_1 = "Drug_deadman"
-L19_1 = "Drug_deadman_blend"
-L20_1 = "drug_drive_blend01"
-L21_1 = "drug_drive_blend02"
-L22_1 = "drug_flying_01"
-L23_1 = "drug_flying_02"
-L24_1 = "drug_flying_base"
-L25_1 = "DRUG_gas_huffin"
-L26_1 = "drug_wobbly"
-L27_1 = "Drunk"
-L28_1 = "dying"
-L29_1 = "eatra_bouncelight_beach"
-L30_1 = "epsilion"
-L31_1 = "exile1_exit"
-L32_1 = "exile1_plane"
-L33_1 = "ExplosionJosh"
-L34_1 = "EXT_FULLAmbientmult_art"
-L35_1 = "ext_int_extlight_large"
-L36_1 = "EXTRA_bouncelight"
-L37_1 = "eyeINtheSKY"
-L38_1 = "Facebook_NEW"
-L39_1 = "facebook_serveroom"
-L40_1 = "FIB_5"
-L41_1 = "FIB_6"
-L42_1 = "FIB_A"
-L43_1 = "FIB_B"
-L44_1 = "FIB_interview"
-L45_1 = "FIB_interview_optimise"
-L46_1 = "FinaleBank"
-L47_1 = "FinaleBankexit"
-L48_1 = "FinaleBankMid"
-L49_1 = "fireDEPT"
-L50_1 = "FORdoron_delete"
-L51_1 = "Forest"
-L1_1[51] = L2_1
-L1_1[52] = L3_1
-L1_1[53] = L4_1
-L1_1[54] = L5_1
-L1_1[55] = L6_1
-L1_1[56] = L7_1
-L1_1[57] = L8_1
-L1_1[58] = L9_1
-L1_1[59] = L10_1
-L1_1[60] = L11_1
-L1_1[61] = L12_1
-L1_1[62] = L13_1
-L1_1[63] = L14_1
-L1_1[64] = L15_1
-L1_1[65] = L16_1
-L1_1[66] = L17_1
-L1_1[67] = L18_1
-L1_1[68] = L19_1
-L1_1[69] = L20_1
-L1_1[70] = L21_1
-L1_1[71] = L22_1
-L1_1[72] = L23_1
-L1_1[73] = L24_1
-L1_1[74] = L25_1
-L1_1[75] = L26_1
-L1_1[76] = L27_1
-L1_1[77] = L28_1
-L1_1[78] = L29_1
-L1_1[79] = L30_1
-L1_1[80] = L31_1
-L1_1[81] = L32_1
-L1_1[82] = L33_1
-L1_1[83] = L34_1
-L1_1[84] = L35_1
-L1_1[85] = L36_1
-L1_1[86] = L37_1
-L1_1[87] = L38_1
-L1_1[88] = L39_1
-L1_1[89] = L40_1
-L1_1[90] = L41_1
-L1_1[91] = L42_1
-L1_1[92] = L43_1
-L1_1[93] = L44_1
-L1_1[94] = L45_1
-L1_1[95] = L46_1
-L1_1[96] = L47_1
-L1_1[97] = L48_1
-L1_1[98] = L49_1
-L1_1[99] = L50_1
-L1_1[100] = L51_1
-L2_1 = "fp_vig_black"
-L3_1 = "fp_vig_blue"
-L4_1 = "fp_vig_brown"
-L5_1 = "fp_vig_gray"
-L6_1 = "fp_vig_green"
-L7_1 = "fp_vig_red"
-L8_1 = "FrankilinsHOUSEhills"
-L9_1 = "frankilnsAUNTS_new"
-L10_1 = "frankilnsAUNTS_SUNdir"
-L11_1 = "FRANKLIN"
-L12_1 = "FranklinColorCode"
-L13_1 = "FranklinColorCodeBasic"
-L14_1 = "FranklinColorCodeBright"
-L15_1 = "FullAmbientmult_interior"
-L16_1 = "gallery_refmod"
-L17_1 = "garage"
-L18_1 = "gen_bank"
-L19_1 = "glasses_black"
-L20_1 = "Glasses_BlackOut"
-L21_1 = "glasses_blue"
-L22_1 = "glasses_brown"
-L23_1 = "glasses_Darkblue"
-L24_1 = "glasses_green"
-L25_1 = "glasses_orange"
-L26_1 = "glasses_pink"
-L27_1 = "glasses_purple"
-L28_1 = "glasses_red"
-L29_1 = "glasses_Scuba"
-L30_1 = "glasses_VISOR"
-L31_1 = "glasses_yellow"
-L32_1 = "gorge_reflection_gpu"
-L33_1 = "gorge_reflectionoffset"
-L34_1 = "gorge_reflectionoffset2"
-L35_1 = "graveyard_shootout"
-L36_1 = "gunclub"
-L37_1 = "gunclubrange"
-L38_1 = "gunshop"
-L39_1 = "gunstore"
-L40_1 = "half_direct"
-L41_1 = "hangar_lightsmod"
-L42_1 = "Hanger_INTmods"
-L43_1 = "heathaze"
-L44_1 = "heist_boat"
-L45_1 = "heist_boat_engineRoom"
-L46_1 = "heist_boat_norain"
-L47_1 = "helicamfirst"
-L48_1 = "heliGunCam"
-L49_1 = "Hicksbar"
-L50_1 = "HicksbarNEW"
-L51_1 = "hillstunnel"
-L1_1[101] = L2_1
-L1_1[102] = L3_1
-L1_1[103] = L4_1
-L1_1[104] = L5_1
-L1_1[105] = L6_1
-L1_1[106] = L7_1
-L1_1[107] = L8_1
-L1_1[108] = L9_1
-L1_1[109] = L10_1
-L1_1[110] = L11_1
-L1_1[111] = L12_1
-L1_1[112] = L13_1
-L1_1[113] = L14_1
-L1_1[114] = L15_1
-L1_1[115] = L16_1
-L1_1[116] = L17_1
-L1_1[117] = L18_1
-L1_1[118] = L19_1
-L1_1[119] = L20_1
-L1_1[120] = L21_1
-L1_1[121] = L22_1
-L1_1[122] = L23_1
-L1_1[123] = L24_1
-L1_1[124] = L25_1
-L1_1[125] = L26_1
-L1_1[126] = L27_1
-L1_1[127] = L28_1
-L1_1[128] = L29_1
-L1_1[129] = L30_1
-L1_1[130] = L31_1
-L1_1[131] = L32_1
-L1_1[132] = L33_1
-L1_1[133] = L34_1
-L1_1[134] = L35_1
-L1_1[135] = L36_1
-L1_1[136] = L37_1
-L1_1[137] = L38_1
-L1_1[138] = L39_1
-L1_1[139] = L40_1
-L1_1[140] = L41_1
-L1_1[141] = L42_1
-L1_1[142] = L43_1
-L1_1[143] = L44_1
-L1_1[144] = L45_1
-L1_1[145] = L46_1
-L1_1[146] = L47_1
-L1_1[147] = L48_1
-L1_1[148] = L49_1
-L1_1[149] = L50_1
-L1_1[150] = L51_1
-L2_1 = "Hint_cam"
-L3_1 = "hitped"
-L4_1 = "hud_def_blur"
-L5_1 = "hud_def_blur_switch"
-L6_1 = "hud_def_colorgrade"
-L7_1 = "hud_def_desat_cold"
-L8_1 = "hud_def_desat_cold_kill"
-L9_1 = "hud_def_desat_Franklin"
-L10_1 = "hud_def_desat_Michael"
-L11_1 = "hud_def_desat_Neutral"
-L12_1 = "hud_def_desat_switch"
-L13_1 = "hud_def_desat_Trevor"
-L14_1 = "hud_def_desatcrunch"
-L15_1 = "hud_def_flash"
-L16_1 = "hud_def_focus"
-L17_1 = "hud_def_Franklin"
-L18_1 = "hud_def_lensdistortion"
-L19_1 = "hud_def_lensdistortion_subtle"
-L20_1 = "hud_def_Michael"
-L21_1 = "hud_def_Trevor"
-L22_1 = "id1_11_tunnel"
-L23_1 = "ImpExp_Interior_01"
-L24_1 = "impexp_interior_01_lift"
-L25_1 = "IMpExt_Interior_02"
-L26_1 = "IMpExt_Interior_02_stair_cage"
-L27_1 = "InchOrange01"
-L28_1 = "InchOrange02"
-L29_1 = "InchPickup01"
-L30_1 = "InchPickup02"
-L31_1 = "InchPurple01"
-L32_1 = "InchPurple02"
-L33_1 = "int_amb_mult_large"
-L34_1 = "int_Barber1"
-L35_1 = "int_carmod_small"
-L36_1 = "int_carrier_control"
-L37_1 = "int_carrier_control_2"
-L38_1 = "int_carrier_hanger"
-L39_1 = "int_carrier_rear"
-L40_1 = "int_carrier_stair"
-L41_1 = "int_carshowroom"
-L42_1 = "int_chopshop"
-L43_1 = "int_clean_extlight_large"
-L44_1 = "int_clean_extlight_none"
-L45_1 = "int_clean_extlight_small"
-L46_1 = "int_ClothesHi"
-L47_1 = "int_clotheslow_large"
-L48_1 = "int_cluckinfactory_none"
-L49_1 = "int_cluckinfactory_small"
-L50_1 = "int_ControlTower_none"
-L51_1 = "int_ControlTower_small"
-L1_1[151] = L2_1
-L1_1[152] = L3_1
-L1_1[153] = L4_1
-L1_1[154] = L5_1
-L1_1[155] = L6_1
-L1_1[156] = L7_1
-L1_1[157] = L8_1
-L1_1[158] = L9_1
-L1_1[159] = L10_1
-L1_1[160] = L11_1
-L1_1[161] = L12_1
-L1_1[162] = L13_1
-L1_1[163] = L14_1
-L1_1[164] = L15_1
-L1_1[165] = L16_1
-L1_1[166] = L17_1
-L1_1[167] = L18_1
-L1_1[168] = L19_1
-L1_1[169] = L20_1
-L1_1[170] = L21_1
-L1_1[171] = L22_1
-L1_1[172] = L23_1
-L1_1[173] = L24_1
-L1_1[174] = L25_1
-L1_1[175] = L26_1
-L1_1[176] = L27_1
-L1_1[177] = L28_1
-L1_1[178] = L29_1
-L1_1[179] = L30_1
-L1_1[180] = L31_1
-L1_1[181] = L32_1
-L1_1[182] = L33_1
-L1_1[183] = L34_1
-L1_1[184] = L35_1
-L1_1[185] = L36_1
-L1_1[186] = L37_1
-L1_1[187] = L38_1
-L1_1[188] = L39_1
-L1_1[189] = L40_1
-L1_1[190] = L41_1
-L1_1[191] = L42_1
-L1_1[192] = L43_1
-L1_1[193] = L44_1
-L1_1[194] = L45_1
-L1_1[195] = L46_1
-L1_1[196] = L47_1
-L1_1[197] = L48_1
-L1_1[198] = L49_1
-L1_1[199] = L50_1
-L1_1[200] = L51_1
-L2_1 = "int_dockcontrol_small"
-L3_1 = "int_extlght_sm_cntrst"
-L4_1 = "int_extlight_large"
-L5_1 = "int_extlight_large_fog"
-L6_1 = "int_extlight_none"
-L7_1 = "int_extlight_none_dark"
-L8_1 = "int_extlight_none_dark_fog"
-L9_1 = "int_extlight_none_fog"
-L10_1 = "int_extlight_small"
-L11_1 = "int_extlight_small_clipped"
-L12_1 = "int_extlight_small_fog"
-L13_1 = "int_Farmhouse_none"
-L14_1 = "int_Farmhouse_small"
-L15_1 = "int_FranklinAunt_small"
-L16_1 = "INT_FullAmbientmult"
-L17_1 = "INT_FULLAmbientmult_art"
-L18_1 = "INT_FULLAmbientmult_both"
-L19_1 = "INT_garage"
-L20_1 = "int_GasStation"
-L21_1 = "int_hanger_none"
-L22_1 = "int_hanger_small"
-L23_1 = "int_Hospital2_DM"
-L24_1 = "int_Hospital_Blue"
-L25_1 = "int_Hospital_BlueB"
-L26_1 = "int_hospital_dark"
-L27_1 = "int_Hospital_DM"
-L28_1 = "int_hospital_small"
-L29_1 = "int_lesters"
-L30_1 = "int_Lost_none"
-L31_1 = "int_Lost_small"
-L32_1 = "INT_mall"
-L33_1 = "int_methlab_small"
-L34_1 = "int_motelroom"
-L35_1 = "INT_NO_fogALPHA"
-L36_1 = "INT_NoAmbientmult"
-L37_1 = "INT_NoAmbientmult_art"
-L38_1 = "INT_NoAmbientmult_both"
-L39_1 = "INT_NOdirectLight"
-L40_1 = "INT_nowaterREF"
-L41_1 = "int_office_Lobby"
-L42_1 = "int_office_LobbyHall"
-L43_1 = "INT_posh_hairdresser"
-L44_1 = "INT_smshop"
-L45_1 = "INT_smshop_indoor_bloom"
-L46_1 = "INT_smshop_inMOD"
-L47_1 = "INT_smshop_outdoor_bloom"
-L48_1 = "INT_streetlighting"
-L49_1 = "int_tattoo"
-L50_1 = "int_tattoo_B"
-L51_1 = "INT_trailer_cinema"
-L1_1[201] = L2_1
-L1_1[202] = L3_1
-L1_1[203] = L4_1
-L1_1[204] = L5_1
-L1_1[205] = L6_1
-L1_1[206] = L7_1
-L1_1[207] = L8_1
-L1_1[208] = L9_1
-L1_1[209] = L10_1
-L1_1[210] = L11_1
-L1_1[211] = L12_1
-L1_1[212] = L13_1
-L1_1[213] = L14_1
-L1_1[214] = L15_1
-L1_1[215] = L16_1
-L1_1[216] = L17_1
-L1_1[217] = L18_1
-L1_1[218] = L19_1
-L1_1[219] = L20_1
-L1_1[220] = L21_1
-L1_1[221] = L22_1
-L1_1[222] = L23_1
-L1_1[223] = L24_1
-L1_1[224] = L25_1
-L1_1[225] = L26_1
-L1_1[226] = L27_1
-L1_1[227] = L28_1
-L1_1[228] = L29_1
-L1_1[229] = L30_1
-L1_1[230] = L31_1
-L1_1[231] = L32_1
-L1_1[232] = L33_1
-L1_1[233] = L34_1
-L1_1[234] = L35_1
-L1_1[235] = L36_1
-L1_1[236] = L37_1
-L1_1[237] = L38_1
-L1_1[238] = L39_1
-L1_1[239] = L40_1
-L1_1[240] = L41_1
-L1_1[241] = L42_1
-L1_1[242] = L43_1
-L1_1[243] = L44_1
-L1_1[244] = L45_1
-L1_1[245] = L46_1
-L1_1[246] = L47_1
-L1_1[247] = L48_1
-L1_1[248] = L49_1
-L1_1[249] = L50_1
-L1_1[250] = L51_1
-L2_1 = "int_tunnel_none_dark"
-L3_1 = "interior_WATER_lighting"
-L4_1 = "introblue"
-L5_1 = "jewel_gas"
-L6_1 = "jewel_optim"
-L7_1 = "jewelry_entrance"
-L8_1 = "jewelry_entrance_INT"
-L9_1 = "jewelry_entrance_INT_fog"
-L10_1 = "Kifflom"
-L11_1 = "KT_underpass"
-L12_1 = "lab_none"
-L13_1 = "lab_none_dark"
-L14_1 = "lab_none_dark_fog"
-L15_1 = "lab_none_dark_OVR"
-L16_1 = "lab_none_exit"
-L17_1 = "lab_none_exit_OVR"
-L18_1 = "LectroDark"
-L19_1 = "LectroLight"
-L20_1 = "li"
-L21_1 = "LifeInvaderLOD"
-L22_1 = "lightning"
-L23_1 = "lightning_cloud"
-L24_1 = "lightning_strong"
-L25_1 = "lightning_weak"
-L26_1 = "LightPollutionHills"
-L27_1 = "lightpolution"
-L28_1 = "LIGHTSreduceFALLOFF"
-L29_1 = "LODmult_global_reduce"
-L30_1 = "LODmult_global_reduce_NOHD"
-L31_1 = "LODmult_HD_orphan_LOD_reduce"
-L32_1 = "LODmult_HD_orphan_reduce"
-L33_1 = "LODmult_LOD_reduce"
-L34_1 = "LODmult_SLOD1_reduce"
-L35_1 = "LODmult_SLOD2_reduce"
-L36_1 = "LODmult_SLOD3_reduce"
-L37_1 = "lodscaler"
-L38_1 = "LostTimeDark"
-L39_1 = "LostTimeFlash"
-L40_1 = "LostTimeLight"
-L41_1 = "maxlodscaler"
-L42_1 = "metro"
-L43_1 = "METRO_platform"
-L44_1 = "METRO_Tunnels"
-L45_1 = "METRO_Tunnels_entrance"
-L46_1 = "MichaelColorCode"
-L47_1 = "MichaelColorCodeBasic"
-L48_1 = "MichaelColorCodeBright"
-L49_1 = "MichaelsDarkroom"
-L50_1 = "MichaelsDirectional"
-L51_1 = "MichaelsNODirectional"
-L1_1[251] = L2_1
-L1_1[252] = L3_1
-L1_1[253] = L4_1
-L1_1[254] = L5_1
-L1_1[255] = L6_1
-L1_1[256] = L7_1
-L1_1[257] = L8_1
-L1_1[258] = L9_1
-L1_1[259] = L10_1
-L1_1[260] = L11_1
-L1_1[261] = L12_1
-L1_1[262] = L13_1
-L1_1[263] = L14_1
-L1_1[264] = L15_1
-L1_1[265] = L16_1
-L1_1[266] = L17_1
-L1_1[267] = L18_1
-L1_1[268] = L19_1
-L1_1[269] = L20_1
-L1_1[270] = L21_1
-L1_1[271] = L22_1
-L1_1[272] = L23_1
-L1_1[273] = L24_1
-L1_1[274] = L25_1
-L1_1[275] = L26_1
-L1_1[276] = L27_1
-L1_1[277] = L28_1
-L1_1[278] = L29_1
-L1_1[279] = L30_1
-L1_1[280] = L31_1
-L1_1[281] = L32_1
-L1_1[282] = L33_1
-L1_1[283] = L34_1
-L1_1[284] = L35_1
-L1_1[285] = L36_1
-L1_1[286] = L37_1
-L1_1[287] = L38_1
-L1_1[288] = L39_1
-L1_1[289] = L40_1
-L1_1[290] = L41_1
-L1_1[291] = L42_1
-L1_1[292] = L43_1
-L1_1[293] = L44_1
-L1_1[294] = L45_1
-L1_1[295] = L46_1
-L1_1[296] = L47_1
-L1_1[297] = L48_1
-L1_1[298] = L49_1
-L1_1[299] = L50_1
-L1_1[300] = L51_1
-L2_1 = "micheal"
-L3_1 = "micheals_lightsOFF"
-L4_1 = "michealspliff"
-L5_1 = "michealspliff_blend"
-L6_1 = "michealspliff_blend02"
-L7_1 = "militarybase_nightlight"
-L8_1 = "mineshaft"
-L9_1 = "morebloom"
-L10_1 = "morgue_dark"
-L11_1 = "morgue_dark_ovr"
-L12_1 = "Mp_apart_mid"
-L13_1 = "mp_bkr_int01_garage"
-L14_1 = "mp_bkr_int01_small_rooms"
-L15_1 = "mp_bkr_int01_transition"
-L16_1 = "mp_bkr_int02_garage"
-L17_1 = "mp_bkr_int02_hangout"
-L18_1 = "mp_bkr_int02_small_rooms"
-L19_1 = "mp_bkr_ware01"
-L20_1 = "mp_bkr_ware02_dry"
-L21_1 = "mp_bkr_ware02_standard"
-L22_1 = "mp_bkr_ware02_upgrade"
-L23_1 = "mp_bkr_ware03_basic"
-L24_1 = "mp_bkr_ware03_upgrade"
-L25_1 = "mp_bkr_ware04"
-L26_1 = "mp_bkr_ware05"
-L27_1 = "MP_Bull_tost"
-L28_1 = "MP_Bull_tost_blend"
-L29_1 = "MP_corona_heist"
-L30_1 = "MP_corona_heist_blend"
-L31_1 = "MP_corona_heist_BW"
-L32_1 = "MP_corona_heist_BW_night"
-L33_1 = "MP_corona_heist_DOF"
-L34_1 = "MP_corona_heist_night"
-L35_1 = "MP_corona_heist_night_blend"
-L36_1 = "MP_corona_selection"
-L37_1 = "MP_corona_switch"
-L38_1 = "MP_corona_tournament"
-L39_1 = "MP_corona_tournament_DOF"
-L40_1 = "MP_death_grade"
-L41_1 = "MP_death_grade_blend01"
-L42_1 = "MP_death_grade_blend02"
-L43_1 = "MP_deathfail_night"
-L44_1 = "mp_exec_office_01"
-L45_1 = "mp_exec_office_02"
-L46_1 = "mp_exec_office_03"
-L47_1 = "mp_exec_office_03_blue"
-L48_1 = "mp_exec_office_03C"
-L49_1 = "mp_exec_office_04"
-L50_1 = "mp_exec_office_05"
-L51_1 = "mp_exec_office_06"
-L1_1[301] = L2_1
-L1_1[302] = L3_1
-L1_1[303] = L4_1
-L1_1[304] = L5_1
-L1_1[305] = L6_1
-L1_1[306] = L7_1
-L1_1[307] = L8_1
-L1_1[308] = L9_1
-L1_1[309] = L10_1
-L1_1[310] = L11_1
-L1_1[311] = L12_1
-L1_1[312] = L13_1
-L1_1[313] = L14_1
-L1_1[314] = L15_1
-L1_1[315] = L16_1
-L1_1[316] = L17_1
-L1_1[317] = L18_1
-L1_1[318] = L19_1
-L1_1[319] = L20_1
-L1_1[320] = L21_1
-L1_1[321] = L22_1
-L1_1[322] = L23_1
-L1_1[323] = L24_1
-L1_1[324] = L25_1
-L1_1[325] = L26_1
-L1_1[326] = L27_1
-L1_1[327] = L28_1
-L1_1[328] = L29_1
-L1_1[329] = L30_1
-L1_1[330] = L31_1
-L1_1[331] = L32_1
-L1_1[332] = L33_1
-L1_1[333] = L34_1
-L1_1[334] = L35_1
-L1_1[335] = L36_1
-L1_1[336] = L37_1
-L1_1[337] = L38_1
-L1_1[338] = L39_1
-L1_1[339] = L40_1
-L1_1[340] = L41_1
-L1_1[341] = L42_1
-L1_1[342] = L43_1
-L1_1[343] = L44_1
-L1_1[344] = L45_1
-L1_1[345] = L46_1
-L1_1[346] = L47_1
-L1_1[347] = L48_1
-L1_1[348] = L49_1
-L1_1[349] = L50_1
-L1_1[350] = L51_1
-L2_1 = "mp_exec_warehouse_01"
-L3_1 = "MP_Garage_L"
-L4_1 = "MP_H_01_Bathroom"
-L5_1 = "MP_H_01_Bedroom"
-L6_1 = "MP_H_01_New"
-L7_1 = "MP_H_01_New_Bathroom"
-L8_1 = "MP_H_01_New_Bedroom"
-L9_1 = "MP_H_01_New_Study"
-L10_1 = "MP_H_01_Study"
-L11_1 = "MP_H_02"
-L12_1 = "MP_H_04"
-L13_1 = "mp_h_05"
-L14_1 = "MP_H_06"
-L15_1 = "mp_h_07"
-L16_1 = "mp_h_08"
-L17_1 = "MP_heli_cam"
-L18_1 = "mp_imx_intwaremed"
-L19_1 = "mp_imx_intwaremed_office"
-L20_1 = "mp_imx_mod_int_01"
-L21_1 = "MP_intro_logo"
-L22_1 = "MP_job_end_night"
-L23_1 = "MP_job_load"
-L24_1 = "MP_job_load_01"
-L25_1 = "MP_job_load_02"
-L26_1 = "MP_job_lose"
-L27_1 = "MP_job_preload"
-L28_1 = "MP_job_preload_blend"
-L29_1 = "MP_job_preload_night"
-L30_1 = "MP_job_win"
-L31_1 = "MP_Killstreak"
-L32_1 = "MP_Killstreak_blend"
-L33_1 = "mp_lad_day"
-L34_1 = "mp_lad_judgment"
-L35_1 = "mp_lad_night"
-L36_1 = "MP_Loser"
-L37_1 = "MP_Loser_blend"
-L38_1 = "MP_lowgarage"
-L39_1 = "MP_MedGarage"
-L40_1 = "MP_Powerplay"
-L41_1 = "MP_Powerplay_blend"
-L42_1 = "MP_race_finish"
-L43_1 = "MP_select"
-L44_1 = "Mp_Stilts"
-L45_1 = "Mp_Stilts2"
-L46_1 = "Mp_Stilts2_bath"
-L47_1 = "Mp_Stilts_gym"
-L48_1 = "Mp_Stilts_gym2"
-L49_1 = "MP_Studio_Lo"
-L50_1 = "MPApart_H_01"
-L51_1 = "MPApart_H_01_gym"
-L1_1[351] = L2_1
-L1_1[352] = L3_1
-L1_1[353] = L4_1
-L1_1[354] = L5_1
-L1_1[355] = L6_1
-L1_1[356] = L7_1
-L1_1[357] = L8_1
-L1_1[358] = L9_1
-L1_1[359] = L10_1
-L1_1[360] = L11_1
-L1_1[361] = L12_1
-L1_1[362] = L13_1
-L1_1[363] = L14_1
-L1_1[364] = L15_1
-L1_1[365] = L16_1
-L1_1[366] = L17_1
-L1_1[367] = L18_1
-L1_1[368] = L19_1
-L1_1[369] = L20_1
-L1_1[370] = L21_1
-L1_1[371] = L22_1
-L1_1[372] = L23_1
-L1_1[373] = L24_1
-L1_1[374] = L25_1
-L1_1[375] = L26_1
-L1_1[376] = L27_1
-L1_1[377] = L28_1
-L1_1[378] = L29_1
-L1_1[379] = L30_1
-L1_1[380] = L31_1
-L1_1[381] = L32_1
-L1_1[382] = L33_1
-L1_1[383] = L34_1
-L1_1[384] = L35_1
-L1_1[385] = L36_1
-L1_1[386] = L37_1
-L1_1[387] = L38_1
-L1_1[388] = L39_1
-L1_1[389] = L40_1
-L1_1[390] = L41_1
-L1_1[391] = L42_1
-L1_1[392] = L43_1
-L1_1[393] = L44_1
-L1_1[394] = L45_1
-L1_1[395] = L46_1
-L1_1[396] = L47_1
-L1_1[397] = L48_1
-L1_1[398] = L49_1
-L1_1[399] = L50_1
-L1_1[400] = L51_1
-L2_1 = "MPApartHigh"
-L3_1 = "MPApartHigh_palnning"
-L4_1 = "mugShot"
-L5_1 = "mugShot_lineup"
-L6_1 = "Multipayer_spectatorCam"
-L7_1 = "multiplayer_ped_fight"
-L8_1 = "nervousRON_fog"
-L9_1 = "NeutralColorCode"
-L10_1 = "NeutralColorCodeBasic"
-L11_1 = "NeutralColorCodeBright"
-L12_1 = "NeutralColorCodeLight"
-L13_1 = "NEW_abattoir"
-L14_1 = "new_bank"
-L15_1 = "NEW_jewel"
-L16_1 = "NEW_jewel_EXIT"
-L17_1 = "NEW_lesters"
-L18_1 = "new_MP_Garage_L"
-L19_1 = "NEW_ornate_bank"
-L20_1 = "NEW_ornate_bank_entrance"
-L21_1 = "NEW_ornate_bank_office"
-L22_1 = "NEW_ornate_bank_safe"
-L23_1 = "New_sewers"
-L24_1 = "NEW_shrinksOffice"
-L25_1 = "NEW_station_unfinished"
-L26_1 = "new_stripper_changing"
-L27_1 = "NEW_trevorstrailer"
-L28_1 = "NEW_tunnels"
-L29_1 = "NEW_tunnels_ditch"
-L30_1 = "new_tunnels_entrance"
-L31_1 = "NEW_tunnels_hole"
-L32_1 = "NEW_yellowtunnels"
-L33_1 = "NewMicheal"
-L34_1 = "NewMicheal_night"
-L35_1 = "NewMicheal_upstairs"
-L36_1 = "NewMichealgirly"
-L37_1 = "NewMichealstoilet"
-L38_1 = "NewMichealupstairs"
-L39_1 = "nextgen"
-L40_1 = "NG_blackout"
-L41_1 = "NG_deathfail_BW_base"
-L42_1 = "NG_deathfail_BW_blend01"
-L43_1 = "NG_deathfail_BW_blend02"
-L44_1 = "NG_filmic01"
-L45_1 = "NG_filmic02"
-L46_1 = "NG_filmic03"
-L47_1 = "NG_filmic04"
-L48_1 = "NG_filmic05"
-L49_1 = "NG_filmic06"
-L50_1 = "NG_filmic07"
-L51_1 = "NG_filmic08"
-L1_1[401] = L2_1
-L1_1[402] = L3_1
-L1_1[403] = L4_1
-L1_1[404] = L5_1
-L1_1[405] = L6_1
-L1_1[406] = L7_1
-L1_1[407] = L8_1
-L1_1[408] = L9_1
-L1_1[409] = L10_1
-L1_1[410] = L11_1
-L1_1[411] = L12_1
-L1_1[412] = L13_1
-L1_1[413] = L14_1
-L1_1[414] = L15_1
-L1_1[415] = L16_1
-L1_1[416] = L17_1
-L1_1[417] = L18_1
-L1_1[418] = L19_1
-L1_1[419] = L20_1
-L1_1[420] = L21_1
-L1_1[421] = L22_1
-L1_1[422] = L23_1
-L1_1[423] = L24_1
-L1_1[424] = L25_1
-L1_1[425] = L26_1
-L1_1[426] = L27_1
-L1_1[427] = L28_1
-L1_1[428] = L29_1
-L1_1[429] = L30_1
-L1_1[430] = L31_1
-L1_1[431] = L32_1
-L1_1[432] = L33_1
-L1_1[433] = L34_1
-L1_1[434] = L35_1
-L1_1[435] = L36_1
-L1_1[436] = L37_1
-L1_1[437] = L38_1
-L1_1[438] = L39_1
-L1_1[439] = L40_1
-L1_1[440] = L41_1
-L1_1[441] = L42_1
-L1_1[442] = L43_1
-L1_1[443] = L44_1
-L1_1[444] = L45_1
-L1_1[445] = L46_1
-L1_1[446] = L47_1
-L1_1[447] = L48_1
-L1_1[448] = L49_1
-L1_1[449] = L50_1
-L1_1[450] = L51_1
-L2_1 = "NG_filmic09"
-L3_1 = "NG_filmic10"
-L4_1 = "NG_filmic11"
-L5_1 = "NG_filmic12"
-L6_1 = "NG_filmic13"
-L7_1 = "NG_filmic14"
-L8_1 = "NG_filmic15"
-L9_1 = "NG_filmic16"
-L10_1 = "NG_filmic17"
-L11_1 = "NG_filmic18"
-L12_1 = "NG_filmic19"
-L13_1 = "NG_filmic20"
-L14_1 = "NG_filmic21"
-L15_1 = "NG_filmic22"
-L16_1 = "NG_filmic23"
-L17_1 = "NG_filmic24"
-L18_1 = "NG_filmic25"
-L19_1 = "NG_filmnoir_BW01"
-L20_1 = "NG_filmnoir_BW02"
-L21_1 = "NG_first"
-L22_1 = "nightvision"
-L23_1 = "NO_coronas"
-L24_1 = "NO_fog_alpha"
-L25_1 = "NO_streetAmbient"
-L26_1 = "NO_weather"
-L27_1 = "NoAmbientmult"
-L28_1 = "NoAmbientmult_interior"
-L29_1 = "NOdirectLight"
-L30_1 = "NoPedLight"
-L31_1 = "NOrain"
-L32_1 = "overwater"
-L33_1 = "Paleto"
-L34_1 = "paleto_nightlight"
-L35_1 = "paleto_opt"
-L36_1 = "PennedInDark"
-L37_1 = "PennedInLight"
-L38_1 = "PERSHING_water_reflect"
-L39_1 = "phone_cam"
-L40_1 = "phone_cam1"
-L41_1 = "phone_cam10"
-L42_1 = "phone_cam11"
-L43_1 = "phone_cam12"
-L44_1 = "phone_cam13"
-L45_1 = "phone_cam2"
-L46_1 = "phone_cam3"
-L47_1 = "phone_cam3_REMOVED"
-L48_1 = "phone_cam4"
-L49_1 = "phone_cam5"
-L50_1 = "phone_cam6"
-L51_1 = "phone_cam7"
-L1_1[451] = L2_1
-L1_1[452] = L3_1
-L1_1[453] = L4_1
-L1_1[454] = L5_1
-L1_1[455] = L6_1
-L1_1[456] = L7_1
-L1_1[457] = L8_1
-L1_1[458] = L9_1
-L1_1[459] = L10_1
-L1_1[460] = L11_1
-L1_1[461] = L12_1
-L1_1[462] = L13_1
-L1_1[463] = L14_1
-L1_1[464] = L15_1
-L1_1[465] = L16_1
-L1_1[466] = L17_1
-L1_1[467] = L18_1
-L1_1[468] = L19_1
-L1_1[469] = L20_1
-L1_1[470] = L21_1
-L1_1[471] = L22_1
-L1_1[472] = L23_1
-L1_1[473] = L24_1
-L1_1[474] = L25_1
-L1_1[475] = L26_1
-L1_1[476] = L27_1
-L1_1[477] = L28_1
-L1_1[478] = L29_1
-L1_1[479] = L30_1
-L1_1[480] = L31_1
-L1_1[481] = L32_1
-L1_1[482] = L33_1
-L1_1[483] = L34_1
-L1_1[484] = L35_1
-L1_1[485] = L36_1
-L1_1[486] = L37_1
-L1_1[487] = L38_1
-L1_1[488] = L39_1
-L1_1[489] = L40_1
-L1_1[490] = L41_1
-L1_1[491] = L42_1
-L1_1[492] = L43_1
-L1_1[493] = L44_1
-L1_1[494] = L45_1
-L1_1[495] = L46_1
-L1_1[496] = L47_1
-L1_1[497] = L48_1
-L1_1[498] = L49_1
-L1_1[499] = L50_1
-L1_1[500] = L51_1
-L2_1 = "phone_cam8"
-L3_1 = "phone_cam8_REMOVED"
-L4_1 = "phone_cam9"
-L5_1 = "plane_inside_mode"
-L6_1 = "player_transition"
-L7_1 = "player_transition_no_scanlines"
-L8_1 = "player_transition_scanlines"
-L9_1 = "PlayerSwitchNeutralFlash"
-L10_1 = "PlayerSwitchPulse"
-L11_1 = "plaza_carpark"
-L12_1 = "PoliceStation"
-L13_1 = "PoliceStationDark"
-L14_1 = "polluted"
-L15_1 = "poolsidewaterreflection2"
-L16_1 = "PORT_heist_underwater"
-L17_1 = "powerplant_nightlight"
-L18_1 = "powerstation"
-L19_1 = "PPFilter"
-L20_1 = "PPGreen01"
-L21_1 = "PPGreen02"
-L22_1 = "PPOrange01"
-L23_1 = "PPOrange02"
-L24_1 = "PPPink01"
-L25_1 = "PPPink02"
-L26_1 = "PPPurple01"
-L27_1 = "PPPurple02"
-L28_1 = "prison_nightlight"
-L29_1 = "projector"
-L30_1 = "prologue"
-L31_1 = "prologue_ending_fog"
-L32_1 = "prologue_ext_art_amb"
-L33_1 = "prologue_reflection_opt"
-L34_1 = "prologue_shootout"
-L35_1 = "Prologue_shootout_opt"
-L36_1 = "pulse"
-L37_1 = "RaceTurboDark"
-L38_1 = "RaceTurboFlash"
-L39_1 = "RaceTurboLight"
-L40_1 = "ranch"
-L41_1 = "REDMIST"
-L42_1 = "REDMIST_blend"
-L43_1 = "ReduceDrawDistance"
-L44_1 = "ReduceDrawDistanceMAP"
-L45_1 = "ReduceDrawDistanceMission"
-L46_1 = "reducelightingcost"
-L47_1 = "ReduceSSAO"
-L48_1 = "reducewaterREF"
-L49_1 = "refit"
-L50_1 = "reflection_correct_ambient"
-L51_1 = "RemoteSniper"
-L1_1[501] = L2_1
-L1_1[502] = L3_1
-L1_1[503] = L4_1
-L1_1[504] = L5_1
-L1_1[505] = L6_1
-L1_1[506] = L7_1
-L1_1[507] = L8_1
-L1_1[508] = L9_1
-L1_1[509] = L10_1
-L1_1[510] = L11_1
-L1_1[511] = L12_1
-L1_1[512] = L13_1
-L1_1[513] = L14_1
-L1_1[514] = L15_1
-L1_1[515] = L16_1
-L1_1[516] = L17_1
-L1_1[517] = L18_1
-L1_1[518] = L19_1
-L1_1[519] = L20_1
-L1_1[520] = L21_1
-L1_1[521] = L22_1
-L1_1[522] = L23_1
-L1_1[523] = L24_1
-L1_1[524] = L25_1
-L1_1[525] = L26_1
-L1_1[526] = L27_1
-L1_1[527] = L28_1
-L1_1[528] = L29_1
-L1_1[529] = L30_1
-L1_1[530] = L31_1
-L1_1[531] = L32_1
-L1_1[532] = L33_1
-L1_1[533] = L34_1
-L1_1[534] = L35_1
-L1_1[535] = L36_1
-L1_1[536] = L37_1
-L1_1[537] = L38_1
-L1_1[538] = L39_1
-L1_1[539] = L40_1
-L1_1[540] = L41_1
-L1_1[541] = L42_1
-L1_1[542] = L43_1
-L1_1[543] = L44_1
-L1_1[544] = L45_1
-L1_1[545] = L46_1
-L1_1[546] = L47_1
-L1_1[547] = L48_1
-L1_1[548] = L49_1
-L1_1[549] = L50_1
-L1_1[550] = L51_1
-L2_1 = "resvoire_reflection"
-L3_1 = "rply_brightness"
-L4_1 = "rply_brightness_neg"
-L5_1 = "rply_contrast"
-L6_1 = "rply_contrast_neg"
-L7_1 = "rply_motionblur"
-L8_1 = "rply_saturation"
-L9_1 = "rply_saturation_neg"
-L10_1 = "rply_vignette"
-L11_1 = "rply_vignette_neg"
-L12_1 = "SALTONSEA"
-L13_1 = "sandyshore_nightlight"
-L14_1 = "SAWMILL"
-L15_1 = "scanline_cam"
-L16_1 = "scanline_cam_cheap"
-L17_1 = "scope_zoom_in"
-L18_1 = "scope_zoom_out"
-L19_1 = "secret_camera"
-L20_1 = "services_nightlight"
-L21_1 = "shades_pink"
-L22_1 = "shades_yellow"
-L23_1 = "SheriffStation"
-L24_1 = "ship_explosion_underwater"
-L25_1 = "ship_lighting"
-L26_1 = "Shop247"
-L27_1 = "Shop247_none"
-L28_1 = "sleeping"
-L29_1 = "Sniper"
-L30_1 = "SP1_03_drawDistance"
-L31_1 = "spectator1"
-L32_1 = "spectator10"
-L33_1 = "spectator2"
-L34_1 = "spectator3"
-L35_1 = "spectator4"
-L36_1 = "spectator5"
-L37_1 = "spectator6"
-L38_1 = "spectator7"
-L39_1 = "spectator8"
-L40_1 = "spectator9"
-L41_1 = "StadLobby"
-L42_1 = "stc_coroners"
-L43_1 = "stc_deviant_bedroom"
-L44_1 = "stc_deviant_lounge"
-L45_1 = "stc_franklinsHouse"
-L46_1 = "stc_trevors"
-L47_1 = "stoned"
-L48_1 = "stoned_aliens"
-L49_1 = "stoned_cutscene"
-L50_1 = "stoned_monkeys"
-L51_1 = "StreetLighting"
-L1_1[551] = L2_1
-L1_1[552] = L3_1
-L1_1[553] = L4_1
-L1_1[554] = L5_1
-L1_1[555] = L6_1
-L1_1[556] = L7_1
-L1_1[557] = L8_1
-L1_1[558] = L9_1
-L1_1[559] = L10_1
-L1_1[560] = L11_1
-L1_1[561] = L12_1
-L1_1[562] = L13_1
-L1_1[563] = L14_1
-L1_1[564] = L15_1
-L1_1[565] = L16_1
-L1_1[566] = L17_1
-L1_1[567] = L18_1
-L1_1[568] = L19_1
-L1_1[569] = L20_1
-L1_1[570] = L21_1
-L1_1[571] = L22_1
-L1_1[572] = L23_1
-L1_1[573] = L24_1
-L1_1[574] = L25_1
-L1_1[575] = L26_1
-L1_1[576] = L27_1
-L1_1[577] = L28_1
-L1_1[578] = L29_1
-L1_1[579] = L30_1
-L1_1[580] = L31_1
-L1_1[581] = L32_1
-L1_1[582] = L33_1
-L1_1[583] = L34_1
-L1_1[584] = L35_1
-L1_1[585] = L36_1
-L1_1[586] = L37_1
-L1_1[587] = L38_1
-L1_1[588] = L39_1
-L1_1[589] = L40_1
-L1_1[590] = L41_1
-L1_1[591] = L42_1
-L1_1[592] = L43_1
-L1_1[593] = L44_1
-L1_1[594] = L45_1
-L1_1[595] = L46_1
-L1_1[596] = L47_1
-L1_1[597] = L48_1
-L1_1[598] = L49_1
-L1_1[599] = L50_1
-L1_1[600] = L51_1
-L2_1 = "StreetLightingJunction"
-L3_1 = "StreetLightingtraffic"
-L4_1 = "STRIP_changing"
-L5_1 = "STRIP_nofog"
-L6_1 = "STRIP_office"
-L7_1 = "STRIP_stage"
-L8_1 = "StuntFastDark"
-L9_1 = "StuntFastLight"
-L10_1 = "StuntSlowDark"
-L11_1 = "StuntSlowLight"
-L12_1 = "subBASE_water_ref"
-L13_1 = "sunglasses"
-L14_1 = "superDARK"
-L15_1 = "switch_cam_1"
-L16_1 = "switch_cam_2"
-L17_1 = "telescope"
-L18_1 = "TinyGreen01"
-L19_1 = "TinyGreen02"
-L20_1 = "TinyPink01"
-L21_1 = "TinyPink02"
-L22_1 = "TinyRacerMoBlur"
-L23_1 = "torpedo"
-L24_1 = "traffic_skycam"
-L25_1 = "trailer_explosion_optimise"
-L26_1 = "TREVOR"
-L27_1 = "TrevorColorCode"
-L28_1 = "TrevorColorCodeBasic"
-L29_1 = "TrevorColorCodeBright"
-L30_1 = "Trevors_room"
-L31_1 = "trevorspliff"
-L32_1 = "trevorspliff_blend"
-L33_1 = "trevorspliff_blend02"
-L34_1 = "Tunnel"
-L35_1 = "tunnel_entrance"
-L36_1 = "tunnel_entrance_INT"
-L37_1 = "TUNNEL_green"
-L38_1 = "Tunnel_green1"
-L39_1 = "TUNNEL_green_ext"
-L40_1 = "tunnel_id1_11"
-L41_1 = "TUNNEL_orange"
-L42_1 = "TUNNEL_orange_exterior"
-L43_1 = "TUNNEL_white"
-L44_1 = "TUNNEL_yellow"
-L45_1 = "TUNNEL_yellow_ext"
-L46_1 = "ufo"
-L47_1 = "ufo_deathray"
-L48_1 = "underwater"
-L49_1 = "underwater_deep"
-L50_1 = "underwater_deep_clear"
-L51_1 = "v_abattoir"
-L1_1[601] = L2_1
-L1_1[602] = L3_1
-L1_1[603] = L4_1
-L1_1[604] = L5_1
-L1_1[605] = L6_1
-L1_1[606] = L7_1
-L1_1[607] = L8_1
-L1_1[608] = L9_1
-L1_1[609] = L10_1
-L1_1[610] = L11_1
-L1_1[611] = L12_1
-L1_1[612] = L13_1
-L1_1[613] = L14_1
-L1_1[614] = L15_1
-L1_1[615] = L16_1
-L1_1[616] = L17_1
-L1_1[617] = L18_1
-L1_1[618] = L19_1
-L1_1[619] = L20_1
-L1_1[620] = L21_1
-L1_1[621] = L22_1
-L1_1[622] = L23_1
-L1_1[623] = L24_1
-L1_1[624] = L25_1
-L1_1[625] = L26_1
-L1_1[626] = L27_1
-L1_1[627] = L28_1
-L1_1[628] = L29_1
-L1_1[629] = L30_1
-L1_1[630] = L31_1
-L1_1[631] = L32_1
-L1_1[632] = L33_1
-L1_1[633] = L34_1
-L1_1[634] = L35_1
-L1_1[635] = L36_1
-L1_1[636] = L37_1
-L1_1[637] = L38_1
-L1_1[638] = L39_1
-L1_1[639] = L40_1
-L1_1[640] = L41_1
-L1_1[641] = L42_1
-L1_1[642] = L43_1
-L1_1[643] = L44_1
-L1_1[644] = L45_1
-L1_1[645] = L46_1
-L1_1[646] = L47_1
-L1_1[647] = L48_1
-L1_1[648] = L49_1
-L1_1[649] = L50_1
-L1_1[650] = L51_1
-L2_1 = "V_Abattoir_Cold"
-L3_1 = "v_bahama"
-L4_1 = "v_cashdepot"
-L5_1 = "V_CIA_Facility"
-L6_1 = "v_dark"
-L7_1 = "V_FIB_IT3"
-L8_1 = "V_FIB_IT3_alt"
-L9_1 = "V_FIB_IT3_alt5"
-L10_1 = "V_FIB_stairs"
-L11_1 = "v_foundry"
-L12_1 = "v_janitor"
-L13_1 = "v_jewel2"
-L14_1 = "v_metro"
-L15_1 = "V_Metro2"
-L16_1 = "V_Metro_station"
-L17_1 = "v_michael"
-L18_1 = "v_michael_lounge"
-L19_1 = "V_Office_smoke"
-L20_1 = "V_Office_smoke_ext"
-L21_1 = "V_Office_smoke_Fire"
-L22_1 = "v_recycle"
-L23_1 = "V_recycle_dark"
-L24_1 = "V_recycle_light"
-L25_1 = "V_recycle_mainroom"
-L26_1 = "v_rockclub"
-L27_1 = "V_Solomons"
-L28_1 = "v_strip3"
-L29_1 = "V_strip_nofog"
-L30_1 = "V_strip_office"
-L31_1 = "v_strpchangerm"
-L32_1 = "v_sweat"
-L33_1 = "v_sweat_entrance"
-L34_1 = "v_sweat_NoDirLight"
-L35_1 = "v_torture"
-L36_1 = "Vagos"
-L37_1 = "vagos_extlight_small"
-L38_1 = "VAGOS_new_garage"
-L39_1 = "VAGOS_new_hangout"
-L40_1 = "VagosSPLASH"
-L41_1 = "VC_tunnel_entrance"
-L42_1 = "vehicle_subint"
-L43_1 = "venice_canal_tunnel"
-L44_1 = "vespucci_garage"
-L45_1 = "VolticBlur"
-L46_1 = "VolticFlash"
-L47_1 = "VolticGold"
-L48_1 = "WAREHOUSE"
-L49_1 = "WATER _lab_cooling"
-L50_1 = "WATER_CH2_06_01_03"
-L51_1 = "WATER_CH2_06_02"
-L1_1[651] = L2_1
-L1_1[652] = L3_1
-L1_1[653] = L4_1
-L1_1[654] = L5_1
-L1_1[655] = L6_1
-L1_1[656] = L7_1
-L1_1[657] = L8_1
-L1_1[658] = L9_1
-L1_1[659] = L10_1
-L1_1[660] = L11_1
-L1_1[661] = L12_1
-L1_1[662] = L13_1
-L1_1[663] = L14_1
-L1_1[664] = L15_1
-L1_1[665] = L16_1
-L1_1[666] = L17_1
-L1_1[667] = L18_1
-L1_1[668] = L19_1
-L1_1[669] = L20_1
-L1_1[670] = L21_1
-L1_1[671] = L22_1
-L1_1[672] = L23_1
-L1_1[673] = L24_1
-L1_1[674] = L25_1
-L1_1[675] = L26_1
-L1_1[676] = L27_1
-L1_1[677] = L28_1
-L1_1[678] = L29_1
-L1_1[679] = L30_1
-L1_1[680] = L31_1
-L1_1[681] = L32_1
-L1_1[682] = L33_1
-L1_1[683] = L34_1
-L1_1[684] = L35_1
-L1_1[685] = L36_1
-L1_1[686] = L37_1
-L1_1[687] = L38_1
-L1_1[688] = L39_1
-L1_1[689] = L40_1
-L1_1[690] = L41_1
-L1_1[691] = L42_1
-L1_1[692] = L43_1
-L1_1[693] = L44_1
-L1_1[694] = L45_1
-L1_1[695] = L46_1
-L1_1[696] = L47_1
-L1_1[697] = L48_1
-L1_1[698] = L49_1
-L1_1[699] = L50_1
-L1_1[700] = L51_1
-L2_1 = "WATER_CH2_06_04"
-L3_1 = "WATER_cove"
-L4_1 = "WATER_hills"
-L5_1 = "WATER_ID2_21"
-L6_1 = "WATER_lab"
-L7_1 = "WATER_militaryPOOP"
-L8_1 = "WATER_muddy"
-L9_1 = "WATER_port"
-L10_1 = "WATER_REF_malibu"
-L11_1 = "WATER_refmap_high"
-L12_1 = "WATER_refmap_hollywoodlake"
-L13_1 = "WATER_refmap_low"
-L14_1 = "WATER_refmap_med"
-L15_1 = "WATER_refmap_off"
-L16_1 = "WATER_refmap_poolside"
-L17_1 = "WATER_refmap_silverlake"
-L18_1 = "WATER_refmap_venice"
-L19_1 = "WATER_refmap_verylow"
-L20_1 = "WATER_resevoir"
-L21_1 = "WATER_RichmanStuntJump"
-L22_1 = "WATER_river"
-L23_1 = "WATER_salton"
-L24_1 = "WATER_salton_bottom"
-L25_1 = "WATER_shore"
-L26_1 = "WATER_silty"
-L27_1 = "WATER_silverlake"
-L28_1 = "whitenightlighting"
-L29_1 = "WhiteOut"
-L30_1 = "winning_room"
-L31_1 = "yacht_DLC"
-L32_1 = "yell_tunnel_nodirect"
-L1_1[701] = L2_1
-L1_1[702] = L3_1
-L1_1[703] = L4_1
-L1_1[704] = L5_1
-L1_1[705] = L6_1
-L1_1[706] = L7_1
-L1_1[707] = L8_1
-L1_1[708] = L9_1
-L1_1[709] = L10_1
-L1_1[710] = L11_1
-L1_1[711] = L12_1
-L1_1[712] = L13_1
-L1_1[713] = L14_1
-L1_1[714] = L15_1
-L1_1[715] = L16_1
-L1_1[716] = L17_1
-L1_1[717] = L18_1
-L1_1[718] = L19_1
-L1_1[719] = L20_1
-L1_1[720] = L21_1
-L1_1[721] = L22_1
-L1_1[722] = L23_1
-L1_1[723] = L24_1
-L1_1[724] = L25_1
-L1_1[725] = L26_1
-L1_1[726] = L27_1
-L1_1[727] = L28_1
-L1_1[728] = L29_1
-L1_1[729] = L30_1
-L1_1[730] = L31_1
-L1_1[731] = L32_1
-L2_1 = {}
-L3_1 = 24
-L4_1 = 36
-L5_1 = 44
-L6_1 = 38
-L7_1 = 85
-L8_1 = 86
-L2_1[1] = L3_1
-L2_1[2] = L4_1
-L2_1[3] = L5_1
-L2_1[4] = L6_1
-L2_1[5] = L7_1
-L2_1[6] = L8_1
-L3_1 = true
-L4_1 = 2.0
-L5_1 = _ENV
-L6_1 = "drawf"
-L7_1 = 0
-L5_1[L6_1] = L7_1
-L5_1 = 1
-L6_1 = 91
-L7_1 = false
-L8_1 = {}
-L9_1 = 0.1
-L10_1 = 2.01
-L11_1 = 0.01
-for L12_1 = L9_1, L10_1, L11_1 do
-  L13_1 = _ENV
-  L14_1 = "table"
-  L13_1 = L13_1[L14_1]
-  L14_1 = "insert"
-  L13_1 = L13_1[L14_1]
-  L14_1 = L8_1
-  L15_1 = _ENV
-  L16_1 = "string"
-  L15_1 = L15_1[L16_1]
-  L16_1 = "format"
-  L15_1 = L15_1[L16_1]
-  L16_1 = "%.2f"
-  L17_1 = L12_1
-  L15_1, L16_1, L17_1, L18_1, L19_1, L20_1, L21_1, L22_1, L23_1, L24_1, L25_1, L26_1, L27_1, L28_1, L29_1, L30_1, L31_1, L32_1, L33_1, L34_1, L35_1, L36_1, L37_1, L38_1, L39_1, L40_1, L41_1, L42_1, L43_1, L44_1, L45_1, L46_1, L47_1, L48_1, L49_1, L50_1, L51_1, L52_1, L53_1, L54_1 = L15_1(L16_1, L17_1)
-  L13_1(L14_1, L15_1, L16_1, L17_1, L18_1, L19_1, L20_1, L21_1, L22_1, L23_1, L24_1, L25_1, L26_1, L27_1, L28_1, L29_1, L30_1, L31_1, L32_1, L33_1, L34_1, L35_1, L36_1, L37_1, L38_1, L39_1, L40_1, L41_1, L42_1, L43_1, L44_1, L45_1, L46_1, L47_1, L48_1, L49_1, L50_1, L51_1, L52_1, L53_1, L54_1)
+-- freecamclient.lua
+-- Systems: sound browser, timecycle filter browser, freecam
+-- Admin-only commands: /filtri, /nativesound, /freecam, /getFilter
+
+-- ════════════════════════════════════════════════════════════════
+-- DATA TABLES
+-- ════════════════════════════════════════════════════════════════
+
+--- soundList[N] = {id, soundName, soundSet, flag}
+--- Played via PlaySoundFrontend in the sound browser.
+local soundList = {
+    {-1, "ARM_3_CAR_GLASS_CRASH", 0, 1},
+    {-1, "ARM_3_PISTOL_COCK", 0, 1},
+    {-1, "ARM_WRESTLING_WHOOSH_MASTER", 0, 1},
+    {-1, "ATM_WINDOW", "HUD_FRONTEND_DEFAULT_SOUNDSET", 1},
+    {-1, "BACK", "HUD_AMMO_SHOP_SOUNDSET", 1},
+    {-1, "BACK", "HUD_FREEMODE_SOUNDSET", 1},
+    {-1, "BACK", "HUD_FRONTEND_DEFAULT_SOUNDSET", 0},
+    {-1, "BACK", "HUD_FRONTEND_DEFAULT_SOUNDSET", 1},
+    {-1, "BACK", "HUD_FRONTEND_MP_SOUNDSET", 1},
+    {-1, "BACK", "HUD_FRONTEND_TATTOO_SHOP_SOUNDSET", 1},
+    {-1, "BACK", "HUD_MINI_GAME_SOUNDSET", 1},
+    {-1, "Banshee2_Upgrade", "JA16_Super_Mod_Garage_Sounds", 1},
+    {-1, "Beast_Checkpoint", "APT_BvS_Soundset", 0},
+    {-1, "Beast_Checkpoint_NPC", "APT_BvS_Soundset", 0},
+    {-1, "Beep_Red", "DLC_HEIST_HACKING_SNAKE_SOUNDS", 1},
+    {-1, "Blade_Appear", "APT_BvS_Soundset", 0},
+    {-1, "BOATS_PLANES_HELIS_BOOM", "MP_LOBBY_SOUNDS", 1},
+    {-1, "Bomb_Disarmed", "GTAO_Speed_Convoy_Soundset", 0},
+    {-1, "Boss_Blipped", "GTAO_Magnate_Hunt_Boss_SoundSet", 0},
+    {-1, "Boss_Message_Orange", "GTAO_Boss_Goons_FM_Soundset", 0},
+    {-1, "Breaker_01", "DLC_HALLOWEEN_FVJ_Sounds", 0},
+    {-1, "Breaker_02", "DLC_HALLOWEEN_FVJ_Sounds", 0},
+    {-1, "BULL_SHARK_TESTOSTERONE_END_MASTER", "", 0},
+    {-1, "BULL_SHARK_TESTOSTERONE_START_MASTER", "", 0},
+    {-1, "Bus_Schedule_Pickup", "DLC_PRISON_BREAK_HEIST_SOUNDS", 0},
+    {-1, "CABLE_SNAPS", "CONSTRUCTION_ACCIDENT_1_SOUNDS", 1},
+    {-1, "CAM_PAN_DARTS", "HUD_MINI_GAME_SOUNDSET", 1},
+    {-1, "Camera_Shoot", "Phone_Soundset_Franklin", 1},
+    {-1, "CANCEL", "HUD_FREEMODE_SOUNDSET", 1},
+    {-1, "CANCEL", "HUD_FRONTEND_CLOTHESSHOP_SOUNDSET", 1},
+    {-1, "CANCEL", "HUD_FRONTEND_DEFAULT_SOUNDSET", 0},
+    {-1, "CANCEL", "HUD_FRONTEND_DEFAULT_SOUNDSET", 1},
+    {-1, "CANCEL", "HUD_LIQUOR_STORE_SOUNDSET", 1},
+    {-1, "CANCEL", "HUD_MINI_GAME_SOUNDSET", 1},
+    {-1, "CAR_BIKE_WHOOSH", "MP_LOBBY_SOUNDS", 1},
+    {-1, "CHARACTER_SELECT", "HUD_FRONTEND_DEFAULT_SOUNDSET", 0},
+    {-1, "CHECKPOINT_AHEAD", "HUD_MINI_GAME_SOUNDSET", 0},
+    {-1, "Checkpoint_Beast_Hit", "FM_Events_Sasquatch_Sounds", 0},
+    {-1, "CHECKPOINT_BEHIND", "HUD_MINI_GAME_SOUNDSET", 0},
+    {-1, "Checkpoint_Cash_Hit", "GTAO_FM_Events_Soundset", 0},
+    {-1, "Checkpoint_Hit", "GTAO_FM_Events_Soundset", 0},
+    {-1, "CHECKPOINT_MISSED", "HUD_MINI_GAME_SOUNDSET", 0},
+    {-1, "CHECKPOINT_NORMAL", "HUD_MINI_GAME_SOUNDSET", 0},
+    {-1, "CHECKPOINT_PERFECT", "HUD_MINI_GAME_SOUNDSET", 0},
+    {-1, "Checkpoint_Teammate", "GTAO_Shepherd_Sounds", 0},
+    {-1, "CHECKPOINT_UNDER_THE_BRIDGE", "HUD_MINI_GAME_SOUNDSET", 0},
+    {-1, "Cheers", "DLC_TG_Running_Back_Sounds", 0},
+    {-1, "Click", "DLC_HEIST_HACKING_SNAKE_SOUNDS", 1},
+    {-1, "CLICK_BACK", "WEB_NAVIGATION_SOUNDS_PHONE", 1},
+    {-1, "Click_Fail", "WEB_NAVIGATION_SOUNDS_PHONE", 1},
+    {-1, "Click_Special", " WEB_NAVIGATION_SOUNDS_PHONE", 1},
+    {-1, "Click_Special", "WEB_NAVIGATION_SOUNDS_PHONE", 1},
+    {-1, "CLOSE_WINDOW", "LESTER1A_SOUNDS", 1},
+    {-1, "CLOSED", "DLC_APT_YACHT_DOOR_SOUNDS", 1},
+    {-1, "CLOSED", "MP_PROPERTIES_ELEVATOR_DOORS", 1},
+    {-1, "COMPUTERS_MOUSE_CLICK", 0, 1},
+    {-1, "CONFIRM_BEEP", "HUD_MINI_GAME_SOUNDSET", 1},
+    {-1, "CONTINUE", "HUD_FRONTEND_DEFAULT_SOUNDSET", 0},
+    {-1, "CONTINUE", "HUD_FRONTEND_DEFAULT_SOUNDSET", 1},
+    {-1, "Continue_Accepted", "DLC_HEIST_PLANNING_BOARD_SOUNDS", 1},
+    {-1, "Continue_Appears", "DLC_HEIST_PLANNING_BOARD_SOUNDS", 1},
+    {-1, "Crash", "DLC_HEIST_HACKING_SNAKE_SOUNDS", 1},
+    {-1, "Criminal_Damage_High_Value", "GTAO_FM_Events_Soundset", 0},
+    {-1, "Criminal_Damage_Kill_Player", "GTAO_FM_Events_Soundset", 0},
+    {-1, "Criminal_Damage_Low_Value", "GTAO_FM_Events_Soundset", 0},
+    {-1, "CUTSCENE_DIALOGUE_OVERRIDE_SOUND_02", 0, 0},
+    {-1, "Cycle_Item", "DLC_Dmod_Prop_Editor_Sounds", 0},
+    {-1, "DELETE", "HUD_DEATHMATCH_SOUNDSET", 1},
+    {-1, "Delete_Placed_Prop", "DLC_Dmod_Prop_Editor_Sounds", 0},
+    {-1, "Deliver_Pick_Up", "HUD_FRONTEND_MP_COLLECTABLE_SOUNDS", 1},
+    {-1, "DiggerRevOneShot", "BulldozerDefault", 1},
+    {-1, "Door_Open", "DOCKS_HEIST_FINALE_2B_SOUNDS", 1},
+    {-1, "Drill_Pin_Break", "DLC_HEIST_FLEECA_SOUNDSET", 1},
+    {-1, "Dropped", "HUD_FRONTEND_MP_COLLECTABLE_SOUNDS", 1},
+    {-1, "DRUG_TRAFFIC_AIR_BOMB_DROP_ERROR_MASTER", 0, 1},
+    {-1, "DRUG_TRAFFIC_AIR_SCREAMS", 0, 1},
+    {-1, "EDIT", "HUD_DEATHMATCH_SOUNDSET", 1},
+    {-1, "End_Squelch", "CB_RADIO_SFX", 1},
+    {-1, "Enemy_Capture_Start", "GTAO_Magnate_Yacht_Attack_Soundset", 0},
+    {-1, "Enemy_Deliver", "HUD_FRONTEND_MP_COLLECTABLE_SOUNDS", 1},
+    {-1, "Enemy_Pick_Up", "HUD_FRONTEND_MP_COLLECTABLE_SOUNDS", 1},
+    {-1, "Enter_1st", "GTAO_FM_Events_Soundset", 0},
+    {-1, "Enter_1st", "GTAO_Magnate_Boss_Modes_Soundset", 0},
+    {-1, "Enter_Area", "DLC_Lowrider_Relay_Race_Sounds", 0},
+    {-1, "Enter_Capture_Zone", "DLC_Apartments_Drop_Zone_Sounds", 0},
+    {-1, "ERROR", "HUD_AMMO_SHOP_SOUNDSET", 1},
+    {-1, "ERROR", "HUD_FRONTEND_CLOTHESSHOP_SOUNDSET", 1},
+    {-1, "ERROR", "HUD_FRONTEND_DEFAULT_SOUNDSET", 1},
+    {-1, "ERROR", "HUD_FRONTEND_TATTOO_SHOP_SOUNDSET", 1},
+    {-1, "ERROR", "HUD_LIQUOR_STORE_SOUNDSET", 1},
+    {-1, "Event_Message_Purple", "GTAO_FM_Events_Soundset", 0},
+    {-1, "Event_Start_Text", "GTAO_FM_Events_Soundset", 0},
+    {-1, "EXILE_3_TRAIN_BRAKE_PULL_MASTER", 0, 1},
+    {-1, "EXILE_3_TRAIN_BRAKE_RELEASE_MASTER", 0, 1},
+    {-1, "EXIT", "HUD_FRONTEND_DEFAULT_SOUNDSET", 1},
+    {-1, "Exit_Capture_Zone", "DLC_Apartments_Drop_Zone_Sounds", 0},
+    {-1, "Failure", "DLC_HEIST_HACKING_SNAKE_SOUNDS", 1},
+    {-1, "Falling_Crates", "EXILE_1", 1},
+    {-1, "FAMILY_1_CAR_BREAKDOWN", "FAMILY1_BOAT", 1},
+    {-1, "FAMILY_1_CAR_BREAKDOWN_ADDITIONAL", "FAMILY1_BOAT", 1},
+    {-1, "Faster_Bar_Full", "RESPAWN_ONLINE_SOUNDSET", 1},
+    {-1, "Faster_Click", "RESPAWN_ONLINE_SOUNDSET", 1},
+    {-1, "FestiveGift", "Feed_Message_Sounds", 0},
+    {-1, "FIRST_PLACE", "HUD_MINI_GAME_SOUNDSET", 1},
+    {-1, "FLYING_STREAM_END_INSTANT", "FAMILY_5_SOUNDS", 1},
+    {-1, "FocusIn", "HintCamSounds", 1},
+    {-1, "FocusOut", "HintCamSounds", 1},
+    {-1, "Friend_Deliver", "HUD_FRONTEND_MP_COLLECTABLE_SOUNDS", 1},
+    {-1, "Friend_Pick_Up", "HUD_FRONTEND_MP_COLLECTABLE_SOUNDS", 0},
+    {-1, "Friend_Pick_Up", "HUD_FRONTEND_MP_COLLECTABLE_SOUNDS", 1},
+    {-1, "Frontend_Beast_Fade_Screen", "FM_Events_Sasquatch_Sounds", 0},
+    {-1, "Frontend_Beast_Freeze_Screen", "FM_Events_Sasquatch_Sounds", 0},
+    {-1, "Frontend_Beast_Text_Hit", "FM_Events_Sasquatch_Sounds", 0},
+    {-1, "Frontend_Beast_Transform_Back", "FM_Events_Sasquatch_Sounds", 0},
+    {-1, "GO", "HUD_MINI_GAME_SOUNDSET", 0},
+    {-1, "GO", "HUD_MINI_GAME_SOUNDSET", 1},
+    {-1, "GO_NON_RACE", "HUD_MINI_GAME_SOUNDSET", 1},
+    {-1, "Goal", "DLC_HEIST_HACKING_SNAKE_SOUNDS", 1},
+    {-1, "GOLF_HUD_HOLE_IN_ONE_MASTER", 0, 1},
+    {-1, "GOLF_HUD_SCORECARD_MASTER", 0, 1},
+    {-1, "Goon_Paid_Small", "GTAO_Boss_Goons_FM_Soundset", 0},
+    {-1, "Grab_Parachute", "BASEJUMPS_SOUNDS", 1},
+    {-1, "Hack_Failed", "DLC_HEIST_BIOLAB_PREP_HACKING_SOUNDS", 0},
+    {-1, "Hack_Success", "DLC_HEIST_BIOLAB_PREP_HACKING_SOUNDS", 1},
+    {-1, "HACKING_CLICK", 0, 1},
+    {-1, "HACKING_CLICK_BAD", 0, 1},
+    {-1, "HACKING_CLICK_GOOD", 0, 1},
+    {-1, "HACKING_FAILURE", 0, 1},
+    {-1, "HACKING_MOVE_CURSOR", 0, 1},
+    {-1, "HACKING_SUCCESS", 0, 1},
+    {-1, "Hang_Up", "Phone_SoundSet_Michael", 1},
+    {-1, "HIGHLIGHT", "HUD_FRONTEND_DEFAULT_SOUNDSET", 1},
+    {-1, "Highlight_Accept", "DLC_HEIST_PLANNING_BOARD_SOUNDS", 1},
+    {-1, "Highlight_Cancel", "DLC_HEIST_PLANNING_BOARD_SOUNDS", 1},
+    {-1, "Highlight_Error", "DLC_HEIST_PLANNING_BOARD_SOUNDS", 1},
+    {-1, "Highlight_Move", "DLC_HEIST_PLANNING_BOARD_SOUNDS", 1},
+    {-1, "HIGHLIGHT_NAV_UP_DOWN", "HUD_FRONTEND_DEFAULT_SOUNDSET", 1},
+    {-1, "Hit", "RESPAWN_ONLINE_SOUNDSET", 1},
+    {-1, "Hit", "RESPAWN_SOUNDSET", 0},
+    {-1, "Hit", "RESPAWN_SOUNDSET", 1},
+    {-1, "Hit_1", "LONG_PLAYER_SWITCH_SOUNDS", 0},
+    {-1, "Hit_1", "LONG_PLAYER_SWITCH_SOUNDS", 1},
+    {-1, "Hit_In", "PLAYER_SWITCH_CUSTOM_SOUNDSET", 1},
+    {-1, "Hit_Out", "PLAYER_SWITCH_CUSTOM_SOUNDSET", 1},
+    {-1, "HOORAY", "BARRY_02_SOUNDSET", 1},
+    {-1, "HORDE_COOL_DOWN_TIMER", "HUD_FRONTEND_DEFAULT_SOUNDSET", 1},
+    {-1, "HUD_FREEMODE_CANCEL_MASTER", 0, 1},
+    {-1, "Kill_List_Counter", "GTAO_FM_Events_Soundset", 0},
+    {-1, "LAMAR1_PARTYGIRLS_master", 0, 1},
+    {-1, "LEADER_BOARD", "HUD_FRONTEND_DEFAULT_SOUNDSET", 1},
+    {-1, "LEADERBOARD", "HUD_MINI_GAME_SOUNDSET", 1},
+    {-1, "Lester_Laugh_Phone", "DLC_HEIST_HACKING_SNAKE_SOUNDS", 1},
+    {-1, "Lights_On", "GTAO_MUGSHOT_ROOM_SOUNDS", 1},
+    {-1, "LIMIT", "DLC_APT_YACHT_DOOR_SOUNDS", 1},
+    {-1, "LIMIT", "GTAO_APT_DOOR_DOWNSTAIRS_GLASS_SOUNDS", 1},
+    {-1, "LIMIT", "GTAO_APT_DOOR_DOWNSTAIRS_WOOD_SOUNDS", 1},
+    {-1, "Load_Scene", "DLC_Dmod_Prop_Editor_Sounds", 0},
+    {-1, "LOCAL_PLYR_CASH_COUNTER_COMPLETE", "DLC_HEISTS_GENERAL_FRONTEND_SOUNDS", 0},
+    {-1, "LOCAL_PLYR_CASH_COUNTER_INCREASE", "DLC_HEISTS_GENERAL_FRONTEND_SOUNDS", 0},
+    {-1, "LOOSE_MATCH", "HUD_MINI_GAME_SOUNDSET", 1},
+    {-1, "Lose_1st", "GTAO_FM_Events_Soundset", 0},
+    {-1, "Lose_1st", "GTAO_Magnate_Boss_Modes_Soundset", 0},
+    {-1, "Lowrider_Upgrade", "Lowrider_Super_Mod_Garage_Sounds", 1},
+    {-1, "Map_Roll_Down", "DLC_HEIST_PLANNING_BOARD_SOUNDS", 1},
+    {-1, "Map_Roll_Up", "DLC_HEIST_PLANNING_BOARD_SOUNDS", 1},
+    {-1, "MARKER_ERASE", "HEIST_BULLETIN_BOARD_SOUNDSET", 1},
+    {-1, "MARTIN1_DISTANT_TRAIN_HORNS_MASTER", 0, 1},
+    {-1, "MEDAL_UP", "HUD_MINI_GAME_SOUNDSET", 1},
+    {-1, "Menu_Accept", "Phone_SoundSet_Default", 1},
+    {-1, "MICHAEL_LONG_SCREAM", "FAMILY_5_SOUNDS", 1},
+    {-1, "MICHAEL_SOFA_REMOTE_CLICK_VOLUME_MASTER", 0, 1},
+    {-1, "MICHAEL_SOFA_TV_CHANGE_CHANNEL_MASTER", 0, 1},
+    {-1, "MICHAEL_SOFA_TV_ON_MASTER", 0, 1},
+    {-1, "Mission_Pass_Notify", "DLC_HEISTS_GENERAL_FRONTEND_SOUNDS", 0},
+    {-1, "Mission_Pass_Notify", "DLC_HEISTS_GENERAL_FRONTEND_SOUNDS", 1},
+    {-1, "MP_5_SECOND_TIMER", "HUD_FRONTEND_DEFAULT_SOUNDSET", 1},
+    {-1, "MP_AWARD", "HUD_FRONTEND_DEFAULT_SOUNDSET", 1},
+    {-1, "MP_IDLE_KICK", "HUD_FRONTEND_DEFAULT_SOUNDSET", 1},
+    {-1, "MP_IDLE_TIMER", "HUD_FRONTEND_DEFAULT_SOUNDSET", 1},
+    {-1, "MP_RANK_UP", "HUD_FRONTEND_DEFAULT_SOUNDSET", 0},
+    {-1, "MP_WAVE_COMPLETE", "HUD_FRONTEND_DEFAULT_SOUNDSET", 1},
+    {-1, "NAV", "HUD_AMMO_SHOP_SOUNDSET", 1},
+    {-1, "Nav_Arrow_Ahead", "DLC_HEISTS_GENERAL_FRONTEND_SOUNDS", 1},
+    {-1, "Nav_Arrow_Behind", "DLC_HEISTS_GENERAL_FRONTEND_SOUNDS", 1},
+    {-1, "Nav_Arrow_Left", "DLC_HEISTS_GENERAL_FRONTEND_SOUNDS", 1},
+    {-1, "Nav_Arrow_Right", "DLC_HEISTS_GENERAL_FRONTEND_SOUNDS", 1},
+    {-1, "NAV_LEFT_RIGHT", "HUD_FREEMODE_SOUNDSET", 1},
+    {-1, "NAV_LEFT_RIGHT", "HUD_FRONTEND_DEFAULT_SOUNDSET", 0},
+    {-1, "NAV_LEFT_RIGHT", "HUD_FRONTEND_DEFAULT_SOUNDSET", 1},
+    {-1, "NAV_UP_DOWN", "HUD_FREEMODE_SOUNDSET", 1},
+    {-1, "NAV_UP_DOWN", "HUD_FRONTEND_CLOTHESSHOP_SOUNDSET", 1},
+    {-1, "NAV_UP_DOWN", "HUD_FRONTEND_DEFAULT_SOUNDSET", 0},
+    {-1, "NAV_UP_DOWN", "HUD_FRONTEND_DEFAULT_SOUNDSET", 1},
+    {-1, "NAV_UP_DOWN", "HUD_FRONTEND_TATTOO_SHOP_SOUNDSET", 1},
+    {-1, "NAV_UP_DOWN", "HUD_LIQUOR_STORE_SOUNDSET", 1},
+    {-1, "NAV_UP_DOWN", "HUD_MINI_GAME_SOUNDSET", 1},
+    {-1, "Near_Miss_Counter_Reset", "GTAO_FM_Events_Soundset", 0},
+    {-1, "NET_RACE_START_EVENT_MASTER", 0, 1},
+    {-1, "NO", "HUD_FRONTEND_DEFAULT_SOUNDSET", 1},
+    {-1, "Object_Collect_Player", "GTAO_FM_Events_Soundset", 0},
+    {-1, "Object_Collect_Remote", "GTAO_FM_Events_Soundset", 0},
+    {-1, "Object_Dropped_Remote", "GTAO_FM_Events_Soundset", 0},
+    {-1, "OFF", v_4, 1},
+    {-1, "Off_High", "MP_RADIO_SFX", 1},
+    {-1, "OK", "HUD_FRONTEND_DEFAULT_SOUNDSET", 1},
+    {-1, "ON", "NOIR_FILTER_SOUNDS", 1},
+    {-1, "On_Call_Player_Join", "DLC_HEISTS_GENERAL_FRONTEND_SOUNDS", 1},
+    {-1, "OOB_Cancel", "GTAO_FM_Events_Soundset", 0},
+    {-1, "OOB_Start", "GTAO_FM_Events_Soundset", 0},
+    {-1, "OPEN_WINDOW", "LESTER1A_SOUNDS", 1},
+    {-1, "OPENED", "MP_PROPERTIES_ELEVATOR_DOORS", 1},
+    {-1, "Out_Of_Area", "DLC_Lowrider_Relay_Race_Sounds", 0},
+    {-1, "Paper_Shuffle", "DLC_HEIST_PLANNING_BOARD_SOUNDS", 1},
+    {-1, "Parcel_Vehicle_Lost", "GTAO_FM_Events_Soundset", 0},
+    {-1, "Payment_Non_Player", "DLC_HEISTS_GENERIC_SOUNDS", 0},
+    {-1, "Payment_Player", "DLC_HEISTS_GENERIC_SOUNDS", 0},
+    {-1, "Pen_Tick", "DLC_HEIST_PLANNING_BOARD_SOUNDS", 1},
+    {-1, "PERSON_SCROLL", "HEIST_BULLETIN_BOARD_SOUNDSET", 1},
+    {-1, "PERSON_SELECT", "HEIST_BULLETIN_BOARD_SOUNDSET", 1},
+    {-1, "Phone_Generic_Key_02", "HUD_MINIGAME_SOUNDSET", 1},
+    {-1, "Phone_Generic_Key_03", "HUD_MINIGAME_SOUNDSET", 1},
+    {-1, "PICK_UP", "HUD_FRONTEND_DEFAULT_SOUNDSET", 1},
+    {-1, "PICK_UP_WEAPON", "HUD_FRONTEND_CUSTOM_SOUNDSET", 1},
+    {-1, "PICKUP_WEAPON_SMOKEGRENADE", "HUD_FRONTEND_WEAPONS_PICKUPS_SOUNDSET", 1},
+    {-1, "Pin_Bad", "DLC_HEIST_BIOLAB_PREP_HACKING_SOUNDS", 1},
+    {-1, "PIN_BUTTON", "ATM_SOUNDS", 1},
+    {-1, "Pin_Centred", "DLC_HEIST_BIOLAB_PREP_HACKING_SOUNDS", 1},
+    {-1, "Pin_Good", "DLC_HEIST_BIOLAB_PREP_HACKING_SOUNDS", 1},
+    {-1, "PIPES_LAND", "CONSTRUCTION_ACCIDENT_1_SOUNDS", 1},
+    {-1, "Place_Prop_Fail", "DLC_Dmod_Prop_Editor_Sounds", 0},
+    {-1, "Place_Prop_Success", "DLC_Dmod_Prop_Editor_Sounds", 0},
+    {-1, "Player_Collect", "DLC_PILOT_MP_HUD_SOUNDS", 0},
+    {-1, "Player_Enter_Line", "GTAO_FM_Cross_The_Line_Soundset", 0},
+    {-1, "Player_Exit_Line", "GTAO_FM_Cross_The_Line_Soundset", 0},
+    {-1, "Power_Down", "DLC_HEIST_HACKING_SNAKE_SOUNDS", 1},
+    {-1, "Pre_Screen_Stinger", "DLC_HEISTS_FAILED_SCREEN_SOUNDS", 0},
+    {-1, "Pre_Screen_Stinger", "DLC_HEISTS_FINALE_SCREEN_SOUNDS", 0},
+    {-1, "Pre_Screen_Stinger", "DLC_HEISTS_FINALE_SCREEN_SOUNDS", 1},
+    {-1, "Pre_Screen_Stinger", "DLC_HEISTS_PREP_SCREEN_SOUNDS", 0},
+    {-1, "Pre_Screen_Stinger", "DLC_HEISTS_PREP_SCREEN_SOUNDS", 1},
+    {-1, "PROPERTY_PURCHASE_MEDIUM", "HUD_PROPERTY_SOUNDSET", 1},
+    {-1, "PS2A_DISTANT_TRAIN_HORNS_MASTER", 0, 1},
+    {-1, "PS2A_MONEY_LOST", "PALETO_SCORE_2A_BANK_SS", 1},
+    {-1, "PURCHASE", "HUD_FRONTEND_TATTOO_SHOP_SOUNDSET", 1},
+    {-1, "PURCHASE", "HUD_LIQUOR_STORE_SOUNDSET", 1},
+    {-1, "PUSH", "DLC_APT_YACHT_DOOR_SOUNDS", 1},
+    {-1, "PUSH", "GTAO_APT_DOOR_DOWNSTAIRS_GLASS_SOUNDS", 1},
+    {-1, "PUSH", "GTAO_APT_DOOR_DOWNSTAIRS_WOOD_SOUNDS", 1},
+    {-1, "Put_Away", "Phone_SoundSet_Michael", 1},
+    {-1, "QUIT", "HUD_FRONTEND_DEFAULT_SOUNDSET", 1},
+    {-1, "QUIT_WHOOSH", "HUD_MINI_GAME_SOUNDSET", 1},
+    {-1, "Radar_Beast_Blip", "FM_Events_Sasquatch_Sounds", 0},
+    {-1, "RAMP_DOWN", "TRUCK_RAMP_DOWN", 1},
+    {-1, "RAMP_UP", "TRUCK_RAMP_DOWN", 1},
+    {-1, "RAMPAGE_KILLED_COUNTER_MASTER", 0, 1},
+    {-1, "RAMPAGE_KILLED_HEAD_SHOT_MASTER", 0, 1},
+    {-1, "RAMPAGE_PASSED_MASTER", 0, 1},
+    {-1, "RAMPAGE_ROAR_MASTER", 0, 1},
+    {-1, "REMOTE_PLYR_CASH_COUNTER_COMPLETE", "DLC_HEISTS_GENERAL_FRONTEND_SOUNDS", 0},
+    {-1, "REMOTE_PLYR_CASH_COUNTER_INCREASE", "DLC_HEISTS_GENERAL_FRONTEND_SOUNDS", 0},
+    {-1, "Remote_Sniper_Rifle_Fire", 0, 1},
+    {-1, "Reset_Prop_Position", "DLC_Dmod_Prop_Editor_Sounds", 0},
+    {-1, "RESTART", "HUD_FRONTEND_DEFAULT_SOUNDSET", 1},
+    {-1, "RETRY", "HUD_FRONTEND_DEFAULT_SOUNDSET", 1},
+    {-1, "Retune_High", "MP_RADIO_SFX", 1},
+    {-1, "ROBBERY_MONEY_TOTAL", "HUD_FRONTEND_CUSTOM_SOUNDSET", 1},
+    {-1, "ROPE_CUT", "ROPE_CUT_SOUNDSET", 1},
+    {-1, "ROUND_ENDING_STINGER_CUSTOM", "CELEBRATION_SOUNDSET", 0},
+    {-1, "Save_Scene", "DLC_Dmod_Prop_Editor_Sounds", 0},
+    {-1, "SCOPE_UI_MASTER", 0, 1},
+    {-1, "SCREEN_FLASH", "CELEBRATION_SOUNDSET", 1},
+    {-1, "ScreenFlash", "MissionFailedSounds", 1},
+    {-1, "SELECT", "HUD_FREEMODE_SOUNDSET", 1},
+    {-1, "SELECT", "HUD_FRONTEND_CLOTHESSHOP_SOUNDSET", 1},
+    {-1, "SELECT", "HUD_FRONTEND_DEFAULT_SOUNDSET", 0},
+    {-1, "SELECT", "HUD_FRONTEND_DEFAULT_SOUNDSET", 1},
+    {-1, "SELECT", "HUD_FRONTEND_MP_SOUNDSET", 0},
+    {-1, "SELECT", "HUD_FRONTEND_MP_SOUNDSET", 1},
+    {-1, "SELECT", "HUD_FRONTEND_TATTOO_SHOP_SOUNDSET", 1},
+    {-1, "SELECT", "HUD_LIQUOR_STORE_SOUNDSET", 1},
+    {-1, "SELECT", "HUD_MINI_GAME_SOUNDSET", 1},
+    {-1, "Select_Placed_Prop", "DLC_Dmod_Prop_Editor_Sounds", 0},
+    {-1, "Shard_Disappear", "GTAO_Boss_Goons_FM_Shard_Sounds", 0},
+    {-1, "Shard_Disappear", "GTAO_FM_Events_Soundset", 0},
+    {-1, "Short_Transition_In", "PLAYER_SWITCH_CUSTOM_SOUNDSET", 1},
+    {-1, "Short_Transition_Out", "PLAYER_SWITCH_CUSTOM_SOUNDSET", 1},
+    {-1, "SKIP", "HUD_FRONTEND_DEFAULT_SOUNDSET", 1},
+    {-1, "Start", "DLC_HEIST_HACKING_SNAKE_SOUNDS", 1},
+    {-1, "Start_Squelch", "CB_RADIO_SFX", 1},
+    {-1, "STUN_COLLECT", "MINUTE_MAN_01_SOUNDSET", 1},
+    {-1, "SultanRS_Upgrade", "JA16_Super_Mod_Garage_Sounds", 1},
+    {-1, "Swap_Sides", "DLC_HALLOWEEN_FVJ_Sounds", 0},
+    {-1, "SWING_SHUT", "GTAO_APT_DOOR_DOWNSTAIRS_GLASS_SOUNDS", 1},
+    {-1, "SWING_SHUT", "GTAO_APT_DOOR_DOWNSTAIRS_WOOD_SOUNDS", 1},
+    {-1, "Tattooing_Oneshot", "TATTOOIST_SOUNDS", 1},
+    {-1, "Tattooing_Oneshot_Remove", "TATTOOIST_SOUNDS", 1},
+    {-1, "Team_Capture_Start", "GTAO_Magnate_Yacht_Attack_Soundset", 0},
+    {-1, "Thermal_Off", "CAR_STEAL_2_SOUNDSET", 1},
+    {-1, "Thermal_On", "CAR_STEAL_2_SOUNDSET", 1},
+    {-1, "THERMAL_VISION_GOGGLES_OFF_MASTER", 0, 0},
+    {-1, "THERMAL_VISION_GOGGLES_OFF_MASTER", 0, 1},
+    {-1, "THERMAL_VISION_GOGGLES_ON_MASTER", 0, 1},
+    {-1, "TIME_LAPSE_MASTER", 0, 1},
+    {-1, "TIMER", "HUD_FRONTEND_DEFAULT_SOUNDSET", 1},
+    {-1, "TIMER_STOP", "HUD_MINI_GAME_SOUNDSET", 1},
+    {-1, "TOGGLE_ON", "HUD_FRONTEND_DEFAULT_SOUNDSET", 0},
+    {-1, "TOGGLE_ON", "HUD_FRONTEND_DEFAULT_SOUNDSET", 1},
+    {-1, "Traffic_Control_Fail", "BIG_SCORE_3A_SOUNDS", 1},
+    {-1, "Traffic_Control_Fail_Blank", "BIG_SCORE_3A_SOUNDS", 1},
+    {-1, "Traffic_Control_Light_Switch_Back", "BIG_SCORE_3A_SOUNDS", 1},
+    {-1, "TRAFFIC_CONTROL_MOVE_CROSSHAIR", "BIG_SCORE_3A_SOUNDS", 1},
+    {-1, "Turn", "DLC_HEIST_HACKING_SNAKE_SOUNDS", 1},
+    {-1, "UNDER_WATER_COME_UP", 0, 1},
+    {-1, "UNDO", "HEIST_BULLETIN_BOARD_SOUNDSET", 1},
+    {-1, "WAYPOINT_SET", "HUD_FRONTEND_DEFAULT_SOUNDSET", 0},
+    {-1, "WEAKEN", "CONSTRUCTION_ACCIDENT_1_SOUNDS", 1},
+    {-1, "WEAPON_AMMO_PURCHASE", "HUD_AMMO_SHOP_SOUNDSET", 1},
+    {-1, "WEAPON_ATTACHMENT_EQUIP", "HUD_AMMO_SHOP_SOUNDSET", 1},
+    {-1, "WEAPON_ATTACHMENT_UNEQUIP", "HUD_AMMO_SHOP_SOUNDSET", 1},
+    {-1, "WEAPON_PURCHASE", "HUD_AMMO_SHOP_SOUNDSET", 1},
+    {-1, "WEAPON_SELECT_ARMOR", "HUD_AMMO_SHOP_SOUNDSET", 1},
+    {-1, "WEAPON_SELECT_BATON", "HUD_AMMO_SHOP_SOUNDSET", 1},
+    {-1, "WEAPON_SELECT_FUEL_CAN", "HUD_AMMO_SHOP_SOUNDSET", 1},
+    {-1, "WEAPON_SELECT_GRENADE_LAUNCHER", "HUD_AMMO_SHOP_SOUNDSET", 1},
+    {-1, "WEAPON_SELECT_HANDGUN", "HUD_AMMO_SHOP_SOUNDSET", 1},
+    {-1, "WEAPON_SELECT_KNIFE", "HUD_AMMO_SHOP_SOUNDSET", 1},
+    {-1, "WEAPON_SELECT_OTHER", "HUD_AMMO_SHOP_SOUNDSET", 1},
+    {-1, "WEAPON_SELECT_PARACHUTE", "HUD_AMMO_SHOP_SOUNDSET", 1},
+    {-1, "WEAPON_SELECT_RIFLE", "HUD_AMMO_SHOP_SOUNDSET", 1},
+    {-1, "WEAPON_SELECT_RPG_LAUNCHER", "HUD_AMMO_SHOP_SOUNDSET", 1},
+    {-1, "WEAPON_SELECT_SHOTGUN", "HUD_AMMO_SHOP_SOUNDSET", 1},
+    {-1, "Whistle", "DLC_TG_Running_Back_Sounds", 0},
+    {-1, "Whoosh_1s_L_to_R", "MP_LOBBY_SOUNDS", 1},
+    {-1, "Whoosh_1s_R_to_L", "MP_LOBBY_SOUNDS", 1},
+    {-1, "WOODEN_DOOR_CLOSED_AT", 0, 0},
+    {-1, "WOODEN_DOOR_CLOSED_AT", 0, 1},
+    {-1, "WOODEN_DOOR_CLOSING_AT", 0, 0},
+    {-1, "WOODEN_DOOR_CLOSING_AT", 0, 1},
+    {-1, "WOODEN_DOOR_OPEN_HANDLE_AT", 0, 0},
+    {-1, "WOODEN_DOOR_OPEN_HANDLE_AT", 0, 1},
+    {-1, "WOODEN_DOOR_OPEN_NO_HANDLE_AT", 0, 1},
+    {-1, "YES", "HUD_FRONTEND_DEFAULT_SOUNDSET", 1},
+    {-1, "Zone_Enemy_Capture", "DLC_Apartments_Drop_Zone_Sounds", 0},
+    {-1, "Zone_Neutral", "DLC_Apartments_Drop_Zone_Sounds", 0},
+    {-1, "Zone_Team_Capture", "DLC_Apartments_Drop_Zone_Sounds", 0},
+    {-1, "Zoom_In", "DLC_HEIST_PLANNING_BOARD_SOUNDS", 1},
+    {-1, "Zoom_Left", "DLC_HEIST_PLANNING_BOARD_SOUNDS", 1},
+    {-1, "Zoom_Out", "DLC_HEIST_PLANNING_BOARD_SOUNDS", 1},
+    {-1, "Zoom_Right", "DLC_HEIST_PLANNING_BOARD_SOUNDS", 1},
+    {-1, "10_SEC_WARNING", "HUD_MINI_GAME_SOUNDSET", 1},
+}
+
+--- filterList[N] = "TimecycleModifierName"
+--- Applied via SetTimecycleModifier in the filter browser.
+--- Entry 1 is always "None" (clear filter).
+local filterList = {
+    "None",
+    "AmbientPUSH",
+    "AP1_01_B_IntRefRange",
+    "AP1_01_C_NoFog",
+    "Bank_HLWD",
+    "Barry1_Stoned",
+    "BarryFadeOut",
+    "baseTONEMAPPING",
+    "BeastIntro01",
+    "BeastIntro02",
+    "BeastLaunch01",
+    "BeastLaunch02",
+    "BikerFilter",
+    "BikerForm01",
+    "BikerFormFlash",
+    "Bikers",
+    "BikersSPLASH",
+    "blackNwhite",
+    "BlackOut",
+    "BleepYellow01",
+    "BleepYellow02",
+    "Bloom",
+    "BloomLight",
+    "BloomMid",
+    "buggy_shack",
+    "buildingTOP",
+    "BulletTimeDark",
+    "BulletTimeLight",
+    "CAMERA_BW",
+    "CAMERA_secuirity",
+    "CAMERA_secuirity_FUZZ",
+    "canyon_mission",
+    "carMOD_underpass",
+    "carpark",
+    "carpark_dt1_02",
+    "carpark_dt1_03",
+    "Carpark_MP_exit",
+    "cashdepot",
+    "cashdepotEMERGENCY",
+    "cBank_back",
+    "cBank_front",
+    "ch2_tunnel_whitelight",
+    "CH3_06_water",
+    "CHOP",
+    "cinema",
+    "cinema_001",
+    "cops",
+    "CopsSPLASH",
+    "crane_cam",
+    "crane_cam_cinematic",
+    "CrossLine01",
+    "CrossLine02",
+    "CS1_railwayB_tunnel",
+    "CS3_rail_tunnel",
+    "CUSTOM_streetlight",
+    "damage",
+    "DeadlineNeon01",
+    "default",
+    "DefaultColorCode",
+    "DONT_overide_sunpos",
+    "Dont_tazeme_bro",
+    "dont_tazeme_bro_b",
+    "downtown_FIB_cascades_opt",
+    "DrivingFocusDark",
+    "DrivingFocusLight",
+    "DRUG_2_drive",
+    "Drug_deadman",
+    "Drug_deadman_blend",
+    "drug_drive_blend01",
+    "drug_drive_blend02",
+    "drug_flying_01",
+    "drug_flying_02",
+    "drug_flying_base",
+    "DRUG_gas_huffin",
+    "drug_wobbly",
+    "Drunk",
+    "dying",
+    "eatra_bouncelight_beach",
+    "epsilion",
+    "exile1_exit",
+    "exile1_plane",
+    "ExplosionJosh",
+    "EXT_FULLAmbientmult_art",
+    "ext_int_extlight_large",
+    "EXTRA_bouncelight",
+    "eyeINtheSKY",
+    "Facebook_NEW",
+    "facebook_serveroom",
+    "FIB_5",
+    "FIB_6",
+    "FIB_A",
+    "FIB_B",
+    "FIB_interview",
+    "FIB_interview_optimise",
+    "FinaleBank",
+    "FinaleBankexit",
+    "FinaleBankMid",
+    "fireDEPT",
+    "FORdoron_delete",
+    "Forest",
+    "fp_vig_black",
+    "fp_vig_blue",
+    "fp_vig_brown",
+    "fp_vig_gray",
+    "fp_vig_green",
+    "fp_vig_red",
+    "FrankilinsHOUSEhills",
+    "frankilnsAUNTS_new",
+    "frankilnsAUNTS_SUNdir",
+    "FRANKLIN",
+    "FranklinColorCode",
+    "FranklinColorCodeBasic",
+    "FranklinColorCodeBright",
+    "FullAmbientmult_interior",
+    "gallery_refmod",
+    "garage",
+    "gen_bank",
+    "glasses_black",
+    "Glasses_BlackOut",
+    "glasses_blue",
+    "glasses_brown",
+    "glasses_Darkblue",
+    "glasses_green",
+    "glasses_orange",
+    "glasses_pink",
+    "glasses_purple",
+    "glasses_red",
+    "glasses_Scuba",
+    "glasses_VISOR",
+    "glasses_yellow",
+    "gorge_reflection_gpu",
+    "gorge_reflectionoffset",
+    "gorge_reflectionoffset2",
+    "graveyard_shootout",
+    "gunclub",
+    "gunclubrange",
+    "gunshop",
+    "gunstore",
+    "half_direct",
+    "hangar_lightsmod",
+    "Hanger_INTmods",
+    "heathaze",
+    "heist_boat",
+    "heist_boat_engineRoom",
+    "heist_boat_norain",
+    "helicamfirst",
+    "heliGunCam",
+    "Hicksbar",
+    "HicksbarNEW",
+    "hillstunnel",
+    "Hint_cam",
+    "hitped",
+    "hud_def_blur",
+    "hud_def_blur_switch",
+    "hud_def_colorgrade",
+    "hud_def_desat_cold",
+    "hud_def_desat_cold_kill",
+    "hud_def_desat_Franklin",
+    "hud_def_desat_Michael",
+    "hud_def_desat_Neutral",
+    "hud_def_desat_switch",
+    "hud_def_desat_Trevor",
+    "hud_def_desatcrunch",
+    "hud_def_flash",
+    "hud_def_focus",
+    "hud_def_Franklin",
+    "hud_def_lensdistortion",
+    "hud_def_lensdistortion_subtle",
+    "hud_def_Michael",
+    "hud_def_Trevor",
+    "id1_11_tunnel",
+    "ImpExp_Interior_01",
+    "impexp_interior_01_lift",
+    "IMpExt_Interior_02",
+    "IMpExt_Interior_02_stair_cage",
+    "InchOrange01",
+    "InchOrange02",
+    "InchPickup01",
+    "InchPickup02",
+    "InchPurple01",
+    "InchPurple02",
+    "int_amb_mult_large",
+    "int_Barber1",
+    "int_carmod_small",
+    "int_carrier_control",
+    "int_carrier_control_2",
+    "int_carrier_hanger",
+    "int_carrier_rear",
+    "int_carrier_stair",
+    "int_carshowroom",
+    "int_chopshop",
+    "int_clean_extlight_large",
+    "int_clean_extlight_none",
+    "int_clean_extlight_small",
+    "int_ClothesHi",
+    "int_clotheslow_large",
+    "int_cluckinfactory_none",
+    "int_cluckinfactory_small",
+    "int_ControlTower_none",
+    "int_ControlTower_small",
+    "int_dockcontrol_small",
+    "int_extlght_sm_cntrst",
+    "int_extlight_large",
+    "int_extlight_large_fog",
+    "int_extlight_none",
+    "int_extlight_none_dark",
+    "int_extlight_none_dark_fog",
+    "int_extlight_none_fog",
+    "int_extlight_small",
+    "int_extlight_small_clipped",
+    "int_extlight_small_fog",
+    "int_Farmhouse_none",
+    "int_Farmhouse_small",
+    "int_FranklinAunt_small",
+    "INT_FullAmbientmult",
+    "INT_FULLAmbientmult_art",
+    "INT_FULLAmbientmult_both",
+    "INT_garage",
+    "int_GasStation",
+    "int_hanger_none",
+    "int_hanger_small",
+    "int_Hospital2_DM",
+    "int_Hospital_Blue",
+    "int_Hospital_BlueB",
+    "int_hospital_dark",
+    "int_Hospital_DM",
+    "int_hospital_small",
+    "int_lesters",
+    "int_Lost_none",
+    "int_Lost_small",
+    "INT_mall",
+    "int_methlab_small",
+    "int_motelroom",
+    "INT_NO_fogALPHA",
+    "INT_NoAmbientmult",
+    "INT_NoAmbientmult_art",
+    "INT_NoAmbientmult_both",
+    "INT_NOdirectLight",
+    "INT_nowaterREF",
+    "int_office_Lobby",
+    "int_office_LobbyHall",
+    "INT_posh_hairdresser",
+    "INT_smshop",
+    "INT_smshop_indoor_bloom",
+    "INT_smshop_inMOD",
+    "INT_smshop_outdoor_bloom",
+    "INT_streetlighting",
+    "int_tattoo",
+    "int_tattoo_B",
+    "INT_trailer_cinema",
+    "int_tunnel_none_dark",
+    "interior_WATER_lighting",
+    "introblue",
+    "jewel_gas",
+    "jewel_optim",
+    "jewelry_entrance",
+    "jewelry_entrance_INT",
+    "jewelry_entrance_INT_fog",
+    "Kifflom",
+    "KT_underpass",
+    "lab_none",
+    "lab_none_dark",
+    "lab_none_dark_fog",
+    "lab_none_dark_OVR",
+    "lab_none_exit",
+    "lab_none_exit_OVR",
+    "LectroDark",
+    "LectroLight",
+    "li",
+    "LifeInvaderLOD",
+    "lightning",
+    "lightning_cloud",
+    "lightning_strong",
+    "lightning_weak",
+    "LightPollutionHills",
+    "lightpolution",
+    "LIGHTSreduceFALLOFF",
+    "LODmult_global_reduce",
+    "LODmult_global_reduce_NOHD",
+    "LODmult_HD_orphan_LOD_reduce",
+    "LODmult_HD_orphan_reduce",
+    "LODmult_LOD_reduce",
+    "LODmult_SLOD1_reduce",
+    "LODmult_SLOD2_reduce",
+    "LODmult_SLOD3_reduce",
+    "lodscaler",
+    "LostTimeDark",
+    "LostTimeFlash",
+    "LostTimeLight",
+    "maxlodscaler",
+    "metro",
+    "METRO_platform",
+    "METRO_Tunnels",
+    "METRO_Tunnels_entrance",
+    "MichaelColorCode",
+    "MichaelColorCodeBasic",
+    "MichaelColorCodeBright",
+    "MichaelsDarkroom",
+    "MichaelsDirectional",
+    "MichaelsNODirectional",
+    "micheal",
+    "micheals_lightsOFF",
+    "michealspliff",
+    "michealspliff_blend",
+    "michealspliff_blend02",
+    "militarybase_nightlight",
+    "mineshaft",
+    "morebloom",
+    "morgue_dark",
+    "morgue_dark_ovr",
+    "Mp_apart_mid",
+    "mp_bkr_int01_garage",
+    "mp_bkr_int01_small_rooms",
+    "mp_bkr_int01_transition",
+    "mp_bkr_int02_garage",
+    "mp_bkr_int02_hangout",
+    "mp_bkr_int02_small_rooms",
+    "mp_bkr_ware01",
+    "mp_bkr_ware02_dry",
+    "mp_bkr_ware02_standard",
+    "mp_bkr_ware02_upgrade",
+    "mp_bkr_ware03_basic",
+    "mp_bkr_ware03_upgrade",
+    "mp_bkr_ware04",
+    "mp_bkr_ware05",
+    "MP_Bull_tost",
+    "MP_Bull_tost_blend",
+    "MP_corona_heist",
+    "MP_corona_heist_blend",
+    "MP_corona_heist_BW",
+    "MP_corona_heist_BW_night",
+    "MP_corona_heist_DOF",
+    "MP_corona_heist_night",
+    "MP_corona_heist_night_blend",
+    "MP_corona_selection",
+    "MP_corona_switch",
+    "MP_corona_tournament",
+    "MP_corona_tournament_DOF",
+    "MP_death_grade",
+    "MP_death_grade_blend01",
+    "MP_death_grade_blend02",
+    "MP_deathfail_night",
+    "mp_exec_office_01",
+    "mp_exec_office_02",
+    "mp_exec_office_03",
+    "mp_exec_office_03_blue",
+    "mp_exec_office_03C",
+    "mp_exec_office_04",
+    "mp_exec_office_05",
+    "mp_exec_office_06",
+    "mp_exec_warehouse_01",
+    "MP_Garage_L",
+    "MP_H_01_Bathroom",
+    "MP_H_01_Bedroom",
+    "MP_H_01_New",
+    "MP_H_01_New_Bathroom",
+    "MP_H_01_New_Bedroom",
+    "MP_H_01_New_Study",
+    "MP_H_01_Study",
+    "MP_H_02",
+    "MP_H_04",
+    "mp_h_05",
+    "MP_H_06",
+    "mp_h_07",
+    "mp_h_08",
+    "MP_heli_cam",
+    "mp_imx_intwaremed",
+    "mp_imx_intwaremed_office",
+    "mp_imx_mod_int_01",
+    "MP_intro_logo",
+    "MP_job_end_night",
+    "MP_job_load",
+    "MP_job_load_01",
+    "MP_job_load_02",
+    "MP_job_lose",
+    "MP_job_preload",
+    "MP_job_preload_blend",
+    "MP_job_preload_night",
+    "MP_job_win",
+    "MP_Killstreak",
+    "MP_Killstreak_blend",
+    "mp_lad_day",
+    "mp_lad_judgment",
+    "mp_lad_night",
+    "MP_Loser",
+    "MP_Loser_blend",
+    "MP_lowgarage",
+    "MP_MedGarage",
+    "MP_Powerplay",
+    "MP_Powerplay_blend",
+    "MP_race_finish",
+    "MP_select",
+    "Mp_Stilts",
+    "Mp_Stilts2",
+    "Mp_Stilts2_bath",
+    "Mp_Stilts_gym",
+    "Mp_Stilts_gym2",
+    "MP_Studio_Lo",
+    "MPApart_H_01",
+    "MPApart_H_01_gym",
+    "MPApartHigh",
+    "MPApartHigh_palnning",
+    "mugShot",
+    "mugShot_lineup",
+    "Multipayer_spectatorCam",
+    "multiplayer_ped_fight",
+    "nervousRON_fog",
+    "NeutralColorCode",
+    "NeutralColorCodeBasic",
+    "NeutralColorCodeBright",
+    "NeutralColorCodeLight",
+    "NEW_abattoir",
+    "new_bank",
+    "NEW_jewel",
+    "NEW_jewel_EXIT",
+    "NEW_lesters",
+    "new_MP_Garage_L",
+    "NEW_ornate_bank",
+    "NEW_ornate_bank_entrance",
+    "NEW_ornate_bank_office",
+    "NEW_ornate_bank_safe",
+    "New_sewers",
+    "NEW_shrinksOffice",
+    "NEW_station_unfinished",
+    "new_stripper_changing",
+    "NEW_trevorstrailer",
+    "NEW_tunnels",
+    "NEW_tunnels_ditch",
+    "new_tunnels_entrance",
+    "NEW_tunnels_hole",
+    "NEW_yellowtunnels",
+    "NewMicheal",
+    "NewMicheal_night",
+    "NewMicheal_upstairs",
+    "NewMichealgirly",
+    "NewMichealstoilet",
+    "NewMichealupstairs",
+    "nextgen",
+    "NG_blackout",
+    "NG_deathfail_BW_base",
+    "NG_deathfail_BW_blend01",
+    "NG_deathfail_BW_blend02",
+    "NG_filmic01",
+    "NG_filmic02",
+    "NG_filmic03",
+    "NG_filmic04",
+    "NG_filmic05",
+    "NG_filmic06",
+    "NG_filmic07",
+    "NG_filmic08",
+    "NG_filmic09",
+    "NG_filmic10",
+    "NG_filmic11",
+    "NG_filmic12",
+    "NG_filmic13",
+    "NG_filmic14",
+    "NG_filmic15",
+    "NG_filmic16",
+    "NG_filmic17",
+    "NG_filmic18",
+    "NG_filmic19",
+    "NG_filmic20",
+    "NG_filmic21",
+    "NG_filmic22",
+    "NG_filmic23",
+    "NG_filmic24",
+    "NG_filmic25",
+    "NG_filmnoir_BW01",
+    "NG_filmnoir_BW02",
+    "NG_first",
+    "nightvision",
+    "NO_coronas",
+    "NO_fog_alpha",
+    "NO_streetAmbient",
+    "NO_weather",
+    "NoAmbientmult",
+    "NoAmbientmult_interior",
+    "NOdirectLight",
+    "NoPedLight",
+    "NOrain",
+    "overwater",
+    "Paleto",
+    "paleto_nightlight",
+    "paleto_opt",
+    "PennedInDark",
+    "PennedInLight",
+    "PERSHING_water_reflect",
+    "phone_cam",
+    "phone_cam1",
+    "phone_cam10",
+    "phone_cam11",
+    "phone_cam12",
+    "phone_cam13",
+    "phone_cam2",
+    "phone_cam3",
+    "phone_cam3_REMOVED",
+    "phone_cam4",
+    "phone_cam5",
+    "phone_cam6",
+    "phone_cam7",
+    "phone_cam8",
+    "phone_cam8_REMOVED",
+    "phone_cam9",
+    "plane_inside_mode",
+    "player_transition",
+    "player_transition_no_scanlines",
+    "player_transition_scanlines",
+    "PlayerSwitchNeutralFlash",
+    "PlayerSwitchPulse",
+    "plaza_carpark",
+    "PoliceStation",
+    "PoliceStationDark",
+    "polluted",
+    "poolsidewaterreflection2",
+    "PORT_heist_underwater",
+    "powerplant_nightlight",
+    "powerstation",
+    "PPFilter",
+    "PPGreen01",
+    "PPGreen02",
+    "PPOrange01",
+    "PPOrange02",
+    "PPPink01",
+    "PPPink02",
+    "PPPurple01",
+    "PPPurple02",
+    "prison_nightlight",
+    "projector",
+    "prologue",
+    "prologue_ending_fog",
+    "prologue_ext_art_amb",
+    "prologue_reflection_opt",
+    "prologue_shootout",
+    "Prologue_shootout_opt",
+    "pulse",
+    "RaceTurboDark",
+    "RaceTurboFlash",
+    "RaceTurboLight",
+    "ranch",
+    "REDMIST",
+    "REDMIST_blend",
+    "ReduceDrawDistance",
+    "ReduceDrawDistanceMAP",
+    "ReduceDrawDistanceMission",
+    "reducelightingcost",
+    "ReduceSSAO",
+    "reducewaterREF",
+    "refit",
+    "reflection_correct_ambient",
+    "RemoteSniper",
+    "resvoire_reflection",
+    "rply_brightness",
+    "rply_brightness_neg",
+    "rply_contrast",
+    "rply_contrast_neg",
+    "rply_motionblur",
+    "rply_saturation",
+    "rply_saturation_neg",
+    "rply_vignette",
+    "rply_vignette_neg",
+    "SALTONSEA",
+    "sandyshore_nightlight",
+    "SAWMILL",
+    "scanline_cam",
+    "scanline_cam_cheap",
+    "scope_zoom_in",
+    "scope_zoom_out",
+    "secret_camera",
+    "services_nightlight",
+    "shades_pink",
+    "shades_yellow",
+    "SheriffStation",
+    "ship_explosion_underwater",
+    "ship_lighting",
+    "Shop247",
+    "Shop247_none",
+    "sleeping",
+    "Sniper",
+    "SP1_03_drawDistance",
+    "spectator1",
+    "spectator10",
+    "spectator2",
+    "spectator3",
+    "spectator4",
+    "spectator5",
+    "spectator6",
+    "spectator7",
+    "spectator8",
+    "spectator9",
+    "StadLobby",
+    "stc_coroners",
+    "stc_deviant_bedroom",
+    "stc_deviant_lounge",
+    "stc_franklinsHouse",
+    "stc_trevors",
+    "stoned",
+    "stoned_aliens",
+    "stoned_cutscene",
+    "stoned_monkeys",
+    "StreetLighting",
+    "StreetLightingJunction",
+    "StreetLightingtraffic",
+    "STRIP_changing",
+    "STRIP_nofog",
+    "STRIP_office",
+    "STRIP_stage",
+    "StuntFastDark",
+    "StuntFastLight",
+    "StuntSlowDark",
+    "StuntSlowLight",
+    "subBASE_water_ref",
+    "sunglasses",
+    "superDARK",
+    "switch_cam_1",
+    "switch_cam_2",
+    "telescope",
+    "TinyGreen01",
+    "TinyGreen02",
+    "TinyPink01",
+    "TinyPink02",
+    "TinyRacerMoBlur",
+    "torpedo",
+    "traffic_skycam",
+    "trailer_explosion_optimise",
+    "TREVOR",
+    "TrevorColorCode",
+    "TrevorColorCodeBasic",
+    "TrevorColorCodeBright",
+    "Trevors_room",
+    "trevorspliff",
+    "trevorspliff_blend",
+    "trevorspliff_blend02",
+    "Tunnel",
+    "tunnel_entrance",
+    "tunnel_entrance_INT",
+    "TUNNEL_green",
+    "Tunnel_green1",
+    "TUNNEL_green_ext",
+    "tunnel_id1_11",
+    "TUNNEL_orange",
+    "TUNNEL_orange_exterior",
+    "TUNNEL_white",
+    "TUNNEL_yellow",
+    "TUNNEL_yellow_ext",
+    "ufo",
+    "ufo_deathray",
+    "underwater",
+    "underwater_deep",
+    "underwater_deep_clear",
+    "v_abattoir",
+    "V_Abattoir_Cold",
+    "v_bahama",
+    "v_cashdepot",
+    "V_CIA_Facility",
+    "v_dark",
+    "V_FIB_IT3",
+    "V_FIB_IT3_alt",
+    "V_FIB_IT3_alt5",
+    "V_FIB_stairs",
+    "v_foundry",
+    "v_janitor",
+    "v_jewel2",
+    "v_metro",
+    "V_Metro2",
+    "V_Metro_station",
+    "v_michael",
+    "v_michael_lounge",
+    "V_Office_smoke",
+    "V_Office_smoke_ext",
+    "V_Office_smoke_Fire",
+    "v_recycle",
+    "V_recycle_dark",
+    "V_recycle_light",
+    "V_recycle_mainroom",
+    "v_rockclub",
+    "V_Solomons",
+    "v_strip3",
+    "V_strip_nofog",
+    "V_strip_office",
+    "v_strpchangerm",
+    "v_sweat",
+    "v_sweat_entrance",
+    "v_sweat_NoDirLight",
+    "v_torture",
+    "Vagos",
+    "vagos_extlight_small",
+    "VAGOS_new_garage",
+    "VAGOS_new_hangout",
+    "VagosSPLASH",
+    "VC_tunnel_entrance",
+    "vehicle_subint",
+    "venice_canal_tunnel",
+    "vespucci_garage",
+    "VolticBlur",
+    "VolticFlash",
+    "VolticGold",
+    "WAREHOUSE",
+    "WATER _lab_cooling",
+    "WATER_CH2_06_01_03",
+    "WATER_CH2_06_02",
+    "WATER_CH2_06_04",
+    "WATER_cove",
+    "WATER_hills",
+    "WATER_ID2_21",
+    "WATER_lab",
+    "WATER_militaryPOOP",
+    "WATER_muddy",
+    "WATER_port",
+    "WATER_REF_malibu",
+    "WATER_refmap_high",
+    "WATER_refmap_hollywoodlake",
+    "WATER_refmap_low",
+    "WATER_refmap_med",
+    "WATER_refmap_off",
+    "WATER_refmap_poolside",
+    "WATER_refmap_silverlake",
+    "WATER_refmap_venice",
+    "WATER_refmap_verylow",
+    "WATER_resevoir",
+    "WATER_RichmanStuntJump",
+    "WATER_river",
+    "WATER_salton",
+    "WATER_salton_bottom",
+    "WATER_shore",
+    "WATER_silty",
+    "WATER_silverlake",
+    "whitenightlighting",
+    "WhiteOut",
+    "winning_room",
+    "yacht_DLC",
+    "yell_tunnel_nodirect",
+}
+
+--- intensityList — float values "0.10".."2.01" step 0.01
+--- Built at startup; index 91 ≈ 1.00 (reset point).
+local intensityList = {}
+for v = 0.1, 2.01, 0.01 do
+    table.insert(intensityList, string.format("%.2f", v))
 end
-function L9_1()
-  local L0_2, L1_2, L2_2, L3_2, L4_2, L5_2, L6_2
-  L0_2 = drawf
-  if 1 == L0_2 then
-    L0_2 = L7_1
-    if L0_2 then
-      L0_2 = IsControlPressed
-      L1_2 = 0
-      L2_2 = 21
-      L0_2 = L0_2(L1_2, L2_2)
-      if L0_2 then
-        L0_2 = 10
-        if L0_2 then
-          goto lbl_17
-        end
-      end
-      L0_2 = 1
-      ::lbl_17::
-      L1_2 = L6_1
-      L1_2 = L1_2 - L0_2
-      L6_1 = L1_2
-      L1_2 = L6_1
-      if L1_2 < 1 then
-        L1_2 = L8_1
-        L1_2 = #L1_2
-        L2_2 = L6_1
-        L1_2 = L1_2 + L2_2
-        L6_1 = L1_2
-      end
-      L1_2 = SetTimecycleModifierStrength
-      L2_2 = tonumber
-      L4_2 = L6_1
-      L3_2 = L8_1
-      L3_2 = L3_2[L4_2]
-      L2_2, L3_2, L4_2, L5_2, L6_2 = L2_2(L3_2)
-      L1_2(L2_2, L3_2, L4_2, L5_2, L6_2)
-      L1_2 = exports
-      L1_2 = L1_2.striano_combat
-      L2_2 = L1_2
-      L1_2 = L1_2.notify
-      L3_2 = "Select intensity filter: "
-      L4_2 = tonumber
-      L6_2 = L6_1
-      L5_2 = L8_1
-      L5_2 = L5_2[L6_2]
-      L4_2 = L4_2(L5_2)
-      L3_2 = L3_2 .. L4_2
-      L1_2(L2_2, L3_2)
-    else
-      L0_2 = L5_1
-      if 1 == L0_2 then
-        L0_2 = L1_1
-        L0_2 = #L0_2
-        L5_1 = L0_2
-      else
-        L0_2 = L5_1
-        L0_2 = L0_2 - 1
-        L5_1 = L0_2
-      end
-      L0_2 = SetTimecycleModifier
-      L2_2 = L5_1
-      L1_2 = L1_1
-      L1_2 = L1_2[L2_2]
-      L0_2(L1_2)
-      L1_2 = L5_1
-      L0_2 = L1_1
-      L0_2 = L0_2[L1_2]
-      if "None" == L0_2 then
-        L0_2 = ClearTimecycleModifier
-        L0_2()
-        L0_2 = exports
-        L0_2 = L0_2.striano_combat
-        L1_2 = L0_2
-        L0_2 = L0_2.notify
-        L2_2 = "No filter."
-        L0_2(L1_2, L2_2)
-        L0_2 = ExecuteCommand
-        L1_2 = "prova3 "
-        L0_2(L1_2)
-        L0_2 = PlaySoundFrontend
-        L1_2 = -1
-        L2_2 = "CLICK_BACK"
-        L3_2 = "WEB_NAVIGATION_SOUNDS_PHONE"
-        L4_2 = 1
-        L0_2(L1_2, L2_2, L3_2, L4_2)
-      else
-        L0_2 = L5_1
-        if L0_2 < 1 then
-          L0_2 = 1
-          L5_1 = L0_2
-        end
-        L0_2 = SetTimecycleModifier
-        L2_2 = L5_1
-        L1_2 = L1_1
-        L1_2 = L1_2[L2_2]
-        L0_2(L1_2)
-        L0_2 = exports
-        L0_2 = L0_2.striano_combat
-        L1_2 = L0_2
-        L0_2 = L0_2.notify
-        L2_2 = "filter ID: ["
-        L3_2 = L5_1
-        L4_2 = "]"
-        L2_2 = L2_2 .. L3_2 .. L4_2
-        L0_2(L1_2, L2_2)
-        L0_2 = ExecuteCommand
-        L1_2 = "copia "
-        L3_2 = L5_1
-        L2_2 = L1_1
-        L2_2 = L2_2[L3_2]
-        L1_2 = L1_2 .. L2_2
-        L0_2(L1_2)
-        L0_2 = ExecuteCommand
-        L1_2 = "prova3 ["
-        L2_2 = L5_1
-        L3_2 = "] "
-        L5_2 = L5_1
-        L4_2 = L1_1
-        L4_2 = L4_2[L5_2]
-        L1_2 = L1_2 .. L2_2 .. L3_2 .. L4_2
-        L0_2(L1_2)
-        L0_2 = PlaySoundFrontend
-        L1_2 = -1
-        L2_2 = "CLICK_BACK"
-        L3_2 = "WEB_NAVIGATION_SOUNDS_PHONE"
-        L4_2 = 1
-        L0_2(L1_2, L2_2, L3_2, L4_2)
-      end
+
+-- ════════════════════════════════════════════════════════════════
+-- MODULE STATE
+-- ════════════════════════════════════════════════════════════════
+
+-- Controls which input/render mode is active:
+--   0 = off, 1 = filter browser, 2 = sound browser
+drawf = 0
+
+-- freecam camera handle (nil when inactive)
+camFRC = nil
+
+local currentIndex   = 1      -- selected filter or sound index
+local intensityIdx   = 91     -- selected intensity index (1.00 = default)
+local intensityMode  = false  -- true = mousewheel selects intensity
+local showHelp       = false  -- show freecam controls HUD
+
+-- Disabled controls list for freecam (input IDs suppressed each frame)
+local disabledControls = {24, 36, 44, 38, 85, 86}
+
+-- Freecam camera rotation & movement state
+local camPitch = 0.0   -- X rotation (pitch, clamped ±90)
+local camRoll  = 0.0   -- Y rotation (roll, unused for movement)
+local camYaw   = 0.0   -- Z rotation (yaw, horizontal heading)
+local camSpeed = 0.1   -- movement speed multiplier (0.1 normal, 0.3 sprint)
+local camOriginCoords = nil
+local camFOV   = 70.0  -- field of view (clamped 0.5–120)
+local camMaxDist = 60  -- max distance from player (auto-closes freecam)
+
+-- Mouse sensitivity multiplier (adjusted with Space+scroll in freecam)
+local mouseSensitivity = 2.0
+
+-- ════════════════════════════════════════════════════════════════
+-- FILTER BROWSER FUNCTIONS
+-- ════════════════════════════════════════════════════════════════
+
+local function browserNotify(msg)
+    exports.striano_combat:notify(msg)
+end
+
+local function playClickSound()
+    PlaySoundFrontend(-1, "CLICK_BACK", "WEB_NAVIGATION_SOUNDS_PHONE", 1)
+end
+
+local function playFailSound()
+    PlaySoundFrontend(-1, "Click_Fail", "WEB_NAVIGATION_SOUNDS_PHONE", 1)
+end
+
+--- exitBrowser: close filter/sound browser
+local function exitBrowser()
+    if drawf > 0 then
+        drawf = 0
+        intensityMode = false
+        playFailSound()
     end
-  else
-    L0_2 = drawf
-    if 2 == L0_2 then
-      L0_2 = L5_1
-      if 1 == L0_2 then
-        L0_2 = L0_1
-        L0_2 = #L0_2
-        L5_1 = L0_2
-      else
-        L0_2 = L5_1
-        L0_2 = L0_2 - 1
-        L5_1 = L0_2
-      end
-      L0_2 = L5_1
-      L1_2 = L0_1
-      L1_2 = #L1_2
-      if L0_2 > L1_2 then
-        L0_2 = 1
-        L5_1 = L0_2
-      end
-      L0_2 = PlaySoundFrontend
-      L2_2 = L5_1
-      L1_2 = L0_1
-      L1_2 = L1_2[L2_2]
-      L1_2 = L1_2[1]
-      L3_2 = L5_1
-      L2_2 = L0_1
-      L2_2 = L2_2[L3_2]
-      L2_2 = L2_2[2]
-      L4_2 = L5_1
-      L3_2 = L0_1
-      L3_2 = L3_2[L4_2]
-      L3_2 = L3_2[3]
-      L5_2 = L5_1
-      L4_2 = L0_1
-      L4_2 = L4_2[L5_2]
-      L4_2 = L4_2[4]
-      L0_2(L1_2, L2_2, L3_2, L4_2)
-      L0_2 = exports
-      L0_2 = L0_2.striano_combat
-      L1_2 = L0_2
-      L0_2 = L0_2.notify
-      L2_2 = "Sound ID: ["
-      L3_2 = L5_1
-      L4_2 = "]"
-      L2_2 = L2_2 .. L3_2 .. L4_2
-      L0_2(L1_2, L2_2)
-    end
-  end
 end
-function L10_1()
-  local L0_2, L1_2, L2_2, L3_2, L4_2, L5_2, L6_2
-  L0_2 = drawf
-  if 1 == L0_2 then
-    L0_2 = L7_1
-    if L0_2 then
-      L0_2 = IsControlPressed
-      L1_2 = 0
-      L2_2 = 21
-      L0_2 = L0_2(L1_2, L2_2)
-      if L0_2 then
-        L0_2 = 10
-        if L0_2 then
-          goto lbl_17
-        end
-      end
-      L0_2 = 1
-      ::lbl_17::
-      L1_2 = L6_1
-      L1_2 = L1_2 + L0_2
-      L6_1 = L1_2
-      L1_2 = L6_1
-      L2_2 = L8_1
-      L2_2 = #L2_2
-      if L1_2 > L2_2 then
-        L1_2 = L6_1
-        L2_2 = L8_1
-        L2_2 = #L2_2
-        L1_2 = L1_2 - L2_2
-        L6_1 = L1_2
-      end
-      L1_2 = SetTimecycleModifierStrength
-      L2_2 = tonumber
-      L4_2 = L6_1
-      L3_2 = L8_1
-      L3_2 = L3_2[L4_2]
-      L2_2, L3_2, L4_2, L5_2, L6_2 = L2_2(L3_2)
-      L1_2(L2_2, L3_2, L4_2, L5_2, L6_2)
-      L1_2 = exports
-      L1_2 = L1_2.striano_combat
-      L2_2 = L1_2
-      L1_2 = L1_2.notify
-      L3_2 = "Select intensity filter: "
-      L4_2 = tonumber
-      L6_2 = L6_1
-      L5_2 = L8_1
-      L5_2 = L5_2[L6_2]
-      L4_2 = L4_2(L5_2)
-      L3_2 = L3_2 .. L4_2
-      L1_2(L2_2, L3_2)
-    else
-      L0_2 = L5_1
-      L1_2 = L1_1
-      L1_2 = #L1_2
-      if L0_2 == L1_2 then
-        L0_2 = 1
-        L5_1 = L0_2
-      else
-        L0_2 = L5_1
-        L0_2 = L0_2 + 1
-        L5_1 = L0_2
-      end
-      L1_2 = L5_1
-      L0_2 = L1_1
-      L0_2 = L0_2[L1_2]
-      if "None" ~= L0_2 then
-        L0_2 = L5_1
-        if 1 ~= L0_2 then
-          goto lbl_88
-        end
-      end
-      L0_2 = ClearTimecycleModifier
-      L0_2()
-      L0_2 = exports
-      L0_2 = L0_2.striano_combat
-      L1_2 = L0_2
-      L0_2 = L0_2.notify
-      L2_2 = "No filter"
-      L0_2(L1_2, L2_2)
-      L0_2 = ExecuteCommand
-      L1_2 = "prova3 "
-      L0_2(L1_2)
-      L0_2 = PlaySoundFrontend
-      L1_2 = -1
-      L2_2 = "CLICK_BACK"
-      L3_2 = "WEB_NAVIGATION_SOUNDS_PHONE"
-      L4_2 = 1
-      L0_2(L1_2, L2_2, L3_2, L4_2)
-      goto lbl_165
-      ::lbl_88::
-      L0_2 = SetTimecycleModifier
-      L2_2 = L5_1
-      L1_2 = L1_1
-      L1_2 = L1_2[L2_2]
-      L0_2(L1_2)
-      L0_2 = exports
-      L0_2 = L0_2.striano_combat
-      L1_2 = L0_2
-      L0_2 = L0_2.notify
-      L2_2 = "Filter ID ["
-      L3_2 = L5_1
-      L4_2 = "]"
-      L2_2 = L2_2 .. L3_2 .. L4_2
-      L0_2(L1_2, L2_2)
-      L0_2 = ExecuteCommand
-      L1_2 = "copia "
-      L3_2 = L5_1
-      L2_2 = L1_1
-      L2_2 = L2_2[L3_2]
-      L1_2 = L1_2 .. L2_2
-      L0_2(L1_2)
-      L0_2 = ExecuteCommand
-      L1_2 = "prova3 ["
-      L2_2 = L5_1
-      L3_2 = "] "
-      L5_2 = L5_1
-      L4_2 = L1_1
-      L4_2 = L4_2[L5_2]
-      L1_2 = L1_2 .. L2_2 .. L3_2 .. L4_2
-      L0_2(L1_2)
-      L0_2 = PlaySoundFrontend
-      L1_2 = -1
-      L2_2 = "CLICK_BACK"
-      L3_2 = "WEB_NAVIGATION_SOUNDS_PHONE"
-      L4_2 = 1
-      L0_2(L1_2, L2_2, L3_2, L4_2)
-    end
-  else
-    L0_2 = drawf
-    if 2 == L0_2 then
-      L0_2 = L5_1
-      L1_2 = L0_1
-      L1_2 = #L1_2
-      if L0_2 == L1_2 then
-        L0_2 = 1
-        L5_1 = L0_2
-      else
-        L0_2 = L5_1
-        L0_2 = L0_2 + 1
-        L5_1 = L0_2
-      end
-      L0_2 = PlaySoundFrontend
-      L2_2 = L5_1
-      L1_2 = L0_1
-      L1_2 = L1_2[L2_2]
-      L1_2 = L1_2[1]
-      L3_2 = L5_1
-      L2_2 = L0_1
-      L2_2 = L2_2[L3_2]
-      L2_2 = L2_2[2]
-      L4_2 = L5_1
-      L3_2 = L0_1
-      L3_2 = L3_2[L4_2]
-      L3_2 = L3_2[3]
-      L5_2 = L5_1
-      L4_2 = L0_1
-      L4_2 = L4_2[L5_2]
-      L4_2 = L4_2[4]
-      L0_2(L1_2, L2_2, L3_2, L4_2)
-      L0_2 = exports
-      L0_2 = L0_2.striano_combat
-      L1_2 = L0_2
-      L0_2 = L0_2.notify
-      L2_2 = "Sound ID: ["
-      L3_2 = L5_1
-      L4_2 = "]"
-      L2_2 = L2_2 .. L3_2 .. L4_2
-      L0_2(L1_2, L2_2)
-    end
-  end
-  ::lbl_165::
+
+--- resetIntensity: reset timecycle strength to default (index 91 ≈ 1.00)
+local function resetIntensity()
+    intensityIdx = 91
+    SetTimecycleModifierStrength(1.0)
+    browserNotify("Select intensity filter: Reset")
 end
-L11_1 = _ENV
-L12_1 = "VaiAIDFiltro"
-function L13_1()
-  local L0_2, L1_2, L2_2, L3_2, L4_2, L5_2, L6_2, L7_2
-  L0_2 = drawf
-  if 1 == L0_2 then
-    L0_2 = OpenInput
-    L1_2 = "Insert ID (0-"
-    L2_2 = L1_1
-    L2_2 = #L2_2
-    L3_2 = ")"
-    L1_2 = L1_2 .. L2_2 .. L3_2
-    L0_2 = L0_2(L1_2)
-    L1_2 = tonumber
-    L2_2 = L0_2
-    L1_2 = L1_2(L2_2)
-    if nil == L1_2 then
-      L2_2 = PlaySoundFrontend
-      L3_2 = -1
-      L4_2 = "Click_Fail"
-      L5_2 = "WEB_NAVIGATION_SOUNDS_PHONE"
-      L6_2 = 1
-      L2_2(L3_2, L4_2, L5_2, L6_2)
-      L2_2 = exports
-      L2_2 = L2_2.striano_combat
-      L3_2 = L2_2
-      L2_2 = L2_2.notify
-      L4_2 = "Invalid Id."
-      L2_2(L3_2, L4_2)
-    else
-      L2_2 = type
-      L3_2 = L1_2
-      L2_2 = L2_2(L3_2)
-      if "number" == L2_2 then
-        if L1_2 > 0 then
-          L2_2 = L1_1
-          L2_2 = #L2_2
-          if L1_2 <= L2_2 then
-            L5_1 = L1_2
-            L2_2 = SetTimecycleModifier
-            L4_2 = L5_1
-            L3_2 = L1_1
-            L3_2 = L3_2[L4_2]
-            L2_2(L3_2)
-            L2_2 = exports
-            L2_2 = L2_2.striano_combat
-            L3_2 = L2_2
-            L2_2 = L2_2.notify
-            L4_2 = "Filter ID ["
-            L5_2 = L5_1
-            L6_2 = "]"
-            L4_2 = L4_2 .. L5_2 .. L6_2
-            L2_2(L3_2, L4_2)
-            L2_2 = PlaySoundFrontend
-            L3_2 = -1
-            L4_2 = "CLICK_BACK"
-            L5_2 = "WEB_NAVIGATION_SOUNDS_PHONE"
-            L6_2 = 1
-            L2_2(L3_2, L4_2, L5_2, L6_2)
-        end
-        elseif 0 == L1_2 then
-          L2_2 = ClearTimecycleModifier
-          L2_2()
-          L2_2 = exports
-          L2_2 = L2_2.striano_combat
-          L3_2 = L2_2
-          L2_2 = L2_2.notify
-          L4_2 = "Filter reset."
-          L2_2(L3_2, L4_2)
-          L2_2 = PlaySoundFrontend
-          L3_2 = -1
-          L4_2 = "CLICK_BACK"
-          L5_2 = "WEB_NAVIGATION_SOUNDS_PHONE"
-          L6_2 = 1
-          L2_2(L3_2, L4_2, L5_2, L6_2)
-          L2_2 = 0
-          L5_1 = L2_2
-        else
-          L2_2 = PlaySoundFrontend
-          L3_2 = -1
-          L4_2 = "Click_Fail"
-          L5_2 = "WEB_NAVIGATION_SOUNDS_PHONE"
-          L6_2 = 1
-          L2_2(L3_2, L4_2, L5_2, L6_2)
-          L2_2 = exports
-          L2_2 = L2_2.striano_combat
-          L3_2 = L2_2
-          L2_2 = L2_2.notify
-          L4_2 = "Invalid id."
-          L2_2(L3_2, L4_2)
-        end
-      else
-        L2_2 = PlaySoundFrontend
-        L3_2 = -1
-        L4_2 = "Click_Fail"
-        L5_2 = "WEB_NAVIGATION_SOUNDS_PHONE"
-        L6_2 = 1
-        L2_2(L3_2, L4_2, L5_2, L6_2)
-        L2_2 = exports
-        L2_2 = L2_2.striano_combat
-        L3_2 = L2_2
-        L2_2 = L2_2.notify
-        L4_2 = "Invalid id."
-        L2_2(L3_2, L4_2)
-      end
-    end
-  else
-    L0_2 = drawf
-    if 2 == L0_2 then
-      L0_2 = OpenInput
-      L1_2 = "Insert ID (1-"
-      L2_2 = L0_1
-      L2_2 = #L2_2
-      L3_2 = ")"
-      L1_2 = L1_2 .. L2_2 .. L3_2
-      L0_2 = L0_2(L1_2)
-      L1_2 = tonumber
-      L2_2 = L0_2
-      L1_2 = L1_2(L2_2)
-      L2_2 = type
-      L3_2 = L1_2
-      L2_2 = L2_2(L3_2)
-      if "number" == L2_2 then
-        if L1_2 > 0 then
-          L2_2 = L0_1
-          L2_2 = #L2_2
-          if L1_2 <= L2_2 then
-            L5_1 = L1_2
-            L2_2 = PlaySoundFrontend
-            L4_2 = L5_1
-            L3_2 = L0_1
-            L3_2 = L3_2[L4_2]
-            L3_2 = L3_2[1]
-            L5_2 = L5_1
-            L4_2 = L0_1
-            L4_2 = L4_2[L5_2]
-            L4_2 = L4_2[2]
-            L6_2 = L5_1
-            L5_2 = L0_1
-            L5_2 = L5_2[L6_2]
-            L5_2 = L5_2[3]
-            L7_2 = L5_1
-            L6_2 = L0_1
-            L6_2 = L6_2[L7_2]
-            L6_2 = L6_2[4]
-            L2_2(L3_2, L4_2, L5_2, L6_2)
-            L2_2 = exports
-            L2_2 = L2_2.striano_combat
-            L3_2 = L2_2
-            L2_2 = L2_2.notify
-            L4_2 = "Sound ID: ["
-            L5_2 = L5_1
-            L6_2 = "]"
-            L4_2 = L4_2 .. L5_2 .. L6_2
-            L2_2(L3_2, L4_2)
-        end
-        else
-          L2_2 = PlaySoundFrontend
-          L3_2 = -1
-          L4_2 = "Click_Fail"
-          L5_2 = "WEB_NAVIGATION_SOUNDS_PHONE"
-          L6_2 = 1
-          L2_2(L3_2, L4_2, L5_2, L6_2)
-        end
-      else
-        L2_2 = PlaySoundFrontend
-        L3_2 = -1
-        L4_2 = "Click_Fail"
-        L5_2 = "WEB_NAVIGATION_SOUNDS_PHONE"
-        L6_2 = 1
-        L2_2(L3_2, L4_2, L5_2, L6_2)
-        L2_2 = exports
-        L2_2 = L2_2.striano_combat
-        L3_2 = L2_2
-        L2_2 = L2_2.notify
-        L4_2 = "Invalid id."
-        L2_2(L3_2, L4_2)
-      end
-    end
-  end
-end
-L11_1[L12_1] = L13_1
-L11_1 = _ENV
-L12_1 = "Intense"
-function L13_1()
-  local L0_2, L1_2, L2_2, L3_2, L4_2
-  L0_2 = L5_1
-  if L0_2 > 1 then
-    L0_2 = L7_1
-    L0_2 = not L0_2
-    L7_1 = L0_2
-    L0_2 = L7_1
-    if L0_2 then
-      L0_2 = exports
-      L0_2 = L0_2.striano_combat
-      L1_2 = L0_2
-      L0_2 = L0_2.notify
-      L2_2 = "Select intensity with mousewheel."
-      L0_2(L1_2, L2_2)
-    else
-      L0_2 = exports
-      L0_2 = L0_2.striano_combat
-      L1_2 = L0_2
-      L0_2 = L0_2.notify
-      L2_2 = "Filter ID ["
-      L3_2 = L5_1
-      L4_2 = "]"
-      L2_2 = L2_2 .. L3_2 .. L4_2
-      L0_2(L1_2, L2_2)
-    end
-  else
-    L0_2 = PlaySoundFrontend
-    L1_2 = -1
-    L2_2 = "Click_Fail"
-    L3_2 = "WEB_NAVIGATION_SOUNDS_PHONE"
-    L4_2 = 1
-    L0_2(L1_2, L2_2, L3_2, L4_2)
-    L0_2 = exports
-    L0_2 = L0_2.striano_combat
-    L1_2 = L0_2
-    L0_2 = L0_2.notify
-    L2_2 = "Select first a filter."
-    L0_2(L1_2, L2_2)
-  end
-end
-L11_1[L12_1] = L13_1
-function L11_1()
-  local L0_2, L1_2, L2_2, L3_2, L4_2
-  L0_2 = drawf
-  if L0_2 > 0 then
-    drawf = 0
-    L0_2 = false
-    L7_1 = L0_2
-    L0_2 = PlaySoundFrontend
-    L1_2 = -1
-    L2_2 = "Click_Fail"
-    L3_2 = "WEB_NAVIGATION_SOUNDS_PHONE"
-    L4_2 = 1
-    L0_2(L1_2, L2_2, L3_2, L4_2)
-  end
-end
-function L12_1()
-  local L0_2, L1_2, L2_2
-  L0_2 = 91
-  L6_1 = L0_2
-  L0_2 = SetTimecycleModifierStrength
-  L1_2 = 1.0
-  L0_2(L1_2)
-  L0_2 = exports
-  L0_2 = L0_2.striano_combat
-  L1_2 = L0_2
-  L0_2 = L0_2.notify
-  L2_2 = "Select intensity filter: Reset"
-  L0_2(L1_2, L2_2)
-end
-L13_1 = {}
-L14_1 = {}
-L15_1 = "button"
-L16_1 = 177
-L14_1[L15_1] = L16_1
-L15_1 = "func"
-L14_1[L15_1] = L11_1
-L15_1 = {}
-L16_1 = "button"
-L17_1 = 16
-L15_1[L16_1] = L17_1
-L16_1 = "func"
-L15_1[L16_1] = L9_1
-L16_1 = {}
-L17_1 = "button"
-L18_1 = 17
-L16_1[L17_1] = L18_1
-L17_1 = "func"
-L16_1[L17_1] = L10_1
-L17_1 = {}
-L18_1 = "button"
-L19_1 = 24
-L17_1[L18_1] = L19_1
-L18_1 = "func"
-L19_1 = _ENV
-L20_1 = "Intense"
-L19_1 = L19_1[L20_1]
-L17_1[L18_1] = L19_1
-L18_1 = {}
-L19_1 = "button"
-L20_1 = 74
-L18_1[L19_1] = L20_1
-L19_1 = "func"
-L20_1 = _ENV
-L21_1 = "VaiAIDFiltro"
-L20_1 = L20_1[L21_1]
-L18_1[L19_1] = L20_1
-L19_1 = {}
-L20_1 = "button"
-L21_1 = 301
-L19_1[L20_1] = L21_1
-L20_1 = "func"
-L19_1[L20_1] = L12_1
-L13_1[1] = L14_1
-L13_1[2] = L15_1
-L13_1[3] = L16_1
-L13_1[4] = L17_1
-L13_1[5] = L18_1
-L13_1[6] = L19_1
-L14_1 = _ENV
-L15_1 = "CopiaSuono"
-function L16_1()
-  local L0_2, L1_2, L2_2, L3_2, L4_2, L5_2, L6_2, L7_2, L8_2, L9_2
-  L0_2 = ExecuteCommand
-  L1_2 = "copia PlaySoundFrontend("
-  L3_2 = L5_1
-  L2_2 = L0_1
-  L2_2 = L2_2[L3_2]
-  L2_2 = L2_2[1]
-  L3_2 = ",'"
-  L5_2 = L5_1
-  L4_2 = L0_1
-  L4_2 = L4_2[L5_2]
-  L4_2 = L4_2[2]
-  L5_2 = "','"
-  L7_2 = L5_1
-  L6_2 = L0_1
-  L6_2 = L6_2[L7_2]
-  L6_2 = L6_2[3]
-  L7_2 = "',"
-  L9_2 = L5_1
-  L8_2 = L0_1
-  L8_2 = L8_2[L9_2]
-  L8_2 = L8_2[4]
-  L9_2 = ")"
-  L1_2 = L1_2 .. L2_2 .. L3_2 .. L4_2 .. L5_2 .. L6_2 .. L7_2 .. L8_2 .. L9_2
-  L0_2(L1_2)
-  L0_2 = PlaySoundFrontend
-  L1_2 = -1
-  L2_2 = "Click_Fail"
-  L3_2 = "WEB_NAVIGATION_SOUNDS_PHONE"
-  L4_2 = 1
-  L0_2(L1_2, L2_2, L3_2, L4_2)
-end
-L14_1[L15_1] = L16_1
-L14_1 = {}
-L15_1 = {}
-L16_1 = "button"
-L17_1 = 177
-L15_1[L16_1] = L17_1
-L16_1 = "func"
-L15_1[L16_1] = L11_1
-L16_1 = {}
-L17_1 = "button"
-L18_1 = 16
-L16_1[L17_1] = L18_1
-L17_1 = "func"
-L16_1[L17_1] = L9_1
-L17_1 = {}
-L18_1 = "button"
-L19_1 = 17
-L17_1[L18_1] = L19_1
-L18_1 = "func"
-L17_1[L18_1] = L10_1
-L18_1 = {}
-L19_1 = "button"
-L20_1 = 21
-L18_1[L19_1] = L20_1
-L19_1 = "func"
-L20_1 = _ENV
-L21_1 = "CopiaSuono"
-L20_1 = L20_1[L21_1]
-L18_1[L19_1] = L20_1
-L19_1 = {}
-L20_1 = "button"
-L21_1 = 74
-L19_1[L20_1] = L21_1
-L20_1 = "func"
-L21_1 = _ENV
-L22_1 = "VaiAIDFiltro"
-L21_1 = L21_1[L22_1]
-L19_1[L20_1] = L21_1
-L14_1[1] = L15_1
-L14_1[2] = L16_1
-L14_1[3] = L17_1
-L14_1[4] = L18_1
-L14_1[5] = L19_1
-L15_1 = _ENV
-L16_1 = "RegisterCommand"
-L15_1 = L15_1[L16_1]
-L16_1 = "filtri"
-function L17_1()
-  local L0_2, L1_2, L2_2, L3_2, L4_2, L5_2
-  L0_2 = drawf
-  if 1 == L0_2 then
-    return
-  end
-  L0_2 = LocalPlayer
-  L0_2 = L0_2.state
-  L0_2 = L0_2.adminLevel
-  if not L0_2 then
-    L0_2 = 0
-  end
-  if 0 == L0_2 then
-    return
-  end
-  L1_2 = LoopAnimFC
-  L1_2()
-  drawf = 1
-  L1_2 = Wait
-  L2_2 = 0
-  L1_2(L2_2)
-  L1_2 = PlaySoundFrontend
-  L2_2 = -1
-  L3_2 = "Goon_Paid_Small"
-  L4_2 = "GTAO_Boss_Goons_FM_Soundset"
-  L5_2 = 0
-  L1_2(L2_2, L3_2, L4_2, L5_2)
-end
-L15_1(L16_1, L17_1)
-L15_1 = _ENV
-L16_1 = "exports"
-L15_1 = L15_1[L16_1]
-L16_1 = "infiltri"
-function L17_1()
-  local L0_2, L1_2
-  L0_2 = drawf
-  if 0 == L0_2 then
-    L0_2 = false
-    return L0_2
-  end
-  L0_2 = true
-  return L0_2
-end
-L15_1(L16_1, L17_1)
-L15_1 = _ENV
-L16_1 = "RegisterCommand"
-L15_1 = L15_1[L16_1]
-L16_1 = "nativesound"
-function L17_1()
-  local L0_2, L1_2, L2_2, L3_2, L4_2, L5_2
-  L0_2 = LocalPlayer
-  L0_2 = L0_2.state
-  L0_2 = L0_2.adminLevel
-  if not L0_2 then
-    L0_2 = 0
-  end
-  if 0 == L0_2 then
-    return
-  end
-  L1_2 = LoopAnimFC
-  L1_2()
-  drawf = 2
-  L1_2 = Wait
-  L2_2 = 0
-  L1_2(L2_2)
-  L1_2 = PlaySoundFrontend
-  L2_2 = -1
-  L3_2 = "Goon_Paid_Small"
-  L4_2 = "GTAO_Boss_Goons_FM_Soundset"
-  L5_2 = 0
-  L1_2(L2_2, L3_2, L4_2, L5_2)
-end
-L15_1(L16_1, L17_1)
-L15_1 = _ENV
-L16_1 = "LoopAnimFC"
-function L17_1()
-  local L0_2, L1_2
-  L0_2 = drawf
-  if L0_2 > 0 then
-    return
-  end
-  L0_2 = CreateThread
-  function L1_2()
-    local L0_3, L1_3, L2_3, L3_3, L4_3, L5_3, L6_3, L7_3
-    while true do
-      L0_3 = drawf
-      if L0_3 > 0 then
-        L0_3 = IsControlJustPressed
-        L1_3 = 0
-        L2_3 = 170
-        L0_3 = L0_3(L1_3, L2_3)
-        if not L0_3 then
-          L0_3 = IsControlPressed
-          L1_3 = 0
-          L2_3 = 311
-          L0_3 = L0_3(L1_3, L2_3)
-          if not L0_3 then
-            L0_3 = IsDisabledControlPressed
-            L1_3 = 0
-            L2_3 = 37
-            L0_3 = L0_3(L1_3, L2_3)
-            if not L0_3 then
-              goto lbl_28
+
+--- prevFilterOrIntensity: navigate backward (mousewheel down / left arrow)
+local function prevFilterOrIntensity()
+    if drawf == 1 then
+        if intensityMode then
+            -- decrease intensity index
+            local step = IsControlPressed(0, 21) and 10 or 1
+            intensityIdx = intensityIdx - step
+            if intensityIdx < 1 then
+                intensityIdx = #intensityList + intensityIdx
             end
-          end
-        end
-        L0_3 = IsPauseMenuActive
-        L0_3 = L0_3()
-        if not L0_3 then
-          L0_3 = L11_1
-          L0_3()
-        end
-      end
-      ::lbl_28::
-      L0_3 = drawf
-      if 1 == L0_3 then
-        L0_3 = 1
-        L1_3 = L13_1
-        L1_3 = #L1_3
-        L2_3 = 1
-        for L3_3 = L0_3, L1_3, L2_3 do
-          L4_3 = DisableControlAction
-          L5_3 = 0
-          L6_3 = L13_1
-          L6_3 = L6_3[L3_3]
-          L6_3 = L6_3.button
-          L7_3 = true
-          L4_3(L5_3, L6_3, L7_3)
-          L4_3 = IsDisabledControlJustPressed
-          L5_3 = 0
-          L6_3 = L13_1
-          L6_3 = L6_3[L3_3]
-          L6_3 = L6_3.button
-          L4_3 = L4_3(L5_3, L6_3)
-          if L4_3 then
-            L4_3 = IsPauseMenuActive
-            L4_3 = L4_3()
-            if not L4_3 then
-              L4_3 = L13_1
-              L4_3 = L4_3[L3_3]
-              L4_3 = L4_3.func
-              L4_3()
-            end
-          end
-        end
-      else
-        L0_3 = drawf
-        if 2 == L0_3 then
-          L0_3 = 1
-          L1_3 = L14_1
-          L1_3 = #L1_3
-          L2_3 = 1
-          for L3_3 = L0_3, L1_3, L2_3 do
-            L4_3 = DisableControlAction
-            L5_3 = 0
-            L6_3 = L14_1
-            L6_3 = L6_3[L3_3]
-            L6_3 = L6_3.button
-            L7_3 = true
-            L4_3(L5_3, L6_3, L7_3)
-            L4_3 = IsDisabledControlJustPressed
-            L5_3 = 0
-            L6_3 = L14_1
-            L6_3 = L6_3[L3_3]
-            L6_3 = L6_3.button
-            L4_3 = L4_3(L5_3, L6_3)
-            if L4_3 then
-              L4_3 = IsPauseMenuActive
-              L4_3 = L4_3()
-              if not L4_3 then
-                L4_3 = L14_1
-                L4_3 = L4_3[L3_3]
-                L4_3 = L4_3.func
-                L4_3()
-              end
-            end
-          end
+            SetTimecycleModifierStrength(tonumber(intensityList[intensityIdx]))
+            browserNotify("Select intensity filter: " .. tonumber(intensityList[intensityIdx]))
         else
-          return
-        end
-      end
-      L0_3 = Wait
-      L1_3 = 0
-      L0_3(L1_3)
-    end
-  end
-  L0_2(L1_2)
-end
-L15_1[L16_1] = L17_1
-L15_1 = _ENV
-L16_1 = "AddEventHandler"
-L15_1 = L15_1[L16_1]
-L16_1 = "esx:onPlayerDeath"
-function L17_1(A0_2)
-  local L1_2
-  L1_2 = L11_1
-  L1_2()
-end
-L15_1(L16_1, L17_1)
-L15_1 = _ENV
-L16_1 = "camFRC"
-L17_1 = nil
-L15_1[L16_1] = L17_1
-L15_1 = 0.0
-L16_1 = 0.0
-L17_1 = 0.0
-L18_1 = 0.1
-L19_1 = nil
-L20_1 = 70.0
-L21_1 = _ENV
-L22_1 = "loopCreaMenu"
-function L23_1()
-  local L0_2, L1_2
-  L0_2 = CreateThread
-  function L1_2()
-    local L0_3, L1_3, L2_3, L3_3
-    while true do
-      L0_3 = Wait
-      L1_3 = 1
-      L0_3(L1_3)
-      L0_3 = PlayerPedId
-      L0_3 = L0_3()
-      L1_3 = camFRC
-      if L1_3 then
-        L1_3 = GetEntityCoords
-        L2_3 = L0_3
-        L1_3 = L1_3(L2_3)
-        L2_3 = GetCamCoord
-        L3_3 = camFRC
-        L2_3 = L2_3(L3_3)
-        L1_3 = L1_3 - L2_3
-        L1_3 = #L1_3
-        L2_3 = L20_1
-        if L1_3 > L2_3 then
-          L1_3 = EndFreeCam
-          L2_3 = "Free-cam chiusa per troppa distanza."
-          L1_3(L2_3)
-          return
-        end
-      end
-      L1_3 = camFRC
-      if L1_3 then
-        L1_3 = IsControlPressed
-        L2_3 = 0
-        L3_3 = 202
-        L1_3 = L1_3(L2_3, L3_3)
-        if not L1_3 then
-          L1_3 = ProcessCamControls
-          L1_3()
-      end
-      else
-        L1_3 = drawf
-        if 0 == L1_3 then
-          L1_3 = EndFreeCam
-          L1_3()
-          return
-        else
-          L1_3 = Wait
-          L2_3 = 500
-          L1_3(L2_3)
-        end
-      end
-    end
-  end
-  L0_2(L1_2)
-end
-L21_1[L22_1] = L23_1
-L21_1 = 60
-L22_1 = _ENV
-L23_1 = "StartFreeCam"
-function L24_1(A0_2)
-  local L1_2, L2_2, L3_2, L4_2, L5_2, L6_2, L7_2, L8_2
-  L21_1 = A0_2
-  L1_2 = ClearFocus
-  L1_2()
-  L1_2 = PlayerPedId
-  L1_2 = L1_2()
-  L2_2 = CreateCamWithParams
-  L3_2 = "DEFAULT_SCRIPTED_CAMERA"
-  L4_2 = GetEntityCoords
-  L5_2 = L1_2
-  L4_2 = L4_2(L5_2)
-  L5_2 = 0
-  L6_2 = 0
-  L7_2 = 0
-  L8_2 = A0_2 * 1.0
-  L2_2 = L2_2(L3_2, L4_2, L5_2, L6_2, L7_2, L8_2)
-  camFRC = L2_2
-  L2_2 = GetCamCoord
-  L3_2 = camFRC
-  L2_2 = L2_2(L3_2)
-  L19_1 = L2_2
-  L2_2 = SetCamActive
-  L3_2 = camFRC
-  L4_2 = true
-  L2_2(L3_2, L4_2)
-  L2_2 = RenderScriptCams
-  L3_2 = true
-  L4_2 = false
-  L5_2 = 0
-  L6_2 = true
-  L7_2 = false
-  L2_2(L3_2, L4_2, L5_2, L6_2, L7_2)
-  L2_2 = SetCamAffectsAiming
-  L3_2 = camFRC
-  L4_2 = false
-  L2_2(L3_2, L4_2)
-  L2_2 = loopCreaMenu
-  L2_2()
-end
-L22_1[L23_1] = L24_1
-L22_1 = _ENV
-L23_1 = "EndFreeCam"
-function L24_1(A0_2)
-  local L1_2, L2_2, L3_2, L4_2, L5_2, L6_2
-  L1_2 = ClearFocus
-  L1_2()
-  L1_2 = RenderScriptCams
-  L2_2 = false
-  L3_2 = false
-  L4_2 = 0
-  L5_2 = true
-  L6_2 = false
-  L1_2(L2_2, L3_2, L4_2, L5_2, L6_2)
-  L1_2 = DestroyCam
-  L2_2 = camFRC
-  L3_2 = false
-  L1_2(L2_2, L3_2)
-  L1_2 = 0.0
-  L15_1 = L1_2
-  L1_2 = 0.0
-  L16_1 = L1_2
-  L1_2 = 0.0
-  L17_1 = L1_2
-  camFRC = nil
-  L1_2 = false
-  L3_1 = L1_2
-end
-L22_1[L23_1] = L24_1
-L22_1 = _ENV
-L23_1 = "ProcessCamControls"
-function L24_1()
-  local L0_2, L1_2, L2_2, L3_2, L4_2, L5_2, L6_2, L7_2, L8_2, L9_2, L10_2, L11_2, L12_2, L13_2, L14_2, L15_2
-  L0_2 = L3_1
-  if L0_2 then
-    L0_2 = exports
-    L0_2 = L0_2.striano_core
-    L1_2 = L0_2
-    L0_2 = L0_2.draw
-    L2_2 = 300
-    L3_2 = "Sposta"
-    L4_2 = 21
-    L5_2 = "Velocizza"
-    L6_2 = 44
-    L7_2 = ""
-    L8_2 = 38
-    L9_2 = "Altezza"
-    L10_2 = 15
-    L11_2 = "Campo visivo"
-    L12_2 = 23
-    L13_2 = "Info"
-    L14_2 = 177
-    L15_2 = "Chiudi"
-    L0_2(L1_2, L2_2, L3_2, L4_2, L5_2, L6_2, L7_2, L8_2, L9_2, L10_2, L11_2, L12_2, L13_2, L14_2, L15_2)
-  end
-  L0_2 = DisableFirstPersonCamThisFrame
-  L0_2()
-  L0_2 = PlayerPedId
-  L0_2 = L0_2()
-  L1_2 = GetEntityRotation
-  L2_2 = L0_2
-  L3_2 = 2
-  L1_2 = L1_2(L2_2, L3_2)
-  L2_2 = L1_2.x
-  L3_2 = L1_2.y
-  L4_2 = L1_2.z
-  L5_2 = pairs
-  L6_2 = L2_1
-  L5_2, L6_2, L7_2, L8_2 = L5_2(L6_2)
-  for L9_2, L10_2 in L5_2, L6_2, L7_2, L8_2 do
-    L11_2 = DisableControlAction
-    L12_2 = 0
-    L13_2 = L10_2
-    L14_2 = true
-    L11_2(L12_2, L13_2, L14_2)
-  end
-  L5_2 = IsControlPressed
-  L6_2 = 0
-  L7_2 = 21
-  L5_2 = L5_2(L6_2, L7_2)
-  if L5_2 then
-    L5_2 = DisableControlAction
-    L6_2 = 0
-    L7_2 = 30
-    L5_2(L6_2, L7_2)
-    L5_2 = DisableControlAction
-    L6_2 = 0
-    L7_2 = 31
-    L5_2(L6_2, L7_2)
-    L5_2 = DisableControlAction
-    L6_2 = 0
-    L7_2 = 22
-    L5_2(L6_2, L7_2)
-    L5_2 = L18_1
-    if 0.3 == L5_2 then
-    else
-      L5_2 = 0.3
-      L18_1 = L5_2
-    end
-  else
-    L5_2 = L18_1
-    if 0.1 == L5_2 then
-    else
-      L5_2 = 0.1
-      L18_1 = L5_2
-    end
-  end
-  L5_2 = IsControlJustPressed
-  L6_2 = 0
-  L7_2 = 23
-  L5_2 = L5_2(L6_2, L7_2)
-  if L5_2 then
-    L5_2 = L3_1
-    L5_2 = not L5_2
-    L3_1 = L5_2
-  end
-  L5_2 = IsDisabledControlPressed
-  L6_2 = 0
-  L7_2 = 22
-  L5_2 = L5_2(L6_2, L7_2)
-  if L5_2 then
-    L5_2 = IsDisabledControlPressed
-    L6_2 = 0
-    L7_2 = 17
-    L5_2 = L5_2(L6_2, L7_2)
-    if L5_2 then
-      L5_2 = L4_1
-      L6_2 = 0.5
-      if L5_2 > L6_2 then
-        L5_2 = L4_1
-        L5_2 = L5_2 + 0.1
-        L4_1 = L5_2
-    end
-    else
-      L5_2 = IsDisabledControlPressed
-      L6_2 = 0
-      L7_2 = 16
-      L5_2 = L5_2(L6_2, L7_2)
-      if L5_2 then
-        L5_2 = L4_1
-        if L5_2 < 5.0 then
-          L5_2 = L4_1
-          L5_2 = L5_2 - 0.1
-          L4_1 = L5_2
-        end
-      end
-    end
-  end
-  L5_2 = L15_1
-  L6_2 = GetDisabledControlNormal
-  L7_2 = 1
-  L8_2 = 2
-  L6_2 = L6_2(L7_2, L8_2)
-  L7_2 = L4_1
-  L6_2 = L6_2 * L7_2
-  L5_2 = L5_2 - L6_2
-  L15_1 = L5_2
-  L5_2 = L17_1
-  L6_2 = GetDisabledControlNormal
-  L7_2 = 1
-  L8_2 = 1
-  L6_2 = L6_2(L7_2, L8_2)
-  L7_2 = L4_1
-  L6_2 = L6_2 * L7_2
-  L5_2 = L5_2 - L6_2
-  L17_1 = L5_2
-  L5_2 = L15_1
-  if L5_2 > 90.0 then
-    L5_2 = 90.0
-    L15_1 = L5_2
-  else
-    L5_2 = L15_1
-    if L5_2 < -90.0 then
-      L5_2 = -90.0
-      L15_1 = L5_2
-    end
-  end
-  L5_2 = L16_1
-  if L5_2 > 90.0 then
-    L5_2 = 90.0
-    L16_1 = L5_2
-  else
-    L5_2 = L16_1
-    if L5_2 < -90.0 then
-      L5_2 = -90.0
-      L16_1 = L5_2
-    end
-  end
-  L5_2 = L17_1
-  L6_2 = 360.0
-  if L5_2 > L6_2 then
-    L5_2 = L17_1
-    L5_2 = L5_2 - 360.0
-    L17_1 = L5_2
-  else
-    L5_2 = L17_1
-    L6_2 = -360.0
-    if L5_2 < L6_2 then
-      L5_2 = L17_1
-      L5_2 = L5_2 + 360.0
-      L17_1 = L5_2
-    end
-  end
-  L5_2 = GetCamCoord
-  L6_2 = camFRC
-  L5_2 = L5_2(L6_2)
-  L6_2 = L5_2.x
-  L7_2 = L5_2.y
-  L8_2 = L5_2.z
-  L9_2 = IsDisabledControlPressed
-  L10_2 = 1
-  L11_2 = 172
-  L9_2 = L9_2(L10_2, L11_2)
-  if not L9_2 then
-    L9_2 = IsControlPressed
-    L10_2 = 0
-    L11_2 = 21
-    L9_2 = L9_2(L10_2, L11_2)
-    if not L9_2 then
-      goto lbl_378
-    end
-    L9_2 = IsControlPressed
-    L10_2 = 1
-    L11_2 = 32
-    L9_2 = L9_2(L10_2, L11_2)
-    if not L9_2 then
-      goto lbl_378
-    end
-  end
-  L9_2 = 0.0
-  L10_2 = 0.0
-  L11_2 = L17_1
-  if L11_2 >= 0.0 then
-    L11_2 = L17_1
-    if L11_2 <= 90.0 then
-      goto lbl_218
-    end
-  end
-  L11_2 = L17_1
-  if L11_2 <= 0.0 then
-    L11_2 = L17_1
-    ::lbl_218::
-    if L11_2 >= -90.0 then
-      L11_2 = L17_1
-      L10_2 = L11_2 / 90
-      L11_2 = math
-      L11_2 = L11_2.abs
-      L12_2 = L17_1
-      L11_2 = L11_2(L12_2)
-      L11_2 = L11_2 / 90
-      L12_2 = 1.0
-      L9_2 = L12_2 - L11_2
-  end
-  else
-    L11_2 = L17_1
-    if L11_2 >= 90.0 then
-      L11_2 = L17_1
-      L12_2 = 180.0
-      if L11_2 <= L12_2 then
-        goto lbl_245
-      end
-    end
-    L11_2 = L17_1
-    if L11_2 <= -90.0 then
-      L11_2 = L17_1
-      L12_2 = -180.0
-      ::lbl_245::
-      if L11_2 >= L12_2 then
-        L11_2 = L17_1
-        if L11_2 >= 90.0 then
-          L11_2 = L17_1
-          L11_2 = L11_2 - 90.0
-          L11_2 = L11_2 / 90
-          L12_2 = 1.0
-          L10_2 = L12_2 - L11_2
-        else
-          L11_2 = L17_1
-          L11_2 = L11_2 + 90.0
-          L11_2 = L11_2 / 90
-          L11_2 = 1.0 + L11_2
-          L10_2 = -L11_2
-        end
-        L11_2 = math
-        L11_2 = L11_2.abs
-        L12_2 = L17_1
-        L11_2 = L11_2(L12_2)
-        L11_2 = L11_2 - 90.0
-        L11_2 = -L11_2
-        L9_2 = L11_2 / 90
-    end
-    else
-      L11_2 = L17_1
-      L12_2 = 180.0
-      if L11_2 >= L12_2 then
-        L11_2 = L17_1
-        L12_2 = 270.0
-        if L11_2 <= L12_2 then
-          goto lbl_291
-        end
-      end
-      L11_2 = L17_1
-      L12_2 = -180.0
-      if L11_2 <= L12_2 then
-        L11_2 = L17_1
-        L12_2 = -270.0
-        ::lbl_291::
-        if L11_2 >= L12_2 then
-          L11_2 = L17_1
-          L12_2 = 180.0
-          if L11_2 >= L12_2 then
-            L11_2 = L17_1
-            L11_2 = L11_2 - 180.0
-            L11_2 = L11_2 / 90
-            L10_2 = -L11_2
-          else
-            L11_2 = L17_1
-            L11_2 = L11_2 + 180.0
-            L11_2 = -L11_2
-            L10_2 = L11_2 / 90
-          end
-          L11_2 = math
-          L11_2 = L11_2.abs
-          L12_2 = L17_1
-          L11_2 = L11_2(L12_2)
-          L11_2 = L11_2 - 180.0
-          L11_2 = L11_2 / 90
-          L9_2 = -1.0 + L11_2
-      end
-      else
-        L11_2 = L17_1
-        L12_2 = 270.0
-        if L11_2 >= L12_2 then
-          L11_2 = L17_1
-          L12_2 = 360.0
-          if L11_2 <= L12_2 then
-            goto lbl_335
-          end
-        end
-        L11_2 = L17_1
-        L12_2 = -270.0
-        if L11_2 <= L12_2 then
-          L11_2 = L17_1
-          L12_2 = -360.0
-          ::lbl_335::
-          if L11_2 >= L12_2 then
-            L11_2 = L17_1
-            L12_2 = 270.0
-            if L11_2 >= L12_2 then
-              L11_2 = L17_1
-              L11_2 = L11_2 - 270.0
-              L11_2 = L11_2 / 90
-              L12_2 = 1.0
-              L11_2 = L12_2 - L11_2
-              L10_2 = -L11_2
+            -- previous filter
+            if currentIndex == 1 then
+                currentIndex = #filterList
             else
-              L11_2 = L17_1
-              L11_2 = L11_2 + 270.0
-              L11_2 = L11_2 / 90
-              L10_2 = 1.0 + L11_2
+                currentIndex = currentIndex - 1
             end
-            L11_2 = math
-            L11_2 = L11_2.abs
-            L12_2 = L17_1
-            L11_2 = L11_2(L12_2)
-            L11_2 = L11_2 - 270.0
-            L9_2 = L11_2 / 90
-          end
+            local name = filterList[currentIndex]
+            if name == "None" then
+                ClearTimecycleModifier()
+                browserNotify("No filter.")
+                ExecuteCommand("prova3 ")
+                playClickSound()
+            else
+                if currentIndex < 1 then currentIndex = 1 end
+                SetTimecycleModifier(filterList[currentIndex])
+                browserNotify("filter ID: [" .. currentIndex .. "]")
+                ExecuteCommand("copia " .. filterList[currentIndex])
+                ExecuteCommand("prova3 [" .. currentIndex .. "] " .. filterList[currentIndex])
+                playClickSound()
+            end
         end
-      end
-    end
-  end
-  L11_2 = L18_1
-  L11_2 = 0.1 * L11_2
-  L11_2 = L11_2 * L10_2
-  L6_2 = L6_2 - L11_2
-  L11_2 = L18_1
-  L11_2 = 0.1 * L11_2
-  L11_2 = L11_2 * L9_2
-  L7_2 = L7_2 + L11_2
-  ::lbl_378::
-  L9_2 = IsDisabledControlPressed
-  L10_2 = 1
-  L11_2 = 173
-  L9_2 = L9_2(L10_2, L11_2)
-  if not L9_2 then
-    L9_2 = IsControlPressed
-    L10_2 = 0
-    L11_2 = 21
-    L9_2 = L9_2(L10_2, L11_2)
-    if not L9_2 then
-      goto lbl_570
-    end
-    L9_2 = IsControlPressed
-    L10_2 = 1
-    L11_2 = 33
-    L9_2 = L9_2(L10_2, L11_2)
-    if not L9_2 then
-      goto lbl_570
-    end
-  end
-  L9_2 = 0.0
-  L10_2 = 0.0
-  L11_2 = L17_1
-  if L11_2 >= 0.0 then
-    L11_2 = L17_1
-    if L11_2 <= 90.0 then
-      goto lbl_410
-    end
-  end
-  L11_2 = L17_1
-  if L11_2 <= 0.0 then
-    L11_2 = L17_1
-    ::lbl_410::
-    if L11_2 >= -90.0 then
-      L11_2 = L17_1
-      L10_2 = L11_2 / 90
-      L11_2 = math
-      L11_2 = L11_2.abs
-      L12_2 = L17_1
-      L11_2 = L11_2(L12_2)
-      L11_2 = L11_2 / 90
-      L12_2 = 1.0
-      L9_2 = L12_2 - L11_2
-  end
-  else
-    L11_2 = L17_1
-    if L11_2 >= 90.0 then
-      L11_2 = L17_1
-      L12_2 = 180.0
-      if L11_2 <= L12_2 then
-        goto lbl_437
-      end
-    end
-    L11_2 = L17_1
-    if L11_2 <= -90.0 then
-      L11_2 = L17_1
-      L12_2 = -180.0
-      ::lbl_437::
-      if L11_2 >= L12_2 then
-        L11_2 = L17_1
-        if L11_2 >= 90.0 then
-          L11_2 = L17_1
-          L11_2 = L11_2 - 90.0
-          L11_2 = L11_2 / 90
-          L12_2 = 1.0
-          L10_2 = L12_2 - L11_2
+    elseif drawf == 2 then
+        -- previous sound
+        if currentIndex == 1 then
+            currentIndex = #soundList
         else
-          L11_2 = L17_1
-          L11_2 = L11_2 + 90.0
-          L11_2 = L11_2 / 90
-          L11_2 = 1.0 + L11_2
-          L10_2 = -L11_2
+            currentIndex = currentIndex - 1
         end
-        L11_2 = math
-        L11_2 = L11_2.abs
-        L12_2 = L17_1
-        L11_2 = L11_2(L12_2)
-        L11_2 = L11_2 - 90.0
-        L11_2 = -L11_2
-        L9_2 = L11_2 / 90
+        local e = soundList[currentIndex]
+        PlaySoundFrontend(e[1], e[2], e[3], e[4])
+        browserNotify("Sound ID: [" .. currentIndex .. "]")
     end
-    else
-      L11_2 = L17_1
-      L12_2 = 180.0
-      if L11_2 >= L12_2 then
-        L11_2 = L17_1
-        L12_2 = 270.0
-        if L11_2 <= L12_2 then
-          goto lbl_483
-        end
-      end
-      L11_2 = L17_1
-      L12_2 = -180.0
-      if L11_2 <= L12_2 then
-        L11_2 = L17_1
-        L12_2 = -270.0
-        ::lbl_483::
-        if L11_2 >= L12_2 then
-          L11_2 = L17_1
-          L12_2 = 180.0
-          if L11_2 >= L12_2 then
-            L11_2 = L17_1
-            L11_2 = L11_2 - 180.0
-            L11_2 = L11_2 / 90
-            L10_2 = -L11_2
-          else
-            L11_2 = L17_1
-            L11_2 = L11_2 + 180.0
-            L11_2 = -L11_2
-            L10_2 = L11_2 / 90
-          end
-          L11_2 = math
-          L11_2 = L11_2.abs
-          L12_2 = L17_1
-          L11_2 = L11_2(L12_2)
-          L11_2 = L11_2 - 180.0
-          L11_2 = L11_2 / 90
-          L9_2 = -1.0 + L11_2
-      end
-      else
-        L11_2 = L17_1
-        L12_2 = 270.0
-        if L11_2 >= L12_2 then
-          L11_2 = L17_1
-          L12_2 = 360.0
-          if L11_2 <= L12_2 then
-            goto lbl_527
-          end
-        end
-        L11_2 = L17_1
-        L12_2 = -270.0
-        if L11_2 <= L12_2 then
-          L11_2 = L17_1
-          L12_2 = -360.0
-          ::lbl_527::
-          if L11_2 >= L12_2 then
-            L11_2 = L17_1
-            L12_2 = 270.0
-            if L11_2 >= L12_2 then
-              L11_2 = L17_1
-              L11_2 = L11_2 - 270.0
-              L11_2 = L11_2 / 90
-              L12_2 = 1.0
-              L11_2 = L12_2 - L11_2
-              L10_2 = -L11_2
-            else
-              L11_2 = L17_1
-              L11_2 = L11_2 + 270.0
-              L11_2 = L11_2 / 90
-              L10_2 = 1.0 + L11_2
+end
+
+--- nextFilterOrIntensity: navigate forward (mousewheel up / right arrow)
+local function nextFilterOrIntensity()
+    if drawf == 1 then
+        if intensityMode then
+            -- increase intensity index
+            local step = IsControlPressed(0, 21) and 10 or 1
+            intensityIdx = intensityIdx + step
+            if intensityIdx > #intensityList then
+                intensityIdx = intensityIdx - #intensityList
             end
-            L11_2 = math
-            L11_2 = L11_2.abs
-            L12_2 = L17_1
-            L11_2 = L11_2(L12_2)
-            L11_2 = L11_2 - 270.0
-            L9_2 = L11_2 / 90
-          end
-        end
-      end
-    end
-  end
-  L11_2 = L18_1
-  L11_2 = 0.1 * L11_2
-  L11_2 = L11_2 * L10_2
-  L6_2 = L6_2 + L11_2
-  L11_2 = L18_1
-  L11_2 = 0.1 * L11_2
-  L11_2 = L11_2 * L9_2
-  L7_2 = L7_2 - L11_2
-  ::lbl_570::
-  L9_2 = IsDisabledControlPressed
-  L10_2 = 1
-  L11_2 = 174
-  L9_2 = L9_2(L10_2, L11_2)
-  if not L9_2 then
-    L9_2 = IsControlPressed
-    L10_2 = 0
-    L11_2 = 21
-    L9_2 = L9_2(L10_2, L11_2)
-    if not L9_2 then
-      goto lbl_794
-    end
-    L9_2 = IsControlPressed
-    L10_2 = 1
-    L11_2 = 34
-    L9_2 = L9_2(L10_2, L11_2)
-    if not L9_2 then
-      goto lbl_794
-    end
-  end
-  L9_2 = 0.0
-  L10_2 = 0.0
-  L11_2 = L17_1
-  if L11_2 >= 0.0 then
-    L11_2 = L17_1
-    if L11_2 <= 90.0 then
-      goto lbl_602
-    end
-  end
-  L11_2 = L17_1
-  if L11_2 <= 0.0 then
-    L11_2 = L17_1
-    ::lbl_602::
-    if L11_2 >= -90.0 then
-      L11_2 = math
-      L11_2 = L11_2.abs
-      L12_2 = L17_1
-      L11_2 = L11_2(L12_2)
-      L11_2 = L11_2 / 90
-      L12_2 = 1.0
-      L10_2 = L12_2 - L11_2
-      L11_2 = L17_1
-      L11_2 = L11_2 / 90
-      L9_2 = -L11_2
-  end
-  else
-    L11_2 = L17_1
-    if L11_2 >= 90.0 then
-      L11_2 = L17_1
-      L12_2 = 180.0
-      if L11_2 <= L12_2 then
-        goto lbl_630
-      end
-    end
-    L11_2 = L17_1
-    if L11_2 <= -90.0 then
-      L11_2 = L17_1
-      L12_2 = -180.0
-      ::lbl_630::
-      if L11_2 >= L12_2 then
-        L11_2 = L17_1
-        if L11_2 >= 90.0 then
-          L11_2 = L17_1
-          L11_2 = L11_2 - 90.0
-          L11_2 = -L11_2
-          L10_2 = L11_2 / 90
-          L11_2 = math
-          L11_2 = L11_2.abs
-          L12_2 = L17_1
-          L11_2 = L11_2(L12_2)
-          L11_2 = L11_2 - 90.0
-          L11_2 = L11_2 / 90
-          L12_2 = 1.0
-          L11_2 = L12_2 - L11_2
-          L9_2 = -L11_2
+            SetTimecycleModifierStrength(tonumber(intensityList[intensityIdx]))
+            browserNotify("Select intensity filter: " .. tonumber(intensityList[intensityIdx]))
         else
-          L11_2 = L17_1
-          L11_2 = L11_2 + 90.0
-          L10_2 = L11_2 / 90
-          L11_2 = math
-          L11_2 = L11_2.abs
-          L12_2 = L17_1
-          L11_2 = L11_2(L12_2)
-          L11_2 = L11_2 - 90.0
-          L11_2 = L11_2 / 90
-          L12_2 = 1.0
-          L9_2 = L12_2 - L11_2
-        end
-    end
-    else
-      L11_2 = L17_1
-      L12_2 = 180.0
-      if L11_2 >= L12_2 then
-        L11_2 = L17_1
-        L12_2 = 270.0
-        if L11_2 <= L12_2 then
-          goto lbl_685
-        end
-      end
-      L11_2 = L17_1
-      L12_2 = -180.0
-      if L11_2 <= L12_2 then
-        L11_2 = L17_1
-        L12_2 = -270.0
-        ::lbl_685::
-        if L11_2 >= L12_2 then
-          L11_2 = L17_1
-          L12_2 = 180.0
-          if L11_2 >= L12_2 then
-            L11_2 = L17_1
-            L11_2 = L11_2 - 180.0
-            L11_2 = L11_2 / 90
-            L12_2 = 1.0
-            L11_2 = L12_2 - L11_2
-            L10_2 = -L11_2
-            L11_2 = math
-            L11_2 = L11_2.abs
-            L12_2 = L17_1
-            L11_2 = L11_2(L12_2)
-            L11_2 = L11_2 - 180.0
-            L9_2 = L11_2 / 90
-          else
-            L11_2 = L17_1
-            L11_2 = L11_2 + 180.0
-            L11_2 = L11_2 / 90
-            L11_2 = 1.0 + L11_2
-            L10_2 = -L11_2
-            L11_2 = math
-            L11_2 = L11_2.abs
-            L12_2 = L17_1
-            L11_2 = L11_2(L12_2)
-            L11_2 = L11_2 - 180.0
-            L11_2 = -L11_2
-            L9_2 = L11_2 / 90
-          end
-      end
-      else
-        L11_2 = L17_1
-        L12_2 = 270.0
-        if L11_2 >= L12_2 then
-          L11_2 = L17_1
-          L12_2 = 360.0
-          if L11_2 <= L12_2 then
-            goto lbl_741
-          end
-        end
-        L11_2 = L17_1
-        L12_2 = -270.0
-        if L11_2 <= L12_2 then
-          L11_2 = L17_1
-          L12_2 = -360.0
-          ::lbl_741::
-          if L11_2 >= L12_2 then
-            L11_2 = L17_1
-            L12_2 = 270.0
-            if L11_2 >= L12_2 then
-              L11_2 = L17_1
-              L11_2 = L11_2 - 270.0
-              L10_2 = L11_2 / 90
-              L11_2 = math
-              L11_2 = L11_2.abs
-              L12_2 = L17_1
-              L11_2 = L11_2(L12_2)
-              L11_2 = L11_2 - 270.0
-              L11_2 = L11_2 / 90
-              L12_2 = 1.0
-              L9_2 = L12_2 - L11_2
+            -- next filter
+            if currentIndex == #filterList then
+                currentIndex = 1
             else
-              L11_2 = L17_1
-              L11_2 = L11_2 + 270.0
-              L11_2 = -L11_2
-              L10_2 = L11_2 / 90
-              L11_2 = math
-              L11_2 = L11_2.abs
-              L12_2 = L17_1
-              L11_2 = L11_2(L12_2)
-              L11_2 = L11_2 - 270.0
-              L11_2 = L11_2 / 90
-              L12_2 = 1.0
-              L11_2 = L12_2 - L11_2
-              L9_2 = -L11_2
+                currentIndex = currentIndex + 1
             end
-          end
+            local name = filterList[currentIndex]
+            if name == "None" or currentIndex == 1 then
+                ClearTimecycleModifier()
+                browserNotify("No filter")
+                ExecuteCommand("prova3 ")
+                playClickSound()
+            else
+                SetTimecycleModifier(filterList[currentIndex])
+                browserNotify("Filter ID [" .. currentIndex .. "]")
+                ExecuteCommand("copia " .. filterList[currentIndex])
+                ExecuteCommand("prova3 [" .. currentIndex .. "] " .. filterList[currentIndex])
+                playClickSound()
+            end
         end
-      end
-    end
-  end
-  L11_2 = L18_1
-  L11_2 = 0.1 * L11_2
-  L11_2 = L11_2 * L10_2
-  L6_2 = L6_2 - L11_2
-  L11_2 = L18_1
-  L11_2 = 0.1 * L11_2
-  L11_2 = L11_2 * L9_2
-  L7_2 = L7_2 + L11_2
-  ::lbl_794::
-  L9_2 = IsDisabledControlPressed
-  L10_2 = 1
-  L11_2 = 175
-  L9_2 = L9_2(L10_2, L11_2)
-  if not L9_2 then
-    L9_2 = IsControlPressed
-    L10_2 = 0
-    L11_2 = 21
-    L9_2 = L9_2(L10_2, L11_2)
-    if not L9_2 then
-      goto lbl_1018
-    end
-    L9_2 = IsControlPressed
-    L10_2 = 1
-    L11_2 = 35
-    L9_2 = L9_2(L10_2, L11_2)
-    if not L9_2 then
-      goto lbl_1018
-    end
-  end
-  L9_2 = 0.0
-  L10_2 = 0.0
-  L11_2 = L17_1
-  if L11_2 >= 0.0 then
-    L11_2 = L17_1
-    if L11_2 <= 90.0 then
-      goto lbl_826
-    end
-  end
-  L11_2 = L17_1
-  if L11_2 <= 0.0 then
-    L11_2 = L17_1
-    ::lbl_826::
-    if L11_2 >= -90.0 then
-      L11_2 = math
-      L11_2 = L11_2.abs
-      L12_2 = L17_1
-      L11_2 = L11_2(L12_2)
-      L11_2 = L11_2 / 90
-      L12_2 = 1.0
-      L10_2 = L12_2 - L11_2
-      L11_2 = L17_1
-      L11_2 = L11_2 / 90
-      L9_2 = -L11_2
-  end
-  else
-    L11_2 = L17_1
-    if L11_2 >= 90.0 then
-      L11_2 = L17_1
-      L12_2 = 180.0
-      if L11_2 <= L12_2 then
-        goto lbl_854
-      end
-    end
-    L11_2 = L17_1
-    if L11_2 <= -90.0 then
-      L11_2 = L17_1
-      L12_2 = -180.0
-      ::lbl_854::
-      if L11_2 >= L12_2 then
-        L11_2 = L17_1
-        if L11_2 >= 90.0 then
-          L11_2 = L17_1
-          L11_2 = L11_2 - 90.0
-          L11_2 = -L11_2
-          L10_2 = L11_2 / 90
-          L11_2 = math
-          L11_2 = L11_2.abs
-          L12_2 = L17_1
-          L11_2 = L11_2(L12_2)
-          L11_2 = L11_2 - 90.0
-          L11_2 = L11_2 / 90
-          L12_2 = 1.0
-          L11_2 = L12_2 - L11_2
-          L9_2 = -L11_2
+    elseif drawf == 2 then
+        -- next sound
+        if currentIndex == #soundList then
+            currentIndex = 1
         else
-          L11_2 = L17_1
-          L11_2 = L11_2 + 90.0
-          L10_2 = L11_2 / 90
-          L11_2 = math
-          L11_2 = L11_2.abs
-          L12_2 = L17_1
-          L11_2 = L11_2(L12_2)
-          L11_2 = L11_2 - 90.0
-          L11_2 = L11_2 / 90
-          L12_2 = 1.0
-          L9_2 = L12_2 - L11_2
+            currentIndex = currentIndex + 1
+        end
+        local e = soundList[currentIndex]
+        PlaySoundFrontend(e[1], e[2], e[3], e[4])
+        browserNotify("Sound ID: [" .. currentIndex .. "]")
+    end
+end
+
+--- VaiAIDFiltro: jump to a filter/sound by typed numeric ID
+VaiAIDFiltro = function()
+    if drawf == 1 then
+        local raw = OpenInput("Insert ID (0-" .. #filterList .. ")")
+        local id  = tonumber(raw)
+        if id == nil or type(id) ~= "number" then
+            playFailSound(); browserNotify("Invalid Id."); return
+        end
+        if id == 0 then
+            ClearTimecycleModifier()
+            browserNotify("Filter reset.")
+            playClickSound()
+            currentIndex = 0
+        elseif id > 0 and id <= #filterList then
+            currentIndex = id
+            SetTimecycleModifier(filterList[currentIndex])
+            browserNotify("Filter ID [" .. currentIndex .. "]")
+            playClickSound()
+        else
+            playFailSound(); browserNotify("Invalid id.")
+        end
+    elseif drawf == 2 then
+        local raw = OpenInput("Insert ID (1-" .. #soundList .. ")")
+        local id  = tonumber(raw)
+        if type(id) == "number" and id > 0 and id <= #soundList then
+            currentIndex = id
+            local e = soundList[currentIndex]
+            PlaySoundFrontend(e[1], e[2], e[3], e[4])
+            browserNotify("Sound ID: [" .. currentIndex .. "]")
+        else
+            playFailSound()
+            if type(id) ~= "number" then browserNotify("Invalid id.") end
         end
     end
+end
+
+--- Intense: toggle intensity selection mode (mousewheel adjusts strength)
+Intense = function()
+    if currentIndex > 1 then
+        intensityMode = not intensityMode
+        if intensityMode then
+            browserNotify("Select intensity with mousewheel.")
+        else
+            browserNotify("Filter ID [" .. currentIndex .. "]")
+        end
     else
-      L11_2 = L17_1
-      L12_2 = 180.0
-      if L11_2 >= L12_2 then
-        L11_2 = L17_1
-        L12_2 = 270.0
-        if L11_2 <= L12_2 then
-          goto lbl_909
-        end
-      end
-      L11_2 = L17_1
-      L12_2 = -180.0
-      if L11_2 <= L12_2 then
-        L11_2 = L17_1
-        L12_2 = -270.0
-        ::lbl_909::
-        if L11_2 >= L12_2 then
-          L11_2 = L17_1
-          L12_2 = 180.0
-          if L11_2 >= L12_2 then
-            L11_2 = L17_1
-            L11_2 = L11_2 - 180.0
-            L11_2 = L11_2 / 90
-            L12_2 = 1.0
-            L11_2 = L12_2 - L11_2
-            L10_2 = -L11_2
-            L11_2 = math
-            L11_2 = L11_2.abs
-            L12_2 = L17_1
-            L11_2 = L11_2(L12_2)
-            L11_2 = L11_2 - 180.0
-            L9_2 = L11_2 / 90
-          else
-            L11_2 = L17_1
-            L11_2 = L11_2 + 180.0
-            L11_2 = L11_2 / 90
-            L11_2 = 1.0 + L11_2
-            L10_2 = -L11_2
-            L11_2 = math
-            L11_2 = L11_2.abs
-            L12_2 = L17_1
-            L11_2 = L11_2(L12_2)
-            L11_2 = L11_2 - 180.0
-            L11_2 = -L11_2
-            L9_2 = L11_2 / 90
-          end
-      end
-      else
-        L11_2 = L17_1
-        L12_2 = 270.0
-        if L11_2 >= L12_2 then
-          L11_2 = L17_1
-          L12_2 = 360.0
-          if L11_2 <= L12_2 then
-            goto lbl_965
-          end
-        end
-        L11_2 = L17_1
-        L12_2 = -270.0
-        if L11_2 <= L12_2 then
-          L11_2 = L17_1
-          L12_2 = -360.0
-          ::lbl_965::
-          if L11_2 >= L12_2 then
-            L11_2 = L17_1
-            L12_2 = 270.0
-            if L11_2 >= L12_2 then
-              L11_2 = L17_1
-              L11_2 = L11_2 - 270.0
-              L10_2 = L11_2 / 90
-              L11_2 = math
-              L11_2 = L11_2.abs
-              L12_2 = L17_1
-              L11_2 = L11_2(L12_2)
-              L11_2 = L11_2 - 270.0
-              L11_2 = L11_2 / 90
-              L12_2 = 1.0
-              L9_2 = L12_2 - L11_2
-            else
-              L11_2 = L17_1
-              L11_2 = L11_2 + 270.0
-              L11_2 = -L11_2
-              L10_2 = L11_2 / 90
-              L11_2 = math
-              L11_2 = L11_2.abs
-              L12_2 = L17_1
-              L11_2 = L11_2(L12_2)
-              L11_2 = L11_2 - 270.0
-              L11_2 = L11_2 / 90
-              L12_2 = 1.0
-              L11_2 = L12_2 - L11_2
-              L9_2 = -L11_2
+        playFailSound()
+        browserNotify("Select first a filter.")
+    end
+end
+
+--- CopiaSuono: copy current sound entry as PlaySoundFrontend call to clipboard
+CopiaSuono = function()
+    local e = soundList[currentIndex]
+    ExecuteCommand("copia PlaySoundFrontend(" .. e[1] .. ",'" .. e[2] .. "','" .. e[3] .. "'," .. e[4] .. ")")
+    playFailSound()
+end
+
+-- Key maps for browser modes
+-- Filter browser (drawf == 1)
+local filterKeyMap = {
+    {button = 177, func = exitBrowser},
+    {button = 16,  func = prevFilterOrIntensity},
+    {button = 17,  func = nextFilterOrIntensity},
+    {button = 24,  func = Intense},
+    {button = 74,  func = VaiAIDFiltro},
+    {button = 301, func = resetIntensity},
+}
+
+-- Sound browser (drawf == 2)
+local soundKeyMap = {
+    {button = 177, func = exitBrowser},
+    {button = 16,  func = prevFilterOrIntensity},
+    {button = 17,  func = nextFilterOrIntensity},
+    {button = 21,  func = CopiaSuono},
+    {button = 74,  func = VaiAIDFiltro},
+}
+
+-- ════════════════════════════════════════════════════════════════
+-- COMMANDS: FILTER & SOUND BROWSERS
+-- ════════════════════════════════════════════════════════════════
+
+RegisterCommand("filtri", function()
+    if drawf == 1 then return end
+    local adminLevel = LocalPlayer.state.adminLevel or 0
+    if adminLevel == 0 then return end
+    LoopAnimFC()
+    drawf = 1
+    Wait(0)
+    PlaySoundFrontend(-1, "Goon_Paid_Small", "GTAO_Boss_Goons_FM_Soundset", 0)
+end)
+
+exports("infiltri", function()
+    return drawf > 0
+end)
+
+RegisterCommand("nativesound", function()
+    local adminLevel = LocalPlayer.state.adminLevel or 0
+    if adminLevel == 0 then return end
+    LoopAnimFC()
+    drawf = 2
+    Wait(0)
+    PlaySoundFrontend(-1, "Goon_Paid_Small", "GTAO_Boss_Goons_FM_Soundset", 0)
+end)
+
+-- ════════════════════════════════════════════════════════════════
+-- LOOPANIMFC: Key-intercept thread for browser modes
+-- ════════════════════════════════════════════════════════════════
+
+LoopAnimFC = function()
+    if drawf > 0 then return end  -- already running
+
+    CreateThread(function()
+        while true do
+            -- ESC / Tab / Esc-key: close browser
+            if drawf > 0 then
+                local wantsClose = IsControlJustPressed(0, 170)
+                    or IsControlPressed(0, 311)
+                    or IsDisabledControlPressed(0, 37)
+                if wantsClose and not IsPauseMenuActive() then
+                    exitBrowser()
+                end
             end
-          end
-        end
-      end
-    end
-  end
-  L11_2 = L18_1
-  L11_2 = 0.1 * L11_2
-  L11_2 = L11_2 * L10_2
-  L6_2 = L6_2 + L11_2
-  L11_2 = L18_1
-  L11_2 = 0.1 * L11_2
-  L11_2 = L11_2 * L9_2
-  L7_2 = L7_2 - L11_2
-  ::lbl_1018::
-  L9_2 = IsDisabledControlPressed
-  L10_2 = 1
-  L11_2 = 44
-  L9_2 = L9_2(L10_2, L11_2)
-  if L9_2 then
-    L9_2 = L18_1
-    L9_2 = 0.1 * L9_2
-    L8_2 = L8_2 + L9_2
-  end
-  L9_2 = IsDisabledControlPressed
-  L10_2 = 1
-  L11_2 = 38
-  L9_2 = L9_2(L10_2, L11_2)
-  if L9_2 then
-    L9_2 = L18_1
-    L9_2 = 0.1 * L9_2
-    L8_2 = L8_2 - L9_2
-  end
-  L9_2 = IsDisabledControlPressed
-  L10_2 = 0
-  L11_2 = 22
-  L9_2 = L9_2(L10_2, L11_2)
-  if not L9_2 then
-    L9_2 = drawf
-    if 0 == L9_2 then
-      L9_2 = IsDisabledControlPressed
-      L10_2 = 0
-      L11_2 = 17
-      L9_2 = L9_2(L10_2, L11_2)
-      if L9_2 then
-        L9_2 = L21_1
-        if L9_2 > 0 then
-          L9_2 = IsControlPressed
-          L10_2 = 0
-          L11_2 = 21
-          L9_2 = L9_2(L10_2, L11_2)
-          if L9_2 then
-            L9_2 = L21_1
-            L9_2 = L9_2 - 1.0
-            L21_1 = L9_2
-          else
-            L9_2 = L21_1
-            L9_2 = L9_2 - 0.1
-            L21_1 = L9_2
-          end
-          L9_2 = SetCamFov
-          L10_2 = camFRC
-          L11_2 = L21_1
-          L9_2(L10_2, L11_2)
-      end
-      else
-        L9_2 = IsDisabledControlPressed
-        L10_2 = 0
-        L11_2 = 16
-        L9_2 = L9_2(L10_2, L11_2)
-        if L9_2 then
-          L9_2 = L21_1
-          if L9_2 < 120.0 then
-            L9_2 = IsControlPressed
-            L10_2 = 0
-            L11_2 = 21
-            L9_2 = L9_2(L10_2, L11_2)
-            if L9_2 then
-              L9_2 = L21_1
-              L9_2 = L9_2 + 1.0
-              L21_1 = L9_2
+
+            -- Dispatch key bindings for active mode
+            local keyMap = nil
+            if drawf == 1 then
+                keyMap = filterKeyMap
+            elseif drawf == 2 then
+                keyMap = soundKeyMap
             else
-              L9_2 = L21_1
-              L9_2 = L9_2 + 0.1
-              L21_1 = L9_2
+                return  -- browser closed; exit thread
             end
-            L9_2 = SetCamFov
-            L10_2 = camFRC
-            L11_2 = L21_1
-            L9_2(L10_2, L11_2)
-          end
+
+            for _, entry in ipairs(keyMap) do
+                DisableControlAction(0, entry.button, true)
+                if IsDisabledControlJustPressed(0, entry.button) then
+                    if not IsPauseMenuActive() then
+                        entry.func()
+                    end
+                end
+            end
+
+            Wait(0)
         end
-      end
+    end)
+end
+
+AddEventHandler("esx:onPlayerDeath", function()
+    exitBrowser()
+end)
+
+-- ════════════════════════════════════════════════════════════════
+-- FREECAM SYSTEM
+-- ════════════════════════════════════════════════════════════════
+
+camFRC = nil
+camPitch = 0.0
+camRoll  = 0.0
+camYaw   = 0.0
+camSpeed = 0.1
+camOriginCoords = nil
+camFOV   = 70.0
+
+--- Compute XY direction vector components from yaw angle.
+--- Returns dirX, dirY such that moving "forward" at this yaw
+--- increments camX by dirX and camY by dirY.
+--- Uses piecewise linear approximation across 90-degree quadrants.
+local function yawToForwardDir(yaw)
+    local dirX, dirY = 0.0, 0.0
+    local y = yaw
+    if (y >= 0.0 and y <= 90.0) or (y <= 0.0 and y >= -90.0) then
+        dirX = math.abs(y) / 90
+        dirY = -(y / 90)
+    elseif (y >= 90.0 and y <= 180.0) or (y <= -90.0 and y >= -180.0) then
+        if y >= 90.0 then
+            dirX = -((y - 90.0) / 90)
+            dirY = -(1.0 - (math.abs(y) - 90.0) / 90)
+        else
+            dirX = (y + 90.0) / 90
+            dirY = 1.0 - (math.abs(y) - 90.0) / 90
+        end
+    elseif (y >= 180.0 and y <= 270.0) or (y <= -180.0 and y >= -270.0) then
+        if y >= 180.0 then
+            dirX = -((1.0 - (y - 180.0) / 90))
+            dirY = (math.abs(y) - 180.0) / 90
+        else
+            dirX = -(1.0 + (y + 180.0) / 90)
+            dirY = -(math.abs(y) - 180.0) / 90
+        end
+    elseif (y >= 270.0 and y <= 360.0) or (y <= -270.0 and y >= -360.0) then
+        if y >= 270.0 then
+            dirX = (y - 270.0) / 90
+            dirY = 1.0 - (math.abs(y) - 270.0) / 90
+        else
+            dirX = -((y + 270.0) / 90)
+            dirY = -(1.0 - (math.abs(y) - 270.0) / 90)
+        end
     end
-  end
-  L9_2 = SetFocusArea
-  L10_2 = L6_2
-  L11_2 = L7_2
-  L12_2 = L8_2
-  L13_2 = 0.0
-  L14_2 = 0.0
-  L15_2 = 0.0
-  L9_2(L10_2, L11_2, L12_2, L13_2, L14_2, L15_2)
-  L9_2 = SetCamCoord
-  L10_2 = camFRC
-  L11_2 = L6_2
-  L12_2 = L7_2
-  L13_2 = L8_2
-  L9_2(L10_2, L11_2, L12_2, L13_2)
-  L9_2 = SetCamRot
-  L10_2 = camFRC
-  L11_2 = L15_1
-  L12_2 = L16_1
-  L13_2 = L17_1
-  L14_2 = 2
-  L9_2(L10_2, L11_2, L12_2, L13_2, L14_2)
+    return dirX, dirY
 end
-L22_1[L23_1] = L24_1
-L22_1 = _ENV
-L23_1 = "RegisterCommand"
-L22_1 = L22_1[L23_1]
-L23_1 = "freecam"
-function L24_1(A0_2, A1_2, A2_2)
-  local L3_2, L4_2
-  L3_2 = exports
-  L3_2 = L3_2.striano_inventory
-  L4_2 = L3_2
-  L3_2 = L3_2.binocoloattivo
-  L3_2 = L3_2(L4_2)
-  if L3_2 then
-    L3_2 = print
-    L4_2 = "Operazione bloccata in fase binocolo"
-    L3_2(L4_2)
-    return
-  end
-  L3_2 = camFRC
-  if L3_2 then
-    L3_2 = EndFreeCam
-    L3_2()
-    return
-  end
-  L3_2 = StartFreeCam
-  L4_2 = L21_1
-  L3_2(L4_2)
-end
-L22_1(L23_1, L24_1)
-function L22_1(A0_2)
-  local L1_2, L2_2, L3_2, L4_2, L5_2, L6_2, L7_2
-  L1_2 = ipairs
-  L2_2 = L1_1
-  L1_2, L2_2, L3_2, L4_2 = L1_2(L2_2)
-  for L5_2, L6_2 in L1_2, L2_2, L3_2, L4_2 do
-    if L6_2 == A0_2 then
-      return L5_2
+
+--- Compute XY direction vector for strafing right (yaw + 90 degrees).
+local function yawToStrafeRightDir(yaw)
+    -- Strafe right = forward direction at yaw+90
+    -- The bytecode uses the same quadrant logic but with different sign patterns
+    -- Equivalent: perpendicular to forward, to the right
+    local dirX, dirY = 0.0, 0.0
+    local y = yaw
+    if (y >= 0.0 and y <= 90.0) or (y <= 0.0 and y >= -90.0) then
+        dirX = 1.0 - math.abs(y) / 90
+        dirY = -(y / 90)
+    elseif (y >= 90.0 and y <= 180.0) or (y <= -90.0 and y >= -180.0) then
+        if y >= 90.0 then
+            dirX = -((y - 90.0) / 90)
+            dirY = 1.0 - (math.abs(y) - 90.0) / 90
+        else
+            dirX = (y + 90.0) / 90
+            dirY = -(1.0 - (math.abs(y) - 90.0) / 90)
+        end
+    elseif (y >= 180.0 and y <= 270.0) or (y <= -180.0 and y >= -270.0) then
+        if y >= 180.0 then
+            dirX = -(1.0 - (y - 180.0) / 90)
+            dirY = (math.abs(y) - 180.0) / 90
+        else
+            dirX = 1.0 + (y + 180.0) / 90
+            dirY = -(math.abs(y) - 180.0) / 90
+        end
+    elseif (y >= 270.0 and y <= 360.0) or (y <= -270.0 and y >= -360.0) then
+        if y >= 270.0 then
+            dirX = (y - 270.0) / 90
+            dirY = 1.0 - (math.abs(y) - 270.0) / 90
+        else
+            dirX = -((y + 270.0) / 90)
+            dirY = -(1.0 - (math.abs(y) - 270.0) / 90)
+        end
     end
-  end
-  L1_2 = nil
-  return L1_2
+    return dirX, dirY
 end
-L23_1 = _ENV
-L24_1 = "RegisterCommand"
-L23_1 = L23_1[L24_1]
-L24_1 = "getFilter"
-function L25_1(A0_2, A1_2)
-  local L2_2, L3_2, L4_2, L5_2, L6_2, L7_2, L8_2, L9_2, L10_2, L11_2, L12_2, L13_2
-  L2_2 = table
-  L2_2 = L2_2.concat
-  L3_2 = A1_2
-  L4_2 = " "
-  L2_2 = L2_2(L3_2, L4_2)
-  if "" == L2_2 then
-    L3_2 = print
-    L4_2 = "/getFilter Name"
-    L3_2(L4_2)
-    return
-  end
-  L3_2 = ipairs
-  L4_2 = L1_1
-  L3_2, L4_2, L5_2, L6_2 = L3_2(L4_2)
-  for L7_2, L8_2 in L3_2, L4_2, L5_2, L6_2 do
-    L9_2 = string
-    L9_2 = L9_2.lower
-    L10_2 = L8_2
-    L9_2 = L9_2(L10_2)
-    L10_2 = string
-    L10_2 = L10_2.lower
-    L11_2 = L2_2
-    L10_2 = L10_2(L11_2)
-    if L9_2 == L10_2 then
-      L9_2 = print
-      L10_2 = "Filter '%s' found as index %s"
-      L11_2 = L10_2
-      L10_2 = L10_2.format
-      L12_2 = L8_2
-      L13_2 = L7_2
-      L10_2, L11_2, L12_2, L13_2 = L10_2(L11_2, L12_2, L13_2)
-      L9_2(L10_2, L11_2, L12_2, L13_2)
-      return
+
+--- ProcessCamControls: called every frame while freecam is active.
+--- Reads inputs and updates camera position/rotation.
+ProcessCamControls = function()
+    local camPos = GetCamCoord(camFRC)
+    local cx, cy, cz = camPos.x, camPos.y, camPos.z
+
+    -- Show controls HUD if enabled
+    if showHelp then
+        exports.striano_core:draw(
+            300, "Sposta",
+            21,  "Velocizza",
+            44,  "",
+            38,  "Altezza",
+            15,  "Campo visivo",
+            23,  "Info",
+            177, "Chiudi"
+        )
     end
-  end
-  L3_2 = print
-  L4_2 = "Filter '%s' not found."
-  L5_2 = L4_2
-  L4_2 = L4_2.format
-  L6_2 = L2_2
-  L4_2, L5_2, L6_2, L7_2, L8_2, L9_2, L10_2, L11_2, L12_2, L13_2 = L4_2(L5_2, L6_2)
-  L3_2(L4_2, L5_2, L6_2, L7_2, L8_2, L9_2, L10_2, L11_2, L12_2, L13_2)
+
+    DisableFirstPersonCamThisFrame()
+
+    -- Disable movement controls
+    for _, ctrl in ipairs(disabledControls) do
+        DisableControlAction(0, ctrl, true)
+    end
+
+    -- LShift (21) = sprint mode: faster movement, disable WASD passthrough
+    if IsControlPressed(0, 21) then
+        DisableControlAction(0, 30)
+        DisableControlAction(0, 31)
+        DisableControlAction(0, 22)
+        camSpeed = 0.3
+    else
+        camSpeed = 0.1
+    end
+
+    -- H key (23): toggle help display
+    if IsControlJustPressed(0, 23) then
+        showHelp = not showHelp
+    end
+
+    -- Space + scroll: adjust mouse sensitivity
+    if IsDisabledControlPressed(0, 22) then
+        if IsDisabledControlPressed(0, 17) then
+            -- scroll up: increase sensitivity (min 0.5)
+            if mouseSensitivity > 0.5 then
+                mouseSensitivity = mouseSensitivity + 0.1
+            end
+        elseif IsDisabledControlPressed(0, 16) then
+            -- scroll down: decrease sensitivity (max 5.0)
+            if mouseSensitivity < 5.0 then
+                mouseSensitivity = mouseSensitivity - 0.1
+            end
+        end
+    end
+
+    -- Mouse look: update pitch (X) and yaw (Z)
+    camPitch = camPitch - GetDisabledControlNormal(1, 2) * mouseSensitivity
+    camYaw   = camYaw   - GetDisabledControlNormal(1, 1) * mouseSensitivity
+
+    -- Clamp pitch ±90; wrap yaw ±360
+    if camPitch >  90.0 then camPitch =  90.0 end
+    if camPitch < -90.0 then camPitch = -90.0 end
+    if camYaw   >  360.0 then camYaw = camYaw - 360.0 end
+    if camYaw   < -360.0 then camYaw = camYaw + 360.0 end
+
+    -- ── Forward movement (up arrow 172 / LShift+W 32) ──
+    if IsDisabledControlPressed(1, 172) or (IsControlPressed(0, 21) and IsControlPressed(1, 32)) then
+        local dirX, dirY = yawToForwardDir(camYaw)
+        cx = cx + camSpeed * 0.1 * dirX
+        cy = cy - camSpeed * 0.1 * dirY
+    end
+
+    -- ── Backward movement (down arrow 173 / LShift+S 33) ──
+    if IsDisabledControlPressed(1, 173) or (IsControlPressed(0, 21) and IsControlPressed(1, 33)) then
+        local dirX, dirY = yawToForwardDir(camYaw)
+        cx = cx - camSpeed * 0.1 * dirX
+        cy = cy + camSpeed * 0.1 * dirY
+    end
+
+    -- ── Strafe left (left arrow 174 / LShift+A 34) ──
+    if IsDisabledControlPressed(1, 174) or (IsControlPressed(0, 21) and IsControlPressed(1, 34)) then
+        local dirX, dirY = yawToStrafeRightDir(camYaw)
+        cx = cx - camSpeed * 0.1 * dirX
+        cy = cy + camSpeed * 0.1 * dirY
+    end
+
+    -- ── Strafe right (right arrow 175 / LShift+D 35) ──
+    if IsDisabledControlPressed(1, 175) or (IsControlPressed(0, 21) and IsControlPressed(1, 35)) then
+        local dirX, dirY = yawToStrafeRightDir(camYaw)
+        cx = cx + camSpeed * 0.1 * dirX
+        cy = cy - camSpeed * 0.1 * dirY
+    end
+
+    -- ── Height: Q (44) = up, Z (38) = down ──
+    if IsDisabledControlPressed(1, 44) then
+        cz = cz + 0.1 * camSpeed
+    end
+    if IsDisabledControlPressed(1, 38) then
+        cz = cz - 0.1 * camSpeed
+    end
+
+    -- ── FOV (scroll while browser is closed) ──
+    if not IsDisabledControlPressed(0, 22) and drawf == 0 then
+        if IsDisabledControlPressed(0, 17) then
+            -- scroll up: zoom in (decrease FOV)
+            if camFOV > 0 then
+                camFOV = camFOV - (IsControlPressed(0, 21) and 1.0 or 0.1)
+                SetCamFov(camFRC, camFOV)
+            end
+        elseif IsDisabledControlPressed(0, 16) then
+            -- scroll down: zoom out (increase FOV, max 120)
+            if camFOV < 120.0 then
+                camFOV = camFOV + (IsControlPressed(0, 21) and 1.0 or 0.1)
+                SetCamFov(camFRC, camFOV)
+            end
+        end
+    end
+
+    -- Apply camera position and rotation
+    SetFocusArea(cx, cy, cz, 0.0, 0.0, 0.0)
+    SetCamCoord(camFRC, cx, cy, cz)
+    SetCamRot(camFRC, camPitch, camRoll, camYaw, 2)
 end
-L26_1 = false
-L23_1(L24_1, L25_1, L26_1)
+
+-- ════════════════════════════════════════════════════════════════
+-- LOOPCREAMENU: Freecam distance guard + control dispatch loop
+-- ════════════════════════════════════════════════════════════════
+
+loopCreaMenu = function()
+    CreateThread(function()
+        while true do
+            Wait(1)
+            local ped = PlayerPedId()
+
+            if camFRC then
+                -- Distance guard: auto-close if too far from player
+                local pedPos = GetEntityCoords(ped)
+                local camPos = GetCamCoord(camFRC)
+                local dist   = #(pedPos - camPos)
+                if dist > camMaxDist then
+                    EndFreeCam("Free-cam chiusa per troppa distanza.")
+                    return
+                end
+
+                -- Process controls (unless pause menu is open)
+                if not IsControlPressed(0, 202) then
+                    ProcessCamControls()
+                end
+            else
+                -- camFRC became nil
+                if drawf == 0 then
+                    EndFreeCam()
+                    return
+                else
+                    Wait(500)
+                end
+            end
+        end
+    end)
+end
+
+-- ════════════════════════════════════════════════════════════════
+-- StartFreeCam / EndFreeCam
+-- ════════════════════════════════════════════════════════════════
+
+StartFreeCam = function(fov)
+    camFOV = fov
+    ClearFocus()
+    local ped = PlayerPedId()
+    camFRC = CreateCamWithParams(
+        "DEFAULT_SCRIPTED_CAMERA",
+        GetEntityCoords(ped),
+        0, 0, 0,
+        fov * 1.0
+    )
+    camOriginCoords = GetCamCoord(camFRC)
+    SetCamActive(camFRC, true)
+    RenderScriptCams(true, false, 0, true, false)
+    SetCamAffectsAiming(camFRC, false)
+    loopCreaMenu()
+end
+
+EndFreeCam = function(msg)
+    ClearFocus()
+    RenderScriptCams(false, false, 0, true, false)
+    DestroyCam(camFRC, false)
+    camPitch = 0.0
+    camRoll  = 0.0
+    camYaw   = 0.0
+    camFRC   = nil
+    showHelp = false
+end
+
+-- ════════════════════════════════════════════════════════════════
+-- COMMANDS: FREECAM & UTILITIES
+-- ════════════════════════════════════════════════════════════════
+
+RegisterCommand("freecam", function()
+    if exports.striano_inventory:binocoloattivo() then
+        print("Operazione bloccata in fase binocolo")
+        return
+    end
+    if camFRC then
+        EndFreeCam()
+    else
+        StartFreeCam(camFOV)
+    end
+end)
+
+--- getFilter: find a filter by name (case-insensitive) and print its index
+local function findFilterByName(name)
+    for i, filterName in ipairs(filterList) do
+        if string.lower(filterName) == string.lower(name) then
+            return i
+        end
+    end
+    return nil
+end
+
+RegisterCommand("getFilter", function(_, args)
+    local query = table.concat(args, " ")
+    if query == "" then
+        print("/getFilter Name")
+        return
+    end
+    local idx = findFilterByName(query)
+    if idx then
+        print(string.format("Filter '%s' found as index %s", filterList[idx], idx))
+    else
+        print(string.format("Filter '%s' not found.", query))
+    end
+end, false)

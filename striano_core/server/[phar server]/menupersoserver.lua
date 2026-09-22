@@ -1,198 +1,76 @@
-local L0_1, L1_1, L2_1, L3_1
-L0_1 = RegisterServerEvent
-L1_1 = "sp_menuperso:ApplicaDonna"
-L0_1(L1_1)
-L0_1 = AddEventHandler
-L1_1 = "sp_menuperso:ApplicaDonna"
-function L2_1(A0_2, A1_2)
-  local L2_2, L3_2, L4_2, L5_2, L6_2
-  L2_2 = identOf
-  L3_2 = A1_2
-  L2_2 = L2_2(L3_2)
-  if not L2_2 then
-    return
-  end
-  L3_2 = SetVarDB
-  L4_2 = L2_2
-  L5_2 = "skin"
-  L6_2 = A0_2
-  L3_2(L4_2, L5_2, L6_2)
-end
-L0_1(L1_1, L2_1)
-function L0_1(A0_2, A1_2)
-  local L2_2, L3_2, L4_2, L5_2, L6_2, L7_2, L8_2, L9_2, L10_2, L11_2, L12_2
-  if not A1_2 then
-    A1_2 = 0
-  end
-  L2_2 = string
-  L2_2 = L2_2.rep
-  L3_2 = " "
-  L4_2 = A1_2
-  L2_2 = L2_2(L3_2, L4_2)
-  L3_2 = "{\r\n"
-  L2_2 = L2_2 .. L3_2
-  A1_2 = A1_2 + 2
-  L3_2 = pairs
-  L4_2 = A0_2
-  L3_2, L4_2, L5_2, L6_2 = L3_2(L4_2)
-  for L7_2, L8_2 in L3_2, L4_2, L5_2, L6_2 do
-    L9_2 = L2_2
-    L10_2 = string
-    L10_2 = L10_2.rep
-    L11_2 = " "
-    L12_2 = A1_2
-    L10_2 = L10_2(L11_2, L12_2)
-    L9_2 = L9_2 .. L10_2
-    L2_2 = L9_2
-    L9_2 = type
-    L10_2 = L7_2
-    L9_2 = L9_2(L10_2)
-    if "number" == L9_2 then
-      L9_2 = L2_2
-      L10_2 = "["
-      L11_2 = L7_2
-      L12_2 = "] = "
-      L9_2 = L9_2 .. L10_2 .. L11_2 .. L12_2
-      L2_2 = L9_2
-    else
-      L9_2 = type
-      L10_2 = L7_2
-      L9_2 = L9_2(L10_2)
-      if "string" == L9_2 then
-        L9_2 = L2_2
-        L10_2 = L7_2
-        L11_2 = "= "
-        L9_2 = L9_2 .. L10_2 .. L11_2
-        L2_2 = L9_2
-      end
-    end
-    L9_2 = type
-    L10_2 = L8_2
-    L9_2 = L9_2(L10_2)
-    if "number" == L9_2 then
-      L9_2 = L2_2
-      L10_2 = L8_2
-      L11_2 = ",\r\n"
-      L9_2 = L9_2 .. L10_2 .. L11_2
-      L2_2 = L9_2
-    else
-      L9_2 = type
-      L10_2 = L8_2
-      L9_2 = L9_2(L10_2)
-      if "string" == L9_2 then
-        L9_2 = L2_2
-        L10_2 = "\""
-        L11_2 = L8_2
-        L12_2 = "\",\r\n"
-        L9_2 = L9_2 .. L10_2 .. L11_2 .. L12_2
-        L2_2 = L9_2
-      else
-        L9_2 = type
-        L10_2 = L8_2
-        L9_2 = L9_2(L10_2)
-        if "table" == L9_2 then
-          L9_2 = L2_2
-          L10_2 = L0_1
-          L11_2 = L8_2
-          L12_2 = A1_2 + 2
-          L10_2 = L10_2(L11_2, L12_2)
-          L11_2 = ",\r\n"
-          L9_2 = L9_2 .. L10_2 .. L11_2
-          L2_2 = L9_2
-        else
-          L9_2 = L2_2
-          L10_2 = "\""
-          L11_2 = tostring
-          L12_2 = L8_2
-          L11_2 = L11_2(L12_2)
-          L12_2 = "\",\r\n"
-          L9_2 = L9_2 .. L10_2 .. L11_2 .. L12_2
-          L2_2 = L9_2
+-- ============================================================
+--  striano_core - server/[phar server]/menupersoserver.lua
+--  Servidor: menu pessoal — skin, roupa, reviver, explosões
+-- ============================================================
+
+--- Aplicar skin de mulher ao jogador
+RegisterServerEvent("sp_menuperso:ApplicaDonna")
+AddEventHandler("sp_menuperso:ApplicaDonna", function(skinData, targetSrc)
+    local identifier = identOf(targetSrc)
+    if not identifier then return end
+    SetVarDB(identifier, "skin", skinData)
+end)
+
+--- Helper: serializar tabela Lua para string formatada
+local function tableToString(t, indent)
+    indent = indent or 0
+    local padding = string.rep(" ", indent)
+    local result  = padding .. "{\r\n"
+    indent = indent + 2
+
+    for key, value in pairs(t) do
+        result = result .. string.rep(" ", indent)
+        if type(key) == "number" then
+            result = result .. "[" .. key .. "] = "
+        elseif type(key) == "string" then
+            result = result .. key .. "= "
         end
-      end
+
+        if type(value) == "number" then
+            result = result .. value .. ",\r\n"
+        elseif type(value) == "string" then
+            result = result .. '"' .. value .. '",\r\n'
+        elseif type(value) == "table" then
+            result = result .. tableToString(value, indent + 2) .. ",\r\n"
+        else
+            result = result .. '"' .. tostring(value) .. '",\r\n'
+        end
     end
-  end
-  L3_2 = L2_2
-  L4_2 = string
-  L4_2 = L4_2.rep
-  L5_2 = " "
-  L6_2 = A1_2 - 2
-  L4_2 = L4_2(L5_2, L6_2)
-  L5_2 = "}"
-  L3_2 = L3_2 .. L4_2 .. L5_2
-  L2_2 = L3_2
-  return L2_2
+
+    result = result .. string.rep(" ", indent - 2) .. "}"
+    return result
 end
-L1_1 = RegisterServerCallback
-L2_1 = "sp_menuperso:getGiacca"
-function L3_1(A0_2, A1_2)
-  local L2_2, L3_2, L4_2, L5_2, L6_2
-  L2_2 = identOf
-  L3_2 = A0_2
-  L2_2 = L2_2(L3_2)
-  if not L2_2 then
-    L3_2 = A1_2
-    L4_2 = nil
-    L3_2(L4_2)
-    return
-  end
-  L3_2 = A1_2
-  L4_2 = UserData
-  L4_2 = L4_2.GetValue
-  L5_2 = L2_2
-  L6_2 = "giacca"
-  L4_2, L5_2, L6_2 = L4_2(L5_2, L6_2)
-  L3_2(L4_2, L5_2, L6_2)
-end
-L1_1(L2_1, L3_1)
-L1_1 = RegisterServerEvent
-L2_1 = "menuperso:putInVehicle"
-L1_1(L2_1)
-L1_1 = AddEventHandler
-L2_1 = "menuperso:putInVehicle"
-function L3_1(A0_2)
-  local L1_2, L2_2, L3_2
-  L1_2 = TriggerClientEvent
-  L2_2 = "esx_ambulancejjj:revive3"
-  L3_2 = A0_2
-  L1_2(L2_2, L3_2)
-  L1_2 = TriggerClientEvent
-  L2_2 = "menuperso:putInVehicle"
-  L3_2 = A0_2
-  L1_2(L2_2, L3_2)
-end
-L1_1(L2_1, L3_1)
-L1_1 = RegisterServerEvent
-L2_1 = "menuperso:OutVehicle"
-L1_1(L2_1)
-L1_1 = AddEventHandler
-L2_1 = "menuperso:OutVehicle"
-function L3_1(A0_2)
-  local L1_2, L2_2, L3_2
-  L1_2 = TriggerClientEvent
-  L2_2 = "menuperso:OutVehicle"
-  L3_2 = A0_2
-  L1_2(L2_2, L3_2)
-end
-L1_1(L2_1, L3_1)
-L1_1 = RegisterServerEvent
-L2_1 = "esx_ambulancejjj:revive"
-L1_1(L2_1)
-L1_1 = AddEventHandler
-L2_1 = "esx_ambulancejjj:revive"
-function L3_1(A0_2)
-  local L1_2, L2_2, L3_2
-  L1_2 = TriggerClientEvent
-  L2_2 = "esx_ambulancejjj:revive"
-  L3_2 = A0_2
-  L1_2(L2_2, L3_2)
-end
-L1_1(L2_1, L3_1)
-L1_1 = AddEventHandler
-L2_1 = "explosionEvent"
-function L3_1(A0_2, A1_2)
-  local L2_2
-  L2_2 = CancelEvent
-  L2_2()
-end
-L1_1(L2_1, L3_1)
+
+--- Callback: obter giacca (casaco) do jogador
+RegisterServerCallback("sp_menuperso:getGiacca", function(src, cb)
+    local identifier = identOf(src)
+    if not identifier then
+        cb(nil)
+        return
+    end
+    cb(UserData.GetValue(identifier, "giacca"))
+end)
+
+--- Colocar jogador no veículo (reviver + teleporte)
+RegisterServerEvent("menuperso:putInVehicle")
+AddEventHandler("menuperso:putInVehicle", function(targetSrc)
+    TriggerClientEvent("esx_ambulancejjj:revive3", targetSrc)
+    TriggerClientEvent("menuperso:putInVehicle", targetSrc)
+end)
+
+--- Retirar jogador do veículo
+RegisterServerEvent("menuperso:OutVehicle")
+AddEventHandler("menuperso:OutVehicle", function(targetSrc)
+    TriggerClientEvent("menuperso:OutVehicle", targetSrc)
+end)
+
+--- Relay de reviver para clientes
+RegisterServerEvent("esx_ambulancejjj:revive")
+AddEventHandler("esx_ambulancejjj:revive", function(targetSrc)
+    TriggerClientEvent("esx_ambulancejjj:revive", targetSrc)
+end)
+
+--- Bloquear explosões (anti-griefing)
+AddEventHandler("explosionEvent", function(sender, ev)
+    CancelEvent()
+end)

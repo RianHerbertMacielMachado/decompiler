@@ -1,1069 +1,473 @@
-local L0_1, L1_1, L2_1, L3_1, L4_1, L5_1
-L0_1 = 0
-L1_1 = 0
-L2_1 = 0
-function L3_1(A0_2)
-  local L1_2, L2_2, L3_2
-  L1_2 = GetEntityCoords
-  L2_2 = PlayerPedId
-  L2_2 = L2_2()
-  L3_2 = false
-  L1_2 = L1_2(L2_2, L3_2)
-  L1_2 = L1_2 - A0_2
-  L1_2 = #L1_2
-  return L1_2
+-- ============================================================
+--  classicrace - client/main.lua
+--  Lógica principal do cliente para o sistema de corridas
+-- ============================================================
+
+local inRaceID    = 0   -- ID da corrida em que o jogador está inscrito (0 = nenhuma)
+local raceStarted = 0   -- 1 enquanto a corrida está ativa
+local isHost      = 0   -- 1 se o jogador é o host da corrida
+
+-- ------------------------------------------------------------
+-- Helpers de distância
+-- ------------------------------------------------------------
+
+--- Retorna a distância entre o jogador local e um vector3.
+function GetDistanceBetween2(targetVec)
+    local playerPos = GetEntityCoords(PlayerPedId(), false)
+    return #(playerPos - targetVec)
 end
-GetDistanceBetween2 = L3_1
-function L3_1(A0_2, A1_2, A2_2)
-  local L3_2, L4_2, L5_2, L6_2, L7_2
-  L3_2 = GetEntityCoords
-  L4_2 = PlayerPedId
-  L4_2 = L4_2()
-  L5_2 = false
-  L3_2 = L3_2(L4_2, L5_2)
-  L4_2 = vector3
-  L5_2 = A0_2
-  L6_2 = A1_2
-  L7_2 = A2_2
-  L4_2 = L4_2(L5_2, L6_2, L7_2)
-  L3_2 = L3_2 - L4_2
-  L3_2 = #L3_2
-  return L3_2
+
+--- Retorna a distância entre o jogador local e três coordenadas separadas (x, y, z).
+function GetDistanceBetween(x, y, z)
+    local playerPos = GetEntityCoords(PlayerPedId(), false)
+    local targetPos = vector3(x, y, z)
+    return #(playerPos - targetPos)
 end
-GetDistanceBetween = L3_1
-L3_1 = AddEventHandler
-L4_1 = "playerDropped"
-function L5_1(A0_2)
-  local L1_2, L2_2, L3_2
-  L1_2 = L2_1
-  if L1_2 > 0 then
-    L1_2 = TriggerServerEvent
-    L2_2 = "corsa:delhostcross"
-    L3_2 = L0_1
-    L1_2(L2_2, L3_2)
-    L1_2 = TriggerServerEvent
-    L2_2 = "corsa:stopcross"
-    L3_2 = L0_1
-    L1_2(L2_2, L3_2)
-  end
-end
-L3_1(L4_1, L5_1)
-L3_1 = exports
-L4_1 = "vicinoNPC"
-function L5_1()
-  local L0_2, L1_2, L2_2, L3_2, L4_2, L5_2, L6_2, L7_2, L8_2, L9_2, L10_2, L11_2
-  L0_2 = pairs
-  L1_2 = NPCrace
-  L0_2, L1_2, L2_2, L3_2 = L0_2(L1_2)
-  for L4_2, L5_2 in L0_2, L1_2, L2_2, L3_2 do
-    L6_2 = false
-    L7_2 = GetDistanceBetween2
-    L8_2 = vector3
-    L9_2 = L5_2.x
-    L10_2 = L5_2.y
-    L11_2 = L5_2.z
-    L8_2, L9_2, L10_2, L11_2 = L8_2(L9_2, L10_2, L11_2)
-    L7_2 = L7_2(L8_2, L9_2, L10_2, L11_2)
-    if L7_2 < 10.0 then
-      L6_2 = true
+
+-- ------------------------------------------------------------
+-- Carregamento de modelos / dicionários de animação
+-- ------------------------------------------------------------
+
+--- Carrega e aguarda um dicionário de animação ficar disponível.
+function loadDict(animDict)
+    while not HasAnimDictLoaded(animDict) do
+        Wait(1)
+        RequestAnimDict(animDict)
     end
-  end
-  L0_2 = trovato
-  return L0_2
 end
-L3_1(L4_1, L5_1)
-L3_1 = Citizen
-L3_1 = L3_1.CreateThread
-function L4_1()
-  local L0_2, L1_2, L2_2, L3_2, L4_2, L5_2, L6_2, L7_2, L8_2, L9_2, L10_2, L11_2, L12_2, L13_2, L14_2, L15_2, L16_2, L17_2, L18_2, L19_2
-  L0_2 = NPCrace
-  if nil ~= L0_2 then
-    L0_2 = NPCrace
-    L0_2 = #L0_2
-    if L0_2 > 0 then
-      L0_2 = pairs
-      L1_2 = NPCrace
-      L0_2, L1_2, L2_2, L3_2 = L0_2(L1_2)
-      for L4_2, L5_2 in L0_2, L1_2, L2_2, L3_2 do
-        L6_2 = L5_2.model
-        L7_2 = LoadModel
-        L8_2 = L6_2
-        L7_2(L8_2)
-        L7_2 = CreatePed
-        L8_2 = 1
-        L9_2 = L6_2
-        L10_2 = L5_2.x
-        L11_2 = L5_2.y
-        L12_2 = L5_2.z
-        L13_2 = 0.0
-        L14_2 = false
-        L15_2 = false
-        L7_2 = L7_2(L8_2, L9_2, L10_2, L11_2, L12_2, L13_2, L14_2, L15_2)
-        L5_2.PedID = L7_2
-        L8_2 = SetPedFleeAttributes
-        L9_2 = L7_2
-        L10_2 = 0
-        L11_2 = 0
-        L8_2(L9_2, L10_2, L11_2)
-        L8_2 = SetPedDropsWeaponsWhenDead
-        L9_2 = L7_2
-        L10_2 = false
-        L8_2(L9_2, L10_2)
-        L8_2 = SetPedDiesWhenInjured
-        L9_2 = L7_2
-        L10_2 = false
-        L8_2(L9_2, L10_2)
-        L8_2 = SetEntityInvincible
-        L9_2 = L7_2
-        L10_2 = true
-        L8_2(L9_2, L10_2)
-        L8_2 = FreezeEntityPosition
-        L9_2 = L7_2
-        L10_2 = true
-        L8_2(L9_2, L10_2)
-        L8_2 = SetBlockingOfNonTemporaryEvents
-        L9_2 = L7_2
-        L10_2 = true
-        L8_2(L9_2, L10_2)
-        L8_2 = SetPedCanRagdollFromPlayerImpact
-        L9_2 = L7_2
-        L10_2 = false
-        L8_2(L9_2, L10_2)
-        L8_2 = Citizen
-        L8_2 = L8_2.Wait
-        L9_2 = 25
-        L8_2(L9_2)
-        L8_2 = SetEntityHeading
-        L9_2 = L7_2
-        L10_2 = L5_2.h
-        L8_2(L9_2, L10_2)
-        L8_2 = SetModelAsNoLongerNeeded
-        L9_2 = L6_2
-        L8_2(L9_2)
-        L8_2 = L5_2.Fan
-        if L8_2 then
-          L8_2 = RequestAnimDict
-          L9_2 = "anim@arena@celeb@flat@solo@no_props@"
-          L8_2(L9_2)
-          while true do
-            L8_2 = HasAnimDictLoaded
-            L9_2 = "anim@arena@celeb@flat@solo@no_props@"
-            L8_2 = L8_2(L9_2)
-            if L8_2 then
-              break
-            end
-            L8_2 = Wait
-            L9_2 = 0
-            L8_2(L9_2)
-          end
-          L8_2 = TaskPlayAnim
-          L9_2 = L7_2
-          L10_2 = "anim@arena@celeb@flat@solo@no_props@"
-          L11_2 = "angry_clap_a_player_a"
-          L12_2 = 8.0
-          L13_2 = 1
-          L14_2 = -1
-          L15_2 = 49
-          L16_2 = 0
-          L17_2 = false
-          L18_2 = false
-          L19_2 = false
-          L8_2(L9_2, L10_2, L11_2, L12_2, L13_2, L14_2, L15_2, L16_2, L17_2, L18_2, L19_2)
-          L8_2 = RemoveAnimDict
-          L9_2 = "anim@arena@celeb@flat@solo@no_props@"
-          L8_2(L9_2)
-          L8_2 = RemoveAnimSet
-          L9_2 = "angry_clap_a_player_a"
-          L8_2(L9_2)
-        end
-        L8_2 = L5_2.Fan2
-        if L8_2 then
-          L8_2 = RequestAnimDict
-          L9_2 = "amb@world_human_cheering@male_a"
-          L8_2(L9_2)
-          while true do
-            L8_2 = HasAnimDictLoaded
-            L9_2 = "amb@world_human_cheering@male_a"
-            L8_2 = L8_2(L9_2)
-            if L8_2 then
-              break
-            end
-            L8_2 = Wait
-            L9_2 = 0
-            L8_2(L9_2)
-          end
-          L8_2 = TaskPlayAnim
-          L9_2 = L7_2
-          L10_2 = "amb@world_human_cheering@male_a"
-          L11_2 = "base"
-          L12_2 = 8.0
-          L13_2 = 1
-          L14_2 = -1
-          L15_2 = 49
-          L16_2 = 0
-          L17_2 = false
-          L18_2 = false
-          L19_2 = false
-          L8_2(L9_2, L10_2, L11_2, L12_2, L13_2, L14_2, L15_2, L16_2, L17_2, L18_2, L19_2)
-          L8_2 = RemoveAnimDict
-          L9_2 = "amb@world_human_cheering@male_a"
-          L8_2(L9_2)
-          L8_2 = RemoveAnimSet
-          L9_2 = "base"
-          L8_2(L9_2)
-        end
-      end
-    end
-  end
-  L0_2 = RacePos
-  if nil ~= L0_2 then
-    L0_2 = RacePos
-    L0_2 = #L0_2
-    if L0_2 > 0 then
-      L0_2 = pairs
-      L1_2 = RacePos
-      L0_2, L1_2, L2_2, L3_2 = L0_2(L1_2)
-      for L4_2, L5_2 in L0_2, L1_2, L2_2, L3_2 do
-        L6_2 = L5_2.active
-        if L6_2 then
-          L6_2 = AddBlipForCoord
-          L7_2 = L5_2.startpos
-          L7_2 = L7_2.x
-          L8_2 = L5_2.startpos
-          L8_2 = L8_2.y
-          L9_2 = L5_2.startpos
-          L9_2 = L9_2.z
-          L6_2 = L6_2(L7_2, L8_2, L9_2)
-          L7_2 = SetBlipSprite
-          L8_2 = L6_2
-          L9_2 = L5_2.id
-          L7_2(L8_2, L9_2)
-          L7_2 = SetBlipDisplay
-          L8_2 = L6_2
-          L9_2 = 4
-          L7_2(L8_2, L9_2)
-          L7_2 = SetBlipScale
-          L8_2 = L6_2
-          L9_2 = L5_2.size
-          L7_2(L8_2, L9_2)
-          L7_2 = SetBlipColour
-          L8_2 = L6_2
-          L9_2 = L5_2.colour
-          L7_2(L8_2, L9_2)
-          L7_2 = SetBlipAsShortRange
-          L8_2 = L6_2
-          L9_2 = true
-          L7_2(L8_2, L9_2)
-          L7_2 = BeginTextCommandSetBlipName
-          L8_2 = "STRING"
-          L7_2(L8_2)
-          L7_2 = AddTextComponentString
-          L8_2 = L5_2.title
-          L7_2(L8_2)
-          L7_2 = EndTextCommandSetBlipName
-          L8_2 = L6_2
-          L7_2(L8_2)
-        end
-        L6_2 = L5_2.girlmodel
-        L7_2 = LoadModel
-        L8_2 = L6_2
-        L7_2(L8_2)
-        L7_2 = CreatePed
-        L8_2 = 1
-        L9_2 = L6_2
-        L10_2 = L5_2.girlstart
-        L10_2 = L10_2.x
-        L11_2 = L5_2.girlstart
-        L11_2 = L11_2.y
-        L12_2 = L5_2.girlstart
-        L12_2 = L12_2.z
-        L13_2 = L5_2.girlheading
-        L14_2 = false
-        L15_2 = false
-        L7_2 = L7_2(L8_2, L9_2, L10_2, L11_2, L12_2, L13_2, L14_2, L15_2)
-        L5_2.PedID = L7_2
-        L8_2 = SetPedFleeAttributes
-        L9_2 = L7_2
-        L10_2 = 0
-        L11_2 = 0
-        L8_2(L9_2, L10_2, L11_2)
-        L8_2 = SetPedDropsWeaponsWhenDead
-        L9_2 = L7_2
-        L10_2 = false
-        L8_2(L9_2, L10_2)
-        L8_2 = SetPedDiesWhenInjured
-        L9_2 = L7_2
-        L10_2 = false
-        L8_2(L9_2, L10_2)
-        L8_2 = SetEntityInvincible
-        L9_2 = L7_2
-        L10_2 = true
-        L8_2(L9_2, L10_2)
-        L8_2 = FreezeEntityPosition
-        L9_2 = L7_2
-        L10_2 = true
-        L8_2(L9_2, L10_2)
-        L8_2 = SetBlockingOfNonTemporaryEvents
-        L9_2 = L7_2
-        L10_2 = true
-        L8_2(L9_2, L10_2)
-        L8_2 = SetPedCanRagdollFromPlayerImpact
-        L9_2 = L7_2
-        L10_2 = false
-        L8_2(L9_2, L10_2)
-        L8_2 = Citizen
-        L8_2 = L8_2.Wait
-        L9_2 = 25
-        L8_2(L9_2)
-        L8_2 = SetEntityHeading
-        L9_2 = L7_2
-        L10_2 = L5_2.girlheading
-        L8_2(L9_2, L10_2)
-        L8_2 = SetModelAsNoLongerNeeded
-        L9_2 = L6_2
-        L8_2(L9_2)
-        L8_2 = RequestAnimDict
-        L9_2 = "amb@world_human_hang_out_street@female_arms_crossed@idle_a"
-        L8_2(L9_2)
-        while true do
-          L8_2 = HasAnimDictLoaded
-          L9_2 = "amb@world_human_hang_out_street@female_arms_crossed@idle_a"
-          L8_2 = L8_2(L9_2)
-          if L8_2 then
-            break
-          end
-          L8_2 = Wait
-          L9_2 = 0
-          L8_2(L9_2)
-        end
-        L8_2 = TaskPlayAnim
-        L9_2 = L7_2
-        L10_2 = "amb@world_human_hang_out_street@female_arms_crossed@idle_a"
-        L11_2 = "idle_a"
-        L12_2 = 8.0
-        L13_2 = 1
-        L14_2 = -1
-        L15_2 = 49
-        L16_2 = 0
-        L17_2 = false
-        L18_2 = false
-        L19_2 = false
-        L8_2(L9_2, L10_2, L11_2, L12_2, L13_2, L14_2, L15_2, L16_2, L17_2, L18_2, L19_2)
-        L8_2 = RemoveAnimDict
-        L9_2 = "amb@world_human_hang_out_street@female_arms_crossed@idle_a"
-        L8_2(L9_2)
-        L8_2 = RemoveAnimSet
-        L9_2 = "idle_a"
-        L8_2(L9_2)
-      end
-    end
-  end
-end
-L3_1(L4_1)
-function L3_1(A0_2)
-  local L1_2, L2_2
-  while true do
-    L1_2 = HasAnimDictLoaded
-    L2_2 = A0_2
-    L1_2 = L1_2(L2_2)
-    if L1_2 then
-      break
-    end
-    L1_2 = Wait
-    L2_2 = 1
-    L1_2(L2_2)
-    L1_2 = RequestAnimDict
-    L2_2 = A0_2
-    L1_2(L2_2)
-  end
-end
-loadDict = L3_1
-function L3_1(A0_2)
-  local L1_2, L2_2
-  L1_2 = type
-  L2_2 = A0_2
-  L1_2 = L1_2(L2_2)
-  if "string" == L1_2 then
-    L1_2 = GetHashKey
-    L2_2 = A0_2
-    L1_2 = L1_2(L2_2)
-    A0_2 = L1_2
-  else
-    L1_2 = tonumber
-    L2_2 = A0_2
-    L1_2 = L1_2(L2_2)
-    A0_2 = L1_2 or A0_2
-    if not L1_2 then
-      A0_2 = 0
-    end
-  end
-  return A0_2
-end
-toModel = L3_1
-function L3_1(A0_2)
-  local L1_2, L2_2
-  L1_2 = toModel
-  L2_2 = A0_2
-  L1_2 = L1_2(L2_2)
-  A0_2 = L1_2
-  L1_2 = IsModelInCdimage
-  L2_2 = A0_2
-  L1_2 = L1_2(L2_2)
-  if not L1_2 then
-    L1_2 = 0
-    return L1_2
-  end
-  L1_2 = RequestModel
-  L2_2 = A0_2
-  L1_2(L2_2)
-  while true do
-    L1_2 = HasModelLoaded
-    L2_2 = A0_2
-    L1_2 = L1_2(L2_2)
-    if L1_2 then
-      break
-    end
-    L1_2 = Citizen
-    L1_2 = L1_2.Wait
-    L2_2 = 0
-    L1_2(L2_2)
-  end
-  return A0_2
-end
-LoadModel = L3_1
-L3_1 = AddEventHandler
-L4_1 = "onResourceStop"
-function L5_1(A0_2)
-  local L1_2, L2_2, L3_2, L4_2, L5_2, L6_2, L7_2, L8_2
-  L1_2 = GetCurrentResourceName
-  L1_2 = L1_2()
-  if A0_2 == L1_2 then
-    L1_2 = NPCfut
-    if nil ~= L1_2 then
-      L1_2 = NPCfut
-      L1_2 = #L1_2
-      if L1_2 > 0 then
-        L1_2 = pairs
-        L2_2 = NPCfut
-        L1_2, L2_2, L3_2, L4_2 = L1_2(L2_2)
-        for L5_2, L6_2 in L1_2, L2_2, L3_2, L4_2 do
-          L7_2 = DeleteEntity
-          L8_2 = L6_2.PedID
-          L7_2(L8_2)
-        end
-      end
-    end
-  end
-end
-L3_1(L4_1, L5_1)
-function L3_1(A0_2)
-  local L1_2, L2_2, L3_2
-  while true do
-    L1_2 = HasModelLoaded
-    L2_2 = GetHashKey
-    L3_2 = A0_2
-    L2_2, L3_2 = L2_2(L3_2)
-    L1_2 = L1_2(L2_2, L3_2)
-    if L1_2 then
-      break
-    end
-    L1_2 = RequestModel
-    L2_2 = GetHashKey
-    L3_2 = A0_2
-    L2_2, L3_2 = L2_2(L3_2)
-    L1_2(L2_2, L3_2)
-    L1_2 = Wait
-    L2_2 = 10
-    L1_2(L2_2)
-  end
-end
-LoadPropDict = L3_1
-function L3_1(A0_2, A1_2, A2_2, A3_2, A4_2, A5_2, A6_2, A7_2, A8_2)
-  local L9_2, L10_2, L11_2, L12_2, L13_2, L14_2, L15_2, L16_2, L17_2, L18_2, L19_2, L20_2, L21_2, L22_2, L23_2, L24_2, L25_2, L26_2, L27_2, L28_2
-  L9_2 = table
-  L9_2 = L9_2.unpack
-  L10_2 = GetEntityCoords
-  L11_2 = A0_2
-  L10_2, L11_2, L12_2, L13_2, L14_2, L15_2, L16_2, L17_2, L18_2, L19_2, L20_2, L21_2, L22_2, L23_2, L24_2, L25_2, L26_2, L27_2, L28_2 = L10_2(L11_2)
-  L9_2, L10_2, L11_2 = L9_2(L10_2, L11_2, L12_2, L13_2, L14_2, L15_2, L16_2, L17_2, L18_2, L19_2, L20_2, L21_2, L22_2, L23_2, L24_2, L25_2, L26_2, L27_2, L28_2)
-  L12_2 = HasModelLoaded
-  L13_2 = A1_2
-  L12_2 = L12_2(L13_2)
-  if not L12_2 then
-    L12_2 = LoadPropDict
-    L13_2 = A1_2
-    L12_2(L13_2)
-  end
-  L12_2 = CreateObject
-  L13_2 = GetHashKey
-  L14_2 = A1_2
-  L13_2 = L13_2(L14_2)
-  L14_2 = L9_2
-  L15_2 = L10_2
-  L16_2 = L11_2 + 0.2
-  L17_2 = true
-  L18_2 = true
-  L19_2 = true
-  L12_2 = L12_2(L13_2, L14_2, L15_2, L16_2, L17_2, L18_2, L19_2)
-  L13_2 = AttachEntityToEntity
-  L14_2 = L12_2
-  L15_2 = A0_2
-  L16_2 = GetPedBoneIndex
-  L17_2 = A0_2
-  L18_2 = A2_2
-  L16_2 = L16_2(L17_2, L18_2)
-  L17_2 = A3_2
-  L18_2 = A4_2
-  L19_2 = A5_2
-  L20_2 = A6_2
-  L21_2 = A7_2
-  L22_2 = A8_2
-  L23_2 = true
-  L24_2 = true
-  L25_2 = false
-  L26_2 = true
-  L27_2 = 1
-  L28_2 = true
-  L13_2(L14_2, L15_2, L16_2, L17_2, L18_2, L19_2, L20_2, L21_2, L22_2, L23_2, L24_2, L25_2, L26_2, L27_2, L28_2)
-  L13_2 = SetEntityCollision
-  L14_2 = L12_2
-  L15_2 = false
-  L16_2 = true
-  L13_2(L14_2, L15_2, L16_2)
-  return L12_2
-end
-AddPropToPlayer = L3_1
-function L3_1(A0_2)
-  local L1_2, L2_2, L3_2, L4_2
-  L1_2 = ESX
-  L1_2 = L1_2.TriggerServerCallback
-  L2_2 = "corsa:cross"
-  function L3_2(A0_3)
-    local L1_3, L2_3, L3_3, L4_3
-    if nil == A0_3 then
-      L1_3 = A0_2
-      L0_1 = L1_3
-      L1_3 = print
-      L2_3 = "inRace: "
-      L3_3 = A0_2
-      L2_3 = L2_3 .. L3_3
-      L1_3(L2_3)
-      L1_3 = ESX
-      L1_3 = L1_3.TriggerServerCallback
-      L2_3 = "corsa:checkhostcross"
-      function L3_3(A0_4)
-        local L1_4, L2_4, L3_4
-        if nil ~= A0_4 then
-          L1_4 = notify
-          L2_4 = m
-          L2_4 = L2_4.Partecipant
-          L1_4(L2_4)
-          L1_4 = notify
-          L2_4 = m
-          L2_4 = L2_4.WaitHost
-          L1_4(L2_4)
-          L1_4 = Command3DHead
-          if L1_4 then
-            L1_4 = ExecuteCommand
-            L2_4 = "me ID: ~b~"
-            L3_4 = A0_2
-            L2_4 = L2_4 .. L3_4
-            L1_4(L2_4)
-          end
-        else
-          L1_4 = Command3DHead
-          if L1_4 then
-            L1_4 = ExecuteCommand
-            L2_4 = "me Host ID: ~b~"
-            L3_4 = A0_2
-            L2_4 = L2_4 .. L3_4
-            L1_4(L2_4)
-          end
-          L1_4 = TriggerServerEvent
-          L2_4 = "corsa:hostcross"
-          L3_4 = A0_2
-          L1_4(L2_4, L3_4)
-          L1_4 = A0_2
-          L2_1 = L1_4
-        end
-      end
-      L4_3 = A0_2
-      L1_3(L2_3, L3_3, L4_3)
+
+--- Converte string ou número para hash de modelo; retorna 0 em caso de falha.
+function toModel(model)
+    if type(model) == "string" then
+        return GetHashKey(model)
     else
-      L1_3 = notify
-      L2_3 = m
-      L2_3 = L2_3.BusyRace
-      L1_3(L2_3)
+        return tonumber(model) or model or 0
     end
-  end
-  L4_2 = A0_2
-  L1_2(L2_2, L3_2, L4_2)
 end
-CheckRace = L3_1
-L3_1 = Citizen
-L3_1 = L3_1.CreateThread
-function L4_1()
-  local L0_2, L1_2, L2_2, L3_2, L4_2, L5_2, L6_2, L7_2, L8_2, L9_2, L10_2
-  while true do
-    L0_2 = Citizen
-    L0_2 = L0_2.Wait
-    L1_2 = 10
-    L0_2(L1_2)
-    L0_2 = PlayerPedId
-    L0_2 = L0_2()
-    L1_2 = pairs
-    L2_2 = RacePos
-    L1_2, L2_2, L3_2, L4_2 = L1_2(L2_2)
-    for L5_2, L6_2 in L1_2, L2_2, L3_2, L4_2 do
-      L7_2 = false
-      L8_2 = L0_1
-      if 0 == L8_2 then
-        L8_2 = GetDistanceBetween2
-        L9_2 = L6_2.startpos
-        L8_2 = L8_2(L9_2)
-        if L8_2 < 35.0 then
-          L7_2 = true
-          L8_2 = MarkerStartRace
-          L9_2 = L6_2.startpos
-          L10_2 = L6_2.sizeBlip
-          L8_2(L9_2, L10_2)
-          L8_2 = GetDistanceBetween2
-          L9_2 = L6_2.startpos
-          L8_2 = L8_2(L9_2)
-          L9_2 = L6_2.sizeBlip
-          if L8_2 < L9_2 then
-            L8_2 = IsPedSittingInAnyVehicle
-            L9_2 = L0_2
-            L8_2 = L8_2(L9_2)
-            if L8_2 then
-              L8_2 = notify2
-              L9_2 = m
-              L9_2 = L9_2.WaitRace
-              L8_2(L9_2)
-            else
-              L8_2 = VehMond
-              if L8_2 then
-                L8_2 = notify2
-                L9_2 = m
-                L9_2 = L9_2.NeedVeh
-                L8_2(L9_2)
-              else
-                L8_2 = notify2
-                L9_2 = m
-                L9_2 = L9_2.WaitRace
-                L8_2(L9_2)
-              end
+
+--- Solicita o carregamento de um modelo e aguarda até estar pronto.
+--- Retorna o hash do modelo, ou 0 se não estiver no CD image.
+function LoadModel(model)
+    model = toModel(model)
+    if not IsModelInCdimage(model) then
+        return 0
+    end
+    RequestModel(model)
+    while not HasModelLoaded(model) do
+        Citizen.Wait(0)
+    end
+    return model
+end
+
+--- Aguarda o carregamento de um hash de modelo via string (usando GetHashKey).
+function LoadPropDict(modelName)
+    while not HasModelLoaded(GetHashKey(modelName)) do
+        RequestModel(GetHashKey(modelName))
+        Wait(10)
+    end
+end
+
+--- Cria um prop e o anexa a um osso específico do jogador.
+function AddPropToPlayer(ped, modelName, boneId, offsetX, offsetY, offsetZ, rotX, rotY, rotZ)
+    local coords = table.unpack(GetEntityCoords(ped))
+
+    if not HasModelLoaded(modelName) then
+        LoadPropDict(modelName)
+    end
+
+    local obj = CreateObject(GetHashKey(modelName), coords, offsetY + 0.2, true, true, true)
+    AttachEntityToEntity(
+        obj, ped,
+        GetPedBoneIndex(ped, boneId),
+        offsetX, offsetY, offsetZ,
+        rotX,    rotY,    rotZ,
+        true, true, false, true, 1, true
+    )
+    SetEntityCollision(obj, false, true)
+    return obj
+end
+
+-- ------------------------------------------------------------
+-- Evento: recurso parado → limpar NPCs
+-- ------------------------------------------------------------
+
+AddEventHandler("onResourceStop", function(resourceName)
+    if resourceName ~= GetCurrentResourceName() then return end
+
+    if NPCfut and #NPCfut > 0 then
+        for _, npc in pairs(NPCfut) do
+            DeleteEntity(npc.PedID)
+        end
+    end
+end)
+
+-- ------------------------------------------------------------
+-- Evento: jogador saiu → notificar servidor
+-- ------------------------------------------------------------
+
+AddEventHandler("playerDropped", function(reason)
+    if isHost > 0 then
+        TriggerServerEvent("corsa:delhostcross", inRaceID)
+        TriggerServerEvent("corsa:stopcross",    inRaceID)
+    end
+end)
+
+-- ------------------------------------------------------------
+-- Export: verifica se o jogador está perto de algum NPC de corrida
+-- ------------------------------------------------------------
+
+exports("vicinoNPC", function()
+    local trovato = false
+    for _, npc in pairs(NPCrace) do
+        if GetDistanceBetween2(vector3(npc.x, npc.y, npc.z)) < 10.0 then
+            trovato = true
+        end
+    end
+    return trovato
+end)
+
+-- ------------------------------------------------------------
+-- Thread: spawn dos NPCs de corrida (fans + grid girls)
+-- ------------------------------------------------------------
+
+Citizen.CreateThread(function()
+    -- Spawn NPCs fans
+    if NPCrace and #NPCrace > 0 then
+        for _, npc in pairs(NPCrace) do
+            local modelHash = LoadModel(npc.model)
+
+            local ped = CreatePed(1, modelHash, npc.x, npc.y, npc.z, 0.0, false, false)
+            npc.PedID = ped
+
+            SetPedFleeAttributes(ped, 0, 0)
+            SetPedDropsWeaponsWhenDead(ped, false)
+            SetPedDiesWhenInjured(ped, false)
+            SetEntityInvincible(ped, true)
+            FreezeEntityPosition(ped, true)
+            SetBlockingOfNonTemporaryEvents(ped, true)
+            SetPedCanRagdollFromPlayerImpact(ped, false)
+            Citizen.Wait(25)
+            SetEntityHeading(ped, npc.h)
+            SetModelAsNoLongerNeeded(modelHash)
+
+            -- Animação: Fan (palmas raivosas)
+            if npc.Fan then
+                local dict = "anim@arena@celeb@flat@solo@no_props@"
+                RequestAnimDict(dict)
+                while not HasAnimDictLoaded(dict) do Wait(0) end
+                TaskPlayAnim(ped, dict, "angry_clap_a_player_a", 8.0, 1, -1, 49, 0, false, false, false)
+                RemoveAnimDict(dict)
+                RemoveAnimSet("angry_clap_a_player_a")
             end
-            L8_2 = IsControlPressed
-            L9_2 = 0
-            L10_2 = 74
-            L8_2 = L8_2(L9_2, L10_2)
-            if L8_2 then
-              L8_2 = IsPedSittingInAnyVehicle
-              L9_2 = L0_2
-              L8_2 = L8_2(L9_2)
-              if L8_2 then
-                L8_2 = CheckRace
-                L9_2 = L5_2
-                L8_2(L9_2)
-              else
-                L8_2 = VehMond
-                if not L8_2 then
-                  L8_2 = CheckRace
-                  L9_2 = L5_2
-                  L8_2(L9_2)
+
+            -- Animação: Fan2 (torcer)
+            if npc.Fan2 then
+                local dict = "amb@world_human_cheering@male_a"
+                RequestAnimDict(dict)
+                while not HasAnimDictLoaded(dict) do Wait(0) end
+                TaskPlayAnim(ped, dict, "base", 8.0, 1, -1, 49, 0, false, false, false)
+                RemoveAnimDict(dict)
+                RemoveAnimSet("base")
+            end
+        end
+    end
+
+    -- Spawn das grid girls + blips por corrida
+    if RacePos and #RacePos > 0 then
+        for raceID, race in pairs(RacePos) do
+            -- Blip de mapa (apenas corridas ativas)
+            if race.active then
+                local blip = AddBlipForCoord(race.startpos.x, race.startpos.y, race.startpos.z)
+                SetBlipSprite(blip, race.id)
+                SetBlipDisplay(blip, 4)
+                SetBlipScale(blip, race.size)
+                SetBlipColour(blip, race.colour)
+                SetBlipAsShortRange(blip, true)
+                BeginTextCommandSetBlipName("STRING")
+                AddTextComponentString(race.title)
+                EndTextCommandSetBlipName(blip)
+            end
+
+            -- Grid girl
+            local girlModel = LoadModel(race.girlmodel)
+            local girl = CreatePed(
+                1, girlModel,
+                race.girlstart.x, race.girlstart.y, race.girlstart.z,
+                race.girlheading,
+                false, false
+            )
+            race.PedID = girl
+
+            SetPedFleeAttributes(girl, 0, 0)
+            SetPedDropsWeaponsWhenDead(girl, false)
+            SetPedDiesWhenInjured(girl, false)
+            SetEntityInvincible(girl, true)
+            FreezeEntityPosition(girl, true)
+            SetBlockingOfNonTemporaryEvents(girl, true)
+            SetPedCanRagdollFromPlayerImpact(girl, false)
+            Citizen.Wait(25)
+            SetEntityHeading(girl, race.girlheading)
+            SetModelAsNoLongerNeeded(girlModel)
+
+            -- Animação idle da grid girl
+            local idleDict = "amb@world_human_hang_out_street@female_arms_crossed@idle_a"
+            RequestAnimDict(idleDict)
+            while not HasAnimDictLoaded(idleDict) do Wait(0) end
+            TaskPlayAnim(girl, idleDict, "idle_a", 8.0, 1, -1, 49, 0, false, false, false)
+            RemoveAnimDict(idleDict)
+            RemoveAnimSet("idle_a")
+        end
+    end
+end)
+
+-- ------------------------------------------------------------
+-- Verificação de entrada na corrida
+-- ------------------------------------------------------------
+
+--- Verifica com o servidor se o jogador pode entrar em uma corrida pelo ID.
+function CheckRace(raceID)
+    ESX.TriggerServerCallback("corsa:cross", function(alreadyRunning)
+        if alreadyRunning == nil then
+            inRaceID = raceID
+            print("inRace: " .. raceID)
+
+            ESX.TriggerServerCallback("corsa:checkhostcross", function(existingHost)
+                if existingHost ~= nil then
+                    -- Já existe um host → entrar como participante
+                    notify(m.Partecipant)
+                    notify(m.WaitHost)
+                    if Command3DHead then
+                        ExecuteCommand("me ID: ~b~" .. raceID)
+                    end
+                else
+                    -- Nenhum host → tornar-se o host
+                    if Command3DHead then
+                        ExecuteCommand("me Host ID: ~b~" .. raceID)
+                    end
+                    TriggerServerEvent("corsa:hostcross", raceID)
+                    isHost = raceID
                 end
-              end
-              L8_2 = Citizen
-              L8_2 = L8_2.Wait
-              L9_2 = 3000
-              L8_2(L9_2)
-            end
-          end
-        end
-      else
-        if L7_2 then
-          L8_2 = L0_1
-          if not (L8_2 > 0) then
-            goto lbl_88
-          end
-        end
-        L8_2 = Citizen
-        L8_2 = L8_2.Wait
-        L9_2 = 2000
-        L8_2(L9_2)
-      end
-      ::lbl_88::
-    end
-  end
-end
-L3_1(L4_1)
-L3_1 = RegisterNetEvent
-L4_1 = "corsa:startcross"
-L3_1(L4_1)
-L3_1 = AddEventHandler
-L4_1 = "corsa:startcross"
-function L5_1(A0_2)
-  local L1_2, L2_2, L3_2, L4_2, L5_2, L6_2, L7_2, L8_2, L9_2, L10_2, L11_2, L12_2, L13_2, L14_2, L15_2, L16_2, L17_2, L18_2
-  L1_2 = RacePos
-  if nil ~= L1_2 then
-    L1_2 = RacePos
-    L1_2 = #L1_2
-    if L1_2 > 0 then
-      L1_2 = pairs
-      L2_2 = RacePos
-      L1_2, L2_2, L3_2, L4_2 = L1_2(L2_2)
-      for L5_2, L6_2 in L1_2, L2_2, L3_2, L4_2 do
-        if L5_2 == A0_2 then
-          L7_2 = ClearPedTasksImmediately
-          L8_2 = L6_2.PedID
-          L7_2(L8_2)
-          L7_2 = RequestAnimDict
-          L8_2 = "random@street_race"
-          L7_2(L8_2)
-          while true do
-            L7_2 = HasAnimDictLoaded
-            L8_2 = "random@street_race"
-            L7_2 = L7_2(L8_2)
-            if L7_2 then
-              break
-            end
-            L7_2 = Wait
-            L8_2 = 0
-            L7_2(L8_2)
-          end
-          L7_2 = TaskPlayAnim
-          L8_2 = L6_2.PedID
-          L9_2 = "random@street_race"
-          L10_2 = "grid_girl_race_start"
-          L11_2 = 8.0
-          L12_2 = 1
-          L13_2 = -1
-          L14_2 = 1
-          L15_2 = 0
-          L16_2 = false
-          L17_2 = false
-          L18_2 = false
-          L7_2(L8_2, L9_2, L10_2, L11_2, L12_2, L13_2, L14_2, L15_2, L16_2, L17_2, L18_2)
-          L7_2 = RemoveAnimDict
-          L8_2 = "random@street_race"
-          L7_2(L8_2)
-          L7_2 = RemoveAnimSet
-          L8_2 = "grid_girl_race_start"
-          L7_2(L8_2)
-        end
-      end
-    end
-  end
-  L1_2 = L0_1
-  if L1_2 == A0_2 then
-    L1_2 = GetDistanceBetween2
-    L2_2 = RacePos
-    L2_2 = L2_2[A0_2]
-    L2_2 = L2_2.startpos
-    L1_2 = L1_2(L2_2)
-    if L1_2 < 100.0 then
-      L1_2 = GetVehiclePedIsIn
-      L2_2 = PlayerPedId
-      L2_2 = L2_2()
-      L3_2 = false
-      L1_2 = L1_2(L2_2, L3_2)
-      L2_2 = FreezeEntityPosition
-      L3_2 = L1_2
-      L4_2 = true
-      L2_2(L3_2, L4_2)
-      L2_2 = MsgRaceStartSoon
-      L2_2()
-      L2_2 = DeleteWaypoint
-      L2_2()
-      L2_2 = Wait
-      L3_2 = 6500
-      L2_2(L3_2)
-      L2_2 = soundtre
-      L2_2()
-      L2_2 = Wait
-      L3_2 = 1000
-      L2_2(L3_2)
-      L2_2 = soundtwo
-      L2_2()
-      L2_2 = Wait
-      L3_2 = 1000
-      L2_2(L3_2)
-      L2_2 = soundone
-      L2_2()
-      L2_2 = Wait
-      L3_2 = 1000
-      L2_2(L3_2)
-      L2_2 = soundgo
-      L2_2()
-      L2_2 = FreezeEntityPosition
-      L3_2 = L1_2
-      L4_2 = false
-      L2_2(L3_2, L4_2)
-      L2_2 = FreezeEntityPosition
-      L3_2 = PlayerPedId
-      L3_2 = L3_2()
-      L4_2 = false
-      L2_2(L3_2, L4_2)
-      L2_2 = 1
-      L1_1 = L2_2
-    end
-  end
-  L1_2 = Wait
-  L2_2 = 5000
-  L1_2(L2_2)
-  L1_2 = RacePos
-  if nil ~= L1_2 then
-    L1_2 = RacePos
-    L1_2 = #L1_2
-    if L1_2 > 0 then
-      L1_2 = pairs
-      L2_2 = RacePos
-      L1_2, L2_2, L3_2, L4_2 = L1_2(L2_2)
-      for L5_2, L6_2 in L1_2, L2_2, L3_2, L4_2 do
-        if L5_2 == A0_2 then
-          L7_2 = ClearPedTasksImmediately
-          L8_2 = L6_2.PedID
-          L7_2(L8_2)
-          L7_2 = Wait
-          L8_2 = 1000
-          L7_2(L8_2)
-          L7_2 = RequestAnimDict
-          L8_2 = "amb@world_human_hang_out_street@female_arms_crossed@idle_a"
-          L7_2(L8_2)
-          while true do
-            L7_2 = HasAnimDictLoaded
-            L8_2 = "amb@world_human_hang_out_street@female_arms_crossed@idle_a"
-            L7_2 = L7_2(L8_2)
-            if L7_2 then
-              break
-            end
-            L7_2 = Wait
-            L8_2 = 0
-            L7_2(L8_2)
-          end
-          L7_2 = TaskPlayAnim
-          L8_2 = L6_2.PedID
-          L9_2 = "amb@world_human_hang_out_street@female_arms_crossed@idle_a"
-          L10_2 = "idle_a"
-          L11_2 = 8.0
-          L12_2 = 1
-          L13_2 = -1
-          L14_2 = 49
-          L15_2 = 0
-          L16_2 = false
-          L17_2 = false
-          L18_2 = false
-          L7_2(L8_2, L9_2, L10_2, L11_2, L12_2, L13_2, L14_2, L15_2, L16_2, L17_2, L18_2)
-          L7_2 = RemoveAnimDict
-          L8_2 = "amb@world_human_hang_out_street@female_arms_crossed@idle_a"
-          L7_2(L8_2)
-          L7_2 = RemoveAnimSet
-          L8_2 = "idle_a"
-          L7_2(L8_2)
-        end
-      end
-    end
-  end
-end
-L3_1(L4_1, L5_1)
-L3_1 = RegisterNetEvent
-L4_1 = "corsa:crossvincitore"
-L3_1(L4_1)
-L3_1 = AddEventHandler
-L4_1 = "corsa:crossvincitore"
-function L5_1(A0_2, A1_2)
-  local L2_2, L3_2, L4_2, L5_2, L6_2, L7_2
-  L2_2 = RacePos
-  L2_2 = L2_2[A1_2]
-  L2_2 = L2_2.startpos
-  L3_2 = GetDistanceBetween2
-  L4_2 = vector3
-  L5_2 = L2_2.x
-  L6_2 = L2_2.y
-  L7_2 = L2_2.z
-  L4_2, L5_2, L6_2, L7_2 = L4_2(L5_2, L6_2, L7_2)
-  L3_2 = L3_2(L4_2, L5_2, L6_2, L7_2)
-  L4_2 = 250.0
-  L3_2 = L3_2 < L4_2
-  if not L3_2 then
-    L4_2 = L0_1
-    if L4_2 ~= A1_2 then
-      goto lbl_31
-    end
-  end
-  L4_2 = notify
-  L5_2 = A0_2
-  L4_2(L5_2)
-  L4_2 = L0_1
-  if L4_2 == A1_2 then
-    L4_2 = 0
-    L1_1 = L4_2
-    L4_2 = 0
-    L0_1 = L4_2
-  end
-  ::lbl_31::
-end
-L3_1(L4_1, L5_1)
-L3_1 = RegisterNetEvent
-L4_1 = "corsa:stopcross"
-L3_1(L4_1)
-L3_1 = AddEventHandler
-L4_1 = "corsa:stopcross"
-function L5_1(A0_2)
-  local L1_2, L2_2
-  L1_2 = L0_1
-  if L1_2 == A0_2 then
-    L1_2 = 0
-    L1_1 = L1_2
-    L1_2 = 0
-    L2_1 = L1_2
-    L1_2 = 0
-    L0_1 = L1_2
-    L1_2 = notify
-    L2_2 = m
-    L2_2 = L2_2.StopFromHost
-    L1_2(L2_2)
-  end
-end
-L3_1(L4_1, L5_1)
-L3_1 = Citizen
-L3_1 = L3_1.CreateThread
-function L4_1()
-  local L0_2, L1_2, L2_2, L3_2, L4_2, L5_2, L6_2, L7_2, L8_2
-  while true do
-    L0_2 = Citizen
-    L0_2 = L0_2.Wait
-    L1_2 = 10
-    L0_2(L1_2)
-    L0_2 = PlayerPedId
-    L0_2 = L0_2()
-    L1_2 = L0_1
-    if L1_2 > 0 then
-      L1_2 = L1_1
-      if L1_2 > 0 then
-        L1_2 = RacePos
-        L2_2 = L0_1
-        L1_2 = L1_2[L2_2]
-        L2_2 = L1_2.pp
-        L3_2 = L1_1
-        L2_2 = L2_2[L3_2]
-        L3_2 = L1_2.pp
-        L4_2 = L1_1
-        L4_2 = L4_2 + 1
-        L3_2 = L3_2[L4_2]
-        if nil ~= L2_2 then
-          L4_2 = GetDistanceBetween2
-          L5_2 = vector3
-          L6_2 = L2_2.x
-          L7_2 = L2_2.y
-          L8_2 = L2_2.z
-          L5_2, L6_2, L7_2, L8_2 = L5_2(L6_2, L7_2, L8_2)
-          L4_2 = L4_2(L5_2, L6_2, L7_2, L8_2)
-          L5_2 = 300.0
-          if L4_2 < L5_2 then
-            L4_2 = MarkerRaceRed
-            L5_2 = vector3
-            L6_2 = L2_2.x
-            L7_2 = L2_2.y
-            L8_2 = L2_2.z
-            L5_2, L6_2, L7_2, L8_2 = L5_2(L6_2, L7_2, L8_2)
-            L4_2(L5_2, L6_2, L7_2, L8_2)
-            L4_2 = L1_1
-            L5_2 = L1_2.pp
-            L5_2 = #L5_2
-            L5_2 = L5_2 - 1
-            if L4_2 < L5_2 and nil ~= L3_2 then
-              L4_2 = MarkerRaceWhite
-              L5_2 = vector3
-              L6_2 = L3_2.x
-              L7_2 = L3_2.y
-              L8_2 = L3_2.z
-              L5_2, L6_2, L7_2, L8_2 = L5_2(L6_2, L7_2, L8_2)
-              L4_2(L5_2, L6_2, L7_2, L8_2)
-              L4_2 = IsWaypointActive
-              L4_2 = L4_2()
-              if not L4_2 then
-                L4_2 = SetNewWaypoint
-                L5_2 = vector3
-                L6_2 = L3_2.x
-                L7_2 = L3_2.y
-                L8_2 = L3_2.z
-                L5_2, L6_2, L7_2, L8_2 = L5_2(L6_2, L7_2, L8_2)
-                L4_2(L5_2, L6_2, L7_2, L8_2)
-              end
-            end
-            L4_2 = GetDistanceBetween2
-            L5_2 = vector3
-            L6_2 = L2_2.x
-            L7_2 = L2_2.y
-            L8_2 = L2_2.z
-            L5_2, L6_2, L7_2, L8_2 = L5_2(L6_2, L7_2, L8_2)
-            L4_2 = L4_2(L5_2, L6_2, L7_2, L8_2)
-            L5_2 = L1_2.sizeBlip
-            if L4_2 < L5_2 then
-              L4_2 = L1_1
-              L4_2 = L4_2 + 1
-              L1_1 = L4_2
-              L4_2 = DeleteWaypoint
-              L4_2()
-              L4_2 = SoundTakeMarker
-              L4_2()
-              L4_2 = L1_1
-              L5_2 = L1_2.pp
-              L5_2 = #L5_2
-              L5_2 = L5_2 + 1
-              if L4_2 == L5_2 then
-                L4_2 = MsgRaceComplete
-                L4_2()
-                L4_2 = TriggerServerEvent
-                L5_2 = "corsa:crossvincitore"
-                L6_2 = L0_1
-                L4_2(L5_2, L6_2)
-                L4_2 = TriggerServerEvent
-                L5_2 = "corsa:delhostcross"
-                L6_2 = L0_1
-                L4_2(L5_2, L6_2)
-                L4_2 = Citizen
-                L4_2 = L4_2.Wait
-                L5_2 = 5000
-                L4_2(L5_2)
-              end
-            end
-          end
-          L4_2 = WhenYouFallLose
-          if L4_2 then
-            L4_2 = IsPedSittingInAnyVehicle
-            L5_2 = L0_2
-            L4_2 = L4_2(L5_2)
-            if not L4_2 then
-              L4_2 = 0
-              L1_1 = L4_2
-              L4_2 = 0
-              L0_1 = L4_2
-              L4_2 = notify
-              L5_2 = m
-              L5_2 = L5_2.OutOfRace
-              L4_2(L5_2)
-            end
-          end
+            end, raceID)
         else
-          L4_2 = 0
-          L1_1 = L4_2
-          L4_2 = 0
-          L0_1 = L4_2
-          L4_2 = notify
-          L5_2 = m
-          L5_2 = L5_2.OutOfRace
-          L4_2(L5_2)
+            notify(m.BusyRace)
+        end
+    end, raceID)
+end
+
+-- ------------------------------------------------------------
+-- Thread: detector de marcador de início de corrida
+-- ------------------------------------------------------------
+
+Citizen.CreateThread(function()
+    while true do
+        Citizen.Wait(10)
+        local playerPed = PlayerPedId()
+
+        for raceID, race in pairs(RacePos) do
+            local nearStart = false
+
+            if inRaceID == 0 then
+                local distToStart = GetDistanceBetween2(race.startpos)
+
+                if distToStart < 35.0 then
+                    nearStart = true
+                    MarkerStartRace(race.startpos, race.sizeBlip)
+
+                    if distToStart < race.sizeBlip then
+                        -- Mostrar dica de interação
+                        if IsPedSittingInAnyVehicle(playerPed) then
+                            notify2(m.WaitRace)
+                        elseif VehMond then
+                            notify2(m.NeedVeh)
+                        else
+                            notify2(m.WaitRace)
+                        end
+
+                        -- Pressionar E (tecla 74) para entrar
+                        if IsControlPressed(0, 74) then
+                            if IsPedSittingInAnyVehicle(playerPed) then
+                                CheckRace(raceID)
+                            elseif not VehMond then
+                                CheckRace(raceID)
+                            end
+                            Citizen.Wait(3000)
+                        end
+                    end
+                end
+            else
+                -- Já inscrito: aguardar com intervalo maior
+                if not (nearStart and inRaceID > 0) then
+                    Citizen.Wait(2000)
+                end
+            end
         end
     end
-    else
-      L1_2 = Citizen
-      L1_2 = L1_2.Wait
-      L2_2 = 1000
-      L1_2(L2_2)
+end)
+
+-- ------------------------------------------------------------
+-- Evento de rede: corrida iniciada pelo host
+-- ------------------------------------------------------------
+
+RegisterNetEvent("corsa:startcross")
+AddEventHandler("corsa:startcross", function(raceID)
+    -- Animar a grid girl para o início da corrida
+    if RacePos and #RacePos > 0 then
+        for entryID, race in pairs(RacePos) do
+            if entryID == raceID then
+                ClearPedTasksImmediately(race.PedID)
+
+                local startDict = "random@street_race"
+                RequestAnimDict(startDict)
+                while not HasAnimDictLoaded(startDict) do Wait(0) end
+                TaskPlayAnim(race.PedID, startDict, "grid_girl_race_start", 8.0, 1, -1, 1, 0, false, false, false)
+                RemoveAnimDict(startDict)
+                RemoveAnimSet("grid_girl_race_start")
+            end
+        end
     end
-  end
-end
-L3_1(L4_1)
+
+    -- Sequência de contagem regressiva para o jogador inscrito
+    if inRaceID == raceID then
+        local distToStart = GetDistanceBetween2(RacePos[raceID].startpos)
+        if distToStart < 100.0 then
+            local vehicle = GetVehiclePedIsIn(PlayerPedId(), false)
+            FreezeEntityPosition(vehicle, true)
+            MsgRaceStartSoon()
+            DeleteWaypoint()
+
+            Wait(6500)
+            soundtre()
+            Wait(1000)
+            soundtwo()
+            Wait(1000)
+            soundone()
+            Wait(1000)
+            soundgo()
+
+            FreezeEntityPosition(vehicle, false)
+            FreezeEntityPosition(PlayerPedId(), false)
+            raceStarted = 1
+        end
+    end
+
+    -- Após a contagem: devolver a grid girl para a animação idle
+    Wait(5000)
+    if RacePos and #RacePos > 0 then
+        for entryID, race in pairs(RacePos) do
+            if entryID == raceID then
+                ClearPedTasksImmediately(race.PedID)
+                Wait(1000)
+
+                local idleDict = "amb@world_human_hang_out_street@female_arms_crossed@idle_a"
+                RequestAnimDict(idleDict)
+                while not HasAnimDictLoaded(idleDict) do Wait(0) end
+                TaskPlayAnim(race.PedID, idleDict, "idle_a", 8.0, 1, -1, 49, 0, false, false, false)
+                RemoveAnimDict(idleDict)
+                RemoveAnimSet("idle_a")
+            end
+        end
+    end
+end)
+
+-- ------------------------------------------------------------
+-- Evento de rede: resultado da corrida (vencedor anunciado)
+-- ------------------------------------------------------------
+
+RegisterNetEvent("corsa:crossvincitore")
+AddEventHandler("corsa:crossvincitore", function(winnerMsg, raceID)
+    local race       = RacePos[raceID]
+    local distToStart = GetDistanceBetween2(vector3(race.startpos.x, race.startpos.y, race.startpos.z))
+
+    -- Mostrar notificação apenas para quem está perto ou é o participante
+    if distToStart < 250.0 or inRaceID == raceID then
+        notify(winnerMsg)
+        if inRaceID == raceID then
+            raceStarted = 0
+            inRaceID    = 0
+        end
+    end
+end)
+
+-- ------------------------------------------------------------
+-- Evento de rede: corrida interrompida pelo host
+-- ------------------------------------------------------------
+
+RegisterNetEvent("corsa:stopcross")
+AddEventHandler("corsa:stopcross", function(raceID)
+    if inRaceID == raceID then
+        raceStarted = 0
+        isHost      = 0
+        inRaceID    = 0
+        notify(m.StopFromHost)
+    end
+end)
+
+-- ------------------------------------------------------------
+-- Thread: lógica de checkpoints durante a corrida
+-- ------------------------------------------------------------
+
+Citizen.CreateThread(function()
+    while true do
+        Citizen.Wait(10)
+        local playerPed = PlayerPedId()
+
+        if inRaceID > 0 then
+            if raceStarted > 0 then
+                local race          = RacePos[inRaceID]
+                local currentCP     = race.pp[raceStarted]
+                local nextCP        = race.pp[raceStarted + 1]
+
+                if currentCP ~= nil then
+                    local distToCP = GetDistanceBetween2(vector3(currentCP.x, currentCP.y, currentCP.z))
+
+                    if distToCP < 300.0 then
+                        -- Desenhar marcador vermelho no checkpoint atual
+                        MarkerRaceRed(vector3(currentCP.x, currentCP.y, currentCP.z))
+
+                        -- Desenhar marcador branco no próximo checkpoint (se existir)
+                        local totalCP = #race.pp
+                        if raceStarted < totalCP - 1 and nextCP ~= nil then
+                            MarkerRaceWhite(vector3(nextCP.x, nextCP.y, nextCP.z))
+
+                            -- Waypoint automático no próximo checkpoint
+                            if not IsWaypointActive() then
+                                SetNewWaypoint(nextCP.x, nextCP.y)
+                            end
+                        end
+
+                        -- Checkpoint atingido
+                        if distToCP < race.sizeBlip then
+                            raceStarted = raceStarted + 1
+                            DeleteWaypoint()
+                            SoundTakeMarker()
+
+                            -- Verificar se foi o último checkpoint
+                            if raceStarted == totalCP + 1 then
+                                MsgRaceComplete()
+                                TriggerServerEvent("corsa:crossvincitore", inRaceID)
+                                TriggerServerEvent("corsa:delhostcross",   inRaceID)
+                                Citizen.Wait(5000)
+                            end
+                        end
+                    end
+
+                    -- Penalidade por sair do veículo (se ativado)
+                    if WhenYouFallLose then
+                        if not IsPedSittingInAnyVehicle(playerPed) then
+                            raceStarted = 0
+                            inRaceID    = 0
+                            notify(m.OutOfRace)
+                        end
+                    end
+                else
+                    -- Sem checkpoint válido → corrida encerrada
+                    raceStarted = 0
+                    inRaceID    = 0
+                    notify(m.OutOfRace)
+                end
+            end
+        else
+            Citizen.Wait(1000)
+        end
+    end
+end)

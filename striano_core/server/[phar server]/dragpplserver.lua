@@ -1,88 +1,47 @@
-local L0_1, L1_1, L2_1, L3_1, L4_1
-L0_1 = {}
-L1_1 = {}
-L2_1 = RegisterServerEvent
-L3_1 = "xenos_DragPeople:sync"
-L2_1(L3_1)
-L2_1 = AddEventHandler
-L3_1 = "xenos_DragPeople:sync"
-function L4_1(A0_2)
-  local L1_2, L2_2, L3_2, L4_2
-  L1_2 = TriggerClientEvent
-  L2_2 = "xenos_DragPeople:syncTarget"
-  L3_2 = A0_2
-  L4_2 = source
-  L1_2(L2_2, L3_2, L4_2)
-  L2_2 = source
-  L1_2 = L0_1
-  L1_2[L2_2] = A0_2
-  L1_2 = L1_1
-  L2_2 = source
-  L1_2[A0_2] = L2_2
-end
-L2_1(L3_1, L4_1)
-L2_1 = RegisterServerEvent
-L3_1 = "xenos_DragPeople:syncSOLO"
-L2_1(L3_1)
-L2_1 = AddEventHandler
-L3_1 = "xenos_DragPeople:syncSOLO"
-function L4_1(A0_2)
-  local L1_2, L2_2, L3_2
-  L1_2 = TriggerClientEvent
-  L2_2 = "xenos_DragPeople:syncTargetSOLO"
-  L3_2 = A0_2
-  L1_2(L2_2, L3_2)
-end
-L2_1(L3_1, L4_1)
-L2_1 = RegisterServerEvent
-L3_1 = "xenos_DragPeople:stop"
-L2_1(L3_1)
-L2_1 = AddEventHandler
-L3_1 = "xenos_DragPeople:stop"
-function L4_1(A0_2)
-  local L1_2, L2_2, L3_2, L4_2, L5_2
-  L1_2 = source
-  L2_2 = L0_1
-  L2_2 = L2_2[L1_2]
-  if L2_2 then
-    L2_2 = TriggerClientEvent
-    L3_2 = "xenos_DragPeople:cl_stop"
-    L4_2 = A0_2
-    L5_2 = L1_2
-    L2_2(L3_2, L4_2, L5_2)
-    L2_2 = L0_1
-    L2_2[L1_2] = nil
-    L2_2 = L1_1
-    L2_2[A0_2] = nil
-  end
-end
-L2_1(L3_1, L4_1)
-L2_1 = RegisterNetEvent
-L3_1 = "updateTrascina"
-L2_1(L3_1)
-L2_1 = AddEventHandler
-L3_1 = "updateTrascina"
-function L4_1(A0_2, A1_2, A2_2, A3_2, A4_2)
-  local L5_2, L6_2, L7_2, L8_2, L9_2, L10_2, L11_2, L12_2
-  L5_2 = TriggerClientEvent
-  L6_2 = "updateTrascina"
-  L7_2 = -1
-  L8_2 = A0_2
-  L9_2 = A1_2
-  L10_2 = A2_2
-  L11_2 = A3_2
-  L12_2 = A4_2
-  L5_2(L6_2, L7_2, L8_2, L9_2, L10_2, L11_2, L12_2)
-end
-L2_1(L3_1, L4_1)
-L2_1 = AddEventHandler
-L3_1 = "playerDropped"
-function L4_1(A0_2)
-  local L1_2, L2_2
-  L1_2 = source
-  L2_2 = L0_1
-  L2_2[L1_2] = nil
-  L2_2 = L1_1
-  L2_2[L1_2] = nil
-end
-L2_1(L3_1, L4_1)
+-- ============================================================
+--  striano_core - server/[phar server]/dragpplserver.lua
+--  Servidor: arrastar jogadores (DragPeople / xenos)
+-- ============================================================
+
+-- Tabelas de estado: quem está a arrastar quem
+local draggers  = {}   -- [draggerSrc] = targetSrc
+local draggees  = {}   -- [targetSrc]  = draggerSrc
+
+--- Sincronizar início de arrastar com o alvo
+RegisterServerEvent("xenos_DragPeople:sync")
+AddEventHandler("xenos_DragPeople:sync", function(targetSrc)
+    local src = source
+    TriggerClientEvent("xenos_DragPeople:syncTarget", targetSrc, src)
+    draggers[src]       = targetSrc
+    draggees[targetSrc] = src
+end)
+
+--- Sincronizar arrastar sozinho (sem alvo específico)
+RegisterServerEvent("xenos_DragPeople:syncSOLO")
+AddEventHandler("xenos_DragPeople:syncSOLO", function(targetSrc)
+    TriggerClientEvent("xenos_DragPeople:syncTargetSOLO", targetSrc)
+end)
+
+--- Parar de arrastar
+RegisterServerEvent("xenos_DragPeople:stop")
+AddEventHandler("xenos_DragPeople:stop", function(targetSrc)
+    local src = source
+    if draggers[src] then
+        TriggerClientEvent("xenos_DragPeople:cl_stop", targetSrc, src)
+        draggers[src]       = nil
+        draggees[targetSrc] = nil
+    end
+end)
+
+--- Sincronizar posição durante o arrastar
+RegisterNetEvent("updateTrascina")
+AddEventHandler("updateTrascina", function(p1, p2, p3, p4, p5)
+    TriggerClientEvent("updateTrascina", -1, p1, p2, p3, p4, p5)
+end)
+
+--- Limpar estado quando um jogador sai
+AddEventHandler("playerDropped", function()
+    local src = source
+    draggers[src] = nil
+    draggees[src] = nil
+end)

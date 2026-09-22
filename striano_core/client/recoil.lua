@@ -1,1 +1,2 @@
-local L0_1, L1_1
+-- striano_core/client/recoil.lua
+-- (arquivo vazio — placeholder para o módulo de recuo de armas)

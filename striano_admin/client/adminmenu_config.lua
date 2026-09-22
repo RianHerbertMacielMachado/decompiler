@@ -1,4084 +1,1565 @@
-local L0_1, L1_1, L2_1, L3_1, L4_1, L5_1, L6_1, L7_1, L8_1, L9_1, L10_1, L11_1, L12_1, L13_1, L14_1, L15_1, L16_1, L17_1, L18_1, L19_1, L20_1, L21_1
-L0_1 = CQAdminCategories
-if not L0_1 then
-  L0_1 = {}
-end
-CQAdminCategories = L0_1
-L0_1 = {}
-L0_1.open = false
-L1_1 = GetCurrentResourceName
-L1_1 = L1_1()
-L0_1.resource = L1_1
-function L1_1()
-  local L0_2, L1_2
-  L0_2 = true
-  return L0_2
-end
-_players_cache = nil
+-- ============================================================
+--  striano_admin - client/adminmenu_config.lua
+--  Configuração e callbacks do menu de administração (NUI)
+-- ============================================================
+
+-- ------------------------------------------------------------
+-- Estado global do menu
+-- ------------------------------------------------------------
+
+if not CQAdminCategories then CQAdminCategories = {} end
+
+local menuState = {
+    open     = false,
+    resource = GetCurrentResourceName(),
+}
+
+-- Caches de dados assíncronos
+_players_cache   = nil
 _players_loading = false
-function L2_1(A0_2, A1_2)
-  local L2_2, L3_2
-  L2_2 = type
-  L3_2 = A0_2
-  L2_2 = L2_2(L3_2)
-  if "string" ~= L2_2 then
-    return
-  end
-  L2_2 = type
-  L3_2 = A1_2
-  L2_2 = L2_2(L3_2)
-  if "table" ~= L2_2 then
-    return
-  end
-  L2_2 = CQAdminCategories
-  L2_2[A0_2] = A1_2
+_items_cache     = nil
+_items_loading   = _items_loading or false
+_keys_menu_cache = _keys_menu_cache or {}
+
+-- Estado do jogador expandido na lista de players
+ExpandedPlayer = ExpandedPlayer or 0
+
+-- Estado de visão noturna / térmica
+local nightVisionActive  = false
+local thermalVisionActive = false
+
+-- Pending de input
+local _inputPending = nil
+
+-- ------------------------------------------------------------
+-- Helpers de estado
+-- ------------------------------------------------------------
+
+--- Retorna true se o jogador local é admin (via state).
+local function isLocalAdmin()
+    local st = LocalPlayer and LocalPlayer.state
+    return st and st.isAdmin == true
 end
-RegisterAdminCategory = L2_1
-function L2_1()
-  local L0_2, L1_2, L2_2, L3_2, L4_2, L5_2, L6_2, L7_2, L8_2, L9_2, L10_2, L11_2, L12_2
-  L0_2 = {}
-  L1_2 = pairs
-  L2_2 = CQAdminCategories
-  L1_2, L2_2, L3_2, L4_2 = L1_2(L2_2)
-  for L5_2, L6_2 in L1_2, L2_2, L3_2, L4_2 do
-    L7_2 = type
-    L8_2 = L6_2
-    L7_2 = L7_2(L8_2)
-    if "table" == L7_2 then
-      L7_2 = type
-      L8_2 = L6_2.build
-      L7_2 = L7_2(L8_2)
-      if "function" == L7_2 then
-        L7_2 = pcall
-        L8_2 = L6_2.build
-        L7_2, L8_2 = L7_2(L8_2)
-        if L7_2 then
-          L9_2 = type
-          L10_2 = L8_2
-          L9_2 = L9_2(L10_2)
-          if "table" == L9_2 then
-            L8_2.__key = L5_2
-            L9_2 = tonumber
-            L10_2 = L6_2.order
-            L9_2 = L9_2(L10_2)
-            if not L9_2 then
-              L9_2 = tonumber
-              L10_2 = L8_2.order
-              L9_2 = L9_2(L10_2)
-              if not L9_2 then
-                L9_2 = 9999
-              end
+
+-- ------------------------------------------------------------
+-- Registro de categorias
+-- ------------------------------------------------------------
+
+--- Registra uma categoria de menu por chave.
+function RegisterAdminCategory(key, def)
+    if type(key) ~= "string" then return end
+    if type(def) ~= "table"  then return end
+    CQAdminCategories[key] = def
+end
+
+--- Constrói e retorna a lista ordenada de categorias para envio à NUI.
+local function buildCategoryList()
+    local list = {}
+    for key, cat in pairs(CQAdminCategories) do
+        if type(cat) == "table" and type(cat.build) == "function" then
+            local ok, built = pcall(cat.build)
+            if ok and type(built) == "table" then
+                built.__key = key
+                built.order = tonumber(cat.order) or tonumber(built.order) or 9999
+                table.insert(list, built)
+            else
+                print(string.format("^1[STRIANO ADMIN]^0 build() failed for '%s'", key))
             end
-            L8_2.order = L9_2
-            L9_2 = #L0_2
-            L9_2 = L9_2 + 1
-            L0_2[L9_2] = L8_2
         end
-        else
-          L9_2 = print
-          L10_2 = "^1[STRIANO ADMIN]^0 build() failed for '%s'"
-          L11_2 = L10_2
-          L10_2 = L10_2.format
-          L12_2 = L5_2
-          L10_2, L11_2, L12_2 = L10_2(L11_2, L12_2)
-          L9_2(L10_2, L11_2, L12_2)
+    end
+    table.sort(list, function(a, b)
+        return (a.order or 9999) < (b.order or 9999)
+    end)
+    return list
+end
+
+--- Envia as categorias para a NUI.
+local function sendCategories()
+    SendNUIMessage({ action = "setCategories", data = buildCategoryList() })
+end
+
+-- ------------------------------------------------------------
+-- Abrir / Fechar menu
+-- ------------------------------------------------------------
+
+--- Abre o menu de administração.
+function CQAdmin_Open()
+    if menuState.open then return end
+
+    -- Fechar menu de missões se estiver aberto
+    local missionOpen = exports.striano_missions:isOpenQuest()
+    if missionOpen then
+        ExecuteCommand("striano_quest:close")
+    end
+
+    menuState.open = true
+    SetNuiFocus(true, true)
+    SetNuiFocusKeepInput(false)
+    TriggerServerEvent("striano_admin:sv:reqPlayersList")
+    sendCategories()
+    SendNUIMessage({ action = "open" })
+end
+
+--- Fecha o menu de administração.
+function CQAdmin_Close()
+    if not menuState.open then return end
+    menuState.open = false
+    SetNuiFocus(false, false)
+    SetNuiFocusKeepInput(false)
+    SendNUIMessage({ action = "close" })
+end
+
+--- Atualiza as categorias sem fechar o menu.
+function CQAdmin_Refresh()
+    if not menuState.open then return end
+    sendCategories()
+end
+
+-- Alias para fechar via evento
+function closemenu()
+    TriggerEvent("striano_admin:cl:close")
+end
+
+RegisterNetEvent("striano_admin:cl:open",  CQAdmin_Open)
+RegisterNetEvent("striano_admin:cl:close", CQAdmin_Close)
+
+-- ------------------------------------------------------------
+-- Comando /admin — toggle do menu
+-- ------------------------------------------------------------
+
+RegisterCommand("admin", function()
+    local tutorial = exports.phar:gettutorial()
+    if not tutorial then
+        -- Dentro do tutorial: abrir menu nativo GTA
+        closemenu()
+        ActivateFrontendMenu(GetHashKey("FE_MENU_VERSION_LANDING_MENU"), 0, -1)
+        return
+    end
+
+    local ped = PlayerPedId()
+    -- Verificar se o jogador está em animação de leitura (não abrir neste caso)
+    if IsEntityPlayingAnim(ped, "amb@code_human_in_bus_passenger_idles@female@tablet@idle_a", "idle_a", 3) then
+        return
+    end
+
+    -- Verificar bloqueios
+    if exports.striano_inventory:isopen()     then return end
+    if exports.phar:soffoco()                 then return end
+    if exports.striano_core:inCall() ~= 0    then return end
+    if GetPauseMenuState() ~= 0               then return end
+    if IsNuiFocused()                         then return end
+    if exports.striano_menu:menuaperto()      then return end
+    if exports.striano_editor:inghost() ~= nil then return end
+    if exports.striano_ridehorse:inShopAnimals() then return end
+    if not IsEntityVisible(ped)               then return end
+
+    -- Toggle
+    if menuState.open then
+        CQAdmin_Close()
+    else
+        CQAdmin_Open()
+    end
+end)
+
+RegisterKeyMapping("admin", "(Admin) Open Menu", "keyboard", "ESCAPE")
+
+-- ------------------------------------------------------------
+-- Recurso parado — limpar UI
+-- ------------------------------------------------------------
+
+AddEventHandler("onResourceStop", function(resourceName)
+    if resourceName ~= menuState.resource then return end
+    if menuState.open then
+        menuState.open = false
+        SetNuiFocus(false, false)
+        SetNuiFocusKeepInput(false)
+        SendNUIMessage({ action = "close" })
+    end
+end)
+
+-- ------------------------------------------------------------
+-- Helper: ajustar foco NUI com base no estado do menu
+-- ------------------------------------------------------------
+
+local function applyNuiFocus(focused)
+    SetNuiFocus(focused, focused)
+    SetNuiFocusKeepInput(false)
+end
+
+local function restoreFocusAfterInput()
+    if menuState.open then
+        applyNuiFocus(true)
+    else
+        applyNuiFocus(false)
+    end
+end
+
+-- ------------------------------------------------------------
+-- Sistema de Input overlay (OpenInput)
+-- ------------------------------------------------------------
+
+--- Abre o overlay de input NUI e aguarda o resultado (bloqueante via coroutine).
+--- Retorna a string digitada, ou "" em caso de cancelamento/timeout.
+function OpenInput(prompt, defaultValue, opts)
+    if _inputPending then
+        print("^1[striano_admin]^7 OpenInput blocked: _inputPending exist.")
+        return ""
+    end
+
+    if not opts then opts = {} end
+    if not prompt       then prompt       = "Insert value" end
+    if not defaultValue then defaultValue = "" end
+
+    _inputPending = { done = false, value = "" }
+    applyNuiFocus(true)
+
+    SendNUIMessage({
+        action      = "input:open",
+        label       = tostring(prompt),
+        value       = tostring(defaultValue),
+        placeholder = tostring(opts.placeholder or ""),
+        maxLen      = tonumber(opts.maxLen)  or 64,
+        pattern     = tostring(opts.pattern  or ".*"),
+        isNumber    = opts.isNumber == true,
+    })
+
+    local deadline = GetGameTimer() + 30000
+    while true do
+        if not _inputPending then break end
+        if _inputPending.done then break end
+        Wait(0)
+        if GetGameTimer() > deadline then
+            _inputPending.done  = true
+            _inputPending.value = ""
+            break
         end
-      end
     end
-  end
-  L1_2 = table
-  L1_2 = L1_2.sort
-  L2_2 = L0_2
-  function L3_2(A0_3, A1_3)
-    local L2_3, L3_3
-    L2_3 = A0_3.order
-    if not L2_3 then
-      L2_3 = 9999
+
+    local result = (_inputPending and _inputPending.value) or ""
+    _inputPending = nil
+
+    SendNUIMessage({ action = "input:close" })
+    restoreFocusAfterInput()
+
+    return result
+end
+
+-- Fallback: keyboard nativa do GTA quando striano_admin não está disponível
+local function OpenInputSafe(prompt, defaultValue, opts)
+    if not opts then opts = {} end
+
+    -- Tentar via export do striano_admin
+    local state = GetResourceState("striano_admin")
+    if state == "started" then
+        local ok, result = pcall(function()
+            return exports.striano_admin:OpenInput(prompt, defaultValue, opts)
+        end)
+        if ok and result ~= nil then
+            return result
+        end
     end
-    L3_3 = A1_3.order
-    if not L3_3 then
-      L3_3 = 9999
+
+    -- Fallback: teclado nativo GTA
+    AddTextEntry("STRIANO_INPUT_SAFE", prompt or "Input")
+    DisplayOnscreenKeyboard(1, "STRIANO_INPUT_SAFE", "", defaultValue or "", "", "", "", opts.maxLength or 40)
+    while UpdateOnscreenKeyboard() == 0 do
+        Wait(0)
     end
-    L2_3 = L2_3 < L3_3
-    return L2_3
-  end
-  L1_2(L2_2, L3_2)
-  return L0_2
+    if UpdateOnscreenKeyboard() == 1 then
+        return GetOnscreenKeyboardResult()
+    end
+    return nil
 end
-function L3_1()
-  local L0_2, L1_2, L2_2
-  L0_2 = SendNUIMessage
-  L1_2 = {}
-  L1_2.action = "setCategories"
-  L2_2 = L2_1
-  L2_2 = L2_2()
-  L1_2.data = L2_2
-  L0_2(L1_2)
+
+-- Versão global acessível externamente
+OpenInput = OpenInputSafe
+
+-- ------------------------------------------------------------
+-- Callbacks NUI: input
+-- ------------------------------------------------------------
+
+RegisterNUICallback("striano-input:submit", function(data, cb)
+    if _inputPending then
+        local val = data and data.value
+        _inputPending.value = tostring(val or "")
+        _inputPending.done  = true
+    end
+    restoreFocusAfterInput()
+    cb({ ok = true })
+end)
+
+RegisterNUICallback("striano-input:cancel", function(data, cb)
+    if _inputPending then
+        _inputPending.value = ""
+        _inputPending.done  = true
+    end
+    restoreFocusAfterInput()
+    cb({ ok = true })
+end)
+
+exports("OpenInput", function(prompt, defaultValue, opts)
+    return exports.striano_admin:OpenInput(prompt, defaultValue, opts)
+end)
+
+-- ------------------------------------------------------------
+-- Cache de itens
+-- ------------------------------------------------------------
+
+local function preloadItems()
+    if not isLocalAdmin() then return end
+    if _items_cache == nil and not _items_loading then
+        _items_loading = true
+        TriggerServerEvent("striano_admin:sv:reqItemsList")
+    end
 end
-function L4_1()
-  local L0_2, L1_2, L2_2
-  L0_2 = L0_1.open
-  if L0_2 then
-    return
-  end
-  L0_2 = exports
-  L0_2 = L0_2.striano_missions
-  L1_2 = L0_2
-  L0_2 = L0_2.isOpenQuest
-  L0_2 = L0_2(L1_2)
-  if L0_2 then
-    L0_2 = ExecuteCommand
-    L1_2 = "striano_quest:close"
-    L0_2(L1_2)
-  end
-  L0_1.open = true
-  L0_2 = SetNuiFocus
-  L1_2 = true
-  L2_2 = true
-  L0_2(L1_2, L2_2)
-  L0_2 = SetNuiFocusKeepInput
-  L1_2 = false
-  L0_2(L1_2)
-  L0_2 = TriggerServerEvent
-  L1_2 = "striano_admin:sv:reqPlayersList"
-  L0_2(L1_2)
-  L0_2 = L3_1
-  L0_2()
-  L0_2 = SendNUIMessage
-  L1_2 = {}
-  L1_2.action = "open"
-  L0_2(L1_2)
+
+-- Thread: aguardar tornar-se admin e então pré-carregar itens
+CreateThread(function()
+    while true do
+        Wait(600)
+        if isLocalAdmin() then
+            preloadItems()
+            return
+        end
+    end
+end)
+
+-- Thread periódica de pré-carregamento
+CreateThread(function()
+    while true do
+        Wait(500)
+        if isLocalAdmin() then
+            preloadItems()
+            return
+        end
+    end
+end)
+
+RegisterNetEvent("striano_admin:cl:setItemsList")
+AddEventHandler("striano_admin:cl:setItemsList", function(items)
+    _items_cache   = items or {}
+    _items_loading = false
+    if menuState.open then CQAdmin_Refresh() end
+end)
+
+-- ------------------------------------------------------------
+-- Cache de jogadores
+-- ------------------------------------------------------------
+
+local function preloadPlayers()
+    if _players_cache == nil and not _players_loading then
+        _players_loading = true
+        TriggerServerEvent("striano_admin:sv:reqPlayersList")
+    end
 end
-CQAdmin_Open = L4_1
-function L4_1()
-  local L0_2, L1_2, L2_2
-  L0_2 = L0_1.open
-  if not L0_2 then
-    return
-  end
-  L0_1.open = false
-  L0_2 = SetNuiFocus
-  L1_2 = false
-  L2_2 = false
-  L0_2(L1_2, L2_2)
-  L0_2 = SetNuiFocusKeepInput
-  L1_2 = false
-  L0_2(L1_2)
-  L0_2 = SendNUIMessage
-  L1_2 = {}
-  L1_2.action = "close"
-  L0_2(L1_2)
+
+RegisterNetEvent("striano_admin:cl:setPlayersList")
+AddEventHandler("striano_admin:cl:setPlayersList", function(players)
+    _players_cache   = players or {}
+    _players_loading = false
+end)
+
+RegisterNUICallback("striano_admin:cb:refreshPlayers", function(data, cb)
+    _players_loading = true
+    TriggerServerEvent("striano_admin:sv:reqPlayersList")
+    cb({ ok = true })
+end)
+
+-- ------------------------------------------------------------
+-- Helper: resolve ID do payload (0 = jogador local)
+-- ------------------------------------------------------------
+
+local function resolveTargetId(data)
+    local id = tonumber(data and data.id or 0) or 0
+    if id == 0 then
+        id = GetPlayerServerId(PlayerId())
+    end
+    return id
 end
-CQAdmin_Close = L4_1
-function L4_1()
-  local L0_2, L1_2
-  L0_2 = L0_1.open
-  if not L0_2 then
-    return
-  end
-  L0_2 = L3_1
-  L0_2()
-end
-CQAdmin_Refresh = L4_1
-L4_1 = RegisterNetEvent
-L5_1 = "striano_admin:cl:open"
-L6_1 = CQAdmin_Open
-L4_1(L5_1, L6_1)
-L4_1 = RegisterNetEvent
-L5_1 = "striano_admin:cl:close"
-L6_1 = CQAdmin_Close
-L4_1(L5_1, L6_1)
-L4_1 = RegisterCommand
-L5_1 = "admin"
-function L6_1()
-  local L0_2, L1_2, L2_2, L3_2, L4_2, L5_2
-  L0_2 = exports
-  L0_2 = L0_2.phar
-  L1_2 = L0_2
-  L0_2 = L0_2.gettutorial
-  L0_2 = L0_2(L1_2)
-  if not L0_2 then
-    L0_2 = closemenu
-    L0_2()
-    L0_2 = ActivateFrontendMenu
-    L1_2 = GetHashKey
-    L2_2 = "FE_MENU_VERSION_LANDING_MENU"
-    L1_2 = L1_2(L2_2)
-    L2_2 = 0
-    L3_2 = -1
-    L0_2(L1_2, L2_2, L3_2)
-  else
-    L0_2 = PlayerPedId
-    L0_2 = L0_2()
-    L1_2 = IsEntityPlayingAnim
-    L2_2 = L0_2
-    L3_2 = "amb@code_human_in_bus_passenger_idles@female@tablet@idle_a"
-    L4_2 = "idle_a"
-    L5_2 = 3
-    L1_2 = L1_2(L2_2, L3_2, L4_2, L5_2)
-    if not L1_2 then
-      L1_2 = exports
-      L1_2 = L1_2.striano_inventory
-      L2_2 = L1_2
-      L1_2 = L1_2.isopen
-      L1_2 = L1_2(L2_2)
-      if not L1_2 then
-        L1_2 = exports
-        L1_2 = L1_2.phar
-        L2_2 = L1_2
-        L1_2 = L1_2.soffoco
-        L1_2 = L1_2(L2_2)
-        if not L1_2 then
-          L1_2 = exports
-          L1_2 = L1_2.striano_core
-          L2_2 = L1_2
-          L1_2 = L1_2.inCall
-          L1_2 = L1_2(L2_2)
-          if 0 == L1_2 then
-            L1_2 = GetPauseMenuState
-            L1_2 = L1_2()
-            if 0 == L1_2 then
-              L1_2 = IsNuiFocused
-              L1_2 = L1_2()
-              if false == L1_2 then
-                L1_2 = exports
-                L1_2 = L1_2.striano_menu
-                L2_2 = L1_2
-                L1_2 = L1_2.menuaperto
-                L1_2 = L1_2(L2_2)
-                if not L1_2 then
-                  L1_2 = exports
-                  L1_2 = L1_2.striano_editor
-                  L2_2 = L1_2
-                  L1_2 = L1_2.inghost
-                  L1_2 = L1_2(L2_2)
-                  if nil == L1_2 then
-                    L1_2 = exports
-                    L1_2 = L1_2.striano_ridehorse
-                    L2_2 = L1_2
-                    L1_2 = L1_2.inShopAnimals
-                    L1_2 = L1_2(L2_2)
-                    if not L1_2 then
-                      L1_2 = IsEntityVisible
-                      L2_2 = L0_2
-                      L1_2 = L1_2(L2_2)
-                      if L1_2 then
-                        L1_2 = L0_1.open
-                        if L1_2 then
-                          L1_2 = CQAdmin_Close
-                          L1_2()
-                        else
-                          L1_2 = CQAdmin_Open
-                          L1_2()
-                        end
-                      end
-                    end
-                  end
+
+-- ------------------------------------------------------------
+-- Expand de jogador na lista
+-- ------------------------------------------------------------
+
+RegisterNUICallback("striano_admin:cb:togglePlayerExpand", function(data, cb)
+    local id = tonumber(data and data.id or 0) or 0
+    if id == 0 then
+        cb({ ok = false })
+        return
+    end
+
+    if ExpandedPlayer == id then
+        ExpandedPlayer = 0
+    else
+        ExpandedPlayer = id
+    end
+
+    if menuState.open then CQAdmin_Refresh() end
+    cb({ ok = true, expanded = ExpandedPlayer })
+end)
+
+-- ------------------------------------------------------------
+-- Categoria: PLAYERS
+-- ------------------------------------------------------------
+
+RegisterAdminCategory("player", {
+    order = 1,
+    build = function()
+        preloadPlayers()
+
+        local rows = {}
+
+        -- Helper local para criar linha de jogador
+        local function addPlayerRow(srcId, name, isSelf)
+            local sub   = string.format("%s %d", name, srcId)
+            local label = string.format("%s [ID: %d]%s", name, srcId, isSelf and " (You)" or "")
+
+            local idx = #rows + 1
+            rows[idx] = {
+                label        = label,
+                sub          = sub,
+                type         = "button",
+                buttonLabel  = (ExpandedPlayer == srcId) and "Close" or "Open",
+                callback     = "striano_admin:cb:togglePlayerExpand",
+                payload      = { id = srcId },
+                rowClass     = "player-header-row",
+                rowClickOnly = true,
+            }
+
+            if ExpandedPlayer ~= srcId then return end
+
+            -- Ações para o jogador expandido
+            local function addAction(label, callback)
+                table.insert(rows, {
+                    label        = label,
+                    sub          = sub,
+                    type         = "button",
+                    callback     = callback,
+                    payload      = { id = srcId },
+                    rowClass     = "player-action-row",
+                    rowClickOnly = true,
+                })
+            end
+
+            addAction("Set Ped",                 "striano_admin:cb:pl_setped")
+            addAction("Reset Ped",               "striano_admin:cb:pl_resetped")
+            addAction("Heal",                    "striano_admin:cb:pl_heal")
+            addAction("Revive",                  "striano_admin:cb:pl_revive")
+            addAction("Set Max HP",              "striano_admin:cb:pl_maxHP")
+            addAction("Set Max Mana",            "striano_admin:cb:pl_maxMana")
+            addAction("Clean",                   "striano_admin:cb:pl_clean")
+            addAction("Go to",                   "striano_admin:cb:pl_goto")
+            addAction("Bring",                   "striano_admin:cb:pl_bring")
+            addAction("Return",                  "striano_admin:cb:pl_return")
+            addAction("Give item",               "striano_admin:cb:pl_giveItem")
+            addAction("Give key",                "striano_admin:cb:pl_givekey")
+            addAction("Give temp key",           "striano_admin:cb:pl_givekeyTemp")
+            addAction("Destroy key",             "striano_admin:cb:pl_delkey")
+            addAction("Assign vehicle",          "striano_admin:cb:assignVehByName")
+            addAction("Clear Inventory",         "striano_admin:cb:pl_clearInv")
+            addAction("Clear Slot Fire Weapons", "striano_admin:cb:pl_clearWeaponSlot")
+            addAction("Manage Spells",           "striano_admin:cb:pl_manageSpells")
+            addAction("Clear Combat Sword",      "striano_admin:cb:pl_clearCombatSword")
+            addAction("Open Keys Menu",          "striano_admin:cb:openKeysMenu")
+        end
+
+        -- Jogador local primeiro
+        local myId   = GetPlayerServerId(PlayerId())
+        local myName = GetPlayerName(PlayerId()) or "Me"
+        addPlayerRow(myId, myName, true)
+
+        -- Outros jogadores
+        if _players_cache ~= nil then
+            for _, p in ipairs(_players_cache) do
+                local id   = tonumber(p.id)
+                local name = tostring(p.name or string.format("ID %d", id or 0))
+                if id and id ~= myId then
+                    addPlayerRow(id, name, false)
                 end
-              end
             end
-          end
         end
-      end
-    end
-  end
-end
-L4_1(L5_1, L6_1)
-L4_1 = RegisterKeyMapping
-L5_1 = "admin"
-L6_1 = "(Admin) Open Menu"
-L7_1 = "keyboard"
-L8_1 = "ESCAPE"
-L4_1(L5_1, L6_1, L7_1, L8_1)
-L4_1 = _items_cache
-_items_cache = L4_1
-L4_1 = _items_loading
-if not L4_1 then
-  L4_1 = false
-end
-_items_loading = L4_1
-function L4_1()
-  local L0_2, L1_2
-  L0_2 = L1_1
-  L0_2 = L0_2()
-  if not L0_2 then
-    return
-  end
-  L0_2 = _items_cache
-  if nil == L0_2 then
-    L0_2 = _items_loading
-    if not L0_2 then
-      _items_loading = true
-      L0_2 = TriggerServerEvent
-      L1_2 = "striano_admin:sv:reqItemsList"
-      L0_2(L1_2)
-    end
-  end
-end
-L5_1 = CreateThread
-function L6_1()
-  local L0_2, L1_2
-  while true do
-    L0_2 = Wait
-    L1_2 = 600
-    L0_2(L1_2)
-    L0_2 = L1_1
-    L0_2 = L0_2()
-    if L0_2 then
-      L0_2 = L4_1
-      L0_2()
-      return
-    end
-  end
-end
-L5_1(L6_1)
-L5_1 = AddEventHandler
-L6_1 = "onResourceStop"
-function L7_1(A0_2)
-  local L1_2, L2_2, L3_2
-  L1_2 = L0_1.resource
-  if A0_2 ~= L1_2 then
-    return
-  end
-  L1_2 = L0_1.open
-  if L1_2 then
-    L0_1.open = false
-    L1_2 = SetNuiFocus
-    L2_2 = false
-    L3_2 = false
-    L1_2(L2_2, L3_2)
-    L1_2 = SetNuiFocusKeepInput
-    L2_2 = false
-    L1_2(L2_2)
-    L1_2 = SendNUIMessage
-    L2_2 = {}
-    L2_2.action = "close"
-    L1_2(L2_2)
-  end
-end
-L5_1(L6_1, L7_1)
-L5_1 = RegisterNetEvent
-L6_1 = "striano_admin:cl:setItemsList"
-function L7_1(A0_2)
-  local L1_2
-  L1_2 = A0_2 or nil
-  if not A0_2 then
-    L1_2 = {}
-  end
-  _items_cache = L1_2
-  _items_loading = false
-  L1_2 = L0_1.open
-  if L1_2 then
-    L1_2 = CQAdmin_Refresh
-    L1_2()
-  end
-end
-L5_1(L6_1, L7_1)
-L5_1 = nil
-function L6_1(A0_2)
-  local L1_2, L2_2, L3_2
-  L1_2 = SetNuiFocus
-  L2_2 = A0_2
-  L3_2 = A0_2
-  L1_2(L2_2, L3_2)
-  L1_2 = SetNuiFocusKeepInput
-  L2_2 = false
-  L1_2(L2_2)
-end
-function L7_1()
-  local L0_2, L1_2
-  L0_2 = L0_1
-  if L0_2 then
-    L0_2 = L0_1.open
-    if L0_2 then
-      L0_2 = L6_1
-      L1_2 = true
-      L0_2(L1_2)
-  end
-  else
-    L0_2 = L6_1
-    L1_2 = false
-    L0_2(L1_2)
-  end
-end
-L8_1 = RegisterNUICallback
-L9_1 = "striano-input:submit"
-function L10_1(A0_2, A1_2)
-  local L2_2, L3_2
-  L2_2 = L5_1
-  if L2_2 then
-    L2_2 = tostring
-    if A0_2 then
-      L3_2 = A0_2.value
-      if L3_2 then
-        goto lbl_11
-      end
-    end
-    L3_2 = ""
-    ::lbl_11::
-    L2_2 = L2_2(L3_2)
-    L5_1.value = L2_2
-    L5_1.done = true
-  end
-  L2_2 = L7_1
-  L2_2()
-  L2_2 = A1_2
-  L3_2 = {}
-  L3_2.ok = true
-  L2_2(L3_2)
-end
-L8_1(L9_1, L10_1)
-L8_1 = RegisterNUICallback
-L9_1 = "striano-input:cancel"
-function L10_1(A0_2, A1_2)
-  local L2_2, L3_2
-  L2_2 = L5_1
-  if L2_2 then
-    L5_1.value = ""
-    L5_1.done = true
-  end
-  L2_2 = L7_1
-  L2_2()
-  L2_2 = A1_2
-  L3_2 = {}
-  L3_2.ok = true
-  L2_2(L3_2)
-end
-L8_1(L9_1, L10_1)
-L8_1 = exports
-L9_1 = "OpenInput"
-function L10_1(A0_2, A1_2, A2_2)
-  local L3_2, L4_2, L5_2, L6_2, L7_2
-  L3_2 = L5_1
-  if L3_2 then
-    L3_2 = print
-    L4_2 = "^1[striano_admin]^7 OpenInput blocked: _inputPending exist."
-    L3_2(L4_2)
-    L3_2 = ""
-    return L3_2
-  end
-  if not A2_2 then
-    L3_2 = {}
-    A2_2 = L3_2
-  end
-  L3_2 = {}
-  L3_2.done = false
-  L3_2.value = ""
-  L5_1 = L3_2
-  L3_2 = L6_1
-  L4_2 = true
-  L3_2(L4_2)
-  L3_2 = SendNUIMessage
-  L4_2 = {}
-  L4_2.action = "input:open"
-  L5_2 = tostring
-  L6_2 = A0_2 or L6_2
-  if not A0_2 then
-    L6_2 = "Insert value"
-  end
-  L5_2 = L5_2(L6_2)
-  L4_2.label = L5_2
-  L5_2 = tostring
-  L6_2 = A1_2 or L6_2
-  if not A1_2 then
-    L6_2 = ""
-  end
-  L5_2 = L5_2(L6_2)
-  L4_2.value = L5_2
-  L5_2 = tostring
-  L6_2 = A2_2.placeholder
-  if not L6_2 then
-    L6_2 = ""
-  end
-  L5_2 = L5_2(L6_2)
-  L4_2.placeholder = L5_2
-  L5_2 = tonumber
-  L6_2 = A2_2.maxLen
-  L5_2 = L5_2(L6_2)
-  if not L5_2 then
-    L5_2 = 64
-  end
-  L4_2.maxLen = L5_2
-  L5_2 = tostring
-  L6_2 = A2_2.pattern
-  if not L6_2 then
-    L6_2 = ".*"
-  end
-  L5_2 = L5_2(L6_2)
-  L4_2.pattern = L5_2
-  L5_2 = A2_2.isNumber
-  L5_2 = true == L5_2
-  L4_2.isNumber = L5_2
-  L3_2(L4_2)
-  L3_2 = GetGameTimer
-  L3_2 = L3_2()
-  L3_2 = L3_2 + 30000
-  while true do
-    L4_2 = L5_1
-    if not L4_2 then
-      break
-    end
-    L4_2 = L5_1.done
-    if L4_2 then
-      break
-    end
-    L4_2 = Wait
-    L5_2 = 0
-    L4_2(L5_2)
-    L4_2 = GetGameTimer
-    L4_2 = L4_2()
-    if L3_2 < L4_2 then
-      L5_1.done = true
-      L5_1.value = ""
-      break
-    end
-  end
-  L4_2 = L5_1
-  if L4_2 then
-    L4_2 = L5_1.value
-    if L4_2 then
-      goto lbl_94
-    end
-  end
-  L4_2 = ""
-  ::lbl_94::
-  L5_2 = nil
-  L5_1 = L5_2
-  L5_2 = SendNUIMessage
-  L6_2 = {}
-  L6_2.action = "input:close"
-  L5_2(L6_2)
-  L5_2 = L0_1.open
-  if not L5_2 then
-    L5_2 = SetNuiFocus
-    L6_2 = false
-    L7_2 = false
-    L5_2(L6_2, L7_2)
-    L5_2 = SetNuiFocusKeepInput
-    L6_2 = false
-    L5_2(L6_2)
-  end
-  return L4_2
-end
-L8_1(L9_1, L10_1)
-function L8_1(A0_2, A1_2)
-  local L2_2
-  L2_2 = LocalPlayer
-  L2_2 = L2_2.state
-  if L2_2 then
-    L2_2 = LocalPlayer
-    L2_2 = L2_2.state
-    L2_2 = L2_2.isAdmin
-  end
-  L2_2 = true == L2_2
-  return L2_2
-end
-function L9_1(A0_2, A1_2, A2_2)
-  local L3_2, L4_2, L5_2, L6_2, L7_2, L8_2, L9_2, L10_2, L11_2
-  if not A0_2 then
-    A0_2 = "Input"
-  end
-  if not A1_2 then
-    A1_2 = ""
-  end
-  if not A2_2 then
-    L3_2 = {}
-    A2_2 = L3_2
-  end
-  L3_2 = GetResourceState
-  L4_2 = "striano_admin"
-  L3_2 = L3_2(L4_2)
-  if "started" == L3_2 then
-    L3_2 = pcall
-    function L4_2()
-      local L0_3, L1_3, L2_3, L3_3, L4_3
-      L0_3 = exports
-      L0_3 = L0_3.striano_admin
-      L1_3 = L0_3
-      L0_3 = L0_3.OpenInput
-      L2_3 = A0_2
-      L3_3 = A1_2
-      L4_3 = A2_2
-      return L0_3(L1_3, L2_3, L3_3, L4_3)
-    end
-    L3_2, L4_2 = L3_2(L4_2)
-    if L3_2 and nil ~= L4_2 then
-      return L4_2
-    end
-  end
-  L3_2 = AddTextEntry
-  L4_2 = "STRIANO_INPUT_SAFE"
-  L5_2 = A0_2
-  L3_2(L4_2, L5_2)
-  L3_2 = DisplayOnscreenKeyboard
-  L4_2 = 1
-  L5_2 = "STRIANO_INPUT_SAFE"
-  L6_2 = ""
-  L7_2 = A1_2
-  L8_2 = ""
-  L9_2 = ""
-  L10_2 = ""
-  L11_2 = A2_2.maxLength
-  if not L11_2 then
-    L11_2 = 40
-  end
-  L3_2(L4_2, L5_2, L6_2, L7_2, L8_2, L9_2, L10_2, L11_2)
-  while true do
-    L3_2 = UpdateOnscreenKeyboard
-    L3_2 = L3_2()
-    if 0 ~= L3_2 then
-      break
-    end
-    L3_2 = Wait
-    L4_2 = 0
-    L3_2(L4_2)
-  end
-  L3_2 = UpdateOnscreenKeyboard
-  L3_2 = L3_2()
-  if 1 == L3_2 then
-    L3_2 = GetOnscreenKeyboardResult
-    return L3_2()
-  end
-  L3_2 = nil
-  return L3_2
-end
-OpenInput = L9_1
-function L9_1()
-  local L0_2, L1_2
-  L0_2 = TriggerEvent
-  L1_2 = "striano_admin:cl:close"
-  L0_2(L1_2)
-end
-closemenu = L9_1
-L9_1 = {}
-CQAdminCategories = L9_1
-function L9_1(A0_2, A1_2)
-  local L2_2, L3_2
-  L2_2 = type
-  L3_2 = A0_2
-  L2_2 = L2_2(L3_2)
-  if "string" ~= L2_2 then
-    return
-  end
-  L2_2 = type
-  L3_2 = A1_2
-  L2_2 = L2_2(L3_2)
-  if "table" ~= L2_2 then
-    return
-  end
-  L2_2 = CQAdminCategories
-  L2_2[A0_2] = A1_2
-end
-RegisterAdminCategory = L9_1
-L9_1 = RegisterNetEvent
-L10_1 = "striano_admin:cl:setPlayersList"
-function L11_1(A0_2)
-  local L1_2
-  L1_2 = A0_2 or nil
-  if not A0_2 then
-    L1_2 = {}
-  end
-  _players_cache = L1_2
-  _players_loading = false
-end
-L9_1(L10_1, L11_1)
-function L9_1()
-  local L0_2, L1_2
-  L0_2 = _players_cache
-  if nil == L0_2 then
-    L0_2 = _players_loading
-    if not L0_2 then
-      _players_loading = true
-      L0_2 = TriggerServerEvent
-      L1_2 = "striano_admin:sv:reqPlayersList"
-      L0_2(L1_2)
-    end
-  end
-end
-L10_1 = RegisterNUICallback
-L11_1 = "striano_admin:cb:refreshPlayers"
-function L12_1(A0_2, A1_2)
-  local L2_2, L3_2
-  _players_loading = true
-  L2_2 = TriggerServerEvent
-  L3_2 = "striano_admin:sv:reqPlayersList"
-  L2_2(L3_2)
-  L2_2 = A1_2
-  L3_2 = {}
-  L3_2.ok = true
-  L2_2(L3_2)
-end
-L10_1(L11_1, L12_1)
-L10_1 = ExpandedPlayer
-if not L10_1 then
-  L10_1 = 0
-end
-ExpandedPlayer = L10_1
-L10_1 = RegisterNUICallback
-L11_1 = "striano_admin:cb:togglePlayerExpand"
-function L12_1(A0_2, A1_2)
-  local L2_2, L3_2, L4_2, L5_2
-  L2_2 = tonumber
-  L3_2 = A0_2 or L3_2
-  if A0_2 then
-    L3_2 = A0_2.id
-  end
-  L2_2 = L2_2(L3_2)
-  if not L2_2 then
-    L2_2 = 0
-  end
-  if 0 == L2_2 then
-    L3_2 = A1_2
-    L4_2 = {}
-    L4_2.ok = false
-    L3_2(L4_2)
-    return
-  end
-  L3_2 = ExpandedPlayer
-  if L3_2 == L2_2 then
-    ExpandedPlayer = 0
-  else
-    ExpandedPlayer = L2_2
-  end
-  L3_2 = L0_1.open
-  if L3_2 then
-    L3_2 = CQAdmin_Refresh
-    L3_2()
-  end
-  L3_2 = A1_2
-  L4_2 = {}
-  L4_2.ok = true
-  L5_2 = ExpandedPlayer
-  L4_2.expanded = L5_2
-  L3_2(L4_2)
-end
-L10_1(L11_1, L12_1)
-L10_1 = RegisterAdminCategory
-L11_1 = "player"
-L12_1 = {}
-L12_1.order = 1
-function L13_1()
-  local L0_2, L1_2, L2_2, L3_2, L4_2, L5_2, L6_2, L7_2, L8_2, L9_2, L10_2, L11_2, L12_2, L13_2, L14_2
-  L0_2 = _players_cache
-  if nil == L0_2 then
-    L0_2 = _players_loading
-    if not L0_2 then
-      _players_loading = true
-      L0_2 = TriggerServerEvent
-      L1_2 = "striano_admin:sv:reqPlayersList"
-      L0_2(L1_2)
-    end
-  end
-  L0_2 = {}
-  function L1_2(A0_3, A1_3, A2_3)
-    local L3_3, L4_3, L5_3, L6_3, L7_3, L8_3, L9_3, L10_3, L11_3
-    L3_3 = "%s %d"
-    L4_3 = L3_3
-    L3_3 = L3_3.format
-    L5_3 = A1_3
-    L6_3 = A0_3
-    L3_3 = L3_3(L4_3, L5_3, L6_3)
-    L4_3 = L0_2
-    L4_3 = #L4_3
-    L5_3 = L4_3 + 1
-    L4_3 = L0_2
-    L6_3 = {}
-    L7_3 = "%s [ID: %d]%s"
-    L8_3 = L7_3
-    L7_3 = L7_3.format
-    L9_3 = A1_3
-    L10_3 = A0_3
-    if A2_3 then
-      L11_3 = " (You)"
-      if L11_3 then
-        goto lbl_23
-      end
-    end
-    L11_3 = ""
-    ::lbl_23::
-    L7_3 = L7_3(L8_3, L9_3, L10_3, L11_3)
-    L6_3.label = L7_3
-    L6_3.sub = L3_3
-    L6_3.type = "button"
-    L7_3 = ExpandedPlayer
-    if L7_3 == A0_3 then
-      L7_3 = "Close"
-      if L7_3 then
-        goto lbl_34
-      end
-    end
-    L7_3 = "Open"
-    ::lbl_34::
-    L6_3.buttonLabel = L7_3
-    L6_3.callback = "striano_admin:cb:togglePlayerExpand"
-    L7_3 = {}
-    L7_3.id = A0_3
-    L6_3.payload = L7_3
-    L6_3.rowClass = "player-header-row"
-    L6_3.rowClickOnly = true
-    L4_3[L5_3] = L6_3
-    L4_3 = ExpandedPlayer
-    if L4_3 ~= A0_3 then
-      return
-    end
-    function L4_3(A0_4, A1_4)
-      local L2_4, L3_4, L4_4, L5_4, L6_4
-      L2_4 = L0_2
-      L2_4 = #L2_4
-      L3_4 = L2_4 + 1
-      L2_4 = L0_2
-      L4_4 = {}
-      L4_4.label = A0_4
-      L5_4 = L3_3
-      L4_4.sub = L5_4
-      L4_4.type = "button"
-      L4_4.callback = A1_4
-      L5_4 = {}
-      L6_4 = A0_3
-      L5_4.id = L6_4
-      L4_4.payload = L5_4
-      L4_4.rowClass = "player-action-row"
-      L4_4.rowClickOnly = true
-      L2_4[L3_4] = L4_4
-    end
-    L5_3 = L4_3
-    L6_3 = "Set Ped"
-    L7_3 = "striano_admin:cb:pl_setped"
-    L5_3(L6_3, L7_3)
-    L5_3 = L4_3
-    L6_3 = "Reset Ped"
-    L7_3 = "striano_admin:cb:pl_resetped"
-    L5_3(L6_3, L7_3)
-    L5_3 = L4_3
-    L6_3 = "Heal"
-    L7_3 = "striano_admin:cb:pl_heal"
-    L5_3(L6_3, L7_3)
-    L5_3 = L4_3
-    L6_3 = "Revive"
-    L7_3 = "striano_admin:cb:pl_revive"
-    L5_3(L6_3, L7_3)
-    L5_3 = L4_3
-    L6_3 = "Set Max HP"
-    L7_3 = "striano_admin:cb:pl_maxHP"
-    L5_3(L6_3, L7_3)
-    L5_3 = L4_3
-    L6_3 = "Set Max Mana"
-    L7_3 = "striano_admin:cb:pl_maxMana"
-    L5_3(L6_3, L7_3)
-    L5_3 = L4_3
-    L6_3 = "Clean"
-    L7_3 = "striano_admin:cb:pl_clean"
-    L5_3(L6_3, L7_3)
-    L5_3 = L4_3
-    L6_3 = "Go to"
-    L7_3 = "striano_admin:cb:pl_goto"
-    L5_3(L6_3, L7_3)
-    L5_3 = L4_3
-    L6_3 = "Bring"
-    L7_3 = "striano_admin:cb:pl_bring"
-    L5_3(L6_3, L7_3)
-    L5_3 = L4_3
-    L6_3 = "Return"
-    L7_3 = "striano_admin:cb:pl_return"
-    L5_3(L6_3, L7_3)
-    L5_3 = L4_3
-    L6_3 = "Give item"
-    L7_3 = "striano_admin:cb:pl_giveItem"
-    L5_3(L6_3, L7_3)
-    L5_3 = L4_3
-    L6_3 = "Give key"
-    L7_3 = "striano_admin:cb:pl_givekey"
-    L5_3(L6_3, L7_3)
-    L5_3 = L4_3
-    L6_3 = "Give temp key"
-    L7_3 = "striano_admin:cb:pl_givekeyTemp"
-    L5_3(L6_3, L7_3)
-    L5_3 = L4_3
-    L6_3 = "Destroy key"
-    L7_3 = "striano_admin:cb:pl_delkey"
-    L5_3(L6_3, L7_3)
-    L5_3 = L4_3
-    L6_3 = "Assign vehicle"
-    L7_3 = "striano_admin:cb:assignVehByName"
-    L5_3(L6_3, L7_3)
-    L5_3 = L4_3
-    L6_3 = "Clear Inventory"
-    L7_3 = "striano_admin:cb:pl_clearInv"
-    L5_3(L6_3, L7_3)
-    L5_3 = L4_3
-    L6_3 = "Clear Slot Fire Weapons"
-    L7_3 = "striano_admin:cb:pl_clearWeaponSlot"
-    L5_3(L6_3, L7_3)
-    L5_3 = L4_3
-    L6_3 = "Manage Spells"
-    L7_3 = "striano_admin:cb:pl_manageSpells"
-    L5_3(L6_3, L7_3)
-    L5_3 = L4_3
-    L6_3 = "Clear Combat Sword"
-    L7_3 = "striano_admin:cb:pl_clearCombatSword"
-    L5_3(L6_3, L7_3)
-    L5_3 = L4_3
-    L6_3 = "Open Keys Menu"
-    L7_3 = "striano_admin:cb:openKeysMenu"
-    L5_3(L6_3, L7_3)
-  end
-  L2_2 = GetPlayerServerId
-  L3_2 = PlayerId
-  L3_2, L4_2, L5_2, L6_2, L7_2, L8_2, L9_2, L10_2, L11_2, L12_2, L13_2, L14_2 = L3_2()
-  L2_2 = L2_2(L3_2, L4_2, L5_2, L6_2, L7_2, L8_2, L9_2, L10_2, L11_2, L12_2, L13_2, L14_2)
-  L3_2 = GetPlayerName
-  L4_2 = PlayerId
-  L4_2, L5_2, L6_2, L7_2, L8_2, L9_2, L10_2, L11_2, L12_2, L13_2, L14_2 = L4_2()
-  L3_2 = L3_2(L4_2, L5_2, L6_2, L7_2, L8_2, L9_2, L10_2, L11_2, L12_2, L13_2, L14_2)
-  if not L3_2 then
-    L3_2 = "Me"
-  end
-  L4_2 = L1_2
-  L5_2 = L2_2
-  L6_2 = L3_2
-  L7_2 = true
-  L4_2(L5_2, L6_2, L7_2)
-  L2_2 = _players_cache
-  if nil ~= L2_2 then
-    L2_2 = GetPlayerServerId
-    L3_2 = PlayerId
-    L3_2, L4_2, L5_2, L6_2, L7_2, L8_2, L9_2, L10_2, L11_2, L12_2, L13_2, L14_2 = L3_2()
-    L2_2 = L2_2(L3_2, L4_2, L5_2, L6_2, L7_2, L8_2, L9_2, L10_2, L11_2, L12_2, L13_2, L14_2)
-    L3_2 = ipairs
-    L4_2 = _players_cache
-    L3_2, L4_2, L5_2, L6_2 = L3_2(L4_2)
-    for L7_2, L8_2 in L3_2, L4_2, L5_2, L6_2 do
-      L9_2 = tonumber
-      L10_2 = L8_2.id
-      L9_2 = L9_2(L10_2)
-      L10_2 = tostring
-      L11_2 = L8_2.name
-      if not L11_2 then
-        L11_2 = "ID %s"
-        L12_2 = L11_2
-        L11_2 = L11_2.format
-        L13_2 = L9_2
-        L11_2 = L11_2(L12_2, L13_2)
-      end
-      L10_2 = L10_2(L11_2)
-      if L9_2 and L9_2 ~= L2_2 then
-        L11_2 = L1_2
-        L12_2 = L9_2
-        L13_2 = L10_2
-        L14_2 = false
-        L11_2(L12_2, L13_2, L14_2)
-      end
-    end
-  end
-  L2_2 = {}
-  L2_2.id = "player_mgmt"
-  L2_2.label = "PLAYERS"
-  L2_2.sub = ""
-  L2_2.enabled = true
-  L3_2 = {}
-  L4_2 = {}
-  L4_2.id = "player_actions"
-  L4_2.type = "group"
-  L4_2.label = "Player actions"
-  L5_2 = {}
-  L6_2 = {}
-  L6_2.label = "Heal"
-  L6_2.type = "button"
-  L6_2.buttonLabel = "Heal"
-  L6_2.callback = "striano_admin:cb:healSelf"
-  L7_2 = {}
-  L7_2.label = "Use bandage"
-  L7_2.type = "button"
-  L7_2.buttonLabel = "Bandage"
-  L7_2.callback = "striano_admin:cb:healRP"
-  L8_2 = {}
-  L8_2.label = "Revive"
-  L8_2.type = "button"
-  L8_2.buttonLabel = "Revive"
-  L8_2.callback = "striano_admin:cb:revive"
-  L9_2 = {}
-  L9_2.label = "Clean Blood/Dirty"
-  L9_2.type = "button"
-  L9_2.buttonLabel = "Clean"
-  L9_2.callback = "striano_admin:cb:cleanPlayer"
-  L10_2 = {}
-  L10_2.label = "Give item"
-  L10_2.type = "button"
-  L10_2.buttonLabel = "Give"
-  L10_2.callback = "striano_admin:cb:getItemInput"
-  L11_2 = {}
-  L11_2.label = "Clear inventory"
-  L11_2.type = "button"
-  L11_2.buttonLabel = "Clear"
-  L11_2.callback = "clearInv"
-  L12_2 = {}
-  L12_2.label = "Change Ped Model"
-  L12_2.type = "button"
-  L12_2.buttonLabel = "Change"
-  L12_2.callback = "applyPed"
-  L13_2 = {}
-  L13_2.label = "Reset Ped Model"
-  L13_2.type = "button"
-  L13_2.buttonLabel = "Reset"
-  L13_2.callback = "resetPed"
-  L5_2[1] = L6_2
-  L5_2[2] = L7_2
-  L5_2[3] = L8_2
-  L5_2[4] = L9_2
-  L5_2[5] = L10_2
-  L5_2[6] = L11_2
-  L5_2[7] = L12_2
-  L5_2[8] = L13_2
-  L4_2.children = L5_2
-  L5_2 = {}
-  L5_2.id = "player_list"
-  L5_2.type = "group"
-  L5_2.label = "Players online"
-  L5_2.children = L0_2
-  L3_2[1] = L4_2
-  L3_2[2] = L5_2
-  L2_2.groups = L3_2
-  return L2_2
-end
-L12_1.build = L13_1
-L10_1(L11_1, L12_1)
-L10_1 = RegisterNetEvent
-L11_1 = "striano_admin:cb:giveItemSelected"
-function L12_1(A0_2)
-  local L1_2, L2_2, L3_2, L4_2, L5_2, L6_2, L7_2, L8_2, L9_2, L10_2
-  L1_2 = A0_2.payload
-  L1_2 = L1_2.id
-  L2_2 = A0_2.payload
-  L2_2 = L2_2.item
-  if not L2_2 or "" == L2_2 then
-    L3_2 = exports
-    L3_2 = L3_2.striano_combat
-    L4_2 = L3_2
-    L3_2 = L3_2.submex
-    L5_2 = "Item not selected"
-    L3_2(L4_2, L5_2)
-    return
-  end
-  L3_2 = OpenInput
-  L4_2 = "Insert amount"
-  L3_2 = L3_2(L4_2)
-  L4_2 = tonumber
-  L5_2 = L3_2
-  L4_2 = L4_2(L5_2)
-  if nil == L4_2 then
-    return
-  end
-  L5_2 = TriggerEvent
-  L6_2 = "inv3d:serverGiveItem"
-  L7_2 = L1_2
-  L8_2 = "player"
-  L9_2 = L2_2
-  L10_2 = L4_2
-  L5_2(L6_2, L7_2, L8_2, L9_2, L10_2)
-end
-L10_1(L11_1, L12_1)
-L10_1 = RegisterNUICallback
-L11_1 = "goToSelected"
-function L12_1(A0_2, A1_2)
-  local L2_2, L3_2, L4_2, L5_2
-  L2_2 = tonumber
-  L3_2 = A0_2 or L3_2
-  if A0_2 then
-    L3_2 = A0_2.id
-  end
-  L2_2 = L2_2(L3_2)
-  if not L2_2 then
-    L2_2 = 0
-  end
-  if nil == L2_2 or 0 == L2_2 then
-    L3_2 = GetPlayerServerId
-    L4_2 = PlayerId
-    L4_2, L5_2 = L4_2()
-    L3_2 = L3_2(L4_2, L5_2)
-    L2_2 = L3_2
-  end
-  L3_2 = ExecuteCommand
-  L4_2 = "tpp2 "
-  L5_2 = L2_2
-  L4_2 = L4_2 .. L5_2
-  L3_2(L4_2)
-  L3_2 = closemenu
-  L3_2()
-  L3_2 = A1_2
-  L4_2 = {}
-  L4_2.ok = true
-  L3_2(L4_2)
-end
-L10_1(L11_1, L12_1)
-L10_1 = RegisterNUICallback
-L11_1 = "putBackPlayer"
-function L12_1(A0_2, A1_2)
-  local L2_2, L3_2, L4_2, L5_2
-  L2_2 = tonumber
-  L3_2 = A0_2 or L3_2
-  if A0_2 then
-    L3_2 = A0_2.id
-  end
-  L2_2 = L2_2(L3_2)
-  if not L2_2 then
-    L2_2 = 0
-  end
-  if nil == L2_2 or 0 == L2_2 then
-    L3_2 = GetPlayerServerId
-    L4_2 = PlayerId
-    L4_2, L5_2 = L4_2()
-    L3_2 = L3_2(L4_2, L5_2)
-    L2_2 = L3_2
-  end
-  L3_2 = ExecuteCommand
-  L4_2 = "getback "
-  L5_2 = L2_2
-  L4_2 = L4_2 .. L5_2
-  L3_2(L4_2)
-  L3_2 = closemenu
-  L3_2()
-  L3_2 = A1_2
-  L4_2 = {}
-  L4_2.ok = true
-  L3_2(L4_2)
-end
-L10_1(L11_1, L12_1)
-L10_1 = RegisterNUICallback
-L11_1 = "getPlayer"
-function L12_1(A0_2, A1_2)
-  local L2_2, L3_2, L4_2, L5_2
-  L2_2 = tonumber
-  L3_2 = A0_2 or L3_2
-  if A0_2 then
-    L3_2 = A0_2.id
-  end
-  L2_2 = L2_2(L3_2)
-  if not L2_2 then
-    L2_2 = 0
-  end
-  if nil == L2_2 or 0 == L2_2 then
-    L3_2 = GetPlayerServerId
-    L4_2 = PlayerId
-    L4_2, L5_2 = L4_2()
-    L3_2 = L3_2(L4_2, L5_2)
-    L2_2 = L3_2
-  end
-  L3_2 = ExecuteCommand
-  L4_2 = "tpp3 "
-  L5_2 = L2_2
-  L4_2 = L4_2 .. L5_2
-  L3_2(L4_2)
-  L3_2 = closemenu
-  L3_2()
-  L3_2 = A1_2
-  L4_2 = {}
-  L4_2.ok = true
-  L3_2(L4_2)
-end
-L10_1(L11_1, L12_1)
-L10_1 = RegisterNetEvent
-L11_1 = "esx:clearPedZona"
-L10_1(L11_1)
-L10_1 = AddEventHandler
-L11_1 = "esx:clearPedZona"
-function L12_1(A0_2)
-  local L1_2, L2_2, L3_2, L4_2, L5_2, L6_2, L7_2, L8_2, L9_2, L10_2, L11_2, L12_2
-  L1_2 = 1.0
-  if nil ~= A0_2 then
-    L2_2 = tonumber
-    L3_2 = A0_2
-    L2_2 = L2_2(L3_2)
-    L1_2 = L2_2 + 0.0
-    L2_2 = print
-    L3_2 = "Delped range: "
-    L4_2 = L1_2
-    L3_2 = L3_2 .. L4_2
-    L2_2(L3_2)
-  end
-  L2_2 = type
-  L3_2 = L1_2
-  L2_2 = L2_2(L3_2)
-  if "number" ~= L2_2 or L1_2 < 1.0 then
-    L1_2 = 1.0
-    L2_2 = print
-    L3_2 = "Delped reset 1.0: "
-    L4_2 = L1_2
-    L3_2 = L3_2 .. L4_2
-    L2_2(L3_2)
-  end
-  L2_2 = GetGamePool
-  L3_2 = "CPed"
-  L2_2 = L2_2(L3_2)
-  L3_2 = ipairs
-  L4_2 = L2_2
-  L3_2, L4_2, L5_2, L6_2 = L3_2(L4_2)
-  for L7_2, L8_2 in L3_2, L4_2, L5_2, L6_2 do
-    L9_2 = DoesEntityExist
-    L10_2 = L8_2
-    L9_2 = L9_2(L10_2)
-    if L9_2 then
-      L9_2 = IsPedAPlayer
-      L10_2 = L8_2
-      L9_2 = L9_2(L10_2)
-      if not L9_2 then
-        L9_2 = PlayerPedId
-        L9_2 = L9_2()
-        if L8_2 ~= L9_2 then
-          L9_2 = GetEntityCoords
-          L10_2 = L8_2
-          L9_2 = L9_2(L10_2)
-          L10_2 = GetEntityCoords
-          L11_2 = PlayerPedId
-          L11_2, L12_2 = L11_2()
-          L10_2 = L10_2(L11_2, L12_2)
-          L9_2 = L9_2 - L10_2
-          L9_2 = #L9_2
-          if L1_2 > L9_2 then
-            L9_2 = 0
-            while true do
-              L10_2 = NetworkHasControlOfEntity
-              L11_2 = L8_2
-              L10_2 = L10_2(L11_2)
-              if not (not L10_2 and L9_2 < 100) then
-                break
-              end
-              L9_2 = L9_2 + 1
-              L10_2 = NetworkRequestControlOfEntity
-              L11_2 = L8_2
-              L10_2(L11_2)
-              L10_2 = Wait
-              L11_2 = 0
-              L10_2(L11_2)
+
+        return {
+            id      = "player_mgmt",
+            label   = "PLAYERS",
+            sub     = "",
+            enabled = true,
+            groups  = {
+                {
+                    id       = "player_actions",
+                    type     = "group",
+                    label    = "Player actions",
+                    children = {
+                        { label = "Heal",              type = "button", buttonLabel = "Heal",   callback = "striano_admin:cb:healSelf"   },
+                        { label = "Use bandage",       type = "button", buttonLabel = "Bandage", callback = "striano_admin:cb:healRP"    },
+                        { label = "Revive",            type = "button", buttonLabel = "Revive",  callback = "striano_admin:cb:revive"    },
+                        { label = "Clean Blood/Dirty", type = "button", buttonLabel = "Clean",   callback = "striano_admin:cb:cleanPlayer" },
+                        { label = "Give item",         type = "button", buttonLabel = "Give",    callback = "striano_admin:cb:getItemInput" },
+                        { label = "Clear inventory",   type = "button", buttonLabel = "Clear",   callback = "clearInv"                   },
+                        { label = "Change Ped Model",  type = "button", buttonLabel = "Change",  callback = "applyPed"                   },
+                        { label = "Reset Ped Model",   type = "button", buttonLabel = "Reset",   callback = "resetPed"                   },
+                    },
+                },
+                {
+                    id       = "player_list",
+                    type     = "group",
+                    label    = "Players online",
+                    children = rows,
+                },
+            },
+        }
+    end,
+})
+
+-- ------------------------------------------------------------
+-- Categoria: MANAGERS (pausemenu)
+-- ------------------------------------------------------------
+
+RegisterAdminCategory("pausemenu", {
+    order = 0,
+    build = function()
+        return {
+            id      = "misc_settings",
+            label   = "MANAGERS",
+            sub     = "",
+            enabled = true,
+            groups  = {
+                {
+                    id       = "display_options",
+                    type     = "group",
+                    label    = "Game Manager",
+                    children = {
+                        { label = "Game Settings",    type = "button", buttonLabel = "GTA 5 Settings", callback = "openSettings"       },
+                        { label = "Old Admin Menu",   type = "button", buttonLabel = "Open",          callback = "nuicb_cmd",  payload = { cmd = "l" }                     },
+                        { label = "Open 3D Map",      type = "button", buttonLabel = "Open",          callback = "nuicb_cmd",  payload = { cmd = "aprimappa" }              },
+                        { label = "Vehicles Manager", type = "button", buttonLabel = "Manage",        callback = "nuicb_cmd",  payload = { cmd = "mv" }                     },
+                        { label = "Rapids Manager",   type = "button", buttonLabel = "Manage",        callback = "nuicb_cmd",  payload = { cmd = "rapid" }                  },
+                        { label = "Quest Menu (WIP)", type = "button", buttonLabel = "Manage",        callback = "nuicb_cmd",  payload = { cmd = "striano_quest:respond" }  },
+                        { label = "Manage Clothes",   type = "button", buttonLabel = "Manage",        callback = "nuicb_cmd",  payload = { cmd = "vestiti" }                },
+                        { label = "Manage Outfits",   type = "button", buttonLabel = "Manage",        callback = "editVestiti"                                             },
+                        { label = "Spell Book",       type = "button", buttonLabel = "Spells",        callback = "nuicb_cmd",  payload = { cmd = "spellBook" }              },
+                        { label = "Boats Manager",    type = "button", buttonLabel = "Boats",         callback = "nuicb_cmd",  payload = { cmd = "myBoats" }                },
+                        { label = "Toggle HUD",       type = "button", buttonLabel = "Toggle",        callback = "hideHUD"                                                 },
+                        { label = "Keys list",        type = "button",                                callback = "nuicb_cmd",  payload = { cmd = "keys" }                   },
+                        { label = "Get vehicle key",  type = "button",                                callback = "getVehKey"                                               },
+                        { label = "Spawnables",       type = "button", buttonLabel = "Manage",        callback = "nuicb_cmd",  payload = { cmd = "spawnables" }             },
+                    },
+                },
+            },
+        }
+    end,
+})
+
+-- ------------------------------------------------------------
+-- Categoria: TOOLS (misc)
+-- ------------------------------------------------------------
+
+RegisterAdminCategory("misc", {
+    order = 2,
+    build = function()
+        return {
+            id      = "misc_settings",
+            label   = "TOOLS",
+            sub     = "",
+            enabled = true,
+            groups  = {
+                {
+                    id       = "display_options",
+                    type     = "group",
+                    label    = "Misc",
+                    children = {
+                        { label = "No-clip",        type = "button", buttonLabel = "NC",     callback = "striano_admin:cb:noclip"    },
+                        { label = "Edit Character", type = "button", buttonLabel = "Edit",   callback = "editSkin"                  },
+                        { label = "Tattoo Editor",  type = "button", buttonLabel = "Tattoo", callback = "editTattoo"                },
+                        { label = "getCoords",      type = "button", buttonLabel = "CTP",    callback = "getCTP"                    },
+                        { label = "getCoords + head", type = "button", buttonLabel = "CTPa", callback = "getCTPa"                  },
+                        { label = "Super Jump",     type = "button", buttonLabel = "Toggle", callback = "striano_admin:cb:superJump" },
+                    },
+                },
+                {
+                    id       = "vision_modes",
+                    type     = "group",
+                    label    = "Vision modes",
+                    children = {
+                        { label = "Night vision",   type = "toggle", key = "night_vision_t",  buttonLabel = "Toggle", callback = "striano_admin:cb:nightVision",  default = false },
+                        { label = "Thermal vision", type = "toggle", key = "thermal_vision_t", buttonLabel = "Toggle", callback = "striano_admin:cb:thermalVision", default = false },
+                    },
+                },
+            },
+        }
+    end,
+})
+
+-- ------------------------------------------------------------
+-- Categoria: SPAWNER (appearance)
+-- ------------------------------------------------------------
+
+RegisterAdminCategory("appearance", {
+    order = 3,
+    build = function()
+        return {
+            id      = "appearance_mgmt",
+            label   = "SPAWNER",
+            sub     = "",
+            enabled = true,
+            groups  = {
+                {
+                    id       = "ped_model",
+                    type     = "group",
+                    label    = "Spawner",
+                    children = {
+                        { label = "Spawn ped",                 type = "button", callback = "striano_admin:cb:spawnPedByName"  },
+                        { label = "Spawn object",              type = "button", callback = "striano_admin:cb:spawnObjByName"  },
+                        { label = "Spawn vehicle",             type = "button", callback = "striano_admin:cb:spawnVehByName"  },
+                        { label = "Delete vehicle from DB",    type = "button", callback = "striano_admin:cb:delveh"         },
+                        { label = "Delete vehicle (Entity)",   type = "button", callback = "dV"                              },
+                        { label = "Vehicle Maxed",             type = "button", buttonLabel = "Max",      callback = "vehicleMaxed"              },
+                        { label = "Vehicle Fix",               type = "button", buttonLabel = "FixVehicle", callback = "fixVeh"                  },
+                        { label = "Clear area",                type = "button", buttonLabel = "Clear",    callback = "striano_admin:cb:clearArea" },
+                        { label = "Edit vehicle",              type = "button", buttonLabel = "Edit",     callback = "editVeh"                    },
+                        { label = "Enter nearest vehicle",     type = "button", buttonLabel = "Enter",    callback = "enterNearest"               },
+                        { label = "Clear ped area",            type = "button", buttonLabel = "Clear",    callback = "striano_admin:cb:clearPedArea" },
+                        { label = "Menu area sounds",          type = "button", buttonLabel = "Menu",     callback = "menuSound"                  },
+                    },
+                },
+            },
+        }
+    end,
+})
+
+-- ------------------------------------------------------------
+-- Categoria: ITEMS (world)
+-- ------------------------------------------------------------
+
+RegisterAdminCategory("world", {
+    order = 4,
+    build = function()
+        -- Pré-carregar se necessário
+        if _items_cache == nil and not _items_loading then
+            _items_loading = true
+            TriggerServerEvent("striano_admin:sv:reqItemsList")
+        end
+
+        local itemRows = {}
+
+        if _items_cache == nil then
+            table.insert(itemRows, { label = "Loading items...", type = "button", buttonLabel = "Wait", callback = "striano_admin:cb:noop" })
+        elseif #_items_cache == 0 then
+            table.insert(itemRows, { label = "No items found.", type = "button", buttonLabel = "OK", callback = "striano_admin:cb:noop" })
+        else
+            for _, entry in ipairs(_items_cache) do
+                local name  = (type(entry) == "table" and entry.name)  or entry or ""
+                local label = (type(entry) == "table" and entry.label) or nil
+                local model = (type(entry) == "table" and entry.model) or nil
+
+                local displayLabel = tostring(name or "")
+                if label and label ~= "" then
+                    displayLabel = string.format("%s", displayLabel)
+                end
+
+                table.insert(itemRows, {
+                    label       = displayLabel,
+                    type        = "button",
+                    buttonLabel = "Get",
+                    callback    = "striano_admin:cb:getItem",
+                    payload     = { item = name, model = model },
+                })
             end
-            L10_2 = NetworkRequestControlOfEntity
-            L11_2 = L8_2
-            L10_2(L11_2)
-            L10_2 = SetEntityAsMissionEntity
-            L11_2 = L8_2
-            L12_2 = true
-            L10_2(L11_2, L12_2)
-            L10_2 = DeletePed
-            L11_2 = L8_2
-            L10_2(L11_2)
-          end
         end
-      end
+
+        return {
+            id      = "world_mgmt",
+            label   = "ITEMS",
+            sub     = "",
+            enabled = true,
+            groups  = {
+                {
+                    id       = "world_items",
+                    type     = "group",
+                    label    = "Item manager",
+                    children = itemRows,
+                },
+            },
+        }
+    end,
+})
+
+-- ------------------------------------------------------------
+-- Categoria: SCRIPTS (striano_scripts)
+-- ------------------------------------------------------------
+
+RegisterAdminCategory("striano_scripts", {
+    order = 5,
+    build = function()
+        return {
+            id      = "striano_script",
+            label   = "SCRIPTS",
+            sub     = "",
+            enabled = true,
+            groups  = {
+                {
+                    id       = "display_options",
+                    type     = "group",
+                    label    = "Take your time, test all!",
+                    children = {
+                        { label = "striano combat",                type = "button", callback = "nuicb_combat"                                          },
+                        { label = "striano ride horse",            type = "button", callback = "nuicb_cmd",       payload = { cmd = "horse" }           },
+                        { label = "striano ride humanoid (Ostrich)", type = "button", callback = "nuicb_cmd",     payload = { cmd = "testHumanoid" }    },
+                        { label = "striano ride humanoid (T-rex)", type = "button", callback = "nuicb_cmd",       payload = { cmd = "testTrex" }        },
+                        { label = "striano fly_spell",             type = "button", callback = "nuicb_cmd",       payload = { cmd = "fly" }             },
+                        { label = "striano fly_human",             type = "button", callback = "nuicb_cmd",       payload = { cmd = "flyhuman" }        },
+                        { label = "striano fly_animal",            type = "button", callback = "nuicd_flyanimal"                                        },
+                        { label = "striano boat",                  type = "button", callback = "spawnBoat"                                             },
+                        { label = "striano clayshot",              type = "button", callback = "nuicb_cmd",       payload = { cmd = "clay" }            },
+                        { label = "striano race creator",          type = "button", callback = "nuicb_cmd",       payload = { cmd = "race" }            },
+                        { label = "striano dark mode",             type = "button", callback = "nuicb_cmd",       payload = { cmd = "localFog" }        },
+                    },
+                },
+            },
+        }
+    end,
+})
+
+-- ------------------------------------------------------------
+-- Categoria: CREDITS
+-- ------------------------------------------------------------
+
+RegisterAdminCategory("credtis", {
+    order = 6,
+    build = function()
+        return {
+            id      = "credits",
+            label   = "CREDITS",
+            sub     = "",
+            enabled = true,
+            groups  = {
+                {
+                    id       = "display_options",
+                    type     = "group",
+                    label    = "strianodev.com",
+                    children = {
+                        {
+                            label        = "You like this menu?",
+                            type         = "infoButton",
+                            buttonLabel  = "Read more",
+                            infoTitle    = "Resource name: striano_admin",
+                            infoHtml     = [[<p>This is a menu i use to manage my project, and if you want you can manage also yours! <br>Simple, minimal, powerful. Get your copy on <b>strianodev.com</b>.</p><br><center><b>• love u all •</b></center>]],
+                        },
+                        {
+                            label        = "R u l e s",
+                            type         = "infoButton",
+                            buttonLabel  = "Read",
+                            infoTitle    = "SOD: Rules",
+                            infoHtml     = [[<center><p>Please follow the rules to not be banned from the project.<br>Rules are <b>WIP</b><br><br><b>• No cheats<br>• No porco dio<br>• No porca madonna<br></b></p></center>]],
+                        },
+                    },
+                },
+            },
+        }
+    end,
+})
+
+-- ------------------------------------------------------------
+-- Callbacks NUI: ações gerais do menu
+-- ------------------------------------------------------------
+
+--- Fechar forçado via NUI
+RegisterNUICallback("striano_admin:ui:forceClose", function(data, cb)
+    menuState.open = false
+    SetNuiFocus(false, false)
+    SetNuiFocusKeepInput(false)
+    SendNUIMessage({ action = "close" })
+    cb({ ok = true })
+end)
+
+--- Trigger de evento via NUI
+RegisterNUICallback("striano_admin:ui:triggerEvent", function(data, cb)
+    if data and data.event then
+        TriggerEvent(data.event, data.value, data.meta)
     end
-  end
-  L3_2 = ClearAreaOfPeds
-  L4_2 = GetEntityCoords
-  L5_2 = PlayerPedId
-  L5_2, L6_2, L7_2, L8_2, L9_2, L10_2, L11_2, L12_2 = L5_2()
-  L4_2 = L4_2(L5_2, L6_2, L7_2, L8_2, L9_2, L10_2, L11_2, L12_2)
-  L5_2 = L1_2
-  L6_2 = 1
-  L3_2(L4_2, L5_2, L6_2)
-end
-L10_1(L11_1, L12_1)
-L10_1 = RegisterNUICallback
-L11_1 = "striano_admin:cb:healRP"
-function L12_1(A0_2, A1_2)
-  local L2_2, L3_2, L4_2, L5_2
-  L2_2 = tonumber
-  L3_2 = A0_2 or L3_2
-  if A0_2 then
-    L3_2 = A0_2.id
-  end
-  L2_2 = L2_2(L3_2)
-  if not L2_2 then
-    L2_2 = 0
-  end
-  if nil == L2_2 or 0 == L2_2 then
-    L3_2 = GetPlayerServerId
-    L4_2 = PlayerId
-    L4_2, L5_2 = L4_2()
-    L3_2 = L3_2(L4_2, L5_2)
-    L2_2 = L3_2
-  end
-  L3_2 = TriggerServerEvent
-  L4_2 = "esx_ambulancejjj:heal"
-  L5_2 = L2_2
-  L3_2(L4_2, L5_2)
-  L3_2 = A1_2
-  L4_2 = {}
-  L4_2.ok = true
-  L3_2(L4_2)
-end
-L10_1(L11_1, L12_1)
-L10_1 = RegisterNUICallback
-L11_1 = "striano_admin:cb:healSelf"
-function L12_1(A0_2, A1_2)
-  local L2_2, L3_2, L4_2, L5_2
-  L2_2 = tonumber
-  L3_2 = A0_2 or L3_2
-  if A0_2 then
-    L3_2 = A0_2.id
-  end
-  L2_2 = L2_2(L3_2)
-  if not L2_2 then
-    L2_2 = 0
-  end
-  if nil == L2_2 or 0 == L2_2 then
-    L3_2 = GetPlayerServerId
-    L4_2 = PlayerId
-    L4_2, L5_2 = L4_2()
-    L3_2 = L3_2(L4_2, L5_2)
-    L2_2 = L3_2
-  end
-  L3_2 = TriggerServerEvent
-  L4_2 = "esx_ambulancejjj:healAdmin"
-  L5_2 = L2_2
-  L3_2(L4_2, L5_2)
-  L3_2 = A1_2
-  L4_2 = {}
-  L4_2.ok = true
-  L3_2(L4_2)
-end
-L10_1(L11_1, L12_1)
-L10_1 = RegisterNUICallback
-L11_1 = "getCTP"
-function L12_1(A0_2, A1_2)
-  local L2_2, L3_2, L4_2
-  L2_2 = ExecuteCommand
-  L3_2 = "ctp"
-  L2_2(L3_2)
-  L2_2 = exports
-  L2_2 = L2_2.striano_combat
-  L3_2 = L2_2
-  L2_2 = L2_2.testo3d
-  L4_2 = "Coords get."
-  L2_2(L3_2, L4_2)
-  L2_2 = closemenu
-  L2_2()
-  L2_2 = A1_2
-  L3_2 = {}
-  L3_2.ok = true
-  L2_2(L3_2)
-end
-L10_1(L11_1, L12_1)
-L10_1 = false
-L11_1 = RegisterNUICallback
-L12_1 = "hideHUD"
-function L13_1(A0_2, A1_2)
-  local L2_2, L3_2
-  L2_2 = L10_1
-  L2_2 = not L2_2
-  L10_1 = L2_2
-  L2_2 = L10_1
-  if L2_2 then
-    L2_2 = ExecuteCommand
-    L3_2 = "hudoff"
-    L2_2(L3_2)
-    L2_2 = ExecuteCommand
-    L3_2 = "hudoff2"
-    L2_2(L3_2)
-  else
-    L2_2 = ExecuteCommand
-    L3_2 = "hudon"
-    L2_2(L3_2)
-    L2_2 = ExecuteCommand
-    L3_2 = "hudon2"
-    L2_2(L3_2)
-  end
-  L2_2 = A1_2
-  L3_2 = {}
-  L3_2.ok = true
-  L2_2(L3_2)
-end
-L11_1(L12_1, L13_1)
-L11_1 = RegisterNUICallback
-L12_1 = "editVeh"
-function L13_1(A0_2, A1_2)
-  local L2_2, L3_2, L4_2
-  L2_2 = TriggerEvent
-  L3_2 = "Mx :: OpenCustomCar"
-  L4_2 = true
-  L2_2(L3_2, L4_2)
-end
-L11_1(L12_1, L13_1)
-L11_1 = RegisterNUICallback
-L12_1 = "getVehKey"
-function L13_1(A0_2, A1_2)
-  local L2_2, L3_2, L4_2, L5_2, L6_2, L7_2
-  L2_2 = GetVehiclePedIsIn
-  L3_2 = PlayerPedId
-  L3_2 = L3_2()
-  L4_2 = false
-  L2_2 = L2_2(L3_2, L4_2)
-  if 0 == L2_2 then
-    L3_2 = exports
-    L3_2 = L3_2.striano_combat
-    L4_2 = L3_2
-    L3_2 = L3_2.testo3d
-    L5_2 = "Not in veh."
-    L3_2(L4_2, L5_2)
-    return
-  end
-  L3_2 = GetVehicleNumberPlateText
-  L4_2 = L2_2
-  L3_2 = L3_2(L4_2)
-  L4_2 = print
-  L5_2 = "GIVE KEY PLATE RAW:"
-  L6_2 = L3_2
-  L4_2(L5_2, L6_2)
-  L4_2 = TriggerServerEvent
-  L5_2 = "striano_keys:sv:adminGiveKey"
-  L6_2 = GetPlayerServerId
-  L7_2 = PlayerId
-  L7_2 = L7_2()
-  L6_2 = L6_2(L7_2)
-  L7_2 = L3_2
-  L4_2(L5_2, L6_2, L7_2)
-  L4_2 = closemenu
-  L4_2()
-  L4_2 = A1_2
-  L5_2 = {}
-  L5_2.ok = true
-  L4_2(L5_2)
-end
-L11_1(L12_1, L13_1)
-L11_1 = RegisterNUICallback
-L12_1 = "getCTPa"
-function L13_1(A0_2, A1_2)
-  local L2_2, L3_2, L4_2
-  L2_2 = ExecuteCommand
-  L3_2 = "ctpa"
-  L2_2(L3_2)
-  L2_2 = exports
-  L2_2 = L2_2.striano_combat
-  L3_2 = L2_2
-  L2_2 = L2_2.testo3d
-  L4_2 = "Coords/head get."
-  L2_2(L3_2, L4_2)
-  L2_2 = closemenu
-  L2_2()
-  L2_2 = A1_2
-  L3_2 = {}
-  L3_2.ok = true
-  L2_2(L3_2)
-end
-L11_1(L12_1, L13_1)
-L11_1 = RegisterNUICallback
-L12_1 = "clearInv"
-function L13_1(A0_2, A1_2)
-  local L2_2, L3_2, L4_2
-  L2_2 = OpenInput
-  L3_2 = "Clear inventory? type 'yes'"
-  L2_2 = L2_2(L3_2)
-  if "yes" == L2_2 or "YES" == L2_2 then
-    L3_2 = TriggerServerEvent
-    L4_2 = "inv3d:clearInventory"
-    L3_2(L4_2)
-    L3_2 = closemenu
-    L3_2()
-  end
-  L3_2 = A1_2
-  L4_2 = {}
-  L4_2.ok = true
-  L3_2(L4_2)
-end
-L11_1(L12_1, L13_1)
-L11_1 = CQ
-if L11_1 then
-  L11_1 = CQ
-  L11_1 = L11_1.Controls
-  if L11_1 then
-    goto lbl_180
-  end
-end
-L11_1 = {}
-::lbl_180::
-L12_1 = CQ
-if L12_1 then
-  L12_1 = CQ
-  L12_1 = L12_1.Util
-  if L12_1 then
-    goto lbl_189
-  end
-end
-L12_1 = {}
-::lbl_189::
-L13_1 = CQ
-if L13_1 then
-  L13_1 = CQ
-  L13_1 = L13_1.Util
-  if L13_1 then
-    L13_1 = CQ
-    L13_1 = L13_1.Util
-    L13_1 = L13_1.getCamDir
-    if L13_1 then
-      goto lbl_202
-    end
-  end
-end
-function L13_1()
-  local L0_2, L1_2, L2_2, L3_2, L4_2, L5_2, L6_2, L7_2, L8_2
-  L0_2 = GetGameplayCamRot
-  L1_2 = 2
-  L0_2 = L0_2(L1_2)
-  L1_2 = math
-  L1_2 = L1_2.rad
-  L2_2 = L0_2.z
-  L1_2 = L1_2(L2_2)
-  L2_2 = math
-  L2_2 = L2_2.rad
-  L3_2 = L0_2.x
-  L2_2 = L2_2(L3_2)
-  L3_2 = math
-  L3_2 = L3_2.cos
-  L4_2 = L2_2
-  L3_2 = L3_2(L4_2)
-  L4_2 = vector3
-  L5_2 = math
-  L5_2 = L5_2.sin
-  L6_2 = L1_2
-  L5_2 = L5_2(L6_2)
-  L5_2 = -L5_2
-  L5_2 = L5_2 * L3_2
-  L6_2 = math
-  L6_2 = L6_2.cos
-  L7_2 = L1_2
-  L6_2 = L6_2(L7_2)
-  L6_2 = L6_2 * L3_2
-  L7_2 = math
-  L7_2 = L7_2.sin
-  L8_2 = L2_2
-  L7_2, L8_2 = L7_2(L8_2)
-  return L4_2(L5_2, L6_2, L7_2, L8_2)
-end
-::lbl_202::
-L14_1 = RegisterNUICallback
-L15_1 = "striano_admin:cb:revive"
-function L16_1(A0_2, A1_2)
-  local L2_2, L3_2
-  L2_2 = TriggerEvent
-  L3_2 = "esx_ambulancejjj:revive"
-  L2_2(L3_2)
-  L2_2 = closemenu
-  L2_2()
-  L2_2 = A1_2
-  L3_2 = {}
-  L3_2.ok = true
-  L2_2(L3_2)
-end
-L14_1(L15_1, L16_1)
-L14_1 = RegisterNUICallback
-L15_1 = "striano_admin:cb:noclip"
-function L16_1(A0_2, A1_2)
-  local L2_2, L3_2, L4_2
-  L2_2 = false
-  L3_2 = type
-  L4_2 = A0_2
-  L3_2 = L3_2(L4_2)
-  if "table" == L3_2 then
-    L3_2 = A0_2.value
-    if nil ~= L3_2 then
-      L3_2 = A0_2.value
-      if L3_2 then
-        L3_2 = true
-        if L3_2 then
-          goto lbl_17
-          L2_2 = L3_2 or L2_2
-        end
-      end
-      L2_2 = false
-    end
-  end
-  ::lbl_17::
-  L3_2 = ExecuteCommand
-  L4_2 = "np"
-  L3_2(L4_2)
-  L3_2 = TriggerEvent
-  L4_2 = "striano_admin:cl:close"
-  L3_2(L4_2)
-  L3_2 = A1_2
-  L4_2 = {}
-  L4_2.ok = true
-  L3_2(L4_2)
-end
-L14_1(L15_1, L16_1)
-L14_1 = RegisterNUICallback
-L15_1 = "striano_admin:cb:superJump"
-function L16_1()
-  local L0_2, L1_2
-  L0_2 = exports
-  L0_2 = L0_2.striano_combat
-  L1_2 = L0_2
-  L0_2 = L0_2.togglesuperjump
-  L0_2(L1_2)
-end
-L14_1(L15_1, L16_1)
-L14_1 = RegisterNUICallback
-L15_1 = "striano_admin:cb:cleanPlayer"
-function L16_1(A0_2, A1_2)
-  local L2_2, L3_2, L4_2
-  L2_2 = closemenu
-  L2_2()
-  L2_2 = PlayerPedId
-  L2_2 = L2_2()
-  L3_2 = ClearPedBloodDamage
-  L4_2 = L2_2
-  L3_2(L4_2)
-  L3_2 = ClearPedWetness
-  L4_2 = L2_2
-  L3_2(L4_2)
-  L3_2 = ClearPedEnvDirt
-  L4_2 = L2_2
-  L3_2(L4_2)
-  L3_2 = ResetPedVisibleDamage
-  L4_2 = L2_2
-  L3_2(L4_2)
-  L3_2 = TriggerEvent
-  L4_2 = "xnTattoos:resetferite"
-  L3_2(L4_2)
-  L3_2 = TriggerEvent
-  L4_2 = "xnTattoos:resetsporco"
-  L3_2(L4_2)
-  L3_2 = ExecuteCommand
-  L4_2 = "shakeoff"
-  L3_2(L4_2)
-  L3_2 = A1_2
-  L4_2 = {}
-  L4_2.ok = true
-  L3_2(L4_2)
-end
-L14_1(L15_1, L16_1)
-L14_1 = RegisterNUICallback
-L15_1 = "enterNearest"
-function L16_1(A0_2, A1_2)
-  local L2_2, L3_2
-  L2_2 = closemenu
-  L2_2()
-  L2_2 = SaliVeicoloVicino
-  L2_2()
-  L2_2 = A1_2
-  L3_2 = {}
-  L3_2.ok = true
-  L2_2(L3_2)
-end
-L14_1(L15_1, L16_1)
-L14_1 = RegisterNUICallback
-L15_1 = "menuSound"
-function L16_1(A0_2, A1_2)
-  local L2_2, L3_2
-  L2_2 = closemenu
-  L2_2()
-  L2_2 = ExecuteCommand
-  L3_2 = "am"
-  L2_2(L3_2)
-  L2_2 = A1_2
-  L3_2 = {}
-  L3_2.ok = true
-  L2_2(L3_2)
-end
-L14_1(L15_1, L16_1)
-function L14_1()
-  local L0_2, L1_2, L2_2, L3_2, L4_2, L5_2, L6_2, L7_2, L8_2, L9_2, L10_2, L11_2, L12_2, L13_2
-  L0_2 = PlayerPedId
-  L0_2 = L0_2()
-  player = L0_2
-  L0_2 = IsPedInAnyVehicle
-  L1_2 = player
-  L0_2 = L0_2(L1_2)
-  if L0_2 then
-    return
-  end
-  L0_2 = GetEntityCoords
-  L1_2 = player
-  L0_2 = L0_2(L1_2)
-  L1_2 = 5.0
-  L2_2 = GetClosestVehicle
-  L3_2 = L0_2.x
-  L4_2 = L0_2.y
-  L5_2 = L0_2.z
-  L6_2 = L1_2
-  L7_2 = 0
-  L8_2 = 70
-  L2_2 = L2_2(L3_2, L4_2, L5_2, L6_2, L7_2, L8_2)
-  veh = L2_2
-  L2_2 = veh
-  if nil ~= L2_2 then
-    L2_2 = veh
-    if 0 ~= L2_2 then
-      goto lbl_38
-    end
-  end
-  L2_2 = GetClosestVehicle
-  L3_2 = L0_2.x
-  L4_2 = L0_2.y
-  L5_2 = L0_2.z
-  L6_2 = L1_2
-  L7_2 = 0
-  L8_2 = 12294
-  L2_2 = L2_2(L3_2, L4_2, L5_2, L6_2, L7_2, L8_2)
-  veh = L2_2
-  ::lbl_38::
-  L2_2 = veh
-  if nil ~= L2_2 then
-    L2_2 = veh
-    if 0 ~= L2_2 then
-      goto lbl_47
-    end
-  end
-  L2_2 = VehicleInFront
-  L2_2 = L2_2()
-  veh = L2_2
-  ::lbl_47::
-  L2_2 = veh
-  if nil ~= L2_2 then
-    L2_2 = veh
-    if 0 ~= L2_2 then
-      goto lbl_77
-    end
-  end
-  L2_2 = GetEntityCoords
-  L3_2 = player
-  L2_2 = L2_2(L3_2)
-  L3_2 = GetOffsetFromEntityInWorldCoords
-  L4_2 = player
-  L5_2 = 0.0
-  L6_2 = L1_2
-  L7_2 = 0.0
-  L3_2 = L3_2(L4_2, L5_2, L6_2, L7_2)
-  L4_2 = CastRayPointToPoint
-  L5_2 = L2_2.x
-  L6_2 = L2_2.y
-  L7_2 = L2_2.z
-  L8_2 = L3_2.x
-  L9_2 = L3_2.y
-  L10_2 = L3_2.z
-  L11_2 = 30
-  L12_2 = player
-  L13_2 = 0
-  L4_2 = L4_2(L5_2, L6_2, L7_2, L8_2, L9_2, L10_2, L11_2, L12_2, L13_2)
-  L5_2 = GetRaycastResult
-  L6_2 = L4_2
-  L5_2, L6_2, L7_2, L8_2, L9_2 = L5_2(L6_2)
-  veh = L9_2
-  ::lbl_77::
-  L2_2 = veh
-  if 0 ~= L2_2 then
-    L2_2 = veh
-    if nil ~= L2_2 then
-      L2_2 = DoesEntityExist
-      L3_2 = veh
-      L2_2 = L2_2(L3_2)
-      if L2_2 then
-        L2_2 = IsEntityOnScreen
-        L3_2 = veh
-        L2_2 = L2_2(L3_2)
-        if L2_2 then
-          L2_2 = NetworkRequestControlOfEntity
-          L3_2 = veh
-          L2_2(L3_2)
-          L2_2 = Wait
-          L3_2 = 100
-          L2_2(L3_2)
-          L2_2 = SetVehicleDoorsLocked
-          L3_2 = veh
-          L4_2 = 1
-          L2_2(L3_2, L4_2)
-          L2_2 = exports
-          L2_2 = L2_2.phar
-          L3_2 = L2_2
-          L2_2 = L2_2.getsubmisID
-          L2_2 = L2_2(L3_2)
-          if 0 == L2_2 then
-            L2_2 = TaskWarpPedIntoVehicle
-            L3_2 = player
-            L4_2 = veh
-            L5_2 = -1
-            L2_2(L3_2, L4_2, L5_2)
-          end
-        end
-      end
-    end
-  end
-end
-SaliVeicoloVicino = L14_1
-L14_1 = RegisterAdminCategory
-L15_1 = "pausemenu"
-L16_1 = {}
-L16_1.order = 0
-function L17_1()
-  local L0_2, L1_2, L2_2, L3_2, L4_2, L5_2, L6_2, L7_2, L8_2, L9_2, L10_2, L11_2, L12_2, L13_2, L14_2, L15_2, L16_2, L17_2, L18_2
-  L0_2 = {}
-  L0_2.id = "misc_settings"
-  L0_2.label = "MANAGERS"
-  L0_2.sub = ""
-  L0_2.enabled = true
-  L1_2 = {}
-  L2_2 = {}
-  L2_2.id = "display_options"
-  L2_2.type = "group"
-  L2_2.label = "Game Manager"
-  L3_2 = {}
-  L4_2 = {}
-  L4_2.label = "Game Settings"
-  L4_2.type = "button"
-  L4_2.buttonLabel = "GTA 5 Settings"
-  L4_2.callback = "openSettings"
-  L5_2 = {}
-  L5_2.label = "Old Admin Menu"
-  L5_2.type = "button"
-  L5_2.buttonLabel = "Open"
-  L5_2.callback = "nuicb_cmd"
-  L6_2 = {}
-  L6_2.cmd = "l"
-  L5_2.payload = L6_2
-  L6_2 = {}
-  L6_2.label = "Open 3D Map"
-  L6_2.type = "button"
-  L6_2.buttonLabel = "Open"
-  L6_2.callback = "nuicb_cmd"
-  L7_2 = {}
-  L7_2.cmd = "aprimappa"
-  L6_2.payload = L7_2
-  L7_2 = {}
-  L7_2.label = "Vehicles Manager"
-  L7_2.type = "button"
-  L7_2.buttonLabel = "Manage"
-  L7_2.callback = "nuicb_cmd"
-  L8_2 = {}
-  L8_2.cmd = "mv"
-  L7_2.payload = L8_2
-  L8_2 = {}
-  L8_2.label = "Rapids Manager"
-  L8_2.type = "button"
-  L8_2.buttonLabel = "Manage"
-  L8_2.callback = "nuicb_cmd"
-  L9_2 = {}
-  L9_2.cmd = "rapid"
-  L8_2.payload = L9_2
-  L9_2 = {}
-  L9_2.label = "Quest Menu (WIP)"
-  L9_2.type = "button"
-  L9_2.buttonLabel = "Manage"
-  L9_2.callback = "nuicb_cmd"
-  L10_2 = {}
-  L10_2.cmd = "striano_quest:respond"
-  L9_2.payload = L10_2
-  L10_2 = {}
-  L10_2.label = "Manage Clothes"
-  L10_2.type = "button"
-  L10_2.buttonLabel = "Manage"
-  L10_2.callback = "nuicb_cmd"
-  L11_2 = {}
-  L11_2.cmd = "vestiti"
-  L10_2.payload = L11_2
-  L11_2 = {}
-  L11_2.label = "Manage Outfits"
-  L11_2.type = "button"
-  L11_2.buttonLabel = "Manage"
-  L11_2.callback = "editVestiti"
-  L12_2 = {}
-  L12_2.label = "Spell Book"
-  L12_2.type = "button"
-  L12_2.buttonLabel = "Spells"
-  L12_2.callback = "nuicb_cmd"
-  L13_2 = {}
-  L13_2.cmd = "spellBook"
-  L12_2.payload = L13_2
-  L13_2 = {}
-  L13_2.label = "Boats Manager"
-  L13_2.type = "button"
-  L13_2.buttonLabel = "Boats"
-  L13_2.callback = "nuicb_cmd"
-  L14_2 = {}
-  L14_2.cmd = "myBoats"
-  L13_2.payload = L14_2
-  L14_2 = {}
-  L14_2.label = "Toggle HUD"
-  L14_2.type = "button"
-  L14_2.buttonLabel = "Toggle"
-  L14_2.callback = "hideHUD"
-  L15_2 = {}
-  L15_2.label = "Keys list"
-  L15_2.type = "button"
-  L15_2.callback = "nuicb_cmd"
-  L16_2 = {}
-  L16_2.cmd = "keys"
-  L15_2.payload = L16_2
-  L16_2 = {}
-  L16_2.label = "Get vehicle key"
-  L16_2.type = "button"
-  L16_2.callback = "getVehKey"
-  L17_2 = {}
-  L17_2.label = "Spawnables"
-  L17_2.type = "button"
-  L17_2.buttonLabel = "Manage"
-  L17_2.callback = "nuicb_cmd"
-  L18_2 = {}
-  L18_2.cmd = "spawnables"
-  L17_2.payload = L18_2
-  L3_2[1] = L4_2
-  L3_2[2] = L5_2
-  L3_2[3] = L6_2
-  L3_2[4] = L7_2
-  L3_2[5] = L8_2
-  L3_2[6] = L9_2
-  L3_2[7] = L10_2
-  L3_2[8] = L11_2
-  L3_2[9] = L12_2
-  L3_2[10] = L13_2
-  L3_2[11] = L14_2
-  L3_2[12] = L15_2
-  L3_2[13] = L16_2
-  L3_2[14] = L17_2
-  L2_2.children = L3_2
-  L1_2[1] = L2_2
-  L0_2.groups = L1_2
-  return L0_2
-end
-L16_1.build = L17_1
-L14_1(L15_1, L16_1)
-L14_1 = RegisterNUICallback
-L15_1 = "editVestiti"
-function L16_1(A0_2, A1_2)
-  local L2_2, L3_2
-  L2_2 = closemenu
-  L2_2()
-  L2_2 = TriggerEvent
-  L3_2 = "editVestiti"
-  L2_2(L3_2)
-end
-L14_1(L15_1, L16_1)
-L14_1 = RegisterAdminCategory
-L15_1 = "misc"
-L16_1 = {}
-L16_1.order = 2
-function L17_1()
-  local L0_2, L1_2, L2_2, L3_2, L4_2, L5_2, L6_2, L7_2, L8_2, L9_2
-  L0_2 = {}
-  L0_2.id = "misc_settings"
-  L0_2.label = "TOOLS"
-  L0_2.sub = ""
-  L0_2.enabled = true
-  L1_2 = {}
-  L2_2 = {}
-  L2_2.id = "display_options"
-  L2_2.type = "group"
-  L2_2.label = "Misc"
-  L3_2 = {}
-  L4_2 = {}
-  L4_2.label = "No-clip"
-  L4_2.type = "button"
-  L4_2.buttonLabel = "NC"
-  L4_2.callback = "striano_admin:cb:noclip"
-  L5_2 = {}
-  L5_2.label = "Edit Character"
-  L5_2.type = "button"
-  L5_2.buttonLabel = "Edit"
-  L5_2.callback = "editSkin"
-  L6_2 = {}
-  L6_2.label = "Tattoo Editor"
-  L6_2.type = "button"
-  L6_2.buttonLabel = "Tattoo"
-  L6_2.callback = "editTattoo"
-  L7_2 = {}
-  L7_2.label = "getCoords"
-  L7_2.type = "button"
-  L7_2.buttonLabel = "CTP"
-  L7_2.callback = "getCTP"
-  L8_2 = {}
-  L8_2.label = "getCoords + head"
-  L8_2.type = "button"
-  L8_2.buttonLabel = "CTPa"
-  L8_2.callback = "getCTPa"
-  L9_2 = {}
-  L9_2.label = "Super Jump"
-  L9_2.type = "button"
-  L9_2.buttonLabel = "Toggle"
-  L9_2.callback = "striano_admin:cb:superJump"
-  L3_2[1] = L4_2
-  L3_2[2] = L5_2
-  L3_2[3] = L6_2
-  L3_2[4] = L7_2
-  L3_2[5] = L8_2
-  L3_2[6] = L9_2
-  L2_2.children = L3_2
-  L3_2 = {}
-  L3_2.id = "vision_modes"
-  L3_2.type = "group"
-  L3_2.label = "Vision modes"
-  L4_2 = {}
-  L5_2 = {}
-  L5_2.label = "Night vision"
-  L5_2.type = "toggle"
-  L5_2.key = "night_vision_t"
-  L5_2.buttonLabel = "Toggle"
-  L5_2.callback = "striano_admin:cb:nightVision"
-  L5_2.default = false
-  L6_2 = {}
-  L6_2.label = "Thermal vision"
-  L6_2.type = "toggle"
-  L6_2.key = "thermal_vision_t"
-  L6_2.buttonLabel = "Toggle"
-  L6_2.callback = "striano_admin:cb:thermalVision"
-  L6_2.default = false
-  L4_2[1] = L5_2
-  L4_2[2] = L6_2
-  L3_2.children = L4_2
-  L1_2[1] = L2_2
-  L1_2[2] = L3_2
-  L0_2.groups = L1_2
-  return L0_2
-end
-L16_1.build = L17_1
-L14_1(L15_1, L16_1)
-L14_1 = false
-L15_1 = false
-L16_1 = RegisterNUICallback
-L17_1 = "openSettings"
-function L18_1(A0_2, A1_2)
-  local L2_2, L3_2, L4_2, L5_2
-  L2_2 = closemenu
-  L2_2()
-  L2_2 = ActivateFrontendMenu
-  L3_2 = GetHashKey
-  L4_2 = "FE_MENU_VERSION_LANDING_MENU"
-  L3_2 = L3_2(L4_2)
-  L4_2 = 0
-  L5_2 = -1
-  L2_2(L3_2, L4_2, L5_2)
-end
-L16_1(L17_1, L18_1)
-L16_1 = RegisterNUICallback
-L17_1 = "FixVehicle"
-function L18_1(A0_2, A1_2)
-  local L2_2, L3_2
-  L2_2 = ExecuteCommand
-  L3_2 = "fixVeh"
-  L2_2(L3_2)
-end
-L16_1(L17_1, L18_1)
-L16_1 = RegisterNUICallback
-L17_1 = "striano_admin:cb:nightVision"
-function L18_1(A0_2, A1_2)
-  local L2_2, L3_2, L4_2
-  L2_2 = L15_1
-  if not L2_2 then
-    if A0_2 then
-      L2_2 = A0_2.value
-      if L2_2 then
-        L2_2 = true
-        if L2_2 then
-          goto lbl_13
-        end
-      end
-    end
-    L2_2 = false
-    ::lbl_13::
-    L3_2 = SetNightvision
-    L4_2 = L2_2
-    L3_2(L4_2)
-    L14_1 = L2_2
-  end
-  L2_2 = A1_2
-  L3_2 = {}
-  L3_2.ok = true
-  L2_2(L3_2)
-end
-L16_1(L17_1, L18_1)
-L16_1 = RegisterNUICallback
-L17_1 = "striano_admin:cb:thermalVision"
-function L18_1(A0_2, A1_2)
-  local L2_2, L3_2, L4_2
-  L2_2 = L14_1
-  if not L2_2 then
-    if A0_2 then
-      L2_2 = A0_2.value
-      if L2_2 then
-        L2_2 = true
-        if L2_2 then
-          goto lbl_13
-        end
-      end
-    end
-    L2_2 = false
-    ::lbl_13::
-    L3_2 = SetSeethrough
-    L4_2 = L2_2
-    L3_2(L4_2)
-    L15_1 = L2_2
-  end
-  L2_2 = A1_2
-  L3_2 = {}
-  L3_2.ok = true
-  L2_2(L3_2)
-end
-L16_1(L17_1, L18_1)
-L16_1 = RegisterNUICallback
-L17_1 = "striano_admin:cb:clearArea"
-function L18_1(A0_2, A1_2)
-  local L2_2, L3_2, L4_2, L5_2, L6_2, L7_2, L8_2, L9_2, L10_2, L11_2, L12_2, L13_2, L14_2
-  L2_2 = L12_1
-  if L2_2 then
-    L2_2 = L12_1.ped
-    if L2_2 then
-      L2_2 = L12_1.ped
-      L2_2 = L2_2()
-      if L2_2 then
-        goto lbl_13
-      end
-    end
-  end
-  L2_2 = PlayerPedId
-  L2_2 = L2_2()
-  ::lbl_13::
-  L3_2 = GetEntityCoords
-  L4_2 = L2_2
-  L3_2 = L3_2(L4_2)
-  L4_2 = OpenInput
-  L5_2 = "Insert range"
-  L4_2 = L4_2(L5_2)
-  L5_2 = type
-  L6_2 = L4_2
-  L5_2 = L5_2(L6_2)
-  if "number" == L5_2 then
-    L5_2 = ClearAreaOfVehicles
-    L6_2 = L3_2.x
-    L7_2 = L3_2.y
-    L8_2 = L3_2.z
-    L9_2 = L4_2
-    L10_2 = false
-    L11_2 = false
-    L12_2 = false
-    L13_2 = false
-    L14_2 = false
-    L5_2(L6_2, L7_2, L8_2, L9_2, L10_2, L11_2, L12_2, L13_2, L14_2)
-    L5_2 = ClearAreaOfPeds
-    L6_2 = L3_2.x
-    L7_2 = L3_2.y
-    L8_2 = L3_2.z
-    L9_2 = L4_2
-    L10_2 = false
-    L5_2(L6_2, L7_2, L8_2, L9_2, L10_2)
-    L5_2 = ClearAreaOfObjects
-    L6_2 = L3_2.x
-    L7_2 = L3_2.y
-    L8_2 = L3_2.z
-    L9_2 = L4_2
-    L10_2 = 0
-    L5_2(L6_2, L7_2, L8_2, L9_2, L10_2)
-    L5_2 = TriggerEvent
-    L6_2 = "esx:clearPedZona"
-    L5_2(L6_2)
-    L5_2 = exports
-    L5_2 = L5_2.striano_combat
-    L6_2 = L5_2
-    L5_2 = L5_2.submex
-    L7_2 = "Area cleared ("
-    L8_2 = L4_2
-    L9_2 = "m)"
-    L7_2 = L7_2 .. L8_2 .. L9_2
-    L5_2(L6_2, L7_2)
-  end
-  L5_2 = A1_2
-  L6_2 = {}
-  L6_2.ok = true
-  L5_2(L6_2)
-end
-L16_1(L17_1, L18_1)
-L16_1 = RegisterAdminCategory
-L17_1 = "appearance"
-L18_1 = {}
-L18_1.order = 3
-function L19_1()
-  local L0_2, L1_2, L2_2, L3_2, L4_2, L5_2, L6_2, L7_2, L8_2, L9_2, L10_2, L11_2, L12_2, L13_2, L14_2, L15_2
-  L0_2 = {}
-  L0_2.id = "appearance_mgmt"
-  L0_2.label = "SPAWNER"
-  L0_2.sub = ""
-  L0_2.enabled = true
-  L1_2 = {}
-  L2_2 = {}
-  L2_2.id = "ped_model"
-  L2_2.type = "group"
-  L2_2.label = "Spawner"
-  L3_2 = {}
-  L4_2 = {}
-  L4_2.label = "Spawn ped"
-  L4_2.type = "button"
-  L4_2.callback = "striano_admin:cb:spawnPedByName"
-  L5_2 = {}
-  L5_2.label = "Spawn object"
-  L5_2.type = "button"
-  L5_2.callback = "striano_admin:cb:spawnObjByName"
-  L6_2 = {}
-  L6_2.label = "Spawn vehicle"
-  L6_2.type = "button"
-  L6_2.callback = "striano_admin:cb:spawnVehByName"
-  L7_2 = {}
-  L7_2.label = "Delete vehicle from DB"
-  L7_2.type = "button"
-  L7_2.callback = "striano_admin:cb:delveh"
-  L8_2 = {}
-  L8_2.label = "Delete vehicle (Entity)"
-  L8_2.type = "button"
-  L8_2.callback = "dV"
-  L9_2 = {}
-  L9_2.label = "Vehicle Maxed"
-  L9_2.type = "button"
-  L9_2.buttonLabel = "Max"
-  L9_2.callback = "vehicleMaxed"
-  L10_2 = {}
-  L10_2.label = "Vehicle Fix"
-  L10_2.type = "button"
-  L10_2.buttonLabel = "FixVehicle"
-  L10_2.callback = "fixVeh"
-  L11_2 = {}
-  L11_2.label = "Clear area"
-  L11_2.type = "button"
-  L11_2.buttonLabel = "Clear"
-  L11_2.callback = "striano_admin:cb:clearArea"
-  L12_2 = {}
-  L12_2.label = "Edit vehicle"
-  L12_2.type = "button"
-  L12_2.buttonLabel = "Edit"
-  L12_2.callback = "editVeh"
-  L13_2 = {}
-  L13_2.label = "Enter nearest vehicle"
-  L13_2.type = "button"
-  L13_2.buttonLabel = "Enter"
-  L13_2.callback = "enterNearest"
-  L14_2 = {}
-  L14_2.label = "Clear ped area"
-  L14_2.type = "button"
-  L14_2.buttonLabel = "Clear"
-  L14_2.callback = "striano_admin:cb:clearPedArea"
-  L15_2 = {}
-  L15_2.label = "Menu area sounds"
-  L15_2.type = "button"
-  L15_2.buttonLabel = "Menu"
-  L15_2.callback = "menuSound"
-  L3_2[1] = L4_2
-  L3_2[2] = L5_2
-  L3_2[3] = L6_2
-  L3_2[4] = L7_2
-  L3_2[5] = L8_2
-  L3_2[6] = L9_2
-  L3_2[7] = L10_2
-  L3_2[8] = L11_2
-  L3_2[9] = L12_2
-  L3_2[10] = L13_2
-  L3_2[11] = L14_2
-  L3_2[12] = L15_2
-  L2_2.children = L3_2
-  L1_2[1] = L2_2
-  L0_2.groups = L1_2
-  return L0_2
-end
-L18_1.build = L19_1
-L16_1(L17_1, L18_1)
-L16_1 = RegisterNUICallback
-L17_1 = "striano_admin:cb:spawnPedByName"
-function L18_1(A0_2, A1_2)
-  local L2_2, L3_2, L4_2, L5_2
-  L2_2 = OpenInput
-  L3_2 = "Insert model"
-  L2_2 = L2_2(L3_2)
-  if nil == L2_2 then
-    return
-  end
-  L3_2 = TriggerServerEvent
-  L4_2 = "creaPed"
-  L5_2 = L2_2
-  L3_2(L4_2, L5_2)
-  L3_2 = A1_2
-  L4_2 = {}
-  L4_2.ok = true
-  L3_2(L4_2)
-end
-L16_1(L17_1, L18_1)
-L16_1 = RegisterNUICallback
-L17_1 = "striano_admin:cb:spawnVehByName"
-function L18_1(A0_2, A1_2)
-  local L2_2, L3_2, L4_2, L5_2
-  L2_2 = OpenInput
-  L3_2 = "Insert model"
-  L2_2 = L2_2(L3_2)
-  if nil == L2_2 then
-    return
-  end
-  L3_2 = closemenu
-  L3_2()
-  L3_2 = TriggerEvent
-  L4_2 = "striano_SpawnVehicle"
-  L5_2 = L2_2
-  L3_2(L4_2, L5_2)
-  L3_2 = A1_2
-  L4_2 = {}
-  L4_2.ok = true
-  L3_2(L4_2)
-end
-L16_1(L17_1, L18_1)
-L16_1 = RegisterNUICallback
-L17_1 = "striano_admin:cb:delVeh"
-function L18_1(A0_2, A1_2)
-  local L2_2, L3_2, L4_2, L5_2
-  L2_2 = OpenInput
-  L3_2 = "Insert plate"
-  L2_2 = L2_2(L3_2)
-  if nil == L2_2 then
-    return
-  end
-  L3_2 = closemenu
-  L3_2()
-  L3_2 = ExecuteCommand
-  L4_2 = "delveh "
-  L5_2 = L2_2
-  L4_2 = L4_2 .. L5_2
-  L3_2(L4_2)
-  L3_2 = A1_2
-  L4_2 = {}
-  L4_2.ok = true
-  L3_2(L4_2)
-end
-L16_1(L17_1, L18_1)
-L16_1 = RegisterNUICallback
-L17_1 = "dV"
-function L18_1(A0_2, A1_2)
-  local L2_2, L3_2
-  L2_2 = closemenu
-  L2_2()
-  L2_2 = ExecuteCommand
-  L3_2 = "dv"
-  L2_2(L3_2)
-  L2_2 = A1_2
-  L3_2 = {}
-  L3_2.ok = true
-  L2_2(L3_2)
-end
-L16_1(L17_1, L18_1)
-L16_1 = RegisterNUICallback
-L17_1 = "striano_admin:cb:spawnObjByName"
-function L18_1(A0_2, A1_2)
-  local L2_2, L3_2, L4_2, L5_2
-  L2_2 = OpenInput
-  L3_2 = "Insert model"
-  L2_2 = L2_2(L3_2)
-  if nil == L2_2 then
-    return
-  end
-  L3_2 = exports
-  L3_2 = L3_2.striano_editor
-  L4_2 = L3_2
-  L3_2 = L3_2.SpawnPreview
-  L5_2 = L2_2
-  L3_2(L4_2, L5_2)
-  L3_2 = closemenu
-  L3_2()
-  L3_2 = A1_2
-  L4_2 = {}
-  L4_2.ok = true
-  L3_2(L4_2)
-end
-L16_1(L17_1, L18_1)
-L16_1 = RegisterNUICallback
-L17_1 = "striano_admin:cb:clearPedArea"
-function L18_1(A0_2, A1_2)
-  local L2_2, L3_2, L4_2, L5_2, L6_2
-  L2_2 = OpenInput
-  L3_2 = "Insert range"
-  L2_2 = L2_2(L3_2)
-  if nil == L2_2 then
-    return
-  end
-  L3_2 = TriggerServerEvent
-  L4_2 = "esx:clearPedZona"
-  L5_2 = tonumber
-  L6_2 = L2_2
-  L5_2 = L5_2(L6_2)
-  if not L5_2 then
-    L5_2 = 1.5
-  end
-  L3_2(L4_2, L5_2)
-  L3_2 = A1_2
-  L4_2 = {}
-  L4_2.ok = true
-  L3_2(L4_2)
-end
-L16_1(L17_1, L18_1)
-L16_1 = RegisterNUICallback
-L17_1 = "editSkin"
-function L18_1(A0_2, A1_2)
-  local L2_2, L3_2
-  L2_2 = TriggerEvent
-  L3_2 = "striano_skin:edit"
-  L2_2(L3_2)
-  L2_2 = closemenu
-  L2_2()
-  L2_2 = A1_2
-  L3_2 = {}
-  L3_2.ok = true
-  L2_2(L3_2)
-end
-L16_1(L17_1, L18_1)
-L16_1 = RegisterNUICallback
-L17_1 = "editTattoo"
-function L18_1(A0_2, A1_2)
-  local L2_2, L3_2, L4_2, L5_2, L6_2
-  L2_2 = exports
-  L2_2 = L2_2.striano_fastmenu
-  L3_2 = L2_2
-  L2_2 = L2_2.clearMenu
-  L2_2(L3_2)
-  L2_2 = exports
-  L2_2 = L2_2.striano_fastmenu
-  L3_2 = L2_2
-  L2_2 = L2_2.addMenuItem
-  L4_2 = "Editor Tattoo"
-  function L5_2()
-    local L0_3, L1_3
-    L0_3 = TriggerEvent
-    L1_3 = "PersonalizzaTattoo"
-    L0_3(L1_3)
-  end
-  L6_2 = true
-  L2_2(L3_2, L4_2, L5_2, L6_2)
-  L2_2 = exports
-  L2_2 = L2_2.striano_fastmenu
-  L3_2 = L2_2
-  L2_2 = L2_2.addMenuItem
-  L4_2 = "Your Tattoo List"
-  function L5_2()
-    local L0_3, L1_3
-    L0_3 = ExecuteCommand
-    L1_3 = "mytattoo"
-    L0_3(L1_3)
-  end
-  L6_2 = true
-  L2_2(L3_2, L4_2, L5_2, L6_2)
-  L2_2 = exports
-  L2_2 = L2_2.striano_fastmenu
-  L3_2 = L2_2
-  L2_2 = L2_2.openMenu
-  L2_2(L3_2)
-  L2_2 = closemenu
-  L2_2()
-  L2_2 = A1_2
-  L3_2 = {}
-  L3_2.ok = true
-  L2_2(L3_2)
-end
-L16_1(L17_1, L18_1)
-L16_1 = RegisterNUICallback
-L17_1 = "applyPed"
-function L18_1(A0_2, A1_2)
-  local L2_2, L3_2, L4_2, L5_2
-  L2_2 = OpenInput
-  L3_2 = "Insert Ped Model Name (exampe: a_c_pig)"
-  L2_2 = L2_2(L3_2)
-  if "" == L2_2 then
-    L3_2 = A1_2
-    L4_2 = {}
-    L4_2.ok = false
-    L4_2.error = "Missing model"
-    L3_2(L4_2)
-    return
-  end
-  L3_2 = closemenu
-  L3_2()
-  L3_2 = TriggerEvent
-  L4_2 = "no1-playerped:client:SetPlayerPed"
-  L5_2 = L2_2
-  L3_2(L4_2, L5_2)
-  L3_2 = A1_2
-  L4_2 = {}
-  L4_2.ok = true
-  L3_2(L4_2)
-end
-L16_1(L17_1, L18_1)
-L16_1 = RegisterNUICallback
-L17_1 = "resetPed"
-function L18_1(A0_2, A1_2)
-  local L2_2, L3_2
-  L2_2 = TriggerEvent
-  L3_2 = "no1-playerped:client:ResetPlayerPed"
-  L2_2(L3_2)
-  L2_2 = closemenu
-  L2_2()
-  L2_2 = A1_2
-  L3_2 = {}
-  L3_2.ok = true
-  L2_2(L3_2)
-end
-L16_1(L17_1, L18_1)
-L16_1 = RegisterNUICallback
-L17_1 = "vehicleMaxed"
-function L18_1(A0_2, A1_2)
-  local L2_2, L3_2, L4_2, L5_2, L6_2, L7_2, L8_2, L9_2
-  L2_2 = PlayerPedId
-  L2_2 = L2_2()
-  L3_2 = GetVehiclePedIsIn
-  L4_2 = L2_2
-  L5_2 = false
-  L3_2 = L3_2(L4_2, L5_2)
-  if 0 == L3_2 then
-    return
-  end
-  L4_2 = closemenu
-  L4_2()
-  L4_2 = SetVehicleModKit
-  L5_2 = L3_2
-  L6_2 = 0
-  L4_2(L5_2, L6_2)
-  L4_2 = SetVehicleMod
-  L5_2 = L3_2
-  L6_2 = 11
-  L7_2 = GetNumVehicleMods
-  L8_2 = L3_2
-  L9_2 = 11
-  L7_2 = L7_2(L8_2, L9_2)
-  L7_2 = L7_2 - 1
-  L8_2 = false
-  L4_2(L5_2, L6_2, L7_2, L8_2)
-  L4_2 = SetVehicleMod
-  L5_2 = L3_2
-  L6_2 = 12
-  L7_2 = GetNumVehicleMods
-  L8_2 = L3_2
-  L9_2 = 12
-  L7_2 = L7_2(L8_2, L9_2)
-  L7_2 = L7_2 - 1
-  L8_2 = false
-  L4_2(L5_2, L6_2, L7_2, L8_2)
-  L4_2 = SetVehicleMod
-  L5_2 = L3_2
-  L6_2 = 13
-  L7_2 = GetNumVehicleMods
-  L8_2 = L3_2
-  L9_2 = 13
-  L7_2 = L7_2(L8_2, L9_2)
-  L7_2 = L7_2 - 1
-  L8_2 = false
-  L4_2(L5_2, L6_2, L7_2, L8_2)
-  L4_2 = SetVehicleMod
-  L5_2 = L3_2
-  L6_2 = 15
-  L7_2 = GetNumVehicleMods
-  L8_2 = L3_2
-  L9_2 = 15
-  L7_2 = L7_2(L8_2, L9_2)
-  L7_2 = L7_2 - 1
-  L8_2 = false
-  L4_2(L5_2, L6_2, L7_2, L8_2)
-  L4_2 = SetVehicleMod
-  L5_2 = L3_2
-  L6_2 = 16
-  L7_2 = GetNumVehicleMods
-  L8_2 = L3_2
-  L9_2 = 16
-  L7_2 = L7_2(L8_2, L9_2)
-  L7_2 = L7_2 - 1
-  L8_2 = false
-  L4_2(L5_2, L6_2, L7_2, L8_2)
-  L4_2 = ToggleVehicleMod
-  L5_2 = L3_2
-  L6_2 = 18
-  L7_2 = true
-  L4_2(L5_2, L6_2, L7_2)
-  L4_2 = exports
-  L4_2 = L4_2.striano_combat
-  L5_2 = L4_2
-  L4_2 = L4_2.testo3d
-  L6_2 = "Vehicle Maxed"
-  L4_2(L5_2, L6_2)
-end
-L16_1(L17_1, L18_1)
-L16_1 = CreateThread
-function L17_1()
-  local L0_2, L1_2
-  while true do
-    L0_2 = Wait
-    L1_2 = 500
-    L0_2(L1_2)
-    L0_2 = LocalPlayer
-    L0_2 = L0_2.state
-    if L0_2 then
-      L0_2 = LocalPlayer
-      L0_2 = L0_2.state
-      L0_2 = L0_2.isAdmin
-    end
-    if true == L0_2 then
-      L0_2 = _items_cache
-      if nil == L0_2 then
-        L0_2 = _items_loading
-        if not L0_2 then
-          _items_loading = true
-          L0_2 = TriggerServerEvent
-          L1_2 = "striano_admin:sv:reqItemsList"
-          L0_2(L1_2)
-        end
-      end
-      return
-    end
-  end
-end
-L16_1(L17_1)
-L16_1 = _items_cache
-L17_1 = _items_loading
-if not L17_1 then
-  L17_1 = false
-end
-L18_1 = RegisterNetEvent
-L19_1 = "striano_admin:cl:setItemsList"
-function L20_1(A0_2)
-  local L1_2
-  L1_2 = A0_2 or nil
-  if not A0_2 then
-    L1_2 = {}
-  end
-  L16_1 = L1_2
-  L1_2 = false
-  L17_1 = L1_2
-end
-L18_1(L19_1, L20_1)
-L18_1 = RegisterNUICallback
-L19_1 = "striano_admin:cb:getItemInput"
-function L20_1(A0_2, A1_2)
-  local L2_2, L3_2, L4_2, L5_2, L6_2, L7_2, L8_2, L9_2, L10_2
-  L2_2 = OpenInput
-  L3_2 = "Item name"
-  L2_2 = L2_2(L3_2)
-  if nil == L2_2 then
-    return
-  end
-  L3_2 = #L2_2
-  if 0 == L3_2 or "" == L2_2 then
-    return
-  end
-  L3_2 = OpenInput
-  L4_2 = "Insert amount"
-  L3_2 = L3_2(L4_2)
-  L4_2 = tonumber
-  L5_2 = L3_2
-  L4_2 = L4_2(L5_2)
-  if nil == L4_2 then
-    return
-  end
-  if L2_2 and "" ~= L2_2 and L4_2 and L4_2 > 0 then
-    L5_2 = TriggerServerEvent
-    L6_2 = "inv3d:giveItem"
-    L7_2 = GetPlayerServerId
-    L8_2 = PlayerId
-    L8_2, L9_2, L10_2 = L8_2()
-    L7_2 = L7_2(L8_2, L9_2, L10_2)
-    L8_2 = "player"
-    L9_2 = L2_2
-    L10_2 = L4_2
-    L5_2(L6_2, L7_2, L8_2, L9_2, L10_2)
-  end
-  L5_2 = A1_2
-  L6_2 = {}
-  L6_2.ok = true
-  L5_2(L6_2)
-end
-L18_1(L19_1, L20_1)
-L18_1 = RegisterNUICallback
-L19_1 = "striano_admin:cb:getItem"
-function L20_1(A0_2, A1_2)
-  local L2_2, L3_2, L4_2, L5_2, L6_2, L7_2, L8_2, L9_2, L10_2, L11_2
-  L2_2 = A0_2 or nil
-  if A0_2 then
-    L2_2 = A0_2.item
-  end
-  L3_2 = A0_2 or L3_2
-  if A0_2 then
-    L3_2 = A0_2.model
-  end
-  L4_2 = ExecuteCommand
-  L5_2 = "copia "
-  L6_2 = L3_2
-  L5_2 = L5_2 .. L6_2
-  L4_2(L5_2)
-  if nil == L2_2 then
-    return
-  end
-  L4_2 = #L2_2
-  if 0 == L4_2 or "" == L2_2 then
-    return
-  end
-  L4_2 = OpenInput
-  L5_2 = "Insert amount"
-  L4_2 = L4_2(L5_2)
-  L5_2 = tonumber
-  L6_2 = L4_2
-  L5_2 = L5_2(L6_2)
-  if nil == L5_2 then
-    return
-  end
-  if L2_2 and "" ~= L2_2 and L5_2 and L5_2 > 0 then
-    L6_2 = TriggerServerEvent
-    L7_2 = "inv3d:giveItem"
-    L8_2 = GetPlayerServerId
-    L9_2 = PlayerId
-    L9_2, L10_2, L11_2 = L9_2()
-    L8_2 = L8_2(L9_2, L10_2, L11_2)
-    L9_2 = "player"
-    L10_2 = L2_2
-    L11_2 = L5_2
-    L6_2(L7_2, L8_2, L9_2, L10_2, L11_2)
-  end
-  L6_2 = A1_2
-  L7_2 = {}
-  L7_2.ok = true
-  L6_2(L7_2)
-end
-L18_1(L19_1, L20_1)
-L18_1 = RegisterNUICallback
-L19_1 = "striano_admin:cb:noop"
-function L20_1(A0_2, A1_2)
-  local L2_2, L3_2
-  L2_2 = A1_2
-  L3_2 = {}
-  L3_2.ok = true
-  L2_2(L3_2)
-end
-L18_1(L19_1, L20_1)
-L18_1 = RegisterAdminCategory
-L19_1 = "world"
-L20_1 = {}
-L20_1.order = 4
-function L21_1()
-  local L0_2, L1_2, L2_2, L3_2, L4_2, L5_2, L6_2, L7_2, L8_2, L9_2, L10_2, L11_2, L12_2, L13_2
-  L0_2 = L16_1
-  if nil == L0_2 then
-    L0_2 = L17_1
-    if not L0_2 then
-      L0_2 = true
-      L17_1 = L0_2
-      L0_2 = TriggerServerEvent
-      L1_2 = "striano_admin:sv:reqItemsList"
-      L0_2(L1_2)
-    end
-  end
-  L0_2 = {}
-  L1_2 = L16_1
-  if nil == L1_2 then
-    L1_2 = #L0_2
-    L1_2 = L1_2 + 1
-    L2_2 = {}
-    L2_2.label = "Loading items..."
-    L2_2.type = "button"
-    L2_2.buttonLabel = "Wait"
-    L2_2.callback = "striano_admin:cb:noop"
-    L0_2[L1_2] = L2_2
-  else
-    L1_2 = L16_1
-    L1_2 = #L1_2
-    if 0 == L1_2 then
-      L1_2 = #L0_2
-      L1_2 = L1_2 + 1
-      L2_2 = {}
-      L2_2.label = "No items found."
-      L2_2.type = "button"
-      L2_2.buttonLabel = "OK"
-      L2_2.callback = "striano_admin:cb:noop"
-      L0_2[L1_2] = L2_2
+    cb({ ok = true })
+end)
+
+--- Executar comando via payload
+RegisterNUICallback("nuicb_cmd", function(data, cb)
+    local cmd = data and data.cmd
+    if type(cmd) == "string" and cmd ~= "" then
+        closemenu()
+        ExecuteCommand(cmd)
     else
-      L1_2 = ipairs
-      L2_2 = L16_1
-      L1_2, L2_2, L3_2, L4_2 = L1_2(L2_2)
-      for L5_2, L6_2 in L1_2, L2_2, L3_2, L4_2 do
-        L7_2 = type
-        L8_2 = L6_2
-        L7_2 = L7_2(L8_2)
-        if "table" == L7_2 then
-          L7_2 = L6_2.name
-          if L7_2 then
-            goto lbl_56
-          end
-        end
-        L7_2 = L6_2
-        ::lbl_56::
-        L8_2 = type
-        L9_2 = L6_2
-        L8_2 = L8_2(L9_2)
-        if "table" == L8_2 then
-          L8_2 = L6_2.label
-          if L8_2 then
-            goto lbl_65
-          end
-        end
-        L8_2 = nil
-        ::lbl_65::
-        L9_2 = type
-        L10_2 = L6_2
-        L9_2 = L9_2(L10_2)
-        if "table" == L9_2 then
-          L9_2 = L6_2.model
-          if L9_2 then
-            goto lbl_74
-          end
-        end
-        L9_2 = nil
-        ::lbl_74::
-        L10_2 = tostring
-        L11_2 = L7_2 or L11_2
-        if not L7_2 then
-          L11_2 = ""
-        end
-        L10_2 = L10_2(L11_2)
-        L7_2 = L10_2
-        if L8_2 and "" ~= L8_2 then
-          L10_2 = "%s"
-          L11_2 = L10_2
-          L10_2 = L10_2.format
-          L12_2 = L7_2
-          L10_2 = L10_2(L11_2, L12_2)
-          if L10_2 then
-            goto lbl_91
-          end
-        end
-        L10_2 = L7_2
-        ::lbl_91::
-        L11_2 = #L0_2
-        L11_2 = L11_2 + 1
-        L12_2 = {}
-        L12_2.label = L10_2
-        L12_2.type = "button"
-        L12_2.buttonLabel = "Get"
-        L12_2.callback = "striano_admin:cb:getItem"
-        L13_2 = {}
-        L13_2.item = L7_2
-        L13_2.model = L9_2
-        L12_2.payload = L13_2
-        L0_2[L11_2] = L12_2
-      end
+        print("^1[STRIANO ADMIN]^0 nuicb_cmd missing cmd. data=" .. json.encode(data))
     end
-  end
-  L1_2 = {}
-  L1_2.id = "world_mgmt"
-  L1_2.label = "ITEMS"
-  L1_2.sub = ""
-  L1_2.enabled = true
-  L2_2 = {}
-  L3_2 = {}
-  L3_2.id = "world_items"
-  L3_2.type = "group"
-  L3_2.label = "Item manager"
-  L3_2.children = L0_2
-  L2_2[1] = L3_2
-  L1_2.groups = L2_2
-  return L1_2
-end
-L20_1.build = L21_1
-L18_1(L19_1, L20_1)
-L18_1 = RegisterNUICallback
-L19_1 = "striano_admin:ui:triggerEvent"
-function L20_1(A0_2, A1_2)
-  local L2_2, L3_2, L4_2, L5_2
-  if A0_2 then
-    L2_2 = A0_2.event
-    if L2_2 then
-      L2_2 = TriggerEvent
-      L3_2 = A0_2.event
-      L4_2 = A0_2.value
-      L5_2 = A0_2.meta
-      L2_2(L3_2, L4_2, L5_2)
+    cb("ok")
+end)
+
+--- Combat settings
+RegisterNUICallback("nuicb_combat", function(data, cb)
+    ExecuteCommand("combatset")
+    closemenu()
+    cb({ ok = true })
+end)
+
+--- No-op (botão desabilitado / aguardar)
+RegisterNUICallback("striano_admin:cb:noop", function(data, cb)
+    cb({ ok = true })
+end)
+
+-- ------------------------------------------------------------
+-- Callbacks NUI: visão / ambiente
+-- ------------------------------------------------------------
+
+RegisterNUICallback("striano_admin:cb:nightVision", function(data, cb)
+    if not thermalVisionActive then
+        local val = data and data.value == true
+        SetNightvision(val)
+        nightVisionActive = val
     end
-  end
-  L2_2 = A1_2
-  L3_2 = {}
-  L3_2.ok = true
-  L2_2(L3_2)
-end
-L18_1(L19_1, L20_1)
-L18_1 = RegisterAdminCategory
-L19_1 = "striano_scripts"
-L20_1 = {}
-L20_1.order = 5
-function L21_1()
-  local L0_2, L1_2, L2_2, L3_2, L4_2, L5_2, L6_2, L7_2, L8_2, L9_2, L10_2, L11_2, L12_2, L13_2, L14_2, L15_2
-  L0_2 = {}
-  L0_2.id = "striano_script"
-  L0_2.label = "SCRIPTS"
-  L0_2.sub = ""
-  L0_2.enabled = true
-  L1_2 = {}
-  L2_2 = {}
-  L2_2.id = "display_options"
-  L2_2.type = "group"
-  L2_2.label = "Take your time, test all!"
-  L3_2 = {}
-  L4_2 = {}
-  L4_2.label = "striano combat"
-  L4_2.type = "button"
-  L4_2.callback = "nuicb_combat"
-  L5_2 = {}
-  L5_2.label = "striano ride horse"
-  L5_2.type = "button"
-  L5_2.callback = "nuicb_cmd"
-  L6_2 = {}
-  L6_2.cmd = "horse"
-  L5_2.payload = L6_2
-  L6_2 = {}
-  L6_2.label = "striano ride humanoid (Ostrich)"
-  L6_2.type = "button"
-  L6_2.callback = "nuicb_cmd"
-  L7_2 = {}
-  L7_2.cmd = "testHumanoid"
-  L6_2.payload = L7_2
-  L7_2 = {}
-  L7_2.label = "striano ride humanoid (T-rex)"
-  L7_2.type = "button"
-  L7_2.callback = "nuicb_cmd"
-  L8_2 = {}
-  L8_2.cmd = "testTrex"
-  L7_2.payload = L8_2
-  L8_2 = {}
-  L8_2.label = "striano fly_spell"
-  L8_2.type = "button"
-  L8_2.callback = "nuicb_cmd"
-  L9_2 = {}
-  L9_2.cmd = "fly"
-  L8_2.payload = L9_2
-  L9_2 = {}
-  L9_2.label = "striano fly_human"
-  L9_2.type = "button"
-  L9_2.callback = "nuicb_cmd"
-  L10_2 = {}
-  L10_2.cmd = "flyhuman"
-  L9_2.payload = L10_2
-  L10_2 = {}
-  L10_2.label = "striano fly_animal"
-  L10_2.type = "button"
-  L10_2.callback = "nuicd_flyanimal"
-  L11_2 = {}
-  L11_2.label = "striano boat"
-  L11_2.type = "button"
-  L11_2.callback = "spawnBoat"
-  L12_2 = {}
-  L12_2.label = "striano clayshot"
-  L12_2.type = "button"
-  L12_2.callback = "nuicb_cmd"
-  L13_2 = {}
-  L13_2.cmd = "clay"
-  L12_2.payload = L13_2
-  L13_2 = {}
-  L13_2.label = "striano race creator"
-  L13_2.type = "button"
-  L13_2.callback = "nuicb_cmd"
-  L14_2 = {}
-  L14_2.cmd = "race"
-  L13_2.payload = L14_2
-  L14_2 = {}
-  L14_2.label = "striano dark mode"
-  L14_2.type = "button"
-  L14_2.callback = "nuicb_cmd"
-  L15_2 = {}
-  L15_2.cmd = "localFog"
-  L14_2.payload = L15_2
-  L3_2[1] = L4_2
-  L3_2[2] = L5_2
-  L3_2[3] = L6_2
-  L3_2[4] = L7_2
-  L3_2[5] = L8_2
-  L3_2[6] = L9_2
-  L3_2[7] = L10_2
-  L3_2[8] = L11_2
-  L3_2[9] = L12_2
-  L3_2[10] = L13_2
-  L3_2[11] = L14_2
-  L2_2.children = L3_2
-  L1_2[1] = L2_2
-  L0_2.groups = L1_2
-  return L0_2
-end
-L20_1.build = L21_1
-L18_1(L19_1, L20_1)
-L18_1 = RegisterNUICallback
-L19_1 = "spawnBoat"
-function L20_1(A0_2, A1_2)
-  local L2_2, L3_2
-  L2_2 = exports
-  L2_2 = L2_2.striano_boat
-  L3_2 = L2_2
-  L2_2 = L2_2.spawnBoat
-  L2_2(L3_2)
-  L2_2 = closemenu
-  L2_2()
-  L2_2 = A1_2
-  L3_2 = "ok"
-  L2_2(L3_2)
-end
-L18_1(L19_1, L20_1)
-L18_1 = RegisterNUICallback
-L19_1 = "nuicd_flyanimal"
-function L20_1(A0_2, A1_2)
-  local L2_2, L3_2
-  L2_2 = CreateThread
-  function L3_2()
-    local L0_3, L1_3
-    L0_3 = IsPedHuman
-    L1_3 = ped
-    L0_3 = L0_3(L1_3)
-    if L0_3 then
-      L0_3 = ExecuteCommand
-      L1_3 = "trasformazione"
-      L0_3(L1_3)
-      L0_3 = Wait
-      L1_3 = 3500
-      L0_3(L1_3)
-      L0_3 = IsPedHuman
-      L1_3 = ped
-      L0_3 = L0_3(L1_3)
-      if not L0_3 then
-        L0_3 = ExecuteCommand
-        L1_3 = "letterMission"
-        L0_3(L1_3)
-      end
+    cb({ ok = true })
+end)
+
+RegisterNUICallback("striano_admin:cb:thermalVision", function(data, cb)
+    if not nightVisionActive then
+        local val = data and data.value == true
+        SetSeethrough(val)
+        thermalVisionActive = val
+    end
+    cb({ ok = true })
+end)
+
+RegisterNUICallback("hideHUD", function(data, cb)
+    if not thermalVisionActive then   -- reutilizamos a flag apenas para toggle
+        ExecuteCommand("hudoff")
+        ExecuteCommand("hudoff2")
     else
-      L0_3 = TriggerEvent
-      L1_3 = "trasformazioneAUmano"
-      L0_3(L1_3)
+        ExecuteCommand("hudon")
+        ExecuteCommand("hudon2")
     end
-  end
-  L2_2(L3_2)
-  L2_2 = A1_2
-  L3_2 = "ok"
-  L2_2(L3_2)
-end
-L18_1(L19_1, L20_1)
-L18_1 = RegisterAdminCategory
-L19_1 = "credtis"
-L20_1 = {}
-L20_1.order = 6
-function L21_1()
-  local L0_2, L1_2, L2_2, L3_2, L4_2, L5_2
-  L0_2 = {}
-  L0_2.id = "credits"
-  L0_2.label = "CREDITS"
-  L0_2.sub = ""
-  L0_2.enabled = true
-  L1_2 = {}
-  L2_2 = {}
-  L2_2.id = "display_options"
-  L2_2.type = "group"
-  L2_2.label = "strianodev.com"
-  L3_2 = {}
-  L4_2 = {}
-  L4_2.label = "You like this menu?"
-  L4_2.type = "infoButton"
-  L4_2.buttonLabel = "Read more"
-  L4_2.infoTitle = "Resource name: striano_admin"
-  L4_2.infoHtml = "\t\t\t\t\t\t\t<p>This is a menu i use to manage my project, and if you want you can manage also yours! \n\t\t\t\t\t\t\t<br>\n\t\t\t\t\t\t\tSimple, minimal, powerful. Get your copy on <b>strianodev.com</b>.</p>\n\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t<img src=\"https://cdn.discordapp.com/attachments/923152068888379414/1511055700334219354/image.png?ex=6a1fb889&is=6a1e6709&hm=48145e46e7ba5b2b711e7d8480effc42f9a550ef6d62a81e0c81cde2053db9f3&\" />\n\t\t\t\t\t\t\t\n\t\t\t\t\t\t\thay...\n\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t<br>\n\t\t\t\t\t\t\t<br>\n\t\t\t\t\t\t\t<center>\n\t\t\t\t\t\t\t<b>\226\128\162 love u all \226\128\162</b><br>\n\t\t\t\t\t\t\t<video autoplay loop muted playsinline>\n\t\t\t\t\t\t\t  <source src=\"https://images-ext-1.discordapp.net/external/qAgaDGZo4SrGapIw85hMe3EW3eqQ_GECB85c6rM5XzM/https/media.tenor.com/o9JBugd0XdwAAAPo/seal-smile.mp4\" type=\"video/mp4\">\n\t\t\t\t\t\t\t</video>\n\t\t\t\t\t\t\t</center>\n\t\t\t\t\t\t\t"
-  L5_2 = {}
-  L5_2.label = "R u l e s"
-  L5_2.type = "infoButton"
-  L5_2.buttonLabel = "Read"
-  L5_2.infoTitle = "SOD: Rules (22/02/26)"
-  L5_2.infoHtml = "\t\t\t\t\t\t\t<center>\n\t\t\t\t\t\t\t<p>\n\t\t\t\t\t\t\t\tPlease follow the rules to not be banned from the project.\n\t\t\t\t\t\t\t\t<br>\n\t\t\t\t\t\t\t\tRules are <b>WIP</b>\n\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t<br>\n\t\t\t\t\t\t\t\t<br>\n\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t<b>\n\t\t\t\t\t\t\t\t\t\226\128\162 No cheats<br>\n\t\t\t\t\t\t\t\t\t\226\128\162 No porco dio<br>\n\t\t\t\t\t\t\t\t\t\226\128\162 No porca madonna<br>\n\t\t\t\t\t\t\t\t</b>\n\t\t\t\t\t\t\t</p>\n\t\t\t\t\t\t\t</center>\n\t\t\t\t\t\t\t"
-  L3_2[1] = L4_2
-  L3_2[2] = L5_2
-  L2_2.children = L3_2
-  L1_2[1] = L2_2
-  L0_2.groups = L1_2
-  return L0_2
-end
-L20_1.build = L21_1
-L18_1(L19_1, L20_1)
-L18_1 = RegisterNUICallback
-L19_1 = "nuicb_cmd"
-function L20_1(A0_2, A1_2)
-  local L2_2, L3_2, L4_2, L5_2, L6_2
-  L2_2 = A0_2 or nil
-  if A0_2 then
-    L2_2 = A0_2.cmd
-  end
-  L3_2 = type
-  L4_2 = L2_2
-  L3_2 = L3_2(L4_2)
-  if "string" == L3_2 and "" ~= L2_2 then
-    L3_2 = closemenu
-    L3_2()
-    L3_2 = ExecuteCommand
-    L4_2 = L2_2
-    L3_2(L4_2)
-  else
-    L3_2 = print
-    L4_2 = "^1[STRIANO ADMIN]^0 nuicb_cmd missing cmd. data="
-    L5_2 = json
-    L5_2 = L5_2.encode
-    L6_2 = A0_2
-    L5_2 = L5_2(L6_2)
-    L4_2 = L4_2 .. L5_2
-    L3_2(L4_2)
-  end
-  L3_2 = A1_2
-  L4_2 = "ok"
-  L3_2(L4_2)
-end
-L18_1(L19_1, L20_1)
-L18_1 = RegisterNUICallback
-L19_1 = "nuicb_combat"
-function L20_1(A0_2, A1_2)
-  local L2_2, L3_2
-  L2_2 = ExecuteCommand
-  L3_2 = "combatset"
-  L2_2(L3_2)
-  L2_2 = closemenu
-  L2_2()
-  L2_2 = A1_2
-  L3_2 = {}
-  L3_2.ok = true
-  L2_2(L3_2)
-end
-L18_1(L19_1, L20_1)
-L18_1 = RegisterNUICallback
-L19_1 = "striano_admin:cb:noop"
-function L20_1(A0_2, A1_2)
-  local L2_2, L3_2
-  L2_2 = A1_2
-  L3_2 = {}
-  L3_2.ok = true
-  L2_2(L3_2)
-end
-L18_1(L19_1, L20_1)
-L18_1 = RegisterNUICallback
-L19_1 = "striano_admin:cb:pl_heal"
-function L20_1(A0_2, A1_2)
-  local L2_2, L3_2, L4_2, L5_2
-  L2_2 = tonumber
-  L3_2 = A0_2 or L3_2
-  if A0_2 then
-    L3_2 = A0_2.id
-  end
-  L2_2 = L2_2(L3_2)
-  if not L2_2 then
-    L2_2 = 0
-  end
-  if 0 == L2_2 then
-    return
-  end
-  L3_2 = ExecuteCommand
-  L4_2 = "heal "
-  L5_2 = L2_2
-  L4_2 = L4_2 .. L5_2
-  L3_2(L4_2)
-  L3_2 = A1_2
-  L4_2 = {}
-  L4_2.ok = true
-  L3_2(L4_2)
-end
-L18_1(L19_1, L20_1)
-L18_1 = RegisterNUICallback
-L19_1 = "striano_admin:cb:pl_setped"
-function L20_1(A0_2, A1_2)
-  local L2_2, L3_2, L4_2, L5_2, L6_2, L7_2
-  L2_2 = tonumber
-  L3_2 = A0_2 or L3_2
-  if A0_2 then
-    L3_2 = A0_2.id
-  end
-  L2_2 = L2_2(L3_2)
-  if not L2_2 then
-    L2_2 = 0
-  end
-  L3_2 = OpenInput
-  L4_2 = "Inset ped model"
-  L3_2 = L3_2(L4_2)
-  if not L3_2 or "" == L3_2 then
-    L4_2 = A1_2
-    L5_2 = {}
-    L5_2.ok = true
-    L4_2(L5_2)
-    return
-  end
-  if 0 == L2_2 then
-    return
-  end
-  L4_2 = TriggerServerEvent
-  L5_2 = "myskinped:applyPed"
-  L6_2 = L3_2
-  L7_2 = L2_2
-  L4_2(L5_2, L6_2, L7_2)
-  L4_2 = A1_2
-  L5_2 = {}
-  L5_2.ok = true
-  L4_2(L5_2)
-end
-L18_1(L19_1, L20_1)
-L18_1 = RegisterNUICallback
-L19_1 = "striano_admin:cb:pl_resetped"
-function L20_1(A0_2, A1_2)
-  local L2_2, L3_2, L4_2, L5_2
-  L2_2 = tonumber
-  L3_2 = A0_2 or L3_2
-  if A0_2 then
-    L3_2 = A0_2.id
-  end
-  L2_2 = L2_2(L3_2)
-  if not L2_2 then
-    L2_2 = 0
-  end
-  if 0 == L2_2 then
-    return
-  end
-  L3_2 = TriggerServerEvent
-  L4_2 = "myskinped:resetPed"
-  L5_2 = L2_2
-  L3_2(L4_2, L5_2)
-  L3_2 = A1_2
-  L4_2 = {}
-  L4_2.ok = true
-  L3_2(L4_2)
-end
-L18_1(L19_1, L20_1)
-L18_1 = RegisterNUICallback
-L19_1 = "striano_admin:cb:pl_clearInv"
-function L20_1(A0_2, A1_2)
-  local L2_2, L3_2, L4_2, L5_2, L6_2
-  L2_2 = tonumber
-  L3_2 = A0_2 or L3_2
-  if A0_2 then
-    L3_2 = A0_2.id
-  end
-  L2_2 = L2_2(L3_2)
-  if not L2_2 then
-    L2_2 = 0
-  end
-  L3_2 = OpenInput
-  L4_2 = "Clear inventory? type 'yes'"
-  L3_2 = L3_2(L4_2)
-  if "yes" == L3_2 or "YES" == L3_2 then
-    L4_2 = TriggerServerEvent
-    L5_2 = "inv3d:clearInventory"
-    L6_2 = L2_2
-    L4_2(L5_2, L6_2)
-    L4_2 = closemenu
-    L4_2()
-  end
-  L4_2 = A1_2
-  L5_2 = {}
-  L5_2.ok = true
-  L4_2(L5_2)
-end
-L18_1(L19_1, L20_1)
-L18_1 = RegisterNUICallback
-L19_1 = "striano_admin:cb:pl_clearWeaponSlot"
-function L20_1(A0_2, A1_2)
-  local L2_2, L3_2, L4_2, L5_2, L6_2
-  L2_2 = tonumber
-  L3_2 = A0_2 or L3_2
-  if A0_2 then
-    L3_2 = A0_2.id
-  end
-  L2_2 = L2_2(L3_2)
-  if not L2_2 then
-    L2_2 = 0
-  end
-  L3_2 = OpenInput
-  L4_2 = "Clear weapon slots? type 'yes'"
-  L3_2 = L3_2(L4_2)
-  if "yes" == L3_2 or "YES" == L3_2 then
-    L4_2 = TriggerServerEvent
-    L5_2 = "inv3d:clearWeaponSlot"
-    L6_2 = L2_2
-    L4_2(L5_2, L6_2)
-    L4_2 = closemenu
-    L4_2()
-  end
-  L4_2 = A1_2
-  L5_2 = {}
-  L5_2.ok = true
-  L4_2(L5_2)
-end
-L18_1(L19_1, L20_1)
-L18_1 = RegisterNUICallback
-L19_1 = "striano_admin:cb:pl_manageSpells"
-function L20_1(A0_2, A1_2)
-  local L2_2, L3_2, L4_2, L5_2
-  L2_2 = tonumber
-  L3_2 = A0_2 or L3_2
-  if A0_2 then
-    L3_2 = A0_2.id
-  end
-  L2_2 = L2_2(L3_2)
-  if not L2_2 then
-    L2_2 = 0
-  end
-  L3_2 = ExecuteCommand
-  L4_2 = "editspells "
-  L5_2 = L2_2
-  L4_2 = L4_2 .. L5_2
-  L3_2(L4_2)
-  L3_2 = closemenu
-  L3_2()
-  L3_2 = A1_2
-  L4_2 = {}
-  L4_2.ok = true
-  L3_2(L4_2)
-end
-L18_1(L19_1, L20_1)
-L18_1 = RegisterNUICallback
-L19_1 = "striano_admin:cb:pl_clearCombatSword"
-function L20_1(A0_2, A1_2)
-  local L2_2, L3_2, L4_2, L5_2, L6_2, L7_2
-  L2_2 = tonumber
-  L3_2 = A0_2 or L3_2
-  if A0_2 then
-    L3_2 = A0_2.id
-  end
-  L2_2 = L2_2(L3_2)
-  if not L2_2 then
-    L2_2 = 0
-  end
-  L3_2 = OpenInput
-  L4_2 = "Clear combat weapon? type 'yes'"
-  L3_2 = L3_2(L4_2)
-  if "yes" == L3_2 or "YES" == L3_2 then
-    L4_2 = TriggerServerEvent
-    L5_2 = "combat:setSword"
-    L6_2 = L2_2
-    L7_2 = 0
-    L4_2(L5_2, L6_2, L7_2)
-    L4_2 = closemenu
-    L4_2()
-  end
-  L4_2 = A1_2
-  L5_2 = {}
-  L5_2.ok = true
-  L4_2(L5_2)
-end
-L18_1(L19_1, L20_1)
-L18_1 = RegisterNUICallback
-L19_1 = "striano_admin:cb:pl_maxHP"
-function L20_1(A0_2, A1_2)
-  local L2_2, L3_2, L4_2, L5_2, L6_2, L7_2, L8_2
-  L2_2 = tonumber
-  L3_2 = A0_2 or L3_2
-  if A0_2 then
-    L3_2 = A0_2.id
-  end
-  L2_2 = L2_2(L3_2)
-  if not L2_2 then
-    L2_2 = 0
-  end
-  L3_2 = OpenInput
-  L4_2 = "Insert Max HP"
-  L3_2 = L3_2(L4_2)
-  L4_2 = TriggerServerEvent
-  L5_2 = "setMaxHP"
-  L6_2 = L2_2
-  L7_2 = tonumber
-  L8_2 = L3_2
-  L7_2, L8_2 = L7_2(L8_2)
-  L4_2(L5_2, L6_2, L7_2, L8_2)
-  L4_2 = closemenu
-  L4_2()
-  L4_2 = A1_2
-  L5_2 = {}
-  L5_2.ok = true
-  L4_2(L5_2)
-end
-L18_1(L19_1, L20_1)
-L18_1 = RegisterNetEvent
-L19_1 = "setMaxHP"
-L18_1(L19_1)
-L18_1 = AddEventHandler
-L19_1 = "setMaxHP"
-function L20_1(A0_2)
-  local L1_2, L2_2, L3_2, L4_2
-  if A0_2 > 0 then
-    L1_2 = 200
-    if A0_2 >= L1_2 then
-      L1_2 = SetPedMaxHealth
-      L2_2 = PlayerPedId
-      L2_2 = L2_2()
-      L3_2 = A0_2
-      L1_2(L2_2, L3_2)
-      L1_2 = exports
-      L1_2 = L1_2.striano_missions
-      L2_2 = L1_2
-      L1_2 = L1_2.updateMaxHealth
-      L3_2 = A0_2
-      L1_2(L2_2, L3_2)
-      L1_2 = exports
-      L1_2 = L1_2.striano_combat
-      L2_2 = L1_2
-      L1_2 = L1_2.testo3d
-      L3_2 = "Max HP set: "
-      L4_2 = A0_2
-      L3_2 = L3_2 .. L4_2
-      L1_2(L2_2, L3_2)
-      L1_2 = TriggerServerEvent
-      L2_2 = "esx_ambulancejjj:heal"
-      L3_2 = GetPlayerServerId
-      L4_2 = PlayerId
-      L4_2 = L4_2()
-      L3_2, L4_2 = L3_2(L4_2)
-      L1_2(L2_2, L3_2, L4_2)
+    thermalVisionActive = not thermalVisionActive
+    cb({ ok = true })
+end)
+
+RegisterNUICallback("striano_admin:cb:noclip", function(data, cb)
+    ExecuteCommand("np")
+    TriggerEvent("striano_admin:cl:close")
+    cb({ ok = true })
+end)
+
+RegisterNUICallback("striano_admin:cb:superJump", function(data, cb)
+    exports.striano_combat:togglesuperjump()
+    cb({ ok = true })
+end)
+
+-- ------------------------------------------------------------
+-- Callbacks NUI: configurações de jogo
+-- ------------------------------------------------------------
+
+RegisterNUICallback("openSettings", function(data, cb)
+    closemenu()
+    ActivateFrontendMenu(GetHashKey("FE_MENU_VERSION_LANDING_MENU"), 0, -1)
+    cb({ ok = true })
+end)
+
+RegisterNUICallback("FixVehicle", function(data, cb)
+    ExecuteCommand("fixVeh")
+    cb({ ok = true })
+end)
+
+RegisterNUICallback("editVestiti", function(data, cb)
+    closemenu()
+    TriggerEvent("editVestiti")
+    cb({ ok = true })
+end)
+
+-- ------------------------------------------------------------
+-- Callbacks NUI: aparência do jogador
+-- ------------------------------------------------------------
+
+RegisterNUICallback("applyPed", function(data, cb)
+    local model = OpenInput("Insert Ped Model Name (example: a_c_pig)")
+    if model == "" then
+        cb({ ok = false, error = "Missing model" })
+        return
     end
-  end
-end
-L18_1(L19_1, L20_1)
-L18_1 = RegisterNUICallback
-L19_1 = "striano_admin:cb:pl_maxMana"
-function L20_1(A0_2, A1_2)
-  local L2_2, L3_2, L4_2, L5_2, L6_2, L7_2, L8_2
-  L2_2 = tonumber
-  L3_2 = A0_2 or L3_2
-  if A0_2 then
-    L3_2 = A0_2.id
-  end
-  L2_2 = L2_2(L3_2)
-  if not L2_2 then
-    L2_2 = 0
-  end
-  L3_2 = OpenInput
-  L4_2 = "Insert Max Mana"
-  L3_2 = L3_2(L4_2)
-  L4_2 = TriggerServerEvent
-  L5_2 = "setMaxMana"
-  L6_2 = L2_2
-  L7_2 = tonumber
-  L8_2 = L3_2
-  L7_2, L8_2 = L7_2(L8_2)
-  L4_2(L5_2, L6_2, L7_2, L8_2)
-  L4_2 = closemenu
-  L4_2()
-  L4_2 = A1_2
-  L5_2 = {}
-  L5_2.ok = true
-  L4_2(L5_2)
-end
-L18_1(L19_1, L20_1)
-L18_1 = RegisterNetEvent
-L19_1 = "setMaxMana"
-L18_1(L19_1)
-L18_1 = AddEventHandler
-L19_1 = "setMaxMana"
-function L20_1(A0_2)
-  local L1_2, L2_2, L3_2, L4_2
-  L1_2 = TriggerEvent
-  L2_2 = "striano_missions:updateMaxMana"
-  L3_2 = A0_2
-  L1_2(L2_2, L3_2)
-  L1_2 = exports
-  L1_2 = L1_2.striano_combat
-  L2_2 = L1_2
-  L1_2 = L1_2.testo3d
-  L3_2 = "Max Mana set: "
-  L4_2 = A0_2
-  L3_2 = L3_2 .. L4_2
-  L1_2(L2_2, L3_2)
-end
-L18_1(L19_1, L20_1)
-L18_1 = RegisterNUICallback
-L19_1 = "striano_admin:cb:pl_revive"
-function L20_1(A0_2, A1_2)
-  local L2_2, L3_2, L4_2, L5_2
-  L2_2 = tonumber
-  L3_2 = A0_2 or L3_2
-  if A0_2 then
-    L3_2 = A0_2.id
-  end
-  L2_2 = L2_2(L3_2)
-  if not L2_2 then
-    L2_2 = 0
-  end
-  if 0 == L2_2 then
-    return
-  end
-  L3_2 = ExecuteCommand
-  L4_2 = "revive "
-  L5_2 = L2_2
-  L4_2 = L4_2 .. L5_2
-  L3_2(L4_2)
-  L3_2 = A1_2
-  L4_2 = {}
-  L4_2.ok = true
-  L3_2(L4_2)
-end
-L18_1(L19_1, L20_1)
-L18_1 = RegisterNUICallback
-L19_1 = "striano_admin:cb:pl_clean"
-function L20_1(A0_2, A1_2)
-  local L2_2, L3_2, L4_2, L5_2
-  L2_2 = tonumber
-  L3_2 = A0_2 or L3_2
-  if A0_2 then
-    L3_2 = A0_2.id
-  end
-  L2_2 = L2_2(L3_2)
-  if not L2_2 then
-    L2_2 = 0
-  end
-  if 0 == L2_2 then
-    return
-  end
-  L3_2 = ExecuteCommand
-  L4_2 = "resetferite "
-  L5_2 = L2_2
-  L4_2 = L4_2 .. L5_2
-  L3_2(L4_2)
-  L3_2 = ExecuteCommand
-  L4_2 = "resetsporco "
-  L5_2 = L2_2
-  L4_2 = L4_2 .. L5_2
-  L3_2(L4_2)
-  L3_2 = A1_2
-  L4_2 = {}
-  L4_2.ok = true
-  L3_2(L4_2)
-end
-L18_1(L19_1, L20_1)
-L18_1 = RegisterNUICallback
-L19_1 = "striano_admin:cb:pl_goto"
-function L20_1(A0_2, A1_2)
-  local L2_2, L3_2, L4_2, L5_2
-  L2_2 = tonumber
-  L3_2 = A0_2 or L3_2
-  if A0_2 then
-    L3_2 = A0_2.id
-  end
-  L2_2 = L2_2(L3_2)
-  if not L2_2 then
-    L2_2 = 0
-  end
-  if 0 ~= L2_2 then
-    L3_2 = ExecuteCommand
-    L4_2 = "tpp2 "
-    L5_2 = L2_2
-    L4_2 = L4_2 .. L5_2
-    L3_2(L4_2)
-    L3_2 = closemenu
-    L3_2()
-  end
-  L3_2 = A1_2
-  L4_2 = {}
-  L4_2.ok = true
-  L3_2(L4_2)
-end
-L18_1(L19_1, L20_1)
-L18_1 = RegisterNUICallback
-L19_1 = "striano_admin:cb:pl_bring"
-function L20_1(A0_2, A1_2)
-  local L2_2, L3_2, L4_2, L5_2
-  L2_2 = tonumber
-  L3_2 = A0_2 or L3_2
-  if A0_2 then
-    L3_2 = A0_2.id
-  end
-  L2_2 = L2_2(L3_2)
-  if not L2_2 then
-    L2_2 = 0
-  end
-  if 0 ~= L2_2 then
-    L3_2 = ExecuteCommand
-    L4_2 = "tpp3 "
-    L5_2 = L2_2
-    L4_2 = L4_2 .. L5_2
-    L3_2(L4_2)
-    L3_2 = closemenu
-    L3_2()
-  end
-  L3_2 = A1_2
-  L4_2 = {}
-  L4_2.ok = true
-  L3_2(L4_2)
-end
-L18_1(L19_1, L20_1)
-L18_1 = RegisterNUICallback
-L19_1 = "striano_admin:cb:pl_return"
-function L20_1(A0_2, A1_2)
-  local L2_2, L3_2, L4_2, L5_2
-  L2_2 = tonumber
-  L3_2 = A0_2 or L3_2
-  if A0_2 then
-    L3_2 = A0_2.id
-  end
-  L2_2 = L2_2(L3_2)
-  if not L2_2 then
-    L2_2 = 0
-  end
-  if 0 ~= L2_2 then
-    L3_2 = ExecuteCommand
-    L4_2 = "getback "
-    L5_2 = L2_2
-    L4_2 = L4_2 .. L5_2
-    L3_2(L4_2)
-    L3_2 = closemenu
-    L3_2()
-  end
-  L3_2 = A1_2
-  L4_2 = {}
-  L4_2.ok = true
-  L3_2(L4_2)
-end
-L18_1(L19_1, L20_1)
-L18_1 = RegisterNUICallback
-L19_1 = "striano_admin:cb:pl_giveItem"
-function L20_1(A0_2, A1_2)
-  local L2_2, L3_2, L4_2, L5_2, L6_2, L7_2, L8_2, L9_2, L10_2
-  L2_2 = tonumber
-  L3_2 = A0_2 or L3_2
-  if A0_2 then
-    L3_2 = A0_2.id
-  end
-  L2_2 = L2_2(L3_2)
-  if not L2_2 then
-    L2_2 = 0
-  end
-  if 0 == L2_2 then
-    L3_2 = A1_2
-    L4_2 = {}
-    L4_2.ok = false
-    L3_2(L4_2)
-    return
-  end
-  L3_2 = OpenInput
-  L4_2 = "Item name"
-  L3_2 = L3_2(L4_2)
-  if not L3_2 or "" == L3_2 then
-    L4_2 = A1_2
-    L5_2 = {}
-    L5_2.ok = true
-    L4_2(L5_2)
-    return
-  end
-  L4_2 = tonumber
-  L5_2 = OpenInput
-  L6_2 = "Insert amount"
-  L5_2, L6_2, L7_2, L8_2, L9_2, L10_2 = L5_2(L6_2)
-  L4_2 = L4_2(L5_2, L6_2, L7_2, L8_2, L9_2, L10_2)
-  if not L4_2 or L4_2 <= 0 then
-    L5_2 = A1_2
-    L6_2 = {}
-    L6_2.ok = true
-    L5_2(L6_2)
-    return
-  end
-  L5_2 = TriggerEvent
-  L6_2 = "inv3d:serverGiveItem"
-  L7_2 = L2_2
-  L8_2 = "player"
-  L9_2 = L3_2
-  L10_2 = L4_2
-  L5_2(L6_2, L7_2, L8_2, L9_2, L10_2)
-  L5_2 = A1_2
-  L6_2 = {}
-  L6_2.ok = true
-  L5_2(L6_2)
-end
-L18_1(L19_1, L20_1)
-L18_1 = RegisterNUICallback
-L19_1 = "striano_admin:cb:pl_givekey"
-function L20_1(A0_2, A1_2)
-  local L2_2, L3_2, L4_2, L5_2, L6_2, L7_2
-  L2_2 = tonumber
-  L3_2 = A0_2 or L3_2
-  if A0_2 then
-    L3_2 = A0_2.id
-  end
-  L2_2 = L2_2(L3_2)
-  if not L2_2 then
-    L2_2 = 0
-  end
-  if 0 == L2_2 then
-    L3_2 = A1_2
-    L4_2 = {}
-    L4_2.ok = false
-    L3_2(L4_2)
-    return
-  end
-  L3_2 = OpenInput
-  L4_2 = "New key name"
-  L3_2 = L3_2(L4_2)
-  if not L3_2 or "" == L3_2 then
-    L4_2 = A1_2
-    L5_2 = {}
-    L5_2.ok = true
-    L4_2(L5_2)
-    return
-  end
-  L4_2 = TriggerServerEvent
-  L5_2 = "striano_keys:sv:adminGiveKey"
-  L6_2 = L2_2
-  L7_2 = L3_2
-  L4_2(L5_2, L6_2, L7_2)
-  L4_2 = A1_2
-  L5_2 = {}
-  L5_2.ok = true
-  L4_2(L5_2)
-end
-L18_1(L19_1, L20_1)
-L18_1 = RegisterNUICallback
-L19_1 = "striano_admin:cb:pl_givekeyTemp"
-function L20_1(A0_2, A1_2)
-  local L2_2, L3_2, L4_2, L5_2, L6_2, L7_2
-  L2_2 = tonumber
-  L3_2 = A0_2 or L3_2
-  if A0_2 then
-    L3_2 = A0_2.id
-  end
-  L2_2 = L2_2(L3_2)
-  if not L2_2 then
-    L2_2 = 0
-  end
-  if 0 == L2_2 then
-    L3_2 = A1_2
-    L4_2 = {}
-    L4_2.ok = false
-    L3_2(L4_2)
-    return
-  end
-  L3_2 = OpenInput
-  L4_2 = "New temp key name"
-  L3_2 = L3_2(L4_2)
-  if not L3_2 or "" == L3_2 then
-    L4_2 = A1_2
-    L5_2 = {}
-    L5_2.ok = true
-    L4_2(L5_2)
-    return
-  end
-  L4_2 = TriggerServerEvent
-  L5_2 = "striano_keys:sv:adminGiveTempKey"
-  L6_2 = L2_2
-  L7_2 = L3_2
-  L4_2(L5_2, L6_2, L7_2)
-  L4_2 = A1_2
-  L5_2 = {}
-  L5_2.ok = true
-  L4_2(L5_2)
-end
-L18_1(L19_1, L20_1)
-L18_1 = RegisterNUICallback
-L19_1 = "striano_admin:cb:pl_delkey"
-function L20_1(A0_2, A1_2)
-  local L2_2, L3_2, L4_2, L5_2, L6_2
-  L2_2 = tonumber
-  L3_2 = A0_2 or L3_2
-  if A0_2 then
-    L3_2 = A0_2.id
-  end
-  L2_2 = L2_2(L3_2)
-  if not L2_2 then
-    L2_2 = 0
-  end
-  if 0 == L2_2 then
-    L3_2 = A1_2
-    L4_2 = {}
-    L4_2.ok = false
-    L3_2(L4_2)
-    return
-  end
-  L3_2 = OpenInput
-  L4_2 = "Key name to destroy"
-  L3_2 = L3_2(L4_2)
-  if not L3_2 or "" == L3_2 then
-    L4_2 = A1_2
-    L5_2 = {}
-    L5_2.ok = true
-    L4_2(L5_2)
-    return
-  end
-  L4_2 = TriggerServerEvent
-  L5_2 = "striano_keys:sv:adminDestroyKey"
-  L6_2 = L3_2
-  L4_2(L5_2, L6_2)
-  L4_2 = A1_2
-  L5_2 = {}
-  L5_2.ok = true
-  L4_2(L5_2)
-end
-L18_1(L19_1, L20_1)
-L18_1 = RegisterNUICallback
-L19_1 = "striano_admin:cb:assignVehByName"
-function L20_1(A0_2, A1_2)
-  local L2_2, L3_2, L4_2, L5_2, L6_2, L7_2
-  L2_2 = tonumber
-  L3_2 = A0_2 or L3_2
-  if A0_2 then
-    L3_2 = A0_2.id
-  end
-  L2_2 = L2_2(L3_2)
-  if not L2_2 then
-    L2_2 = 0
-  end
-  if 0 == L2_2 then
-    L3_2 = A1_2
-    L4_2 = {}
-    L4_2.ok = false
-    L3_2(L4_2)
-    return
-  end
-  L3_2 = OpenInput
-  L4_2 = "Vehicle model (ex: sanchez)"
-  L3_2 = L3_2(L4_2)
-  if not L3_2 or "" == L3_2 then
-    L4_2 = A1_2
-    L5_2 = {}
-    L5_2.ok = true
-    L4_2(L5_2)
-    return
-  end
-  L4_2 = TriggerServerEvent
-  L5_2 = "sod:giveVeh"
-  L6_2 = L2_2
-  L7_2 = L3_2
-  L4_2(L5_2, L6_2, L7_2)
-  L4_2 = A1_2
-  L5_2 = {}
-  L5_2.ok = true
-  L4_2(L5_2)
-end
-L18_1(L19_1, L20_1)
-L18_1 = RegisterNUICallback
-L19_1 = "striano_admin:ui:forceClose"
-function L20_1(A0_2, A1_2)
-  local L2_2, L3_2, L4_2
-  L0_1.open = false
-  L2_2 = SetNuiFocus
-  L3_2 = false
-  L4_2 = false
-  L2_2(L3_2, L4_2)
-  L2_2 = SetNuiFocusKeepInput
-  L3_2 = false
-  L2_2(L3_2)
-  L2_2 = SendNUIMessage
-  L3_2 = {}
-  L3_2.action = "close"
-  L2_2(L3_2)
-  L2_2 = A1_2
-  L3_2 = {}
-  L3_2.ok = true
-  L2_2(L3_2)
-end
-L18_1(L19_1, L20_1)
-L18_1 = _keys_menu_cache
-if not L18_1 then
-  L18_1 = {}
-end
-L19_1 = RegisterNUICallback
-L20_1 = "striano_admin:cb:openKeysMenu"
-function L21_1(A0_2, A1_2)
-  local L2_2, L3_2, L4_2, L5_2
-  L2_2 = tonumber
-  L3_2 = A0_2.id
-  L2_2 = L2_2(L3_2)
-  if not L2_2 then
-    L3_2 = A1_2
-    L4_2 = {}
-    L4_2.ok = false
-    L3_2(L4_2)
-    return
-  end
-  L3_2 = closemenu
-  L3_2()
-  L3_2 = TriggerServerEvent
-  L4_2 = "striano_admin:sv:getPlayerKeys"
-  L5_2 = L2_2
-  L3_2(L4_2, L5_2)
-  L3_2 = A1_2
-  L4_2 = {}
-  L4_2.ok = true
-  L3_2(L4_2)
-end
-L19_1(L20_1, L21_1)
-L19_1 = RegisterNetEvent
-L20_1 = "striano_admin:cl:receivePlayerKeys"
-function L21_1(A0_2, A1_2)
-  local L2_2, L3_2
-  L2_2 = L18_1
-  L3_2 = A1_2 or L3_2
-  if not A1_2 then
-    L3_2 = {}
-  end
-  L2_2[A0_2] = L3_2
-  L2_2 = OpenKeysFastMenu
-  L3_2 = A0_2
-  L2_2(L3_2)
-end
-L19_1(L20_1, L21_1)
-function L19_1(A0_2)
-  local L1_2, L2_2, L3_2, L4_2, L5_2, L6_2, L7_2, L8_2, L9_2, L10_2, L11_2, L12_2, L13_2, L14_2, L15_2
-  L1_2 = L18_1
-  L1_2 = L1_2[A0_2]
-  if not L1_2 then
-    L1_2 = {}
-  end
-  L2_2 = #L1_2
-  if 0 == L2_2 then
-    L2_2 = exports
-    L2_2 = L2_2.striano_combat
-    L3_2 = L2_2
-    L2_2 = L2_2.testo3d
-    L4_2 = "No keys"
-    L2_2(L3_2, L4_2)
-    return
-  end
-  L2_2 = exports
-  L2_2 = L2_2.striano_fastmenu
-  L3_2 = L2_2
-  L2_2 = L2_2.clearMenu
-  L2_2(L3_2)
-  L2_2 = Wait
-  L3_2 = 75
-  L2_2(L3_2)
-  L2_2 = exports
-  L2_2 = L2_2.striano_fastmenu
-  L3_2 = L2_2
-  L2_2 = L2_2.addMenuItem
-  L4_2 = "Keys of ID %d"
-  L5_2 = L4_2
-  L4_2 = L4_2.format
-  L6_2 = A0_2
-  L4_2 = L4_2(L5_2, L6_2)
-  function L5_2()
-    local L0_3, L1_3
-  end
-  L6_2 = false
-  L2_2(L3_2, L4_2, L5_2, L6_2)
-  L2_2 = ipairs
-  L3_2 = L1_2
-  L2_2, L3_2, L4_2, L5_2 = L2_2(L3_2)
-  for L6_2, L7_2 in L2_2, L3_2, L4_2, L5_2 do
-    L8_2 = tostring
-    L9_2 = L7_2.key_id
-    if not L9_2 then
-      L9_2 = ""
+    closemenu()
+    TriggerEvent("no1-playerped:client:SetPlayerPed", model)
+    cb({ ok = true })
+end)
+
+RegisterNUICallback("resetPed", function(data, cb)
+    TriggerEvent("no1-playerped:client:ResetPlayerPed")
+    closemenu()
+    cb({ ok = true })
+end)
+
+RegisterNUICallback("editSkin", function(data, cb)
+    TriggerEvent("striano_skin:edit")
+    closemenu()
+    cb({ ok = true })
+end)
+
+RegisterNUICallback("editTattoo", function(data, cb)
+    exports.striano_fastmenu:clearMenu()
+    exports.striano_fastmenu:addMenuItem("Editor Tattoo",    function() TriggerEvent("PersonalizzaTattoo") end, true)
+    exports.striano_fastmenu:addMenuItem("Your Tattoo List", function() ExecuteCommand("mytattoo")         end, true)
+    exports.striano_fastmenu:openMenu()
+    closemenu()
+    cb({ ok = true })
+end)
+
+RegisterNUICallback("striano_admin:cb:cleanPlayer", function(data, cb)
+    closemenu()
+    local ped = PlayerPedId()
+    ClearPedBloodDamage(ped)
+    ClearPedWetness(ped)
+    ClearPedEnvDirt(ped)
+    ResetPedVisibleDamage(ped)
+    TriggerEvent("xnTattoos:resetferite")
+    TriggerEvent("xnTattoos:resetsporco")
+    ExecuteCommand("shakeoff")
+    cb({ ok = true })
+end)
+
+RegisterNUICallback("striano_admin:cb:revive", function(data, cb)
+    TriggerEvent("esx_ambulancejjj:revive")
+    closemenu()
+    cb({ ok = true })
+end)
+
+RegisterNUICallback("striano_admin:cb:healRP", function(data, cb)
+    local id = resolveTargetId(data)
+    TriggerServerEvent("esx_ambulancejjj:heal", id)
+    cb({ ok = true })
+end)
+
+RegisterNUICallback("striano_admin:cb:healSelf", function(data, cb)
+    local id = resolveTargetId(data)
+    TriggerServerEvent("esx_ambulancejjj:healAdmin", id)
+    cb({ ok = true })
+end)
+
+-- ------------------------------------------------------------
+-- Callbacks NUI: veículos
+-- ------------------------------------------------------------
+
+RegisterNUICallback("vehicleMaxed", function(data, cb)
+    local ped = PlayerPedId()
+    local veh = GetVehiclePedIsIn(ped, false)
+    if veh == 0 then return end
+
+    closemenu()
+    SetVehicleModKit(veh, 0)
+    for _, modType in ipairs({ 11, 12, 13, 15, 16 }) do
+        SetVehicleMod(veh, modType, GetNumVehicleMods(veh, modType) - 1, false)
     end
-    L8_2 = L8_2(L9_2)
-    L9_2 = tostring
-    L10_2 = L7_2.label
-    if not L10_2 then
-      L10_2 = ""
+    ToggleVehicleMod(veh, 18, true)
+    exports.striano_combat:testo3d("Vehicle Maxed")
+    cb({ ok = true })
+end)
+
+RegisterNUICallback("editVeh", function(data, cb)
+    TriggerEvent("Mx :: OpenCustomCar", true)
+    cb({ ok = true })
+end)
+
+RegisterNUICallback("getVehKey", function(data, cb)
+    local veh = GetVehiclePedIsIn(PlayerPedId(), false)
+    if veh == 0 then
+        exports.striano_combat:testo3d("Not in veh.")
+        cb({ ok = true })
+        return
     end
-    L9_2 = L9_2(L10_2)
-    L10_2 = L8_2 or L10_2
-    if "" == L9_2 or not L8_2 then
-      L10_2 = L8_2
+    local plate = GetVehicleNumberPlateText(veh)
+    print("GIVE KEY PLATE RAW:", plate)
+    TriggerServerEvent("striano_keys:sv:adminGiveKey", GetPlayerServerId(PlayerId()), plate)
+    closemenu()
+    cb({ ok = true })
+end)
+
+RegisterNUICallback("enterNearest", function(data, cb)
+    closemenu()
+    SaliVeicoloVicino()
+    cb({ ok = true })
+end)
+
+-- ------------------------------------------------------------
+-- Função: entrar no veículo mais próximo
+-- ------------------------------------------------------------
+
+function SaliVeicoloVicino()
+    local player = PlayerPedId()
+    if IsPedInAnyVehicle(player) then return end
+
+    local pos  = GetEntityCoords(player)
+    local range = 5.0
+
+    local veh = GetClosestVehicle(pos.x, pos.y, pos.z, range, 0, 70)
+    if not veh or veh == 0 then
+        veh = GetClosestVehicle(pos.x, pos.y, pos.z, range, 0, 12294)
     end
-    L11_2 = exports
-    L11_2 = L11_2.striano_fastmenu
-    L12_2 = L11_2
-    L11_2 = L11_2.addMenuItem
-    L13_2 = L10_2
-    function L14_2()
-      local L0_3, L1_3
-      L0_3 = OpenSingleKeyMenu
-      L1_3 = L8_2
-      L0_3(L1_3)
+    if not veh or veh == 0 then
+        veh = VehicleInFront()
     end
-    L15_2 = false
-    L11_2(L12_2, L13_2, L14_2, L15_2)
-  end
-  L2_2 = exports
-  L2_2 = L2_2.striano_fastmenu
-  L3_2 = L2_2
-  L2_2 = L2_2.openMenu
-  L2_2(L3_2)
+    if not veh or veh == 0 then
+        -- Raycast para veículo à frente
+        local forward = GetOffsetFromEntityInWorldCoords(player, 0.0, range, 0.0)
+        local ray     = CastRayPointToPoint(pos.x, pos.y, pos.z, forward.x, forward.y, forward.z, 30, player, 0)
+        local _, _, _, _, hit = GetRaycastResult(ray)
+        veh = hit
+    end
+
+    if veh and veh ~= 0 and DoesEntityExist(veh) and IsEntityOnScreen(veh) then
+        NetworkRequestControlOfEntity(veh)
+        Wait(100)
+        SetVehicleDoorsLocked(veh, 1)
+        if exports.phar:getsubmisID() == 0 then
+            TaskWarpPedIntoVehicle(player, veh, -1)
+        end
+    end
 end
-OpenKeysFastMenu = L19_1
-L19_1 = RegisterCommand
-L20_1 = "keys"
-function L21_1()
-  local L0_2, L1_2, L2_2, L3_2
-  L0_2 = TriggerServerEvent
-  L1_2 = "striano_admin:sv:getPlayerKeys"
-  L2_2 = GetPlayerServerId
-  L3_2 = PlayerId
-  L3_2 = L3_2()
-  L2_2, L3_2 = L2_2(L3_2)
-  L0_2(L1_2, L2_2, L3_2)
+
+-- ------------------------------------------------------------
+-- Callbacks NUI: debug / coordenadas
+-- ------------------------------------------------------------
+
+RegisterNUICallback("getCTP", function(data, cb)
+    ExecuteCommand("ctp")
+    exports.striano_combat:testo3d("Coords get.")
+    closemenu()
+    cb({ ok = true })
+end)
+
+RegisterNUICallback("getCTPa", function(data, cb)
+    ExecuteCommand("ctpa")
+    exports.striano_combat:testo3d("Coords/head get.")
+    closemenu()
+    cb({ ok = true })
+end)
+
+RegisterNUICallback("menuSound", function(data, cb)
+    closemenu()
+    ExecuteCommand("am")
+    cb({ ok = true })
+end)
+
+-- ------------------------------------------------------------
+-- Callback NUI: limpar área (veículos + peds + objetos)
+-- ------------------------------------------------------------
+
+RegisterNUICallback("striano_admin:cb:clearArea", function(data, cb)
+    local pos   = GetEntityCoords(PlayerPedId())
+    local range = tonumber(OpenInput("Insert range"))
+    if type(range) == "number" then
+        ClearAreaOfVehicles(pos.x, pos.y, pos.z, range, false, false, false, false, false)
+        ClearAreaOfPeds(pos.x, pos.y, pos.z, range, false)
+        ClearAreaOfObjects(pos.x, pos.y, pos.z, range, 0)
+        TriggerEvent("esx:clearPedZona")
+        exports.striano_combat:submex("Area cleared (" .. range .. "m)")
+    end
+    cb({ ok = true })
+end)
+
+--- Evento: limpar peds em zona (local + GTA nativo)
+RegisterNetEvent("esx:clearPedZona")
+AddEventHandler("esx:clearPedZona", function(rangeArg)
+    local range = 1.0
+    if rangeArg ~= nil then
+        local n = tonumber(rangeArg)
+        if n then
+            range = n + 0.0
+            print("Delped range: " .. range)
+        end
+    end
+    if type(range) ~= "number" or range < 1.0 then
+        range = 1.0
+        print("Delped reset 1.0: " .. range)
+    end
+
+    local playerPed = PlayerPedId()
+    local playerPos = GetEntityCoords(playerPed)
+
+    for _, ped in ipairs(GetGamePool("CPed")) do
+        if DoesEntityExist(ped) and not IsPedAPlayer(ped) and ped ~= playerPed then
+            local dist = #(GetEntityCoords(ped) - playerPos)
+            if dist < range then
+                local tries = 0
+                while not NetworkHasControlOfEntity(ped) and tries < 100 do
+                    tries = tries + 1
+                    NetworkRequestControlOfEntity(ped)
+                    Wait(0)
+                end
+                NetworkRequestControlOfEntity(ped)
+                SetEntityAsMissionEntity(ped, true)
+                DeletePed(ped)
+            end
+        end
+    end
+
+    local coords = GetEntityCoords(PlayerPedId())
+    ClearAreaOfPeds(coords, range, 1)
+end)
+
+RegisterNUICallback("striano_admin:cb:clearPedArea", function(data, cb)
+    local range = tonumber(OpenInput("Insert range")) or 1.5
+    TriggerServerEvent("esx:clearPedZona", range)
+    cb({ ok = true })
+end)
+
+-- ------------------------------------------------------------
+-- Callbacks NUI: spawn de entidades
+-- ------------------------------------------------------------
+
+RegisterNUICallback("striano_admin:cb:spawnPedByName", function(data, cb)
+    local model = OpenInput("Insert model")
+    if model == nil then cb({ ok = true }) return end
+    TriggerServerEvent("creaPed", model)
+    cb({ ok = true })
+end)
+
+RegisterNUICallback("striano_admin:cb:spawnVehByName", function(data, cb)
+    local model = OpenInput("Insert model")
+    if model == nil then cb({ ok = true }) return end
+    closemenu()
+    TriggerEvent("striano_SpawnVehicle", model)
+    cb({ ok = true })
+end)
+
+RegisterNUICallback("striano_admin:cb:delveh", function(data, cb)
+    local plate = OpenInput("Insert plate")
+    if plate == nil then cb({ ok = true }) return end
+    closemenu()
+    ExecuteCommand("delveh " .. plate)
+    cb({ ok = true })
+end)
+
+RegisterNUICallback("dV", function(data, cb)
+    closemenu()
+    ExecuteCommand("dv")
+    cb({ ok = true })
+end)
+
+RegisterNUICallback("striano_admin:cb:spawnObjByName", function(data, cb)
+    local model = OpenInput("Insert model")
+    if model == nil then cb({ ok = true }) return end
+    exports.striano_editor:SpawnPreview(model)
+    closemenu()
+    cb({ ok = true })
+end)
+
+RegisterNUICallback("spawnBoat", function(data, cb)
+    exports.striano_boat:spawnBoat()
+    closemenu()
+    cb("ok")
+end)
+
+RegisterNUICallback("nuicd_flyanimal", function(data, cb)
+    CreateThread(function()
+        local ped = PlayerPedId()
+        if IsPedHuman(ped) then
+            ExecuteCommand("trasformazione")
+            Wait(3500)
+            if not IsPedHuman(PlayerPedId()) then
+                ExecuteCommand("letterMission")
+            end
+        else
+            TriggerEvent("trasformazioneAUmano")
+        end
+    end)
+    cb("ok")
+end)
+
+-- ------------------------------------------------------------
+-- Callbacks NUI: ações em jogador específico
+-- ------------------------------------------------------------
+
+RegisterNUICallback("goToSelected", function(data, cb)
+    local id = resolveTargetId(data)
+    ExecuteCommand("tpp2 " .. id)
+    closemenu()
+    cb({ ok = true })
+end)
+
+RegisterNUICallback("putBackPlayer", function(data, cb)
+    local id = resolveTargetId(data)
+    ExecuteCommand("getback " .. id)
+    closemenu()
+    cb({ ok = true })
+end)
+
+RegisterNUICallback("getPlayer", function(data, cb)
+    local id = resolveTargetId(data)
+    ExecuteCommand("tpp3 " .. id)
+    closemenu()
+    cb({ ok = true })
+end)
+
+RegisterNUICallback("striano_admin:cb:pl_heal", function(data, cb)
+    local id = tonumber(data and data.id or 0) or 0
+    if id == 0 then cb({ ok = true }) return end
+    ExecuteCommand("heal " .. id)
+    cb({ ok = true })
+end)
+
+RegisterNUICallback("striano_admin:cb:pl_revive", function(data, cb)
+    local id = tonumber(data and data.id or 0) or 0
+    if id == 0 then cb({ ok = true }) return end
+    ExecuteCommand("revive " .. id)
+    cb({ ok = true })
+end)
+
+RegisterNUICallback("striano_admin:cb:pl_clean", function(data, cb)
+    local id = tonumber(data and data.id or 0) or 0
+    if id == 0 then cb({ ok = true }) return end
+    ExecuteCommand("resetferite " .. id)
+    ExecuteCommand("resetsporco " .. id)
+    cb({ ok = true })
+end)
+
+RegisterNUICallback("striano_admin:cb:pl_goto", function(data, cb)
+    local id = tonumber(data and data.id or 0) or 0
+    if id ~= 0 then
+        ExecuteCommand("tpp2 " .. id)
+        closemenu()
+    end
+    cb({ ok = true })
+end)
+
+RegisterNUICallback("striano_admin:cb:pl_bring", function(data, cb)
+    local id = tonumber(data and data.id or 0) or 0
+    if id ~= 0 then
+        ExecuteCommand("tpp3 " .. id)
+        closemenu()
+    end
+    cb({ ok = true })
+end)
+
+RegisterNUICallback("striano_admin:cb:pl_return", function(data, cb)
+    local id = tonumber(data and data.id or 0) or 0
+    if id ~= 0 then
+        ExecuteCommand("getback " .. id)
+        closemenu()
+    end
+    cb({ ok = true })
+end)
+
+RegisterNUICallback("striano_admin:cb:pl_setped", function(data, cb)
+    local id    = tonumber(data and data.id or 0) or 0
+    local model = OpenInput("Insert ped model")
+    if not model or model == "" then cb({ ok = true }) return end
+    if id == 0 then cb({ ok = true }) return end
+    TriggerServerEvent("myskinped:applyPed", model, id)
+    cb({ ok = true })
+end)
+
+RegisterNUICallback("striano_admin:cb:pl_resetped", function(data, cb)
+    local id = tonumber(data and data.id or 0) or 0
+    if id == 0 then cb({ ok = true }) return end
+    TriggerServerEvent("myskinped:resetPed", id)
+    cb({ ok = true })
+end)
+
+RegisterNUICallback("striano_admin:cb:pl_clearInv", function(data, cb)
+    local id     = tonumber(data and data.id or 0) or 0
+    local answer = OpenInput("Clear inventory? type 'yes'")
+    if answer == "yes" or answer == "YES" then
+        TriggerServerEvent("inv3d:clearInventory", id)
+        closemenu()
+    end
+    cb({ ok = true })
+end)
+
+RegisterNUICallback("clearInv", function(data, cb)
+    local answer = OpenInput("Clear inventory? type 'yes'")
+    if answer == "yes" or answer == "YES" then
+        TriggerServerEvent("inv3d:clearInventory")
+        closemenu()
+    end
+    cb({ ok = true })
+end)
+
+RegisterNUICallback("striano_admin:cb:pl_clearWeaponSlot", function(data, cb)
+    local id     = tonumber(data and data.id or 0) or 0
+    local answer = OpenInput("Clear weapon slots? type 'yes'")
+    if answer == "yes" or answer == "YES" then
+        TriggerServerEvent("inv3d:clearWeaponSlot", id)
+        closemenu()
+    end
+    cb({ ok = true })
+end)
+
+RegisterNUICallback("striano_admin:cb:pl_manageSpells", function(data, cb)
+    local id = tonumber(data and data.id or 0) or 0
+    ExecuteCommand("editspells " .. id)
+    closemenu()
+    cb({ ok = true })
+end)
+
+RegisterNUICallback("striano_admin:cb:pl_clearCombatSword", function(data, cb)
+    local id     = tonumber(data and data.id or 0) or 0
+    local answer = OpenInput("Clear combat weapon? type 'yes'")
+    if answer == "yes" or answer == "YES" then
+        TriggerServerEvent("combat:setSword", id, 0)
+        closemenu()
+    end
+    cb({ ok = true })
+end)
+
+RegisterNUICallback("striano_admin:cb:pl_maxHP", function(data, cb)
+    local id  = tonumber(data and data.id or 0) or 0
+    local val = tonumber(OpenInput("Insert Max HP"))
+    TriggerServerEvent("setMaxHP", id, val)
+    closemenu()
+    cb({ ok = true })
+end)
+
+RegisterNUICallback("striano_admin:cb:pl_maxMana", function(data, cb)
+    local id  = tonumber(data and data.id or 0) or 0
+    local val = tonumber(OpenInput("Insert Max Mana"))
+    TriggerServerEvent("setMaxMana", id, val)
+    closemenu()
+    cb({ ok = true })
+end)
+
+-- Receber e aplicar Max HP localmente
+RegisterNetEvent("setMaxHP")
+AddEventHandler("setMaxHP", function(newMax)
+    if newMax > 0 and newMax >= 200 then
+        SetPedMaxHealth(PlayerPedId(), newMax)
+        exports.striano_missions:updateMaxHealth(newMax)
+        exports.striano_combat:testo3d("Max HP set: " .. newMax)
+        TriggerServerEvent("esx_ambulancejjj:heal", GetPlayerServerId(PlayerId()))
+    end
+end)
+
+-- Receber e aplicar Max Mana localmente
+RegisterNetEvent("setMaxMana")
+AddEventHandler("setMaxMana", function(newMax)
+    TriggerEvent("striano_missions:updateMaxMana", newMax)
+    exports.striano_combat:testo3d("Max Mana set: " .. newMax)
+end)
+
+-- ------------------------------------------------------------
+-- Callbacks NUI: dar itens
+-- ------------------------------------------------------------
+
+RegisterNUICallback("striano_admin:cb:getItemInput", function(data, cb)
+    local itemName = OpenInput("Item name")
+    if itemName == nil or #itemName == 0 or itemName == "" then cb({ ok = true }) return end
+
+    local amount = tonumber(OpenInput("Insert amount"))
+    if amount == nil then cb({ ok = true }) return end
+
+    if itemName ~= "" and amount > 0 then
+        TriggerServerEvent("inv3d:giveItem", GetPlayerServerId(PlayerId()), "player", itemName, amount)
+    end
+    cb({ ok = true })
+end)
+
+RegisterNUICallback("striano_admin:cb:getItem", function(data, cb)
+    local itemName = data and data.item or nil
+    local model    = data and data.model or nil
+
+    ExecuteCommand("copia " .. (model or ""))
+
+    if itemName == nil or #itemName == 0 then cb({ ok = true }) return end
+
+    local amount = tonumber(OpenInput("Insert amount"))
+    if amount == nil then cb({ ok = true }) return end
+
+    if itemName ~= "" and amount > 0 then
+        TriggerServerEvent("inv3d:giveItem", GetPlayerServerId(PlayerId()), "player", itemName, amount)
+    end
+    cb({ ok = true })
+end)
+
+--- Receber resultado de item selecionado (via evento net)
+RegisterNetEvent("striano_admin:cb:giveItemSelected")
+AddEventHandler("striano_admin:cb:giveItemSelected", function(payload)
+    local targetId = payload.payload and payload.payload.id
+    local itemName = payload.payload and payload.payload.item
+
+    if not itemName or itemName == "" then
+        exports.striano_combat:submex("Item not selected")
+        return
+    end
+
+    local amount = tonumber(OpenInput("Insert amount"))
+    if amount == nil then return end
+
+    TriggerEvent("inv3d:serverGiveItem", targetId, "player", itemName, amount)
+end)
+
+-- ------------------------------------------------------------
+-- Callbacks NUI: dar itens a jogador específico
+-- ------------------------------------------------------------
+
+RegisterNUICallback("striano_admin:cb:pl_giveItem", function(data, cb)
+    local id = tonumber(data and data.id or 0) or 0
+    if id == 0 then cb({ ok = false }) return end
+
+    local itemName = OpenInput("Item name")
+    if not itemName or itemName == "" then cb({ ok = true }) return end
+
+    local amount = tonumber(OpenInput("Insert amount"))
+    if not amount or amount <= 0 then cb({ ok = true }) return end
+
+    TriggerEvent("inv3d:serverGiveItem", id, "player", itemName, amount)
+    cb({ ok = true })
+end)
+
+-- ------------------------------------------------------------
+-- Callbacks NUI: chaves de veículos
+-- ------------------------------------------------------------
+
+RegisterNUICallback("striano_admin:cb:pl_givekey", function(data, cb)
+    local id = tonumber(data and data.id or 0) or 0
+    if id == 0 then cb({ ok = false }) return end
+
+    local keyName = OpenInput("New key name")
+    if not keyName or keyName == "" then cb({ ok = true }) return end
+
+    TriggerServerEvent("striano_keys:sv:adminGiveKey", id, keyName)
+    cb({ ok = true })
+end)
+
+RegisterNUICallback("striano_admin:cb:pl_givekeyTemp", function(data, cb)
+    local id = tonumber(data and data.id or 0) or 0
+    if id == 0 then cb({ ok = false }) return end
+
+    local keyName = OpenInput("New temp key name")
+    if not keyName or keyName == "" then cb({ ok = true }) return end
+
+    TriggerServerEvent("striano_keys:sv:adminGiveTempKey", id, keyName)
+    cb({ ok = true })
+end)
+
+RegisterNUICallback("striano_admin:cb:pl_delkey", function(data, cb)
+    local id = tonumber(data and data.id or 0) or 0
+    if id == 0 then cb({ ok = false }) return end
+
+    local keyName = OpenInput("Key name to destroy")
+    if not keyName or keyName == "" then cb({ ok = true }) return end
+
+    TriggerServerEvent("striano_keys:sv:adminDestroyKey", keyName)
+    cb({ ok = true })
+end)
+
+RegisterNUICallback("striano_admin:cb:assignVehByName", function(data, cb)
+    local id = tonumber(data and data.id or 0) or 0
+    if id == 0 then cb({ ok = false }) return end
+
+    local model = OpenInput("Vehicle model (ex: sanchez)")
+    if not model or model == "" then cb({ ok = true }) return end
+
+    TriggerServerEvent("sod:giveVeh", id, model)
+    cb({ ok = true })
+end)
+
+-- ------------------------------------------------------------
+-- Menu de chaves rápido (via striano_fastmenu)
+-- ------------------------------------------------------------
+
+RegisterNUICallback("striano_admin:cb:openKeysMenu", function(data, cb)
+    local id = tonumber(data and data.id)
+    if not id then cb({ ok = false }) return end
+
+    closemenu()
+    TriggerServerEvent("striano_admin:sv:getPlayerKeys", id)
+    cb({ ok = true })
+end)
+
+RegisterNetEvent("striano_admin:cl:receivePlayerKeys")
+AddEventHandler("striano_admin:cl:receivePlayerKeys", function(targetId, keys)
+    _keys_menu_cache[targetId] = keys or {}
+    OpenKeysFastMenu(targetId)
+end)
+
+--- Abre o fastmenu com a lista de chaves de um jogador.
+function OpenKeysFastMenu(targetId)
+    local keys = _keys_menu_cache[targetId]
+    if not keys then keys = {} end
+
+    if #keys == 0 then
+        exports.striano_combat:testo3d("No keys")
+        return
+    end
+
+    exports.striano_fastmenu:clearMenu()
+    Wait(75)
+
+    -- Cabeçalho
+    exports.striano_fastmenu:addMenuItem(
+        string.format("Keys of ID %d", targetId),
+        function() end,
+        false
+    )
+
+    -- Uma linha por chave
+    for _, k in ipairs(keys) do
+        local keyId    = tostring(k.key_id or "")
+        local keyLabel = tostring(k.label  or "")
+        local display  = (keyLabel ~= "") and keyId or keyId
+
+        exports.striano_fastmenu:addMenuItem(display, function()
+            OpenSingleKeyMenu(keyId)
+        end, false)
+    end
+
+    exports.striano_fastmenu:openMenu()
 end
-L19_1(L20_1, L21_1)
-function L19_1(A0_2)
-  local L1_2, L2_2, L3_2, L4_2, L5_2
-  L1_2 = exports
-  L1_2 = L1_2.striano_fastmenu
-  L2_2 = L1_2
-  L1_2 = L1_2.clearMenu
-  L1_2(L2_2)
-  L1_2 = exports
-  L1_2 = L1_2.striano_fastmenu
-  L2_2 = L1_2
-  L1_2 = L1_2.close
-  L1_2(L2_2)
-  L1_2 = Wait
-  L2_2 = 255
-  L1_2(L2_2)
-  L1_2 = exports
-  L1_2 = L1_2.striano_fastmenu
-  L2_2 = L1_2
-  L1_2 = L1_2.addMenuItem
-  L3_2 = "Key: %s"
-  L4_2 = L3_2
-  L3_2 = L3_2.format
-  L5_2 = A0_2
-  L3_2 = L3_2(L4_2, L5_2)
-  function L4_2()
-    local L0_3, L1_3
-  end
-  L5_2 = false
-  L1_2(L2_2, L3_2, L4_2, L5_2)
-  L1_2 = exports
-  L1_2 = L1_2.striano_fastmenu
-  L2_2 = L1_2
-  L1_2 = L1_2.addMenuItem
-  L3_2 = "Copy key_id (print F8)"
-  function L4_2()
-    local L0_3, L1_3, L2_3
-    L0_3 = print
-    L1_3 = "^2[striano_admin]^7 COPY KEY_ID:"
-    L2_3 = A0_2
-    L0_3(L1_3, L2_3)
-  end
-  L5_2 = true
-  L1_2(L2_2, L3_2, L4_2, L5_2)
-  L1_2 = exports
-  L1_2 = L1_2.striano_fastmenu
-  L2_2 = L1_2
-  L1_2 = L1_2.addMenuItem
-  L3_2 = "Destroy key (ADMIN)"
-  function L4_2()
-    local L0_3, L1_3, L2_3
-    L0_3 = TriggerServerEvent
-    L1_3 = "striano_keys:sv:adminDestroyKey"
-    L2_3 = A0_2
-    L0_3(L1_3, L2_3)
-  end
-  L5_2 = true
-  L1_2(L2_2, L3_2, L4_2, L5_2)
+
+--- Abre o fastmenu de ações para uma chave específica.
+function OpenSingleKeyMenu(keyId)
+    exports.striano_fastmenu:clearMenu()
+    exports.striano_fastmenu:close()
+    Wait(255)
+
+    exports.striano_fastmenu:addMenuItem("Key: " .. keyId, function() end, false)
+
+    exports.striano_fastmenu:addMenuItem("Copy key_id (print F8)", function()
+        print("^2[striano_admin]^7 COPY KEY_ID:", keyId)
+    end, true)
+
+    exports.striano_fastmenu:addMenuItem("Destroy key (ADMIN)", function()
+        TriggerServerEvent("striano_keys:sv:adminDestroyKey", keyId)
+    end, true)
+
+    exports.striano_fastmenu:openMenu()
 end
-OpenSingleKeyMenu = L19_1
-L19_1 = RegisterNUICallback
-L20_1 = "striano_admin:cb:pl_keys_copy"
-function L21_1(A0_2, A1_2)
-  local L2_2, L3_2, L4_2, L5_2
-  L2_2 = A0_2.key_id
-  L3_2 = print
-  L4_2 = "KEY_ID:"
-  L5_2 = L2_2
-  L3_2(L4_2, L5_2)
-  L3_2 = A1_2
-  L4_2 = {}
-  L4_2.ok = true
-  L3_2(L4_2)
+
+--- Comando /keys — ver as próprias chaves
+RegisterCommand("keys", function()
+    TriggerServerEvent("striano_admin:sv:getPlayerKeys", GetPlayerServerId(PlayerId()))
+end)
+
+-- Callbacks de chaves via NUI direto
+RegisterNUICallback("striano_admin:cb:pl_keys_copy", function(data, cb)
+    print("KEY_ID:", data.key_id)
+    cb({ ok = true })
+end)
+
+RegisterNUICallback("striano_admin:cb:pl_keys_destroy", function(data, cb)
+    local keyId = tostring(data.key_id or "")
+    TriggerServerEvent("striano_keys:sv:adminDestroyKey", keyId)
+    cb({ ok = true })
+end)
+
+-- ------------------------------------------------------------
+-- Helper de direção de câmera (CQ.Util.getCamDir)
+-- ------------------------------------------------------------
+
+if not (CQ and CQ.Util and CQ.Util.getCamDir) then
+    if not CQ         then CQ         = {} end
+    if not CQ.Util    then CQ.Util    = {} end
+
+    CQ.Util.getCamDir = function()
+        local rot   = GetGameplayCamRot(2)
+        local radZ  = math.rad(rot.z)
+        local radX  = math.rad(rot.x)
+        local cosX  = math.cos(radX)
+        return vector3(
+            -math.sin(radZ) * cosX,
+             math.cos(radZ) * cosX,
+             math.sin(radX)
+        )
+    end
 end
-L19_1(L20_1, L21_1)
-L19_1 = RegisterNUICallback
-L20_1 = "striano_admin:cb:pl_keys_destroy"
-function L21_1(A0_2, A1_2)
-  local L2_2, L3_2, L4_2, L5_2
-  L2_2 = tostring
-  L3_2 = A0_2.key_id
-  if not L3_2 then
-    L3_2 = ""
-  end
-  L2_2 = L2_2(L3_2)
-  L3_2 = TriggerServerEvent
-  L4_2 = "striano_keys:sv:adminDestroyKey"
-  L5_2 = L2_2
-  L3_2(L4_2, L5_2)
-  L3_2 = A1_2
-  L4_2 = {}
-  L4_2.ok = true
-  L3_2(L4_2)
-end
-L19_1(L20_1, L21_1)

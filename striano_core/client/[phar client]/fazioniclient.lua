@@ -1,878 +1,297 @@
-local L0_1, L1_1, L2_1, L3_1, L4_1, L5_1, L6_1, L7_1, L8_1, L9_1, L10_1, L11_1
-L0_1 = nil
-L1_1 = nil
-L2_1 = nil
-L3_1 = nil
-L4_1 = 0.0
-L5_1 = 0.0
-L6_1 = 0.0
-L7_1 = nil
-function L8_1()
-  local L0_2, L1_2, L2_2, L3_2, L4_2, L5_2, L6_2, L7_2, L8_2, L9_2, L10_2, L11_2
-  L0_2 = GetEntityCoords
-  L1_2 = PlayerPedId
-  L1_2, L2_2, L3_2, L4_2, L5_2, L6_2, L7_2, L8_2, L9_2, L10_2, L11_2 = L1_2()
-  L0_2 = L0_2(L1_2, L2_2, L3_2, L4_2, L5_2, L6_2, L7_2, L8_2, L9_2, L10_2, L11_2)
-  L1_2 = GetOffsetFromEntityInWorldCoords
-  L2_2 = PlayerPedId
-  L2_2 = L2_2()
-  L3_2 = 0.0
-  L4_2 = 4.0
-  L5_2 = 0.0
-  L1_2 = L1_2(L2_2, L3_2, L4_2, L5_2)
-  L2_2 = CastRayPointToPoint
-  L3_2 = L0_2.x
-  L4_2 = L0_2.y
-  L5_2 = L0_2.z
-  L6_2 = L1_2.x
-  L7_2 = L1_2.y
-  L8_2 = L1_2.z
-  L9_2 = 10
-  L10_2 = PlayerPedId
-  L10_2 = L10_2()
-  L11_2 = 0
-  L2_2 = L2_2(L3_2, L4_2, L5_2, L6_2, L7_2, L8_2, L9_2, L10_2, L11_2)
-  L3_2 = GetRaycastResult
-  L4_2 = L2_2
-  L3_2, L4_2, L5_2, L6_2, L7_2 = L3_2(L4_2)
-  return L7_2
+-- fazioniclient.lua
+-- striano_core / client / [phar client]
+-- Trailer / tow-vehicle attachment system with interactive offset editor.
+
+-- ──────────────────────────────────────────────────────────────────────────────
+-- Module state
+-- ──────────────────────────────────────────────────────────────────────────────
+
+local towVehicle    = nil   -- vehicle that will pull the trailer (L0_1)
+local attachOffX    = 0.0   -- attachment offset X (L1_1)
+local attachOffY    = -1.0  -- attachment offset Y (L2_1)
+local attachOffZ    = 0.0   -- attachment offset Z (L3_1) — set from height diff
+local attachRotX    = 0.0   -- attachment rotation X (L4_1)
+local attachRotY    = 0.0   -- attachment rotation Y (L5_1)
+local attachRotZ    = 0.0   -- attachment rotation Z (L6_1)
+local selectedVehicle = nil -- vehicle found in direction / being edited (L7_1)
+
+-- ──────────────────────────────────────────────────────────────────────────────
+-- Helpers
+-- ──────────────────────────────────────────────────────────────────────────────
+
+local function notify(msg)
+    exports.striano_combat:submexError(msg)
 end
-VehicleInFrontRimorchio = L8_1
-L8_1 = RegisterCommand
-L9_1 = "rimorchio"
-function L10_1()
-  local L0_2, L1_2, L2_2, L3_2, L4_2, L5_2, L6_2, L7_2, L8_2, L9_2, L10_2, L11_2, L12_2, L13_2, L14_2
-  L0_2 = IsPedSittingInAnyVehicle
-  L1_2 = PlayerPedId
-  L1_2, L2_2, L3_2, L4_2, L5_2, L6_2, L7_2, L8_2, L9_2, L10_2, L11_2, L12_2, L13_2, L14_2 = L1_2()
-  L0_2 = L0_2(L1_2, L2_2, L3_2, L4_2, L5_2, L6_2, L7_2, L8_2, L9_2, L10_2, L11_2, L12_2, L13_2, L14_2)
-  if L0_2 then
-    L0_2 = GetVehiclePedIsIn
-    L1_2 = PlayerPedId
-    L1_2 = L1_2()
-    L2_2 = false
-    L0_2 = L0_2(L1_2, L2_2)
-    L0_1 = L0_2
-    L1_2 = exports
-    L1_2 = L1_2.striano_combat
-    L2_2 = L1_2
-    L1_2 = L1_2.submexError
-    L3_2 = "Scendi dal veicolo e ripeti il comando vicino il veicolo da trainare."
-    L1_2(L2_2, L3_2)
-    L1_2 = GetVehicleTrailerVehicle
-    L2_2 = L0_1
-    L1_2, L2_2 = L1_2(L2_2)
-    if L1_2 then
-      L3_2 = L0_1
-      if L3_2 ~= L2_2 then
-        L0_1 = L2_2
-        L3_2 = exports
-        L3_2 = L3_2.striano_combat
-        L4_2 = L3_2
-        L3_2 = L3_2.submexError
-        L5_2 = "Rimorchio snodato ~q~collegato ~w~con successo."
-        L3_2(L4_2, L5_2)
-      end
-    end
-  else
-    L0_2 = L0_1
-    if nil == L0_2 then
-      L0_2 = exports
-      L0_2 = L0_2.striano_combat
-      L1_2 = L0_2
-      L0_2 = L0_2.submexError
-      L2_2 = "Devi essere in un veicolo per selezionare un rimorchio."
-      L0_2(L1_2, L2_2)
-      L0_2 = ExecuteCommand
-      L1_2 = "e shrug"
-      L0_2(L1_2)
-    else
-      L0_2 = GetVehicleInDirectionStriano
-      L0_2 = L0_2()
-      L1_2 = PlayerPedId
-      L1_2 = L1_2()
-      L2_2 = GetEntityCoords
-      L3_2 = L1_2
-      L2_2 = L2_2(L3_2)
-      L3_2 = GetClosestVehicle
-      L4_2 = L2_2.x
-      L5_2 = L2_2.y
-      L6_2 = L2_2.z
-      L7_2 = 5.0
-      L8_2 = 0
-      L9_2 = 70
-      L3_2 = L3_2(L4_2, L5_2, L6_2, L7_2, L8_2, L9_2)
-      L0_2 = L3_2
-      if nil == L0_2 or 0 == L0_2 then
-        L3_2 = GetClosestVehicle
-        L4_2 = L2_2.x
-        L5_2 = L2_2.y
-        L6_2 = L2_2.z
-        L7_2 = 9.5
-        L8_2 = 0
-        L9_2 = 12294
-        L3_2 = L3_2(L4_2, L5_2, L6_2, L7_2, L8_2, L9_2)
-        L0_2 = L3_2
-      end
-      if nil == L0_2 or 0 == L0_2 then
-        L3_2 = VehicleInFrontRimorchio
-        L3_2 = L3_2()
-        L0_2 = L3_2
-      end
-      if nil == L0_2 or 0 == L0_2 then
-        L3_2 = GetEntityCoords
-        L4_2 = L1_2
-        L3_2 = L3_2(L4_2)
-        L4_2 = GetOffsetFromEntityInWorldCoords
-        L5_2 = L1_2
-        L6_2 = 0.0
-        L7_2 = 5.0
-        L8_2 = 0.0
-        L4_2 = L4_2(L5_2, L6_2, L7_2, L8_2)
-        L5_2 = CastRayPointToPoint
-        L6_2 = L3_2.x
-        L7_2 = L3_2.y
-        L8_2 = L3_2.z
-        L9_2 = L4_2.x
-        L10_2 = L4_2.y
-        L11_2 = L4_2.z
-        L12_2 = 30
-        L13_2 = L1_2
-        L14_2 = 0
-        L5_2 = L5_2(L6_2, L7_2, L8_2, L9_2, L10_2, L11_2, L12_2, L13_2, L14_2)
-        L6_2 = GetRaycastResult
-        L7_2 = L5_2
-        L6_2, L7_2, L8_2, L9_2, L10_2 = L6_2(L7_2)
-        L0_2 = L10_2
-      end
-      if nil ~= L0_2 and 0 ~= L0_2 then
-        L3_2 = NetworkRequestControlOfEntity
-        L4_2 = L0_2
-        L3_2(L4_2)
-        L7_1 = L0_2
-        L3_2 = DoesEntityExist
-        L4_2 = L0_2
-        L3_2 = L3_2(L4_2)
-        if L3_2 then
-          L3_2 = L0_1
-          if L0_2 ~= L3_2 then
-            L3_2 = Wait
-            L4_2 = 100
-            L3_2(L4_2)
-            L3_2 = RimorchioVeicolo
-            L4_2 = L1_2
-            L5_2 = L0_2
-            L3_2(L4_2, L5_2)
+
+--- Reattach `selectedVehicle` to `towVehicle` with the current offsets.
+local function reattach()
+    if not selectedVehicle or not towVehicle then return end
+    DetachEntity(selectedVehicle, true, true)
+    AttachEntityToEntity(
+        selectedVehicle, towVehicle, -1,
+        attachOffX, attachOffY, attachOffZ,
+        attachRotX, attachRotY, attachRotZ,
+        false, false, false, false, false, true
+    )
+end
+
+--- Raycast 4 m in front of the player to find a vehicle.
+function VehicleInFrontRimorchio()
+    local myCoords  = GetEntityCoords(PlayerPedId())
+    local frontCoords = GetOffsetFromEntityInWorldCoords(PlayerPedId(), 0.0, 4.0, 0.0)
+    local ray = CastRayPointToPoint(
+        myCoords.x, myCoords.y, myCoords.z,
+        frontCoords.x, frontCoords.y, frontCoords.z,
+        10, PlayerPedId(), 0
+    )
+    local _, _, _, _, hitEntity = GetRaycastResult(ray)
+    return hitEntity
+end
+
+-- ──────────────────────────────────────────────────────────────────────────────
+-- /rimorchio — two-phase tow setup:
+--   Phase 1 (in vehicle): save as tow vehicle, prompt to get out.
+--   Phase 2 (on foot): find nearby trailer and call RimorchioVeicolo.
+-- ──────────────────────────────────────────────────────────────────────────────
+
+RegisterCommand("rimorchio", function()
+    local myPed = PlayerPedId()
+
+    if IsPedSittingInAnyVehicle(myPed) then
+        -- Phase 1: note the tow vehicle and tell player to get out.
+        towVehicle = GetVehiclePedIsIn(myPed, false)
+        notify("Scendi dal veicolo e ripeti il comando vicino il veicolo da trainare.")
+
+        -- Also check if the vehicle already has a trailer.
+        local hasTrailer, trailerVeh = GetVehicleTrailerVehicle(towVehicle)
+        if hasTrailer and towVehicle ~= trailerVeh then
+            towVehicle = trailerVeh
+            notify("Rimorchio snodato ~q~collegato ~w~con successo.")
         end
-        else
-          L3_2 = exports
-          L3_2 = L3_2.striano_combat
-          L4_2 = L3_2
-          L3_2 = L3_2.submexError
-          L5_2 = "Non sembra esserci un veicolo nelle vicinanze da trainare."
-          L3_2(L4_2, L5_2)
-        end
-      end
-    end
-  end
-end
-L11_1 = false
-L8_1(L9_1, L10_1, L11_1)
-L8_1 = RegisterCommand
-L9_1 = "rimorchiov"
-function L10_1()
-  local L0_2, L1_2, L2_2, L3_2, L4_2, L5_2
-  L0_2 = GetEntityCoords
-  L1_2 = PlayerPedId
-  L1_2, L2_2, L3_2, L4_2, L5_2 = L1_2()
-  L0_2 = L0_2(L1_2, L2_2, L3_2, L4_2, L5_2)
-  L1_2 = L0_1
-  if nil == L1_2 then
-    L1_2 = exports
-    L1_2 = L1_2.striano_combat
-    L2_2 = L1_2
-    L1_2 = L1_2.submexError
-    L3_2 = "Non hai ancora selezionato un ~q~/rimorchio ~w~in un veicolo."
-    L1_2(L2_2, L3_2)
-    L1_2 = ExecuteCommand
-    L2_2 = "e shrug"
-    L1_2(L2_2)
-  else
-    L1_2 = GetVehicleTrailerVehicle
-    L2_2 = L0_1
-    L1_2, L2_2 = L1_2(L2_2)
-    if L1_2 then
-      L3_2 = L0_1
-      if L3_2 ~= L2_2 then
-        L0_1 = L2_2
-        L3_2 = exports
-        L3_2 = L3_2.striano_combat
-        L4_2 = L3_2
-        L3_2 = L3_2.submexError
-        L5_2 = "Rimorchio ~q~collegato ~w~con successo."
-        L3_2(L4_2, L5_2)
-    end
-    else
-      L3_2 = exports
-      L3_2 = L3_2.striano_combat
-      L4_2 = L3_2
-      L3_2 = L3_2.submexError
-      L5_2 = "Nessun ~r~rimorchio ~w~rilevato."
-      L3_2(L4_2, L5_2)
-    end
-  end
-end
-L11_1 = false
-L8_1(L9_1, L10_1, L11_1)
-L8_1 = RegisterCommand
-L9_1 = "syncrimo"
-function L10_1()
-  local L0_2, L1_2, L2_2
-  L0_2 = L0_1
-  if nil == L0_2 then
-    L0_2 = L7_1
-    if nil == L0_2 then
-      L0_2 = exports
-      L0_2 = L0_2.striano_combat
-      L1_2 = L0_2
-      L0_2 = L0_2.submexError
-      L2_2 = "Non hai un operazione rimorchio in modifica."
-      L0_2(L1_2, L2_2)
-      return
-    end
-  end
-  L0_2 = UpdateRimorchio
-  L0_2()
-end
-L8_1(L9_1, L10_1)
-function L8_1(A0_2, A1_2)
-  local L2_2, L3_2, L4_2, L5_2, L6_2, L7_2, L8_2, L9_2, L10_2, L11_2, L12_2, L13_2, L14_2, L15_2, L16_2, L17_2, L18_2, L19_2
-  L2_2 = GetEntityCoords
-  L3_2 = A0_2
-  L2_2 = L2_2(L3_2)
-  L7_1 = A1_2
-  L3_2 = GetEntityCoords
-  L4_2 = L0_1
-  L3_2 = L3_2(L4_2)
-  L4_2 = 0.0
-  L1_1 = L4_2
-  L4_2 = -1.0
-  L2_1 = L4_2
-  L4_2 = L2_2.z
-  L5_2 = L3_2.z
-  L4_2 = L4_2 - L5_2
-  L3_1 = L4_2
-  L4_2 = 0.0
-  L4_1 = L4_2
-  L4_2 = 0.0
-  L5_1 = L4_2
-  L4_2 = 0.0
-  L6_1 = L4_2
-  vy = -1.0
-  L4_2 = L3_2.z
-  L4_2 = L4_2 - 2.0
-  vz = L4_2
-  L4_2 = AttachEntityToEntity
-  L5_2 = A1_2
-  L6_2 = L0_1
-  L7_2 = -1
-  L8_2 = 0.0
-  L9_2 = vy
-  L10_2 = vz
-  L11_2 = 0.0
-  L12_2 = 0.0
-  L13_2 = 0.0
-  L14_2 = false
-  L15_2 = false
-  L16_2 = false
-  L17_2 = false
-  L18_2 = false
-  L19_2 = true
-  L4_2(L5_2, L6_2, L7_2, L8_2, L9_2, L10_2, L11_2, L12_2, L13_2, L14_2, L15_2, L16_2, L17_2, L18_2, L19_2)
-  L4_2 = SetEntityAsMissionEntity
-  L5_2 = A1_2
-  L4_2(L5_2)
-  L4_2 = Wait
-  L5_2 = 100
-  L4_2(L5_2)
-  L4_2 = UpdateRimorchio
-  L4_2()
-end
-RimorchioVeicolo = L8_1
-L8_1 = RegisterCommand
-L9_1 = "stacca"
-function L10_1()
-  local L0_2, L1_2, L2_2, L3_2, L4_2, L5_2, L6_2, L7_2
-  L0_2 = PlayerPedId
-  L0_2 = L0_2()
-  L1_2 = GetEntityCoords
-  L2_2 = L0_2
-  L1_2 = L1_2(L2_2)
-  L2_2 = GetClosestVehicle
-  L3_2 = L1_2
-  L4_2 = 7.5
-  L5_2 = 0
-  L6_2 = 70
-  L2_2 = L2_2(L3_2, L4_2, L5_2, L6_2)
-  L3_2 = IsEntityAttached
-  L4_2 = L2_2
-  L3_2 = L3_2(L4_2)
-  if L3_2 then
-    L3_2 = DetachEntity
-    L4_2 = L2_2
-    L5_2 = true
-    L6_2 = true
-    L3_2(L4_2, L5_2, L6_2)
-    L3_2 = GetEntityCoords
-    L4_2 = L2_2
-    L3_2 = L3_2(L4_2)
-    L4_2 = GetEntityHeading
-    L5_2 = L2_2
-    L4_2 = L4_2(L5_2)
-    L5_2 = SetEntityCoords
-    L6_2 = L2_2
-    L7_2 = L3_2
-    L5_2(L6_2, L7_2)
-    L5_2 = SetEntityHeading
-    L6_2 = L2_2
-    L7_2 = L4_2
-    L5_2(L6_2, L7_2)
-    L5_2 = exports
-    L5_2 = L5_2.striano_combat
-    L6_2 = L5_2
-    L5_2 = L5_2.submexError
-    L7_2 = "Veicolo ~o~staccato ~w~con successo dal rimorchio."
-    L5_2(L6_2, L7_2)
-    L5_2 = nil
-    L7_1 = L5_2
-  end
-end
-L11_1 = false
-L8_1(L9_1, L10_1, L11_1)
-L8_1 = RegisterCommand
-L9_1 = "staccav"
-function L10_1()
-  local L0_2, L1_2, L2_2, L3_2, L4_2, L5_2, L6_2
-  L0_2 = PlayerPedId
-  L0_2 = L0_2()
-  L1_2 = L7_1
-  if nil ~= L1_2 then
-    L1_2 = IsEntityAttached
-    L2_2 = L7_1
-    L1_2 = L1_2(L2_2)
-    if L1_2 then
-      L1_2 = GetEntityCoords
-      L2_2 = Selezionato
-      L1_2 = L1_2(L2_2)
-      L2_2 = GetEntityHeading
-      L3_2 = Selezionato
-      L2_2 = L2_2(L3_2)
-      L3_2 = SetEntityCoords
-      L4_2 = Selezionato
-      L5_2 = L1_2
-      L3_2(L4_2, L5_2)
-      L3_2 = SetEntityHeading
-      L4_2 = Selezionato
-      L5_2 = L2_2
-      L3_2(L4_2, L5_2)
-      L3_2 = DetachEntity
-      L4_2 = L7_1
-      L5_2 = true
-      L6_2 = true
-      L3_2(L4_2, L5_2, L6_2)
-      L3_2 = exports
-      L3_2 = L3_2.striano_combat
-      L4_2 = L3_2
-      L3_2 = L3_2.submexError
-      L5_2 = "Veicolo vicino ~q~staccato ~w~dal rimorchio."
-      L3_2(L4_2, L5_2)
-      L3_2 = nil
-      L7_1 = L3_2
-    end
-  end
-end
-L11_1 = false
-L8_1(L9_1, L10_1, L11_1)
-function L8_1()
-  local L0_2, L1_2
-  L0_2 = CreateThread
-  function L1_2()
-    local L0_3, L1_3, L2_3, L3_3, L4_3, L5_3, L6_3, L7_3, L8_3, L9_3, L10_3, L11_3, L12_3, L13_3, L14_3, L15_3, L16_3, L17_3, L18_3, L19_3, L20_3
-    L0_3 = AttachEntityToEntity
-    L1_3 = L7_1
-    L2_3 = L0_1
-    L3_3 = -1
-    L4_3 = L1_1
-    L5_3 = L2_1
-    L6_3 = L3_1
-    L7_3 = L4_1
-    L8_3 = L5_1
-    L9_3 = L6_1
-    L10_3 = false
-    L11_3 = false
-    L12_3 = false
-    L13_3 = false
-    L14_3 = false
-    L15_3 = true
-    L0_3(L1_3, L2_3, L3_3, L4_3, L5_3, L6_3, L7_3, L8_3, L9_3, L10_3, L11_3, L12_3, L13_3, L14_3, L15_3)
-    while true do
-      L0_3 = PlayerPedId
-      L0_3 = L0_3()
-      L1_3 = GetEntityCoords
-      L2_3 = L0_3
-      L1_3 = L1_3(L2_3)
-      L2_3 = L7_1
-      L3_3 = L0_1
-      if nil ~= L3_3 then
-        L4_3 = L7_1
-        if nil ~= L4_3 then
-          L4_3 = IsEntityPlayingAnim
-          L5_3 = L0_3
-          L6_3 = "cellphone@"
-          L7_3 = "cellphone_text_read_base"
-          L8_3 = 3
-          L4_3 = L4_3(L5_3, L6_3, L7_3, L8_3)
-          if not L4_3 then
-            L4_3 = IsEntityPlayingAnim
-            L5_3 = L0_3
-            L6_3 = "cellphone@str"
-            L7_3 = "cellphone_call_listen_a"
-            L8_3 = 3
-            L4_3 = L4_3(L5_3, L6_3, L7_3, L8_3)
-            if not L4_3 then
-              L4_3 = GetEntityCoords
-              L5_3 = L3_3
-              L4_3 = L4_3(L5_3)
-              L5_3 = exports
-              L5_3 = L5_3.striano_core
-              L6_3 = L5_3
-              L5_3 = L5_3.draw
-              L7_3 = 300
-              L8_3 = "Sposta"
-              L9_3 = 21
-              L10_3 = "Altezza"
-              L11_3 = 22
-              L12_3 = "Rotazione"
-              L13_3 = 73
-              L14_3 = "Stacca"
-              L5_3(L6_3, L7_3, L8_3, L9_3, L10_3, L11_3, L12_3, L13_3, L14_3)
-              L5_3 = IsControlJustReleased
-              L6_3 = 0
-              L7_3 = 73
-              L5_3 = L5_3(L6_3, L7_3)
-              if L5_3 then
-                L5_3 = ExecuteCommand
-                L6_3 = "staccav"
-                L5_3(L6_3)
-              end
-              L5_3 = IsControlPressed
-              L6_3 = 0
-              L7_3 = 21
-              L5_3 = L5_3(L6_3, L7_3)
-              if L5_3 then
-                L5_3 = IsControlPressed
-                L6_3 = 0
-                L7_3 = 172
-                L5_3 = L5_3(L6_3, L7_3)
-                if L5_3 then
-                  L5_3 = L3_1
-                  L5_3 = L5_3 + 0.02
-                  L3_1 = L5_3
-                  L5_3 = DetachEntity
-                  L6_3 = L2_3
-                  L7_3 = true
-                  L8_3 = true
-                  L5_3(L6_3, L7_3, L8_3)
-                  L5_3 = AttachEntityToEntity
-                  L6_3 = L2_3
-                  L7_3 = L3_3
-                  L8_3 = -1
-                  L9_3 = L1_1
-                  L10_3 = L2_1
-                  L11_3 = L3_1
-                  L12_3 = L4_1
-                  L13_3 = L5_1
-                  L14_3 = L6_1
-                  L15_3 = false
-                  L16_3 = false
-                  L17_3 = false
-                  L18_3 = false
-                  L19_3 = false
-                  L20_3 = true
-                  L5_3(L6_3, L7_3, L8_3, L9_3, L10_3, L11_3, L12_3, L13_3, L14_3, L15_3, L16_3, L17_3, L18_3, L19_3, L20_3)
-                end
-                L5_3 = IsControlPressed
-                L6_3 = 0
-                L7_3 = 173
-                L5_3 = L5_3(L6_3, L7_3)
-                if L5_3 then
-                  L5_3 = L3_1
-                  L5_3 = L5_3 - 0.02
-                  L3_1 = L5_3
-                  L5_3 = DetachEntity
-                  L6_3 = L2_3
-                  L7_3 = true
-                  L8_3 = true
-                  L5_3(L6_3, L7_3, L8_3)
-                  L5_3 = AttachEntityToEntity
-                  L6_3 = L2_3
-                  L7_3 = L3_3
-                  L8_3 = -1
-                  L9_3 = L1_1
-                  L10_3 = L2_1
-                  L11_3 = L3_1
-                  L12_3 = L4_1
-                  L13_3 = L5_1
-                  L14_3 = L6_1
-                  L15_3 = false
-                  L16_3 = false
-                  L17_3 = false
-                  L18_3 = false
-                  L19_3 = false
-                  L20_3 = true
-                  L5_3(L6_3, L7_3, L8_3, L9_3, L10_3, L11_3, L12_3, L13_3, L14_3, L15_3, L16_3, L17_3, L18_3, L19_3, L20_3)
-                end
-                L5_3 = IsControlPressed
-                L6_3 = 0
-                L7_3 = 174
-                L5_3 = L5_3(L6_3, L7_3)
-                if L5_3 then
-                  L5_3 = L6_1
-                  L5_3 = L5_3 + 1.5
-                  L6_1 = L5_3
-                  L5_3 = DetachEntity
-                  L6_3 = L2_3
-                  L7_3 = true
-                  L8_3 = true
-                  L5_3(L6_3, L7_3, L8_3)
-                  L5_3 = AttachEntityToEntity
-                  L6_3 = L2_3
-                  L7_3 = L3_3
-                  L8_3 = -1
-                  L9_3 = L1_1
-                  L10_3 = L2_1
-                  L11_3 = L3_1
-                  L12_3 = L4_1
-                  L13_3 = L5_1
-                  L14_3 = L6_1
-                  L15_3 = false
-                  L16_3 = false
-                  L17_3 = false
-                  L18_3 = false
-                  L19_3 = false
-                  L20_3 = true
-                  L5_3(L6_3, L7_3, L8_3, L9_3, L10_3, L11_3, L12_3, L13_3, L14_3, L15_3, L16_3, L17_3, L18_3, L19_3, L20_3)
-                end
-                L5_3 = IsControlPressed
-                L6_3 = 0
-                L7_3 = 175
-                L5_3 = L5_3(L6_3, L7_3)
-                if L5_3 then
-                  L5_3 = L6_1
-                  L5_3 = L5_3 - 1.5
-                  L6_1 = L5_3
-                  L5_3 = DetachEntity
-                  L6_3 = L2_3
-                  L7_3 = true
-                  L8_3 = true
-                  L5_3(L6_3, L7_3, L8_3)
-                  L5_3 = AttachEntityToEntity
-                  L6_3 = L2_3
-                  L7_3 = L3_3
-                  L8_3 = -1
-                  L9_3 = L1_1
-                  L10_3 = L2_1
-                  L11_3 = L3_1
-                  L12_3 = L4_1
-                  L13_3 = L5_1
-                  L14_3 = L6_1
-                  L15_3 = false
-                  L16_3 = false
-                  L17_3 = false
-                  L18_3 = false
-                  L19_3 = false
-                  L20_3 = true
-                  L5_3(L6_3, L7_3, L8_3, L9_3, L10_3, L11_3, L12_3, L13_3, L14_3, L15_3, L16_3, L17_3, L18_3, L19_3, L20_3)
-                end
-              else
-                L5_3 = IsControlPressed
-                L6_3 = 0
-                L7_3 = 22
-                L5_3 = L5_3(L6_3, L7_3)
-                if L5_3 then
-                  L5_3 = IsControlPressed
-                  L6_3 = 0
-                  L7_3 = 172
-                  L5_3 = L5_3(L6_3, L7_3)
-                  if L5_3 then
-                    L5_3 = L5_1
-                    L5_3 = L5_3 + 1.5
-                    L5_1 = L5_3
-                    L5_3 = DetachEntity
-                    L6_3 = L2_3
-                    L7_3 = true
-                    L8_3 = true
-                    L5_3(L6_3, L7_3, L8_3)
-                    L5_3 = AttachEntityToEntity
-                    L6_3 = L2_3
-                    L7_3 = L3_3
-                    L8_3 = -1
-                    L9_3 = L1_1
-                    L10_3 = L2_1
-                    L11_3 = L3_1
-                    L12_3 = L4_1
-                    L13_3 = L5_1
-                    L14_3 = L6_1
-                    L15_3 = false
-                    L16_3 = false
-                    L17_3 = false
-                    L18_3 = false
-                    L19_3 = false
-                    L20_3 = true
-                    L5_3(L6_3, L7_3, L8_3, L9_3, L10_3, L11_3, L12_3, L13_3, L14_3, L15_3, L16_3, L17_3, L18_3, L19_3, L20_3)
-                  end
-                  L5_3 = IsControlPressed
-                  L6_3 = 0
-                  L7_3 = 173
-                  L5_3 = L5_3(L6_3, L7_3)
-                  if L5_3 then
-                    L5_3 = L5_1
-                    L5_3 = L5_3 - 1.5
-                    L5_1 = L5_3
-                    L5_3 = DetachEntity
-                    L6_3 = L2_3
-                    L7_3 = true
-                    L8_3 = true
-                    L5_3(L6_3, L7_3, L8_3)
-                    L5_3 = AttachEntityToEntity
-                    L6_3 = L2_3
-                    L7_3 = L3_3
-                    L8_3 = -1
-                    L9_3 = L1_1
-                    L10_3 = L2_1
-                    L11_3 = L3_1
-                    L12_3 = L4_1
-                    L13_3 = L5_1
-                    L14_3 = L6_1
-                    L15_3 = false
-                    L16_3 = false
-                    L17_3 = false
-                    L18_3 = false
-                    L19_3 = false
-                    L20_3 = true
-                    L5_3(L6_3, L7_3, L8_3, L9_3, L10_3, L11_3, L12_3, L13_3, L14_3, L15_3, L16_3, L17_3, L18_3, L19_3, L20_3)
-                  end
-                  L5_3 = IsControlPressed
-                  L6_3 = 0
-                  L7_3 = 174
-                  L5_3 = L5_3(L6_3, L7_3)
-                  if L5_3 then
-                    L5_3 = L4_1
-                    L5_3 = L5_3 + 1.5
-                    L4_1 = L5_3
-                    L5_3 = DetachEntity
-                    L6_3 = L2_3
-                    L7_3 = true
-                    L8_3 = true
-                    L5_3(L6_3, L7_3, L8_3)
-                    L5_3 = AttachEntityToEntity
-                    L6_3 = L2_3
-                    L7_3 = L3_3
-                    L8_3 = -1
-                    L9_3 = L1_1
-                    L10_3 = L2_1
-                    L11_3 = L3_1
-                    L12_3 = L4_1
-                    L13_3 = L5_1
-                    L14_3 = L6_1
-                    L15_3 = false
-                    L16_3 = false
-                    L17_3 = false
-                    L18_3 = false
-                    L19_3 = false
-                    L20_3 = true
-                    L5_3(L6_3, L7_3, L8_3, L9_3, L10_3, L11_3, L12_3, L13_3, L14_3, L15_3, L16_3, L17_3, L18_3, L19_3, L20_3)
-                  end
-                  L5_3 = IsControlPressed
-                  L6_3 = 0
-                  L7_3 = 175
-                  L5_3 = L5_3(L6_3, L7_3)
-                  if L5_3 then
-                    L5_3 = L4_1
-                    L5_3 = L5_3 - 1.5
-                    L4_1 = L5_3
-                    L5_3 = DetachEntity
-                    L6_3 = L2_3
-                    L7_3 = true
-                    L8_3 = true
-                    L5_3(L6_3, L7_3, L8_3)
-                    L5_3 = AttachEntityToEntity
-                    L6_3 = L2_3
-                    L7_3 = L3_3
-                    L8_3 = -1
-                    L9_3 = L1_1
-                    L10_3 = L2_1
-                    L11_3 = L3_1
-                    L12_3 = L4_1
-                    L13_3 = L5_1
-                    L14_3 = L6_1
-                    L15_3 = false
-                    L16_3 = false
-                    L17_3 = false
-                    L18_3 = false
-                    L19_3 = false
-                    L20_3 = true
-                    L5_3(L6_3, L7_3, L8_3, L9_3, L10_3, L11_3, L12_3, L13_3, L14_3, L15_3, L16_3, L17_3, L18_3, L19_3, L20_3)
-                  end
-                end
-              end
-              L5_3 = IsControlPressed
-              L6_3 = 0
-              L7_3 = 21
-              L5_3 = L5_3(L6_3, L7_3)
-              if not L5_3 then
-                L5_3 = IsControlPressed
-                L6_3 = 0
-                L7_3 = 22
-                L5_3 = L5_3(L6_3, L7_3)
-                if not L5_3 then
-                  L5_3 = IsControlPressed
-                  L6_3 = 0
-                  L7_3 = 174
-                  L5_3 = L5_3(L6_3, L7_3)
-                  if L5_3 then
-                    L5_3 = L1_1
-                    L5_3 = L5_3 - 0.05
-                    L1_1 = L5_3
-                    L5_3 = DetachEntity
-                    L6_3 = L2_3
-                    L7_3 = true
-                    L8_3 = true
-                    L5_3(L6_3, L7_3, L8_3)
-                    L5_3 = AttachEntityToEntity
-                    L6_3 = L2_3
-                    L7_3 = L3_3
-                    L8_3 = -1
-                    L9_3 = L1_1
-                    L10_3 = L2_1
-                    L11_3 = L3_1
-                    L12_3 = L4_1
-                    L13_3 = L5_1
-                    L14_3 = L6_1
-                    L15_3 = false
-                    L16_3 = false
-                    L17_3 = false
-                    L18_3 = false
-                    L19_3 = false
-                    L20_3 = true
-                    L5_3(L6_3, L7_3, L8_3, L9_3, L10_3, L11_3, L12_3, L13_3, L14_3, L15_3, L16_3, L17_3, L18_3, L19_3, L20_3)
-                  end
-                  L5_3 = IsControlPressed
-                  L6_3 = 0
-                  L7_3 = 175
-                  L5_3 = L5_3(L6_3, L7_3)
-                  if L5_3 then
-                    L5_3 = L1_1
-                    L5_3 = L5_3 + 0.05
-                    L1_1 = L5_3
-                    L5_3 = DetachEntity
-                    L6_3 = L2_3
-                    L7_3 = true
-                    L8_3 = true
-                    L5_3(L6_3, L7_3, L8_3)
-                    L5_3 = AttachEntityToEntity
-                    L6_3 = L2_3
-                    L7_3 = L3_3
-                    L8_3 = -1
-                    L9_3 = L1_1
-                    L10_3 = L2_1
-                    L11_3 = L3_1
-                    L12_3 = L4_1
-                    L13_3 = L5_1
-                    L14_3 = L6_1
-                    L15_3 = false
-                    L16_3 = false
-                    L17_3 = false
-                    L18_3 = false
-                    L19_3 = false
-                    L20_3 = true
-                    L5_3(L6_3, L7_3, L8_3, L9_3, L10_3, L11_3, L12_3, L13_3, L14_3, L15_3, L16_3, L17_3, L18_3, L19_3, L20_3)
-                  end
-                  L5_3 = IsControlPressed
-                  L6_3 = 0
-                  L7_3 = 172
-                  L5_3 = L5_3(L6_3, L7_3)
-                  if L5_3 then
-                    L5_3 = L2_1
-                    L5_3 = L5_3 + 0.05
-                    L2_1 = L5_3
-                    L5_3 = DetachEntity
-                    L6_3 = L2_3
-                    L7_3 = true
-                    L8_3 = true
-                    L5_3(L6_3, L7_3, L8_3)
-                    L5_3 = AttachEntityToEntity
-                    L6_3 = L2_3
-                    L7_3 = L3_3
-                    L8_3 = -1
-                    L9_3 = L1_1
-                    L10_3 = L2_1
-                    L11_3 = L3_1
-                    L12_3 = L4_1
-                    L13_3 = L5_1
-                    L14_3 = L6_1
-                    L15_3 = false
-                    L16_3 = false
-                    L17_3 = false
-                    L18_3 = false
-                    L19_3 = false
-                    L20_3 = true
-                    L5_3(L6_3, L7_3, L8_3, L9_3, L10_3, L11_3, L12_3, L13_3, L14_3, L15_3, L16_3, L17_3, L18_3, L19_3, L20_3)
-                  end
-                  L5_3 = IsControlPressed
-                  L6_3 = 0
-                  L7_3 = 173
-                  L5_3 = L5_3(L6_3, L7_3)
-                  if L5_3 then
-                    L5_3 = L2_1
-                    L5_3 = L5_3 - 0.05
-                    L2_1 = L5_3
-                    L5_3 = DetachEntity
-                    L6_3 = L2_3
-                    L7_3 = true
-                    L8_3 = true
-                    L5_3(L6_3, L7_3, L8_3)
-                    L5_3 = AttachEntityToEntity
-                    L6_3 = L2_3
-                    L7_3 = L3_3
-                    L8_3 = -1
-                    L9_3 = L1_1
-                    L10_3 = L2_1
-                    L11_3 = L3_1
-                    L12_3 = L4_1
-                    L13_3 = L5_1
-                    L14_3 = L6_1
-                    L15_3 = false
-                    L16_3 = false
-                    L17_3 = false
-                    L18_3 = false
-                    L19_3 = false
-                    L20_3 = true
-                    L5_3(L6_3, L7_3, L8_3, L9_3, L10_3, L11_3, L12_3, L13_3, L14_3, L15_3, L16_3, L17_3, L18_3, L19_3, L20_3)
-                  end
-                end
-              end
-            end
-          end
-      end
-      else
         return
-      end
-      L4_3 = Wait
-      L5_3 = 1
-      L4_3(L5_3)
     end
-  end
-  L0_2(L1_2)
+
+    -- Phase 2: on foot.
+    if towVehicle == nil then
+        notify("Devi essere in un veicolo per selezionare un rimorchio.")
+        ExecuteCommand("e shrug")
+        return
+    end
+
+    local myCoords = GetEntityCoords(myPed)
+
+    -- Try to find a nearby vehicle (direction → closest → raycast).
+    local trailer = GetVehicleInDirectionStriano()
+
+    if not trailer or trailer == 0 then
+        trailer = GetClosestVehicle(myCoords.x, myCoords.y, myCoords.z, 5.0, 0, 70)
+    end
+    if not trailer or trailer == 0 then
+        trailer = GetClosestVehicle(myCoords.x, myCoords.y, myCoords.z, 9.5, 0, 12294)
+    end
+    if not trailer or trailer == 0 then
+        trailer = VehicleInFrontRimorchio()
+    end
+    if not trailer or trailer == 0 then
+        -- Last resort: general raycast 5m ahead.
+        local frontPos = GetOffsetFromEntityInWorldCoords(myPed, 0.0, 5.0, 0.0)
+        local ray = CastRayPointToPoint(
+            myCoords.x, myCoords.y, myCoords.z,
+            frontPos.x, frontPos.y, frontPos.z,
+            30, myPed, 0
+        )
+        local _, _, _, _, hitEnt = GetRaycastResult(ray)
+        trailer = hitEnt
+    end
+
+    if trailer and trailer ~= 0 then
+        NetworkRequestControlOfEntity(trailer)
+        selectedVehicle = trailer
+
+        if DoesEntityExist(trailer) then
+            if trailer ~= towVehicle then
+                Wait(100)
+                RimorchioVeicolo(myPed, trailer)
+            end
+        else
+            notify("Non sembra esserci un veicolo nelle vicinanze da trainare.")
+        end
+    end
+end, false)
+
+-- ──────────────────────────────────────────────────────────────────────────────
+-- /rimorchiov — check / update an already-connected trailer.
+-- ──────────────────────────────────────────────────────────────────────────────
+
+RegisterCommand("rimorchiov", function()
+    if towVehicle == nil then
+        notify("Non hai ancora selezionato un ~q~/rimorchio ~w~in un veicolo.")
+        ExecuteCommand("e shrug")
+        return
+    end
+
+    local hasTrailer, trailerVeh = GetVehicleTrailerVehicle(towVehicle)
+    if hasTrailer and towVehicle ~= trailerVeh then
+        towVehicle = trailerVeh
+        notify("Rimorchio ~q~collegato ~w~con successo.")
+    else
+        notify("Nessun ~r~rimorchio ~w~rilevato.")
+    end
+end, false)
+
+-- ──────────────────────────────────────────────────────────────────────────────
+-- /syncrimo — force a re-attach with the current offsets.
+-- ──────────────────────────────────────────────────────────────────────────────
+
+RegisterCommand("syncrimo", function()
+    if towVehicle == nil and selectedVehicle == nil then
+        notify("Non hai un operazione rimorchio in modifica.")
+        return
+    end
+    UpdateRimorchio()
+end)
+
+-- ──────────────────────────────────────────────────────────────────────────────
+-- RimorchioVeicolo — perform the initial attachment.
+-- ──────────────────────────────────────────────────────────────────────────────
+
+function RimorchioVeicolo(draggerPed, trailer)
+    local trailerCoords = GetEntityCoords(trailer)
+    local towCoords     = GetEntityCoords(towVehicle)
+
+    selectedVehicle = trailer
+
+    -- Reset offsets; vertical offset from height difference.
+    attachOffX = 0.0
+    attachOffY = -1.0
+    attachOffZ = trailerCoords.z - towCoords.z
+    attachRotX = 0.0
+    attachRotY = 0.0
+    attachRotZ = towCoords.z - 2.0   -- initial Z rotation offset
+
+    AttachEntityToEntity(
+        trailer, towVehicle, -1,
+        attachOffX, attachOffY, attachOffZ,
+        attachRotX, attachRotY, attachRotZ,
+        false, false, false, false, false, true
+    )
+    SetEntityAsMissionEntity(trailer)
+    Wait(100)
+    UpdateRimorchio()
 end
-UpdateRimorchio = L8_1
+
+-- ──────────────────────────────────────────────────────────────────────────────
+-- /stacca — detach the closest vehicle from its trailer.
+-- ──────────────────────────────────────────────────────────────────────────────
+
+RegisterCommand("stacca", function()
+    local myPed    = PlayerPedId()
+    local myCoords = GetEntityCoords(myPed)
+    local nearby   = GetClosestVehicle(myCoords.x, myCoords.y, myCoords.z, 7.5, 0, 70)
+
+    if nearby and IsEntityAttached(nearby) then
+        local coords  = GetEntityCoords(nearby)
+        local heading = GetEntityHeading(nearby)
+        DetachEntity(nearby, true, true)
+        SetEntityCoords(nearby, coords)
+        SetEntityHeading(nearby, heading)
+        notify("Veicolo ~o~staccato ~w~con successo dal rimorchio.")
+        selectedVehicle = nil
+    end
+end, false)
+
+-- ──────────────────────────────────────────────────────────────────────────────
+-- /staccav — detach the currently selected vehicle.
+-- ──────────────────────────────────────────────────────────────────────────────
+
+RegisterCommand("staccav", function()
+    if selectedVehicle == nil then return end
+
+    if IsEntityAttached(selectedVehicle) then
+        local coords  = GetEntityCoords(selectedVehicle)
+        local heading = GetEntityHeading(selectedVehicle)
+        SetEntityCoords(selectedVehicle, coords)
+        SetEntityHeading(selectedVehicle, heading)
+        DetachEntity(selectedVehicle, true, true)
+        notify("Veicolo vicino ~q~staccato ~w~dal rimorchio.")
+        selectedVehicle = nil
+    end
+end, false)
+
+-- ──────────────────────────────────────────────────────────────────────────────
+-- UpdateRimorchio — live offset editor loop.
+--
+-- Controls (when no phone animation is playing):
+--   No modifier:
+--     Up/Down   → X offset ±0.05
+--     Left/Right → Y offset ±0.05
+--   LShift (21) held:
+--     Up/Down   → Z offset ±0.02
+--     Left/Right → rotZ ±1.5
+--   Space (22) held:
+--     Up/Down   → Y offset ±1.5
+--     Left/Right → X offset ±1.5
+--   X (73)      → detach (/staccav)
+-- ──────────────────────────────────────────────────────────────────────────────
+
+function UpdateRimorchio()
+    CreateThread(function()
+        -- Initial attach.
+        AttachEntityToEntity(
+            selectedVehicle, towVehicle, -1,
+            attachOffX, attachOffY, attachOffZ,
+            attachRotX, attachRotY, attachRotZ,
+            false, false, false, false, false, true
+        )
+
+        while true do
+            local myPed    = PlayerPedId()
+            local myCoords = GetEntityCoords(myPed)
+            local trailer  = selectedVehicle
+            local tower    = towVehicle
+
+            if tower == nil or trailer == nil then return end
+
+            -- Skip input while holding phone.
+            local phoneAnim1 = IsEntityPlayingAnim(myPed, "cellphone@", "cellphone_text_read_base", 3)
+            local phoneAnim2 = IsEntityPlayingAnim(myPed, "cellphone@str", "cellphone_call_listen_a", 3)
+
+            if not phoneAnim1 and not phoneAnim2 then
+                -- Show controls hint.
+                exports.striano_core:draw(300, "Sposta", 21, "Altezza", 22, "Rotazione", 73, "Stacca")
+
+                -- X / drop key.
+                if IsControlJustReleased(0, 73) then
+                    ExecuteCommand("staccav")
+                end
+
+                local shift = IsControlPressed(0, 21)   -- LShift
+                local space = IsControlPressed(0, 22)   -- Space
+
+                if shift then
+                    -- LShift mode: Z offset (Up/Down) and rotZ (Left/Right).
+                    if IsControlPressed(0, 172) then attachOffZ = attachOffZ + 0.02; reattach() end
+                    if IsControlPressed(0, 173) then attachOffZ = attachOffZ - 0.02; reattach() end
+                    if IsControlPressed(0, 174) then attachRotZ = attachRotZ + 1.5;  reattach() end
+                    if IsControlPressed(0, 175) then attachRotZ = attachRotZ - 1.5;  reattach() end
+
+                elseif space then
+                    -- Space mode: Y offset (Up/Down) and X offset (Left/Right).
+                    if IsControlPressed(0, 172) then attachOffY = attachOffY + 1.5; reattach() end
+                    if IsControlPressed(0, 173) then attachOffY = attachOffY - 1.5; reattach() end
+                    if IsControlPressed(0, 174) then attachOffX = attachOffX + 1.5; reattach() end
+                    if IsControlPressed(0, 175) then attachOffX = attachOffX - 1.5; reattach() end
+
+                else
+                    -- No modifier: X offset (Up/Down) and Y offset (Left/Right).
+                    if IsControlPressed(0, 174) then attachOffX = attachOffX - 0.05; reattach() end
+                    if IsControlPressed(0, 175) then attachOffX = attachOffX + 0.05; reattach() end
+                    if IsControlPressed(0, 172) then attachOffY = attachOffY + 0.05; reattach() end
+                    if IsControlPressed(0, 173) then attachOffY = attachOffY - 0.05; reattach() end
+                end
+            end
+
+            Wait(1)
+        end
+    end)
+end
